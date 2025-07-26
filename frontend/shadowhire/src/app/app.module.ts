@@ -2,41 +2,48 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ResumeUploadComponent } from './components/resume-upload/resume-upload.component';
-import { JobsComponent } from './components/jobs/jobs.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { ChatbotComponent } from './components/chatbot/chatbot.component';
-import { FeedbackComponent } from './components/feedback/feedback.component';
+// Front office components
+import { HomeComponent } from './components/frontoffice/home/home.component';
+import { DashboardComponent } from './components/frontoffice/dashboard/dashboard.component';
+import { FeedbackComponent } from './components/frontoffice/feedback/feedback.component';
+import { JobsComponent } from './components/frontoffice/jobs/jobs.component';
+import { ResumeUploadComponent } from './components/frontoffice/resume-upload/resume-upload.component';
+import { JobDetailsComponent } from './components/frontoffice/job-details/job-details.component';
+import { ApplyComponent } from './components/frontoffice/apply/apply.component';
+// Back office components
+import { LoginComponent } from './components/backoffice/login/login.component';
+import { RegisterComponent } from './components/backoffice/register/register.component';
+import { CandidateManagementComponent } from './components/backoffice/candidate-management/candidate-management.component';
+import { MlFeedbackPanelComponent } from './components/backoffice/ml-feedback-panel/ml-feedback-panel.component';
+import { OfferManagementComponent } from './components/backoffice/offer-management/offer-management.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
-    DashboardComponent,
-    ResumeUploadComponent,
-    JobsComponent,
-    AdminPanelComponent,
-    ChatbotComponent,
-    FeedbackComponent,
-  ],
+  declarations: [], // Remove AppComponent from declarations
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    AppComponent, // Add AppComponent to imports
+    // Front office components
+    HomeComponent,
+    DashboardComponent,
+    FeedbackComponent,
+    JobsComponent,
+    ResumeUploadComponent,
+    JobDetailsComponent,
+    ApplyComponent,
+    // Back office components
+    LoginComponent,
+    RegisterComponent,
+    CandidateManagementComponent,
+    MlFeedbackPanelComponent,
+    OfferManagementComponent,
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent],
 })

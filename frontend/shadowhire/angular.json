@@ -26,17 +26,29 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
- "node_modules/bootstrap/dist/css/bootstrap.min.css",
-
-              "src/styles.scss"            ],
-            "scripts": [  "node_modules/jquery/dist/jquery.min.js",
-  "node_modules/bootstrap/dist/js/bootstrap.min.js"],
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/strategy/vendor/bootstrap-icons/bootstrap-icons.css",
+              "src/assets/strategy/vendor/aos/aos.css",
+              "src/assets/strategy/vendor/glightbox/css/glightbox.min.css",
+              "src/assets/strategy/vendor/swiper/swiper-bundle.min.css",
+              "src/styles.scss",
+              "src/assets/strategy/css/main.css",
+              "src/assets/admin/css/main.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/strategy/vendor/aos/aos.js",
+              "src/assets/strategy/vendor/glightbox/js/glightbox.min.js",
+              "src/assets/strategy/vendor/isotope-layout/isotope.pkgd.min.js",
+              "src/assets/strategy/vendor/swiper/swiper-bundle.min.js",
+              "src/assets/strategy/js/main.js",
+              "src/assets/admin/js/main.js"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
@@ -98,12 +110,25 @@
               }
             ],
             "styles": [
-                "node_modules/bootstrap/dist/css/bootstrap.min.css",
-
-              "src/styles.scss"
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/strategy/vendor/bootstrap-icons/bootstrap-icons.css",
+              "src/assets/strategy/vendor/aos/aos.css",
+              "src/assets/strategy/vendor/glightbox/css/glightbox.min.css",
+              "src/assets/strategy/vendor/swiper/swiper-bundle.min.css",
+              "src/styles.scss",
+              "src/assets/strategy/css/main.css",
+              "src/assets/admin/css/main.css"
             ],
-            "scripts": [  "node_modules/jquery/dist/jquery.min.js",
-  "node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/strategy/vendor/aos/aos.js",
+              "src/assets/strategy/vendor/glightbox/js/glightbox.min.js",
+              "src/assets/strategy/vendor/isotope-layout/isotope.pkgd.min.js",
+              "src/assets/strategy/vendor/swiper/swiper-bundle.min.js",
+              "src/assets/strategy/js/main.js",
+              "src/assets/admin/js/main.js"
+            ]
           }
         }
       }
