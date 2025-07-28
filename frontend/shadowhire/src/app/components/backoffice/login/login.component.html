@@ -1,1 +1,72 @@
-<p>login works!</p>
+<div class="auth-container">
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Black Hole Effect -->
+  <div class="black-hole"></div>
+  <div class="light-ray"></div>
+  
+  <!-- Visual Side with Photo -->
+  <div class="visual-side">
+    <div class="visual-content">
+      <h1 class="visual-title">WELCOME TO SHADOWHIRE</h1>
+      <p class="visual-subtitle">Where your career potential gets analyzed</p>
+      
+      <div class="cover-image">
+        <img src="src/assets/images/auth/signin-image.svg" alt="Astronaut analyzing CV in space" />
+      </div>
+      
+      <p class="visual-subtitle">Sign in to access your personalized CV scoring</p>
+    </div>
+  </div>
+  
+  <!-- Login Side -->
+  <div class="login-side">
+    <div class="login-container">
+      <div class="logo">
+        <img src="src/assets/images/logo/shadowhire.png" alt="ShadowHire" />
+      </div>
+      <h1>Sign In</h1>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="your@email.com" required />
+          <div class="input-highlight"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">PASSWORD</label>
+          <input type="password" id="password" class="form-control" formControlName="password" placeholder="••••••••" required />
+          <div class="input-highlight"></div>
+          <div class="strength-meter">
+            <div class="strength-meter-fill" [style.width]="passwordStrength + '%'" 
+                 [style.background]="getPasswordStrengthColor()"></div>
+          </div>
+        </div>
+        
+        <div class="form-group remember-forgot">
+          <div class="remember-me">
+            <input type="checkbox" id="remember" formControlName="rememberMe" />
+            <label for="remember">Remember me</label>
+          </div>
+          <a routerLink="/forgot-password" class="forgot-password">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading">
+          <span class="btn-text">{{ isLoading ? 'ANALYZING...' : 'SIGN IN' }}</span>
+        </button>
+        
+        <!-- CV Analysis Indicator -->
+        <div class="cv-indicator" [class.analyzing]="isAnalyzing" [class.complete]="analysisComplete">
+          <span id="analysisText">{{ analysisMessage }}</span>
+        </div>
+      </form>
+      
+      <div class="login-footer">
+        <a routerLink="/sign-up">Create account</a>
+        <a routerLink="/how-we-score">How we score CVs</a>
+      </div>
+    </div>
+  </div>
+</div>

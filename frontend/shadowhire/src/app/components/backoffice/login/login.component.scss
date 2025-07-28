@@ -1,0 +1,467 @@
+:root {
+  --primary: #ff6b35;
+  --primary-light: rgba(255, 107, 53, 0.2);
+  --dark: #0a0a0a;
+  --darker: #050505;
+  --text: #f5f6fa;
+  --text-muted: #b2bec3;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-container {
+  background-color: var(--dark);
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Particle Background */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-100px) translateX(50px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* Black Hole Effect */
+.black-hole {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle at center,
+    var(--primary) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.1;
+  z-index: -1;
+  animation: pulse 8s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.1; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.15; }
+  100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.1; }
+}
+
+/* Light Rays */
+.light-ray {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 60%,
+    var(--primary-light) 90%,
+    transparent 100%
+  );
+  z-index: -1;
+  animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Visual Side with Photo */
+.visual-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  max-width: 50%;
+}
+
+.visual-content {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cover-image {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.cover-image img {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.3));
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.visual-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, var(--primary), #ff9a3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.visual-subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Login Side */
+.login-side {
+  width: 50%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(5px);
+}
+
+.login-container {
+  background: rgba(10, 10, 10, 0.9);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+  transform: scale(0.95);
+  transition: all 0.3s ease;
+}
+
+.login-container:hover {
+  transform: scale(0.97);
+  box-shadow: 0 15px 40px rgba(255, 107, 53, 0.1);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo img {
+  height: 150px;
+  filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5));
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--primary);
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+  
+/* Form Elements */
+.form-group {
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  background: rgba(30, 30, 30, 0.8);
+}
+
+/* Dynamic Input Effects */
+.input-highlight {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus ~ .input-highlight {
+  width: 100%;
+}
+
+/* Password Strength Meter */
+.strength-meter {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 0.5rem;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.strength-meter-fill {
+  height: 100%;
+  width: 0;
+  background: #ff4757;
+  transition: all 0.3s ease;
+}
+
+/* Remember me & Forgot password */
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  
+  input {
+    margin-right: 8px;
+  }
+  
+  label {
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+}
+
+.forgot-password {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: #ff884d;
+  }
+}
+
+/* CV Analysis Indicator */
+.cv-indicator {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff4757;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+  }
+  
+  &.analyzing::before {
+    background: var(--primary);
+  }
+  
+  &.complete::before {
+    background: #2ed573;
+    animation: none;
+  }
+}
+
+/* Buttons */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  
+  &:hover:not(:disabled) {
+    background: #e05a2b;
+    transform: translateY(-2px);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+/* Button Ripple Effect */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Footer Links */
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  
+  a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      color: var(--primary);
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+/* Typewriter Effect */
+.typewriter {
+  display: inline-block;
+  position: relative;
+}
+
+.typewriter::after {
+  content: "|";
+  position: absolute;
+  right: -5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .auth-container {
+    flex-direction: column;
+  }
+  
+  .visual-side, .login-side {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+  
+  .cover-image img {
+    max-height: 250px;
+  }
+  
+  .login-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.3rem;
+  }
+  
+  .visual-title {
+    font-size: 1.5rem;
+  }
+}
