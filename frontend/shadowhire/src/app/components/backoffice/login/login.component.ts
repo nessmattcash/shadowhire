@@ -1,17 +1,17 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subject, takeUntil, debounceTime } from 'rxjs';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil, debounceTime } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [ReactiveFormsModule, RouterModule], // Add ReactiveFormsModule and RouterModule
-  encapsulation: ViewEncapsulation.None, // Disable encapsulation
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   loginForm: FormGroup;
@@ -33,8 +33,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private el: ElementRef,
-    private renderer: Renderer2
+    private el: ElementRef
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,7 +43,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Check for saved credentials if "remember me" was checked previously
     const savedEmail = localStorage.getItem('shadowhire_email');
     const savedPassword = localStorage.getItem('shadowhire_password');
     
@@ -56,15 +54,9 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    // Password strength calculation
     this.loginForm.get('password')?.valueChanges
-      .pipe(
-        debounceTime(300),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(password => {
-        this.calculatePasswordStrength(password);
-      });
+      .pipe(debounceTime(300), takeUntil(this.destroy$))
+      .subscribe((password: string) => this.calculatePasswordStrength(password));
   }
 
   ngAfterViewInit(): void {
@@ -85,7 +77,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isAnalyzing = true;
     this.analysisComplete = false;
 
-    // Save credentials if "remember me" is checked
     if (this.loginForm.value.rememberMe) {
       localStorage.setItem('shadowhire_email', this.loginForm.value.email);
       localStorage.setItem('shadowhire_password', this.loginForm.value.password);
@@ -94,14 +85,12 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       localStorage.removeItem('shadowhire_password');
     }
 
-    // Simulate CV analysis process
     let currentMessage = 0;
     const typewriterInterval = setInterval(() => {
       this.analysisMessage = this.statusMessages[currentMessage];
       currentMessage = (currentMessage + 1) % this.statusMessages.length;
     }, 1000);
 
-    // Final result after delay
     setTimeout(() => {
       clearInterval(typewriterInterval);
       this.analysisMessage = 'CV Analysis: Complete (Score: 87/100)';
@@ -109,83 +98,64 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.analysisComplete = true;
       this.isLoading = false;
 
-      // Redirect after analysis
-      setTimeout(() => {
-        this.router.navigate(['/dashboard']);
-      }, 1000);
+      setTimeout(() => this.router.navigate(['/dashboard']), 1000);
     }, 5000);
   }
 
   calculatePasswordStrength(password: string): void {
     let strength = 0;
-    
-    // Length check
     if (password.length > 0) strength += 20;
     if (password.length >= 8) strength += 20;
-    
-    // Complexity checks
     if (/[A-Z]/.test(password)) strength += 20;
     if (/[0-9]/.test(password)) strength += 20;
     if (/[^A-Za-z0-9]/.test(password)) strength += 20;
-    
     this.passwordStrength = strength;
   }
 
   getPasswordStrengthColor(): string {
-    if (this.passwordStrength < 40) {
-      return '#ff4757'; // Red
-    } else if (this.passwordStrength < 80) {
-      return '#ffa502'; // Orange
-    } else {
-      return '#2ed573'; // Green
-    }
+    return this.passwordStrength < 40 ? '#ff4757' : this.passwordStrength < 80 ? '#ffa502' : '#2ed573';
   }
 
   private createParticles(): void {
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
-    const particleCount = 30;
-    
+    if (!particlesContainer) {
+      console.error('Particles container not found!');
+      return;
+    }
+
+    // Clear existing particles
+    while (particlesContainer.firstChild) {
+      particlesContainer.removeChild(particlesContainer.firstChild);
+    }
+
+    const particleCount = 50; // Adjusted for better density
     for (let i = 0; i < particleCount; i++) {
-      const particle = this.renderer.createElement('div');
-      this.renderer.addClass(particle, 'particle');
-      
-      // Random size between 1px and 3px
-      const size = Math.random() * 2 + 1;
-      this.renderer.setStyle(particle, 'width', `${size}px`);
-      this.renderer.setStyle(particle, 'height', `${size}px`);
-      
-      // Random position
-      this.renderer.setStyle(particle, 'left', `${Math.random() * 100}%`);
-      this.renderer.setStyle(particle, 'top', `${Math.random() * 100}%`);
-      
-      // Random animation duration (10s to 20s)
-      const duration = Math.random() * 10 + 10;
-      this.renderer.setStyle(particle, 'animationDuration', `${duration}s`);
-      
-      // Random delay
-      this.renderer.setStyle(particle, 'animationDelay', `${Math.random() * 5}s`);
-      
-      this.renderer.appendChild(particlesContainer, particle);
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+
+      const size = Math.random() * 2 + 1; // 1-3px
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 10 + 10}s`; // 10-20s
+      particle.style.animationDelay = `${Math.random() * 5}s`; // 0-5s
+
+      particlesContainer.appendChild(particle);
     }
   }
 
   private setupInputFocusEffects(): void {
     const inputs = this.el.nativeElement.querySelectorAll('.form-control');
-    
     inputs.forEach((input: HTMLElement) => {
-      this.renderer.listen(input, 'focus', () => {
-        const highlight = input.parentElement?.querySelector('.input-highlight');
-        if (highlight) {
-          this.renderer.setStyle(highlight, 'width', '100%');
-        }
+      input.addEventListener('focus', () => {
+        const highlight = input.parentElement?.querySelector('.input-highlight') as HTMLElement | null;
+        if (highlight) (highlight as HTMLElement).style.width = '100%';
       });
-      
-      this.renderer.listen(input, 'blur', () => {
-        if (!input.getAttribute('value')) {
-          const highlight = input.parentElement?.querySelector('.input-highlight');
-          if (highlight) {
-            this.renderer.setStyle(highlight, 'width', '0');
-          }
+      input.addEventListener('blur', () => {
+        if (!(input as HTMLInputElement).value) {
+          const highlight = input.parentElement?.querySelector('.input-highlight') as HTMLElement | null;
+          if (highlight) (highlight as HTMLElement).style.width = '0';
         }
       });
     });
@@ -193,23 +163,20 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private setupButtonRippleEffects(): void {
     const buttons = this.el.nativeElement.querySelectorAll('.btn-primary');
-    
     buttons.forEach((button: HTMLElement) => {
-      this.renderer.listen(button, 'click', (e: MouseEvent) => {
+      button.addEventListener('click', (e: MouseEvent) => {
+        e.preventDefault(); // Prevent form submission here if needed
         const rect = button.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
-        const ripple = this.renderer.createElement('span');
-        this.renderer.addClass(ripple, 'ripple');
-        this.renderer.setStyle(ripple, 'left', `${x}px`);
-        this.renderer.setStyle(ripple, 'top', `${y}px`);
-        
-        this.renderer.appendChild(button, ripple);
-        
-        setTimeout(() => {
-          this.renderer.removeChild(button, ripple);
-        }, 600);
+
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        button.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
       });
     });
   }
