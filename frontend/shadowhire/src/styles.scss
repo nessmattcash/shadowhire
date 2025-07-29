@@ -1,0 +1,13 @@
+/* styles.scss */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #ff6b35;
+  --primary-light: rgba(255, 107, 53, 0.2);
+  --dark: #0a0a0a;
+  --darker: #050505;
+  --text: #f5f6fa;
+  --text-muted: #b2bec3;
+}
