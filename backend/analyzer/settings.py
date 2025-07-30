@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',  # Django REST Framework
+    'rest_framework_simplejwt',  # JWT Authentication
+    'corsheaders',  # CORS headers
+    'core',  # Your core app
+
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # CORS middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -124,3 +131,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'core.User'  # Custom user model
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",  # Frontend URL
+]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+# JWT settings
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # 60 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),  # 30 days
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+}
