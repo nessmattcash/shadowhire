@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   isAnalyzing = false;
   analysisComplete = false;
   analysisMessage = 'CV Analysis: Ready';
+  screenSize = 'desktop'; // 'desktop' | 'tablet' | 'mobile'
+  showPassword = false; // For toggling password visibility
   
   private destroy$ = new Subject<void>();
   private statusMessages = [
@@ -34,11 +36,11 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   private connections: Connection[] = [];
   private mouse = { x: -1000, y: -1000 };
   private animationFrameId: number | null = null;
-  private particleCount = 60; // Optimized for cinematic effect
-  private connectionDistance = 200;
-  private trailLength = 15;
+  private particleCount = 30; // Reduced for better performance
+  private connectionDistance = 150;
+  private trailLength = 10;
   private lastTrailTime = 0;
-  private trailInterval = 50; // ms between trail creation
+  private trailInterval = 100; // Increased interval for performance
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +52,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       password: ['', [Validators.required, Validators.minLength(8)]],
       rememberMe: [false]
     });
+
+    this.checkScreenSize();
   }
 
   ngOnInit(): void {
@@ -67,6 +71,12 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loginForm.get('password')?.valueChanges
       .pipe(debounceTime(300), takeUntil(this.destroy$))
       .subscribe((password: string) => this.calculatePasswordStrength(password));
+
+    // Adjust particle count based on screen size
+    window.addEventListener('resize', () => {
+      this.checkScreenSize();
+      this.adjustParticleEffects();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -82,16 +92,53 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       cancelAnimationFrame(this.animationFrameId);
     }
     this.cleanupParticles();
+    window.removeEventListener('resize', this.checkScreenSize);
+  }
+
+  private checkScreenSize(): void {
+    const width = window.innerWidth;
+    if (width < 768) {
+      this.screenSize = 'mobile';
+    } else if (width < 992) {
+      this.screenSize = 'tablet';
+    } else {
+      this.screenSize = 'desktop';
+    }
+  }
+
+  private adjustParticleEffects(): void {
+    switch (this.screenSize) {
+      case 'mobile':
+        this.particleCount = 15;
+        this.connectionDistance = 100;
+        break;
+      case 'tablet':
+        this.particleCount = 20;
+        this.connectionDistance = 120;
+        break;
+      default:
+        this.particleCount = 30;
+        this.connectionDistance = 150;
+    }
+    
+    // Reinitialize particles with new settings
+    this.cleanupParticles();
+    this.initParticles();
   }
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
+    if (this.screenSize === 'mobile') return; // Disable mouse effects on mobile
+    
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (particlesContainer) {
       const rect = particlesContainer.getBoundingClientRect();
       this.mouse.x = event.clientX - rect.left;
       this.mouse.y = event.clientY - rect.top;
     }
+  }
+    togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   onSubmit(): void {
@@ -110,7 +157,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       localStorage.removeItem('shadowhire_password');
     }
 
-    // Simulate analysis process with cinematic particles
+    // Simulate analysis process with optimized particles
     this.createAnalysisParticles();
     
     let currentMessage = 0;
@@ -118,8 +165,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.analysisMessage = this.statusMessages[currentMessage];
       currentMessage = (currentMessage + 1) % this.statusMessages.length;
       
-      // Add more particles during analysis
-      if (currentMessage % 2 === 0) {
+      // Add particles only every other message on mobile
+      if (this.screenSize !== 'mobile' || currentMessage % 2 === 0) {
         this.createAnalysisParticles();
       }
     }, 1000);
@@ -132,7 +179,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.analysisComplete = true;
       this.isLoading = false;
 
-      // Create celebration particles
+      // Create celebration particles (fewer on mobile)
       this.createCelebrationParticles();
 
       // Navigate to dashboard
@@ -174,17 +221,16 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     const particle = document.createElement('div');
     particle.classList.add('particle');
 
-    // Particle properties - cinematic style
-    const size = Math.random() * 4 + 2; // 2-6px size
+    // Particle properties - optimized for performance
+    const size = Math.random() * 3 + 1; // 1-4px size (smaller for performance)
     const x = Math.random() * containerRect.width;
     const y = Math.random() * containerRect.height;
-    const speedX = (Math.random() - 0.5) * 0.5;
-    const speedY = (Math.random() - 0.5) * 0.5;
-    const rotation = Math.random() * 360;
+    const speedX = (Math.random() - 0.5) * 0.3;
+    const speedY = (Math.random() - 0.5) * 0.3;
     const hue = 15 + Math.random() * 15; // Orange color range
     const saturation = 80 + Math.random() * 15;
     const lightness = 60 + Math.random() * 20;
-    const alpha = 0.7 + Math.random() * 0.2; // More visible
+    const alpha = 0.5 + Math.random() * 0.3; // Less opacity for performance
     const color = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 
     // Set particle styles
@@ -193,8 +239,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     particle.style.left = `${x}px`;
     particle.style.top = `${y}px`;
     particle.style.backgroundColor = color;
-    particle.style.boxShadow = `0 0 ${size * 4}px ${color}`;
-    particle.style.setProperty('--rotation', `${rotation}deg`);
+    particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
     particle.style.zIndex = '1';
 
     container.appendChild(particle);
@@ -223,7 +268,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     const trail = document.createElement('div');
     trail.classList.add('particle-trail');
     
-    trail.style.width = `${particle.size * 15}px`;
+    trail.style.width = `${particle.size * 10}px`;
     trail.style.height = `${particle.size}px`;
     trail.style.left = `${particle.x}px`;
     trail.style.top = `${particle.y}px`;
@@ -261,62 +306,60 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     const now = Date.now();
 
     this.particles.forEach((particle) => {
-      // Mouse interaction - cinematic repulsion
-      const dx = this.mouse.x - particle.x;
-      const dy = this.mouse.y - particle.y;
-      const distanceToMouse = Math.sqrt(dx * dx + dy * dy);
-      const mouseInfluenceRadius = 250;
+      // Mouse interaction - only on desktop
+      if (this.screenSize === 'desktop') {
+        const dx = this.mouse.x - particle.x;
+        const dy = this.mouse.y - particle.y;
+        const distanceToMouse = Math.sqrt(dx * dx + dy * dy);
+        const mouseInfluenceRadius = 200;
 
-      if (distanceToMouse < mouseInfluenceRadius) {
-        const force = (mouseInfluenceRadius - distanceToMouse) / mouseInfluenceRadius * 2;
-        const angle = Math.atan2(dy, dx);
-        
-        // Move away from mouse with more intensity
-        particle.speedX -= Math.cos(angle) * force * 0.8;
-        particle.speedY -= Math.sin(angle) * force * 0.8;
-        
-        // Create more trails when mouse is near
-        if (distanceToMouse < mouseInfluenceRadius / 2) {
-          this.createTrailSegment(particle);
+        if (distanceToMouse < mouseInfluenceRadius) {
+          const force = (mouseInfluenceRadius - distanceToMouse) / mouseInfluenceRadius * 1.5;
+          const angle = Math.atan2(dy, dx);
+          
+          particle.speedX -= Math.cos(angle) * force * 0.6;
+          particle.speedY -= Math.sin(angle) * force * 0.6;
+          
+          if (distanceToMouse < mouseInfluenceRadius / 2) {
+            this.createTrailSegment(particle);
+          }
         }
       }
 
-      // Continuous random movement - smoother
-      particle.speedX += (Math.random() - 0.5) * 0.03;
-      particle.speedY += (Math.random() - 0.5) * 0.03;
+      // Random movement - less aggressive on mobile
+      const randomFactor = this.screenSize === 'mobile' ? 0.01 : 0.02;
+      particle.speedX += (Math.random() - 0.5) * randomFactor;
+      particle.speedY += (Math.random() - 0.5) * randomFactor;
 
-      // Boundary checks with bounce and trail creation
+      // Boundary checks with bounce
       if (particle.x <= 0 || particle.x >= containerRect.width) {
         particle.speedX = -particle.speedX * 0.7;
         particle.x = particle.x <= 0 ? 1 : containerRect.width - 1;
-        this.createTrailSegment(particle);
+        if (this.screenSize !== 'mobile') this.createTrailSegment(particle);
       }
       
       if (particle.y <= 0 || particle.y >= containerRect.height) {
         particle.speedY = -particle.speedY * 0.7;
         particle.y = particle.y <= 0 ? 1 : containerRect.height - 1;
-        this.createTrailSegment(particle);
+        if (this.screenSize !== 'mobile') this.createTrailSegment(particle);
       }
 
-      // Apply friction for smooth movement
-      particle.speedX *= 0.99;
-      particle.speedY *= 0.99;
+      // Apply friction
+      particle.speedX *= 0.98;
+      particle.speedY *= 0.98;
 
       // Update position
       particle.x += particle.speedX;
       particle.y += particle.speedY;
 
-      // Apply new position with smooth transition
-      particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px) rotate(${now * 0.01 % 360}deg)`;
+      // Apply new position
+      particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
       
-      // Dynamic glow based on speed - more dramatic
-      const speed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
-      const glowIntensity = Math.min(1.5, speed * 4);
-      particle.element.style.boxShadow = `0 0 ${particle.size * 4 * (1 + glowIntensity)}px ${particle.color}`;
-      
-      // Add trail segment periodically
-      if (now % 2 === 0) {
-        this.createTrailSegment(particle);
+      // Dynamic glow - simpler on mobile
+      if (this.screenSize !== 'mobile') {
+        const speed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
+        const glowIntensity = Math.min(1, speed * 3);
+        particle.element.style.boxShadow = `0 0 ${particle.size * 3 * (1 + glowIntensity)}px ${particle.color}`;
       }
     });
   }
@@ -338,6 +381,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private drawConnections(): void {
+    if (this.screenSize === 'mobile') return; // Skip connections on mobile
+    
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (!particlesContainer) return;
 
@@ -363,7 +408,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
           const x = (p1.x + p2.x) / 2;
           const y = (p1.y + p2.y) / 2;
           const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-          const opacity = 0.3 * (1 - distance/this.connectionDistance);
+          const opacity = 0.2 * (1 - distance/this.connectionDistance);
           
           connection.style.width = `${distance}px`;
           connection.style.left = `${x - distance/2}px`;
@@ -388,27 +433,28 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private createAnalysisParticles(): void {
+    if (this.screenSize === 'mobile' && Math.random() > 0.3) return; // Fewer particles on mobile
+    
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (!particlesContainer) return;
 
     const containerRect = particlesContainer.getBoundingClientRect();
-    const count = 5 + Math.floor(Math.random() * 5);
+    const count = this.screenSize === 'mobile' ? 2 : 3 + Math.floor(Math.random() * 4);
 
     for (let i = 0; i < count; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
 
-      // Analysis particle properties - more vibrant
-      const size = Math.random() * 5 + 3; // 3-8px size
+      // Analysis particle properties - optimized
+      const size = Math.random() * 4 + 2; // 2-6px size
       const x = containerRect.width * 0.3 + Math.random() * containerRect.width * 0.4;
       const y = containerRect.height * 0.6 + Math.random() * containerRect.height * 0.2;
-      const speedX = (Math.random() - 0.5) * 2;
-      const speedY = (Math.random() - 0.5) * 2;
-      const rotation = Math.random() * 360;
+      const speedX = (Math.random() - 0.5) * 1.5;
+      const speedY = (Math.random() - 0.5) * 1.5;
       const hue = 15 + Math.random() * 15;
       const saturation = 90 + Math.random() * 10;
       const lightness = 70 + Math.random() * 20;
-      const alpha = 0.9 + Math.random() * 0.1;
+      const alpha = 0.7 + Math.random() * 0.2;
       const color = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 
       particle.style.width = `${size}px`;
@@ -416,8 +462,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       particle.style.left = `${x}px`;
       particle.style.top = `${y}px`;
       particle.style.backgroundColor = color;
-      particle.style.boxShadow = `0 0 ${size * 6}px ${color}`;
-      particle.style.setProperty('--rotation', `${rotation}deg`);
+      particle.style.boxShadow = `0 0 ${size * 4}px ${color}`;
       particle.style.zIndex = '1';
 
       particlesContainer.appendChild(particle);
@@ -440,23 +485,22 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!particlesContainer) return;
 
     const containerRect = particlesContainer.getBoundingClientRect();
-    const count = 20;
+    const count = this.screenSize === 'mobile' ? 10 : 15;
 
     for (let i = 0; i < count; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
 
-      // Celebration particle properties - brighter and faster
-      const size = Math.random() * 6 + 4; // 4-10px size
+      // Celebration particle properties - optimized
+      const size = Math.random() * 5 + 3; // 3-8px size
       const x = containerRect.width / 2;
       const y = containerRect.height / 2;
-      const speedX = (Math.random() - 0.5) * 6;
-      const speedY = (Math.random() - 0.5) * 6;
-      const rotation = Math.random() * 360;
+      const speedX = (Math.random() - 0.5) * 4;
+      const speedY = (Math.random() - 0.5) * 4;
       const hue = 15 + Math.random() * 15;
       const saturation = 100;
       const lightness = 80 + Math.random() * 15;
-      const alpha = 1;
+      const alpha = 0.9;
       const color = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 
       particle.style.width = `${size}px`;
@@ -464,8 +508,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       particle.style.left = `${x}px`;
       particle.style.top = `${y}px`;
       particle.style.backgroundColor = color;
-      particle.style.boxShadow = `0 0 ${size * 8}px ${color}`;
-      particle.style.setProperty('--rotation', `${rotation}deg`);
+      particle.style.boxShadow = `0 0 ${size * 6}px ${color}`;
       particle.style.zIndex = '1';
 
       particlesContainer.appendChild(particle);
@@ -494,6 +537,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private setupMouseMove(): void {
+    if (this.screenSize === 'mobile') return;
+
     this.el.nativeElement.addEventListener('mousemove', (event: MouseEvent) => {
       const particlesContainer = this.el.nativeElement.querySelector('#particles');
       if (particlesContainer) {
@@ -508,6 +553,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mouse.y = -1000;
     });
   }
+  
 }
 
 interface Particle {
