@@ -1,13 +1,14 @@
-/* styles.scss */
-* {
-  box-sizing: border-box;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  overflow-y: auto;
 }
-
-:root {
-  --primary: #ff6b35;
-  --primary-light: rgba(255, 107, 53, 0.2);
-  --dark: #0a0a0a;
-  --darker: #050505;
-  --text: #f5f6fa;
-  --text-muted: #b2bec3;
+.main {
+  min-height: 100vh;
+  overflow-y: auto;
+}
+section {
+  position: relative;
+  min-height: auto;
 }

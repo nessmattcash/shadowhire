@@ -1,1 +1,204 @@
-<p>register works!</p>
+<div class="auth-container">
+  <!-- Particle Background -->
+  <div class="particles-background" id="particles"></div>
+  
+  <!-- Visual Side -->
+  <div class="visual-side">
+    <div class="visual-content">
+      <div class="logo-container">
+        <img src="assets/admin/images/logo/shadowhire.png" alt="ShadowHire" class="logo-main" />
+      </div>
+      <h1 class="visual-title">Join ShadowHire Today</h1>
+      <p class="visual-subtitle">Create your account and unlock career opportunities</p>
+      
+      <div class="cv-animation-container">
+        <img src="assets/admin/images/logo/cv1.svg" alt="CV analysis animation" class="cv-animation" />
+        <div class="scanning-beam"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Register Form Side -->
+  <div class="form-side">
+    <div class="form-container">
+      <h2 class="form-title">Create Account</h2>
+      <p class="form-subtitle">Start your professional journey with us</p>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <!-- First Name -->
+        <div class="form-group">
+          <div class="input-container">
+            <input type="text" id="firstName" class="form-control" formControlName="firstName" required />
+            <label for="firstName" class="floating-label">First Name</label>
+            <div class="input-highlight"></div>
+            <div class="input-underline"></div>
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <div class="input-container">
+            <input type="text" id="lastName" class="form-control" formControlName="lastName" required />
+            <label for="lastName" class="floating-label">Last Name</label>
+            <div class="input-highlight"></div>
+            <div class="input-underline"></div>
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <div class="input-container">
+            <input type="email" id="email" class="form-control" formControlName="email" required />
+            <label for="email" class="floating-label">Email Address</label>
+            <div class="input-highlight"></div>
+            <div class="input-underline"></div>
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Password -->
+        <div class="form-group">
+          <div class="input-container">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control" formControlName="password" required />
+            <label for="password" class="floating-label">Password</label>
+            <div class="input-highlight"></div>
+            <div class="input-underline"></div>
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path *ngIf="showPassword" d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <path *ngIf="!showPassword" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle *ngIf="!showPassword" cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <div class="password-strength-container">
+            <div class="strength-meter">
+              <div class="strength-meter-fill" [style.width]="passwordStrength + '%'" 
+                   [style.background]="getPasswordStrengthColor()"></div>
+            </div>
+            <div class="strength-labels">
+              <span [class.active]="passwordStrength >= 20">Weak</span>
+              <span [class.active]="passwordStrength >= 40">Fair</span>
+              <span [class.active]="passwordStrength >= 60">Good</span>
+              <span [class.active]="passwordStrength >= 80">Strong</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <div class="input-container">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" class="form-control" formControlName="confirmPassword" required />
+            <label for="confirmPassword" class="floating-label">Confirm Password</label>
+            <div class="input-highlight"></div>
+            <div class="input-underline"></div>
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <button type="button" class="password-toggle" (click)="toggleConfirmPasswordVisibility()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path *ngIf="showConfirmPassword" d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <path *ngIf="!showConfirmPassword" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle *ngIf="!showConfirmPassword" cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="form-group">
+          <div class="role-selection">
+            <label class="role-option">
+              <input type="radio" name="role" formControlName="role" value="jobSeeker" checked />
+              <div class="role-card">
+                <div class="role-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <polyline points="17 11 19 13 23 9"></polyline>
+                  </svg>
+                </div>
+                <div class="role-title">Job Seeker</div>
+                <div class="role-description">Looking for career opportunities</div>
+              </div>
+            </label>
+            
+            <label class="role-option">
+              <input type="radio" name="role" formControlName="role" value="recruiter" />
+              <div class="role-card">
+                <div class="role-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+                <div class="role-title">Recruiter</div>
+                <div class="role-description">Hiring talent for your company</div>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Terms Agreement -->
+        <div class="form-options">
+          <label class="checkbox-container">
+            <input type="checkbox" id="terms" formControlName="acceptTerms" required />
+            <span class="checkmark"></span>
+            <span class="checkbox-label">I agree to the <a href="#" class="terms-link">Terms & Conditions</a></span>
+          </label>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || isLoading">
+          <span class="btn-text">{{ isLoading ? 'CREATING ACCOUNT...' : 'SIGN UP' }}</span>
+          <span class="btn-hover-effect"></span>
+          <span class="btn-ripple"></span>
+        </button>
+        
+        <!-- Divider -->
+        <div class="divider">
+          <span>or</span>
+        </div>
+        
+        <!-- Google Sign In -->
+        <button type="button" class="btn btn-google">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.8 10.5H12v3.6h5.5c-.5 2.5-2.8 3.6-5.5 3.6-3.3 0-6-2.7-6-6s2.7-6 6-6c1.5 0 2.9.6 4 1.5l2.8-2.8C16.9 2.1 14.6 1 12 1 5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11c0-.7-.1-1.4-.2-2.1z"></path>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+        
+        <!-- Login Link -->
+        <div class="login-link">
+          Already have an account? <a routerLink="/login">Sign in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
