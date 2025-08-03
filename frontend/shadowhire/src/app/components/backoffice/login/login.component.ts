@@ -2,8 +2,9 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewEncapsulat
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { takeUntil, debounceTime, first } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,44 +20,46 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
   isAnalyzing = false;
   analysisComplete = false;
-  analysisMessage = 'CV Analysis: Ready';
-  screenSize = 'desktop'; // 'desktop' | 'tablet' | 'mobile'
-  showPassword = false; // For toggling password visibility
-  
+  analysisMessage = 'Ready to log in';
+  screenSize = 'desktop';
+  showPassword = false;
+  errorMessage: string | null = null;
+
   private destroy$ = new Subject<void>();
   private statusMessages = [
-    "Scanning your experience...",
-    "Evaluating skills matrix...",
-    "Checking education background...",
-    "Analyzing professional achievements...",
-    "Calculating final score..."
+    "Scanning credentials...",
+    "Verifying user profile...",
+    "Checking authentication...",
+    "Preparing dashboard...",
+    "Access granted!"
   ];
   private particles: Particle[] = [];
   private trails: Trail[] = [];
   private connections: Connection[] = [];
   private mouse = { x: -1000, y: -1000 };
   private animationFrameId: number | null = null;
-  private particleCount = 30; // Reduced for better performance
+  private particleCount = 30;
   private connectionDistance = 150;
   private trailLength = 10;
   private lastTrailTime = 0;
-  private trailInterval = 100; // Increased interval for performance
+  private trailInterval = 100;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private el: ElementRef
+    private el: ElementRef,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       rememberMe: [false]
     });
-
-    this.checkScreenSize();
   }
 
   ngOnInit(): void {
+    this.checkScreenSize();
+    
     const savedEmail = localStorage.getItem('shadowhire_email');
     const savedPassword = localStorage.getItem('shadowhire_password');
     
@@ -71,12 +74,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loginForm.get('password')?.valueChanges
       .pipe(debounceTime(300), takeUntil(this.destroy$))
       .subscribe((password: string) => this.calculatePasswordStrength(password));
-
-    // Adjust particle count based on screen size
-    window.addEventListener('resize', () => {
-      this.checkScreenSize();
-      this.adjustParticleEffects();
-    });
   }
 
   ngAfterViewInit(): void {
@@ -92,99 +89,10 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       cancelAnimationFrame(this.animationFrameId);
     }
     this.cleanupParticles();
-    window.removeEventListener('resize', this.checkScreenSize);
   }
 
-  private checkScreenSize(): void {
-    const width = window.innerWidth;
-    if (width < 768) {
-      this.screenSize = 'mobile';
-    } else if (width < 992) {
-      this.screenSize = 'tablet';
-    } else {
-      this.screenSize = 'desktop';
-    }
-  }
-
-  private adjustParticleEffects(): void {
-    switch (this.screenSize) {
-      case 'mobile':
-        this.particleCount = 15;
-        this.connectionDistance = 100;
-        break;
-      case 'tablet':
-        this.particleCount = 20;
-        this.connectionDistance = 120;
-        break;
-      default:
-        this.particleCount = 30;
-        this.connectionDistance = 150;
-    }
-    
-    // Reinitialize particles with new settings
-    this.cleanupParticles();
-    this.initParticles();
-  }
-
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (this.screenSize === 'mobile') return; // Disable mouse effects on mobile
-    
-    const particlesContainer = this.el.nativeElement.querySelector('#particles');
-    if (particlesContainer) {
-      const rect = particlesContainer.getBoundingClientRect();
-      this.mouse.x = event.clientX - rect.left;
-      this.mouse.y = event.clientY - rect.top;
-    }
-  }
-    togglePasswordVisibility(): void {
+  togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
-  }
-
-  onSubmit(): void {
-    if (this.loginForm.invalid) return;
-
-    this.isLoading = true;
-    this.isAnalyzing = true;
-    this.analysisComplete = false;
-
-    // Save credentials if remember me is checked
-    if (this.loginForm.value.rememberMe) {
-      localStorage.setItem('shadowhire_email', this.loginForm.value.email);
-      localStorage.setItem('shadowhire_password', this.loginForm.value.password);
-    } else {
-      localStorage.removeItem('shadowhire_email');
-      localStorage.removeItem('shadowhire_password');
-    }
-
-    // Simulate analysis process with optimized particles
-    this.createAnalysisParticles();
-    
-    let currentMessage = 0;
-    const typewriterInterval = setInterval(() => {
-      this.analysisMessage = this.statusMessages[currentMessage];
-      currentMessage = (currentMessage + 1) % this.statusMessages.length;
-      
-      // Add particles only every other message on mobile
-      if (this.screenSize !== 'mobile' || currentMessage % 2 === 0) {
-        this.createAnalysisParticles();
-      }
-    }, 1000);
-
-    // Complete analysis after 5 seconds
-    setTimeout(() => {
-      clearInterval(typewriterInterval);
-      this.analysisMessage = 'CV Analysis: Complete (Score: 87/100)';
-      this.isAnalyzing = false;
-      this.analysisComplete = true;
-      this.isLoading = false;
-
-      // Create celebration particles (fewer on mobile)
-      this.createCelebrationParticles();
-
-      // Navigate to dashboard
-      setTimeout(() => this.router.navigate(['/dashboard']), 1000);
-    }, 5000);
   }
 
   calculatePasswordStrength(password: string): void {
@@ -203,13 +111,113 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     return '#2ed573';
   }
 
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.errorMessage = 'Please fill in all required fields correctly.';
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    const loginData = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    };
+
+    this.authService.login(loginData).pipe(first()).subscribe({
+      next: (response) => {
+        // Save credentials if rememberMe is checked
+        if (this.loginForm.value.rememberMe) {
+          localStorage.setItem('shadowhire_email', this.loginForm.value.email);
+          localStorage.setItem('shadowhire_password', this.loginForm.value.password);
+        } else {
+          localStorage.removeItem('shadowhire_email');
+          localStorage.removeItem('shadowhire_password');
+        }
+
+        // Save JWT tokens
+        localStorage.setItem('access_token', response.access);
+        localStorage.setItem('refresh_token', response.refresh);
+
+        // Start animation
+        this.isAnalyzing = true;
+        this.analysisComplete = false;
+        let currentMessage = 0;
+        const typewriterInterval = setInterval(() => {
+          this.analysisMessage = this.statusMessages[currentMessage];
+          currentMessage = (currentMessage + 1) % this.statusMessages.length;
+          if (this.screenSize !== 'mobile' || currentMessage % 2 === 0) {
+            this.createAnalysisParticles();
+          }
+        }, 1000);
+
+        // Complete animation and redirect
+        setTimeout(() => {
+          clearInterval(typewriterInterval);
+          this.analysisMessage = 'Login Successful!';
+          this.isAnalyzing = false;
+          this.analysisComplete = true;
+          this.createCelebrationParticles();
+
+          // Redirect based on is_recruiter
+          const token = response.access;
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          const redirectUrl = payload.is_recruiter ? '/recruiter-dashboard' : '/dashboard';
+          setTimeout(() => this.router.navigate([redirectUrl]), 1000);
+        }, 5000);
+
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.error?.non_field_errors?.join(' ') || 'Invalid credentials. Please try again.';
+        console.error('Login failed', error);
+      }
+    });
+  }
+
+  private checkScreenSize(): void {
+    const width = window.innerWidth;
+    if (width < 768) {
+      this.screenSize = 'mobile';
+    } else if (width < 992) {
+      this.screenSize = 'tablet';
+    } else {
+      this.screenSize = 'desktop';
+    }
+    this.adjustParticleEffects();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private adjustParticleEffects(): void {
+    switch (this.screenSize) {
+      case 'mobile':
+        this.particleCount = 15;
+        this.connectionDistance = 100;
+        break;
+      case 'tablet':
+        this.particleCount = 20;
+        this.connectionDistance = 120;
+        break;
+      default:
+        this.particleCount = 30;
+        this.connectionDistance = 150;
+    }
+    this.cleanupParticles();
+    this.initParticles();
+  }
+
   private initParticles(): void {
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (!particlesContainer) return;
 
-    // Clear existing particles
     particlesContainer.innerHTML = '';
-
     const containerRect = particlesContainer.getBoundingClientRect();
 
     for (let i = 0; i < this.particleCount; i++) {
@@ -221,19 +229,17 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     const particle = document.createElement('div');
     particle.classList.add('particle');
 
-    // Particle properties - optimized for performance
-    const size = Math.random() * 3 + 1; // 1-4px size (smaller for performance)
+    const size = Math.random() * 3 + 1;
     const x = Math.random() * containerRect.width;
     const y = Math.random() * containerRect.height;
     const speedX = (Math.random() - 0.5) * 0.3;
     const speedY = (Math.random() - 0.5) * 0.3;
-    const hue = 15 + Math.random() * 15; // Orange color range
+    const hue = 15 + Math.random() * 15;
     const saturation = 80 + Math.random() * 15;
     const lightness = 60 + Math.random() * 20;
-    const alpha = 0.5 + Math.random() * 0.3; // Less opacity for performance
+    const alpha = 0.5 + Math.random() * 0.3;
     const color = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 
-    // Set particle styles
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
     particle.style.left = `${x}px`;
@@ -244,7 +250,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
     container.appendChild(particle);
 
-    // Store particle data
     this.particles.push({
       element: particle,
       x,
@@ -306,7 +311,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     const now = Date.now();
 
     this.particles.forEach((particle) => {
-      // Mouse interaction - only on desktop
       if (this.screenSize === 'desktop') {
         const dx = this.mouse.x - particle.x;
         const dy = this.mouse.y - particle.y;
@@ -326,12 +330,10 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
 
-      // Random movement - less aggressive on mobile
       const randomFactor = this.screenSize === 'mobile' ? 0.01 : 0.02;
       particle.speedX += (Math.random() - 0.5) * randomFactor;
       particle.speedY += (Math.random() - 0.5) * randomFactor;
 
-      // Boundary checks with bounce
       if (particle.x <= 0 || particle.x >= containerRect.width) {
         particle.speedX = -particle.speedX * 0.7;
         particle.x = particle.x <= 0 ? 1 : containerRect.width - 1;
@@ -344,18 +346,14 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.screenSize !== 'mobile') this.createTrailSegment(particle);
       }
 
-      // Apply friction
       particle.speedX *= 0.98;
       particle.speedY *= 0.98;
 
-      // Update position
       particle.x += particle.speedX;
       particle.y += particle.speedY;
 
-      // Apply new position
       particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
       
-      // Dynamic glow - simpler on mobile
       if (this.screenSize !== 'mobile') {
         const speed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
         const glowIntensity = Math.min(1, speed * 3);
@@ -365,7 +363,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateTrails(): void {
-    // Update and fade out trails
     this.trails.forEach((trail, index) => {
       trail.lifespan += 1;
       trail.opacity = 1 - (trail.lifespan / this.trailLength);
@@ -381,16 +378,14 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private drawConnections(): void {
-    if (this.screenSize === 'mobile') return; // Skip connections on mobile
-    
+    if (this.screenSize === 'mobile') return;
+
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (!particlesContainer) return;
 
-    // Clear old connections
     this.connections.forEach(conn => conn.element.remove());
     this.connections = [];
 
-    // Create new connections between nearby particles
     for (let i = 0; i < this.particles.length; i++) {
       for (let j = i + 1; j < this.particles.length; j++) {
         const p1 = this.particles[i];
@@ -404,7 +399,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
           const connection = document.createElement('div');
           connection.classList.add('particle-connection');
           
-          // Position between particles
           const x = (p1.x + p2.x) / 2;
           const y = (p1.y + p2.y) / 2;
           const angle = Math.atan2(dy, dx) * 180 / Math.PI;
@@ -433,8 +427,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private createAnalysisParticles(): void {
-    if (this.screenSize === 'mobile' && Math.random() > 0.3) return; // Fewer particles on mobile
-    
+    if (this.screenSize === 'mobile' && Math.random() > 0.3) return;
+
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (!particlesContainer) return;
 
@@ -445,8 +439,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       const particle = document.createElement('div');
       particle.classList.add('particle');
 
-      // Analysis particle properties - optimized
-      const size = Math.random() * 4 + 2; // 2-6px size
+      const size = Math.random() * 4 + 2;
       const x = containerRect.width * 0.3 + Math.random() * containerRect.width * 0.4;
       const y = containerRect.height * 0.6 + Math.random() * containerRect.height * 0.2;
       const speedX = (Math.random() - 0.5) * 1.5;
@@ -491,8 +484,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       const particle = document.createElement('div');
       particle.classList.add('particle');
 
-      // Celebration particle properties - optimized
-      const size = Math.random() * 5 + 3; // 3-8px size
+      const size = Math.random() * 5 + 3;
       const x = containerRect.width / 2;
       const y = containerRect.height / 2;
       const speedX = (Math.random() - 0.5) * 4;
@@ -553,7 +545,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mouse.y = -1000;
     });
   }
-  
 }
 
 interface Particle {
