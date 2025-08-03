@@ -12,7 +12,7 @@
       <p class="visual-subtitle">Create your account and unlock career opportunities</p>
       
       <div class="cv-animation-container">
-        <img src="assets/admin/images/logo/cv1.svg" alt="CV analysis animation" class="cv-animation" />
+        <img src="assets/admin/images/logo/signup.svg" alt="CV analysis animation" class="cv-animation" />
         <div class="scanning-beam"></div>
       </div>
     </div>
@@ -24,6 +24,11 @@
       <h2 class="form-title">Create Account</h2>
       <p class="form-subtitle">Start your professional journey with us</p>
       
+      <!-- Error Message Display -->
+      <div *ngIf="errorMessage" class="error-message global-error">
+        {{ errorMessage }}
+      </div>
+
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
         <!-- First Name -->
         <div class="form-group">
@@ -38,6 +43,9 @@
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
             </div>
+          </div>
+          <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error-message">
+            First name is required (min 2 characters).
           </div>
         </div>
 
@@ -55,6 +63,9 @@
               </svg>
             </div>
           </div>
+          <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error-message">
+            Last name is required (min 2 characters).
+          </div>
         </div>
 
         <!-- Email -->
@@ -70,6 +81,9 @@
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
             </div>
+          </div>
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+            Please enter a valid email address.
           </div>
         </div>
         
@@ -93,6 +107,9 @@
                 <circle *ngIf="!showPassword" cx="12" cy="12" r="3"></circle>
               </svg>
             </button>
+          </div>
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+            Password must be at least 8 characters.
           </div>
           <div class="password-strength-container">
             <div class="strength-meter">
@@ -129,6 +146,9 @@
               </svg>
             </button>
           </div>
+          <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched" class="error-message">
+            Passwords do not match.
+          </div>
         </div>
 
         <!-- Role Selection -->
@@ -144,7 +164,7 @@
                     <polyline points="17 11 19 13 23 9"></polyline>
                   </svg>
                 </div>
-                <div class="role-title">Job Seeker</div>
+                <div class="role-title">User</div>
                 <div class="role-description">Looking for career opportunities</div>
               </div>
             </label>
@@ -162,6 +182,9 @@
                 <div class="role-description">Hiring talent for your company</div>
               </div>
             </label>
+          </div>    
+          <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched" class="error-message">
+            Please select a role.
           </div>
         </div>
         
@@ -172,6 +195,9 @@
             <span class="checkmark"></span>
             <span class="checkbox-label">I agree to the <a href="#" class="terms-link">Terms & Conditions</a></span>
           </label>
+          <div *ngIf="registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched" class="error-message">
+            You must accept the terms and conditions.
+          </div>
         </div>
         
         <!-- Submit Button -->

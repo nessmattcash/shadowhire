@@ -21,7 +21,8 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   showPassword = false;
   showConfirmPassword = false;
   screenSize = 'desktop';
-  
+  errorMessage: string | null = null;
+
   private destroy$ = new Subject<void>();
   private particles: any[] = [];
   private trails: any[] = [];
@@ -105,19 +106,25 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (this.registerForm.invalid) return;
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      this.errorMessage = 'Please fill in all required fields correctly.';
+      return;
+    }
 
     this.isLoading = true;
-    
-   const formData = {
-    firstName: this.registerForm.value.firstName,
-    lastName: this.registerForm.value.lastName,
-    email: this.registerForm.value.email,
-    password: this.registerForm.value.password,
-    is_recruiter: this.registerForm.value.role === 'recruiter',
+    this.errorMessage = null;
 
-   }
-    
+    const formData = {
+      username: this.registerForm.value.email.split('@')[0],
+      first_name: this.registerForm.value.firstName,
+      last_name: this.registerForm.value.lastName,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      password2: this.registerForm.value.confirmPassword,
+      is_recruiter: this.registerForm.value.role === 'recruiter'
+    };
+
     this.authService.register(formData).pipe(first()).subscribe({
       next: (response) => {
         this.isLoading = false;
@@ -125,6 +132,14 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       error: (error) => {
         this.isLoading = false;
+        let errorMsg = 'Registration failed. Please try again.';
+        if (error.error) {
+          if (error.error.email) errorMsg = error.error.email.join(' ');
+          else if (error.error.username) errorMsg = error.error.username.join(' ');
+          else if (error.error.password) errorMsg = error.error.password.join(' ');
+          else if (error.error.non_field_errors) errorMsg = error.error.non_field_errors.join(' ');
+        }
+        this.errorMessage = errorMsg;
         console.error('Registration failed', error);
       }
     });
@@ -139,6 +154,12 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.screenSize = 'desktop';
     }
+    this.adjustParticleEffects();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
   }
 
   private adjustParticleEffects(): void {
@@ -160,7 +181,6 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initParticles();
   }
 
-  // Particle animation methods (same as login component)
   private initParticles(): void {
     const particlesContainer = this.el.nativeElement.querySelector('#particles');
     if (!particlesContainer) return;
