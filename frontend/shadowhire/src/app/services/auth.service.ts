@@ -15,6 +15,6 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/register/`, userData);
   }
     login(credentials: any): Observable<any> {
-        return this.http.post(`${this.baseUrl}/login/`, credentials);
+        return this.http.post(`${this.baseUrl}/token/`, credentials);
     }
 }
