@@ -112,72 +112,103 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      this.errorMessage = 'Please fill in all required fields correctly.';
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = null;
-
-    const loginData = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    };
-
-    this.authService.login(loginData).pipe(first()).subscribe({
-      next: (response) => {
-        // Save credentials if rememberMe is checked
-        if (this.loginForm.value.rememberMe) {
-          localStorage.setItem('shadowhire_email', this.loginForm.value.email);
-          localStorage.setItem('shadowhire_password', this.loginForm.value.password);
-        } else {
-          localStorage.removeItem('shadowhire_email');
-          localStorage.removeItem('shadowhire_password');
-        }
-
-        // Save JWT tokens
-        localStorage.setItem('access_token', response.access);
-        localStorage.setItem('refresh_token', response.refresh);
-
-        // Start animation
-        this.isAnalyzing = true;
-        this.analysisComplete = false;
-        let currentMessage = 0;
-        const typewriterInterval = setInterval(() => {
-          this.analysisMessage = this.statusMessages[currentMessage];
-          currentMessage = (currentMessage + 1) % this.statusMessages.length;
-          if (this.screenSize !== 'mobile' || currentMessage % 2 === 0) {
-            this.createAnalysisParticles();
-          }
-        }, 1000);
-
-        // Complete animation and redirect
-        setTimeout(() => {
-          clearInterval(typewriterInterval);
-          this.analysisMessage = 'Login Successful!';
-          this.isAnalyzing = false;
-          this.analysisComplete = true;
-          this.createCelebrationParticles();
-
-          // Redirect based on is_recruiter
-          const token = response.access;
-          const payload = JSON.parse(atob(token.split('.')[1]));
-          const redirectUrl = payload.is_recruiter ? '/recruiter-dashboard' : '/dashboard';
-          setTimeout(() => this.router.navigate([redirectUrl]), 1000);
-        }, 5000);
-
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.non_field_errors?.join(' ') || 'Invalid credentials. Please try again.';
-        console.error('Login failed', error);
-      }
-    });
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    this.errorMessage = 'Please enter a valid email and password.';
+    return;
   }
 
+  this.isLoading = true;
+  this.errorMessage = null;
+
+  const loginData = {
+    username: this.loginForm.value.email.toLowerCase(),
+    password: this.loginForm.value.password
+  };
+
+  console.log('Login payload:', loginData);
+
+  this.authService.login(loginData).pipe(first()).subscribe({
+    next: (response) => {
+      if (this.loginForm.value.rememberMe) {
+        localStorage.setItem('shadowhire_email', this.loginForm.value.email);
+        localStorage.setItem('shadowhire_password', this.loginForm.value.password);
+      } else {
+        localStorage.removeItem('shadowhire_email');
+        localStorage.removeItem('shadowhire_password');
+      }
+
+      localStorage.setItem('access_token', response.access);
+      localStorage.setItem('refresh_token', response.refresh);
+
+      this.isAnalyzing = true;
+      this.analysisComplete = false;
+      let currentMessage = 0;
+      const typewriterInterval = setInterval(() => {
+        this.analysisMessage = this.statusMessages[currentMessage];
+        currentMessage = (currentMessage + 1) % this.statusMessages.length;
+        if (this.screenSize !== 'mobile' || currentMessage % 2 === 0) {
+          this.createAnalysisParticles();
+        }
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(typewriterInterval);
+        this.analysisMessage = 'Login Successful!';
+        this.isAnalyzing = false;
+        this.analysisComplete = true;
+        this.createCelebrationParticles();
+
+        const token = response.access;
+        let payload;
+        try {
+          payload = JSON.parse(atob(token.split('.')[1]));
+          console.log('JWT payload:', payload); // Debug full payload
+        } catch (e) {
+          console.error('Failed to parse JWT payload:', e);
+          this.errorMessage = 'Login Denied: Invalid token format.';
+          this.isLoading = false;
+          return;
+        }
+
+        // Log is_recruiter specifically
+        console.log('is_recruiter:', payload.is_recruiter);
+
+        const redirectUrl = payload.is_recruiter ? '/candidate-management' : '/';
+        this.router.navigate([redirectUrl]).then((success) => {
+          if (success) {
+            console.log('Navigation successful to:', redirectUrl);
+          } else {
+            console.error('Navigation failed to:', redirectUrl);
+            this.errorMessage = 'Login Denied: Navigation error.';
+          }
+          this.isLoading = false; // Set after navigation
+        });
+      }, 500); // Increased to 500ms for smoother animation
+    },
+    error: (error) => {
+      this.isLoading = false;
+      let errorMsg = 'Login Denied: Invalid email or password.';
+      if (error.error) {
+        if (error.error.detail) {
+          errorMsg = `Login Denied: ${error.error.detail}`;
+        } else if (error.error.non_field_errors) {
+          errorMsg = `Login Denied: ${error.error.non_field_errors.join(' ')}`;
+        } else if (error.error.username) {
+          errorMsg = `Login Denied: ${error.error.username.join(' ')}`;
+        } else if (error.error.password) {
+          errorMsg = `Login Denied: ${error.error.password.join(' ')}`;
+        }
+      }
+      this.errorMessage = errorMsg;
+      console.error('Login failed', error);
+    }
+  });
+}
+// Add this to your component
+clearError() {
+  this.errorMessage = '';
+}
   private checkScreenSize(): void {
     const width = window.innerWidth;
     if (width < 768) {

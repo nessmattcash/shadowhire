@@ -150,4 +150,10 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),  # 30 days
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
+    'TOKEN_OBTAIN_SERIALIZER': 'core.serializers.CustomTokenObtainPairSerializer',  # Add this
 }
+AUTHENTICATION_BACKENDS = [
+    'core.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+APPEND_SLASH = False
