@@ -1,1 +1,299 @@
-<p>resume-upload works!</p>
+<main class="portfolio-details-page dark-orange-theme">
+  <app-header></app-header>
+
+  <!-- Hero Section with Animated Background -->
+  <section class="cv-hero-section" data-aos="fade">
+    <div class="hero-container">
+      <div class="hero-content" data-aos="fade-up" data-aos-delay="100">
+        <h1>CV Career Analyzer</h1>
+        <p class="hero-subtitle">Get instant feedback on your resume and discover your best career matches</p>
+        <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+          <button class="btn-upload" (click)="fileInput.click()">
+            <i class="bi bi-cloud-arrow-up-fill"></i> Upload Your CV
+          </button>
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf,.doc,.docx" hidden>
+        </div>
+      </div>
+      <div class="hero-visual" data-aos="fade-left" data-aos-delay="300">
+        <div class="floating-cards">
+          <div class="card-item card-1" data-depth="0.2">
+            <div class="card-content">
+              <i class="bi bi-file-earmark-text"></i>
+              <h4>Content Analysis</h4>
+            </div>
+          </div>
+          <div class="card-item card-2" data-depth="0.4">
+            <div class="card-content">
+              <i class="bi bi-graph-up"></i>
+              <h4>Score Rating</h4>
+            </div>
+          </div>
+          <div class="card-item card-3" data-depth="0.3">
+            <div class="card-content">
+              <i class="bi bi-briefcase"></i>
+              <h4>Job Matching</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Upload Section -->
+  <section class="cv-upload-section" [class.active]="isDragging" 
+           (dragover)="onDragOver($event)" 
+           (dragleave)="onDragLeave($event)" 
+           (drop)="onDrop($event)">
+    <div class="container">
+      <div class="upload-container" data-aos="fade-up">
+        <div class="upload-card">
+          <div class="upload-icon">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <div class="pulse-effect"></div>
+          </div>
+          <h2>Upload Your CV</h2>
+          <p>Drag & drop your file here or</p>
+          
+          <label for="fileInput" class="btn-upload-secondary">
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" 
+                   accept=".pdf,.doc,.docx" #fileInput>
+            Browse Files
+          </label>
+          
+          <div class="file-info" *ngIf="selectedFile">
+            <div class="file-details">
+              <i class="bi bi-file-earmark-text"></i>
+              <div>
+                <div class="file-name">{{ selectedFile.name }}</div>
+                <div class="file-size">{{ formatFileSize(selectedFile.size) }}</div>
+              </div>
+              <button class="btn-remove" (click)="removeFile()">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <div class="progress-container" *ngIf="isUploading">
+              <div class="progress-bar" [style.width]="uploadProgress + '%'">
+                <div class="progress-wave"></div>
+              </div>
+              <div class="progress-text">{{ uploadProgress }}%</div>
+            </div>
+          </div>
+          
+          <div class="supported-formats">
+            Supported formats: PDF, DOC, DOCX (Max 5MB)
+          </div>
+        </div>
+        
+        <div class="upload-features">
+          <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon">
+              <i class="bi bi-shield-lock"></i>
+            </div>
+            <h3>Secure Processing</h3>
+            <p>Your documents are processed securely and never stored permanently</p>
+          </div>
+          
+          <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon">
+              <i class="bi bi-lightning-charge"></i>
+            </div>
+            <h3>Instant Analysis</h3>
+            <p>Get comprehensive feedback in seconds with our AI technology</p>
+          </div>
+          
+          <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h3>Career Insights</h3>
+            <p>Discover your best job matches and career growth opportunities</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="upload-actions" data-aos="fade-up" data-aos-delay="400">
+        <button class="btn-analyze" (click)="uploadFile()" 
+                [disabled]="!selectedFile || isUploading">
+          <span *ngIf="!isUploading">Analyze My CV</span>
+          <span *ngIf="isUploading">Analyzing... {{uploadProgress}}%</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="cv-results-section" *ngIf="showResults">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2>Your CV Analysis Results</h2>
+        <p>Here's what we found about your resume and career potential</p>
+      </div>
+      
+      <div class="results-grid">
+        <!-- Score Card -->
+        <div class="score-card" data-aos="fade-right">
+          <div class="score-header">
+            <h3>Overall CV Score</h3>
+            <p>How your resume compares to top candidates</p>
+          </div>
+          <div class="score-circle">
+            <div class="circle-progress" [style.--percentage]="cvScore">
+              <svg class="circle-chart" viewBox="0 0 36 36">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="circle-fill" [attr.stroke-dasharray]="cvScore + ', 100'" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <div class="score-value">{{ cvScore }}</div>
+              <div class="score-label">Excellent</div>
+            </div>
+          </div>
+          <div class="score-breakdown">
+            <div class="breakdown-item">
+              <div class="breakdown-label">Content</div>
+              <div class="breakdown-bar">
+                <div class="breakdown-progress" [style.width]="contentScore + '%'"></div>
+              </div>
+              <div class="breakdown-value">{{ contentScore }}%</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-label">Format</div>
+              <div class="breakdown-bar">
+                <div class="breakdown-progress" [style.width]="formatScore + '%'"></div>
+              </div>
+              <div class="breakdown-value">{{ formatScore }}%</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-label">Keywords</div>
+              <div class="breakdown-bar">
+                <div class="breakdown-progress" [style.width]="keywordScore + '%'"></div>
+              </div>
+              <div class="breakdown-value">{{ keywordScore }}%</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recommendations -->
+        <div class="recommendations-card" data-aos="fade-left">
+          <div class="recommendations-tabs">
+            <button class="tab-btn" [class.active]="activeTab === 'improvements'" (click)="activeTab = 'improvements'">
+              <i class="bi bi-magic"></i> Improvements
+            </button>
+            <button class="tab-btn" [class.active]="activeTab === 'jobs'" (click)="activeTab = 'jobs'">
+              <i class="bi bi-briefcase"></i> Job Matches
+            </button>
+            <button class="tab-btn" [class.active]="activeTab === 'skills'" (click)="activeTab = 'skills'">
+              <i class="bi bi-star"></i> Skills
+            </button>
+          </div>
+          
+          <div class="tab-content" *ngIf="activeTab === 'improvements'">
+            <h3 class="tab-title">CV Improvement Suggestions</h3>
+            <div class="suggestion-list">
+              <div class="suggestion-item">
+                <div class="suggestion-icon">
+                  <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="suggestion-text">
+                  <h4>Add More Action Verbs</h4>
+                  <p>Use powerful verbs like "developed", "managed", or "implemented" to strengthen your experience section.</p>
+                </div>
+              </div>
+              <div class="suggestion-item">
+                <div class="suggestion-icon">
+                  <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="suggestion-text">
+                  <h4>Quantify Achievements</h4>
+                  <p>Add metrics to your accomplishments (e.g., "Increased sales by 30% in Q2 2023").</p>
+                </div>
+              </div>
+              <div class="suggestion-item">
+                <div class="suggestion-icon">
+                  <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="suggestion-text">
+                  <h4>Improve Formatting</h4>
+                  <p>Use consistent spacing, bullet points, and clear section headings.</p>
+                </div>
+              </div>
+            </div>
+            <button class="btn-download">
+              <i class="bi bi-download"></i> Download Improved CV
+            </button>
+          </div>
+          
+          <div class="tab-content" *ngIf="activeTab === 'jobs'">
+            <h3 class="tab-title">Recommended Jobs For You</h3>
+            <div class="job-matches">
+              <div class="job-item" *ngFor="let job of matchedJobs">
+                <div class="job-header">
+                  <h4 class="job-title">{{ job.title }}</h4>
+                  <div class="job-match-score">
+                    <span class="score-badge">{{ job.matchScore }}% Match</span>
+                  </div>
+                </div>
+                <div class="job-company">{{ job.company }}</div>
+                <div class="job-location">{{ job.location }}</div>
+                <div class="job-description">{{ job.description }}</div>
+                <div class="job-skills">
+                  <span class="skill-tag" *ngFor="let skill of job.keySkills">{{ skill }}</span>
+                </div>
+                <div class="job-actions">
+                  <button class="btn-view-job">View Job</button>
+                  <button class="btn-save-job">
+                    <i class="bi bi-bookmark"></i> Save
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-view-all">
+              View All Matching Jobs <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          
+          <div class="tab-content" *ngIf="activeTab === 'skills'">
+            <h3 class="tab-title">Your Skills Analysis</h3>
+            <div class="skills-chart-container">
+              <div class="skills-chart">
+                <canvas #skillsRadarChart></canvas>
+              </div>
+              <div class="skills-list">
+                <h4>Top Skills:</h4>
+                <ul>
+                  <li *ngFor="let skill of topSkills">
+                    <span class="skill-name">{{ skill.name }}</span>
+                    <span class="skill-demand" [class.high-demand]="skill.demand === 'High'">
+                      {{ skill.demand }} Demand
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="skills-recommendations">
+              <h4>Recommended Skills to Learn:</h4>
+              <div class="recommended-skills">
+                <div class="recommended-skill" *ngFor="let skill of recommendedSkills">
+                  <div class="skill-info">
+                    <div class="skill-name">{{ skill.name }}</div>
+                    <div class="skill-reason">{{ skill.reason }}</div>
+                  </div>
+                  <button class="btn-learn-skill">
+                    <i class="bi bi-lightning"></i> Learn
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
+</main>
