@@ -1,52 +1,88 @@
 <footer id="footer" class="footer">
+  <!-- Animated background elements -->
+  <div class="footer-background">
+    <div class="footer-particle particle-1"></div>
+    <div class="footer-particle particle-2"></div>
+    <div class="footer-particle particle-3"></div>
+  </div>
+
   <div class="container footer-top">
     <div class="row gy-4">
+      <!-- About Column with Logo -->
       <div class="col-lg-5 col-md-12 footer-about">
         <a href="/" class="logo d-flex align-items-center">
-          <span class="sitename">Strategy</span>
+          <img src="assets/admin/images/logo/shadowhire.png" alt="ShadowHire" class="logo-main footer-logo">
+          <span class="sitename logo-text">ShadowHire</span>
         </a>
-        <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+        <p class="footer-description">Empowering your recruitment strategy with cutting-edge technology and innovative solutions to find the perfect talent for your organization.</p>
         <div class="social-links d-flex mt-4">
-          <a href=""><i class="bi bi-twitter-x"></i></a>
-          <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="social-icon twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-icon facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon linkedin"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="social-icon youtube"><i class="bi bi-youtube"></i></a>
         </div>
       </div>
+
+      <!-- Useful Links Column -->
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Useful Links</h4>
+        <h4 class="footer-title">Quick Links</h4>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Terms of service</a></li>
-          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#" class="footer-link"><span>Home</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>About us</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>Services</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>Terms of service</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>Privacy policy</span><i class="bi bi-arrow-right"></i></a></li>
         </ul>
       </div>
+
+      <!-- Services Column -->
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Our Services</h4>
+        <h4 class="footer-title">Our Services</h4>
         <ul>
-          <li><a href="#">Web Design</a></li>
-          <li><a href="#">Web Development</a></li>
-          <li><a href="#">Product Management</a></li>
-          <li><a href="#">Marketing</a></li>
-          <li><a href="#">Graphic Design</a></li>
+          <li><a href="#" class="footer-link"><span>AI Recruitment</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>Talent Matching</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>Candidate Screening</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>HR Analytics</span><i class="bi bi-arrow-right"></i></a></li>
+          <li><a href="#" class="footer-link"><span>Employer Branding</span><i class="bi bi-arrow-right"></i></a></li>
         </ul>
       </div>
+
+      <!-- Contact Column -->
       <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-        <h4>Contact Us</h4>
-        <p>A108 Adam Street</p>
-        <p>New York, NY 535022</p>
-        <p>United States</p>
-        <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-        <p><strong>Email:</strong> <span>{{ infoEmail }}</span></p>
+        <h4 class="footer-title">Contact Us</h4>
+        <div class="contact-info">
+          <p><i class="bi bi-geo-alt-fill"></i> <span>123 Tech Street, Silicon Valley</span></p>
+          <p><i class="bi bi-building"></i> <span>San Francisco, CA 94000</span></p>
+          <p><i class="bi bi-globe"></i> <span>United States</span></p>
+          <p class="mt-4"><i class="bi bi-telephone-fill"></i> <strong>Phone:</strong> <span>+1 (555) 123-4567</span></p>
+          <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> <span>{{ infoEmail }}</span></p>
+        </div>
+        
+        <!-- Newsletter Subscription -->
+        <div class="newsletter mt-4">
+          <h5>Subscribe to our Newsletter</h5>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email" class="newsletter-input">
+            <button type="submit" class="newsletter-button"><i class="bi bi-send-fill"></i></button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Copyright Section -->
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">Strategy</strong> <span>All Rights Reserved</span></p>
-    <div class="credits">
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    <div class="copyright-content">
+      <p>© <span class="copyright-year">{{ currentYear }}</span> <strong class="px-1 sitename">ShadowHire</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        Designed with <i class="bi bi-heart-fill"></i> by <a href="/" class="credit-link">Your Team</a>
+      </div>
     </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#header" class="back-to-top">
+      <i class="bi bi-arrow-up-circle-fill"></i>
+    </a>
   </div>
 </footer>

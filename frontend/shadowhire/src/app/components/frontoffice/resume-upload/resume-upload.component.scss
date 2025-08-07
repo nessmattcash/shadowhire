@@ -100,6 +100,7 @@ $error-color: #f56565;
       margin-bottom: 1.5rem;
       line-height: 1.2;
       background: linear-gradient(to right, $primary-orange-light, $primary-orange-dark);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -442,8 +443,8 @@ $error-color: #f56565;
       color: $text-color;
       margin-bottom: 1rem;
       background: linear-gradient(to right, $primary-orange-light, $primary-orange-dark);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;      -webkit-text-fill-color: transparent;
       display: inline-block;
     }
 

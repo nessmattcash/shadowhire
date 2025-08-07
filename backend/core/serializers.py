@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import Resume
 
 User = get_user_model()
 
@@ -57,3 +58,27 @@ class RegisterSerializer(serializers.ModelSerializer):
         validated_data.pop('password2')
         user = User.objects.create_user(**validated_data)
         return user
+class ResumeSerializer(serializers.ModelSerializer):
+    file = serializers.FileField()
+
+    class Meta:
+        model = Resume
+        fields = ['id', 'file', 'filename', 'uploaded_at', 'parsed_text']
+        read_only_fields = ['id', 'uploaded_at', 'parsed_text']
+
+    def validate_file(self, value):
+        valid_extensions = ['.pdf', '.doc', '.docx']
+        extension = '.' + value.name.rsplit('.', 1)[1].lower() if '.' in value.name else ''
+        if extension not in valid_extensions:
+            raise serializers.ValidationError("Only PDF, DOC, and DOCX files are allowed.")
+        max_size = 5 * 1024 * 1024  # 5MB
+        if value.size > max_size:
+            raise serializers.ValidationError("File size must be less than 5MB.")
+        return value
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['user'] = user
+        validated_data['filename'] = validated_data['file'].name
+        validated_data['parsed_text'] = ""  # Placeholder for future parsing
+        return super().create(validated_data)    
