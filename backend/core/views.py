@@ -34,7 +34,7 @@ class ResumeUploadView(APIView):
             file_url = request.build_absolute_uri(os.path.join(settings.MEDIA_URL, str(resume.file)))
             return Response({
                 'id': resume.id,
-                'filename': resume.filename,
+                'filename': resume.file.name.split('/')[-1],  # Extract filename from file path
                 'file_url': file_url,
                 'uploaded_at': resume.uploaded_at,
                 'parsed_text': resume.parsed_text

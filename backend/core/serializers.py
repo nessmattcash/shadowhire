@@ -63,7 +63,7 @@ class ResumeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resume
-        fields = ['id', 'file', 'filename', 'uploaded_at', 'parsed_text']
+        fields = ['id', 'file',  'uploaded_at', 'parsed_text']
         read_only_fields = ['id', 'uploaded_at', 'parsed_text']
 
     def validate_file(self, value):
@@ -79,6 +79,5 @@ class ResumeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         validated_data['user'] = user
-        validated_data['filename'] = validated_data['file'].name
         validated_data['parsed_text'] = ""  # Placeholder for future parsing
         return super().create(validated_data)    

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { Chart, ChartConfiguration, ChartData, ChartOptions, registerables } from 'chart.js';
+import { ResumeService } from '../../../services/resume.service'; 
 
 declare const AOS: any;
 declare const Parallax: any;
@@ -23,6 +24,7 @@ export class ResumeUploadComponent implements AfterViewInit, OnDestroy {
   isUploading = false;
   uploadProgress = 0;
   showResults = false;
+  uploadedFile: { id: number; filename: string; file_url: string; uploaded_at: string; parsed_text: string } | null = null;
   cvScore = 82;
   contentScore = 85;
   formatScore = 75;
@@ -69,7 +71,7 @@ export class ResumeUploadComponent implements AfterViewInit, OnDestroy {
   private chart: Chart | null = null;
   private parallax: any | null = null;
 
-  constructor() {
+  constructor(private resumeService: ResumeService, private el: ElementRef) {
     Chart.register(...registerables);
   }
 
@@ -244,6 +246,7 @@ export class ResumeUploadComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.selectedFile = file;
+    this.showResults = false;
   }
 
   formatFileSize(bytes: number): string {
@@ -254,18 +257,24 @@ export class ResumeUploadComponent implements AfterViewInit, OnDestroy {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
-  uploadFile() {
-    if (!this.selectedFile) return;
+ uploadFile() {
+    if (!this.selectedFile) {
+      alert('Please select a file');
+      return;
+    }
+
     this.isUploading = true;
     this.uploadProgress = 0;
-    const interval = setInterval(() => {
-      this.uploadProgress += Math.floor(Math.random() * 10) + 1;
-      if (this.uploadProgress >= 100) {
-        this.uploadProgress = 100;
-        clearInterval(interval);
-        setTimeout(() => {
+
+    this.resumeService.uploadResume(this.selectedFile).subscribe({
+      next: (event) => {
+        if ('progress' in event) {
+          this.uploadProgress = event.progress;
+        } else if ('response' in event) {
           this.isUploading = false;
+          this.uploadedFile = event.response;
           this.showResults = true;
+          console.log('Upload successful:', event.response);
           if (this.skillsRadarChart) {
             this.initializeRadarChart();
           }
@@ -275,15 +284,26 @@ export class ResumeUploadComponent implements AfterViewInit, OnDestroy {
               resultsSection.scrollIntoView({ behavior: 'smooth' });
             }
           }, 100);
-        }, 500);
+        }
+      },
+      error: (error) => {
+        this.isUploading = false;
+        this.uploadProgress = 0;
+        const errorMsg = error.error?.file?.[0] || 'Upload failed. Please try again.';
+        alert(errorMsg);
+        console.error('Upload error:', error);
+      },
+      complete: () => {
+        this.isUploading = false;
       }
-    }, 200);
+    });
   }
 
   removeFile() {
     this.selectedFile = null;
     this.isUploading = false;
     this.uploadProgress = 0;
+    this.showResults = false;
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
     }

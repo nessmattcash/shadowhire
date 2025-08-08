@@ -104,6 +104,7 @@ body {
     font-weight: 700;
     margin-left: 10px;
     background: linear-gradient(90deg, #00c6ff, #0072ff);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: all 0.3s ease;
