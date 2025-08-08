@@ -1,0 +1,2068 @@
+
+{
+  "dataset": [
+    {
+      "id": 1,
+      "question": "Hello",
+      "answer": "Hi! Welcome to Shadowhire. How can I help you today?"
+    },
+    {
+      "id": 2,
+      "question": "Hi",
+      "answer": "Hello! I'm the Shadowhire assistant. Ask me anything about the app."
+    },
+    {
+      "id": 3,
+      "question": "What is Shadowhire?",
+      "answer": "An AI-powered recruitment platform that matches candidates with jobs using NLP and MLOps. Founded by Aziz Mehdi."
+    },
+    {
+      "id": 4,
+      "question": "Who created Shadowhire?",
+      "answer": "Aziz Mehdi, a Tunisian DevOps engineer. Contact: 28285576."
+    },
+    {
+      "id": 5,
+      "question": "How do I sign up?",
+      "answer": "Click 'Register' on the homepage and enter your email, name, and password."
+    },
+    {
+      "id": 6,
+      "question": "Is Shadowhire free?",
+      "answer": "Yes, the basic version is free. Premium features (e.g., advanced analytics) may require payment."
+    },
+    {
+      "id": 7,
+      "question": "What file formats can I upload for my resume?",
+      "answer": "PDF or DOCX. Max size: 10MB."
+    },
+    {
+      "id": 8,
+      "question": "How does the AI match jobs?",
+      "answer": "It analyzes your resume (skills/experience) using TF-IDF and cosine similarity against job descriptions."
+    },
+    {
+      "id": 9,
+      "question": "What tech stack does Shadowhire use?",
+      "answer": "Frontend: Angular 17. Backend: Django 5. AI: Flask + HuggingFace. Database: MySQL. DevOps: Docker/Jenkins."
+    },
+    {
+      "id": 10,
+      "question": "How do I reset my password?",
+      "answer": "Go to Login > 'Forgot Password' and check your email for a reset link."
+    },
+    {
+      "id": 11,
+      "question": "Can recruiters see my resume?",
+      "answer": "Only if you apply to their job postings. Your data is private by default."
+    },
+    {
+      "id": 12,
+      "question": "How do I delete my account?",
+      "answer": "Profile > Settings > 'Delete Account'. Warning: This cannot be undone."
+    },
+    {
+      "id": 13,
+      "question": "What’s the development roadmap?",
+      "answer": "A 50-day plan covering Angular setup, Django APIs, MLOps (MLflow), and Azure deployment. Check the docs."
+    },
+    {
+      "id": 14,
+      "question": "How accurate is the resume score?",
+      "answer": "Based on keyword matching and industry benchmarks. Use it as a guide, not an absolute metric."
+    },
+    {
+      "id": 15,
+      "question": "Where is Shadowhire hosted?",
+      "answer": "Azure Cloud (Ubuntu 22.04 VMs). CI/CD via GitHub Actions + Jenkins."
+    },
+    {
+      "id": 16,
+      "question": "How do I contact support?",
+      "answer": "Email support@shadowhire.com or call +216 28 285 576 (Aziz Mehdi)."
+    },
+    {
+      "id": 17,
+      "question": "Is there a mobile app?",
+      "answer": "Not yet, but the Angular web app is mobile-friendly."
+    },
+    {
+      "id": 18,
+      "question": "What’s the difference between candidate and recruiter views?",
+      "answer": "Candidates see job matches; recruiters see analytics, candidate scores, and job postings."
+    },
+    {
+      "id": 19,
+      "question": "How do I report a bug?",
+      "answer": "Email bugs@shadowhire.com or open a GitHub issue."
+    },
+    {
+      "id": 20,
+      "question": "Is my resume data secure?",
+      "answer": "Yes, encrypted in MySQL with role-based access."
+    },
+    {
+      "id": 21,
+      "question": "What’s the max resume size?",
+      "answer": "10MB."
+    },
+    {
+      "id": 22,
+      "question": "How do I edit my profile?",
+      "answer": "Go to Profile > 'Edit' and update your details."
+    },
+    {
+      "id": 23,
+      "question": "Why can’t I upload my resume?",
+      "answer": "Check the file format (PDF/DOCX) and size (<10MB). If issues persist, contact support."
+    },
+    {
+      "id": 24,
+      "question": "How do job recommendations work?",
+      "answer": "The AI ranks jobs based on your resume’s skills, experience, and industry trends."
+    },
+    {
+      "id": 25,
+      "question": "Can I apply for jobs directly?",
+      "answer": "Yes! Click 'Apply' on any job listing."
+    },
+    {
+      "id": 26,
+      "question": "What’s the 'Resume Score'?",
+      "answer": "A metric (1-100) reflecting how well your resume matches industry standards."
+    },
+    {
+      "id": 27,
+      "question": "How do I improve my resume score?",
+      "answer": "The app provides feedback (e.g., 'Add more skills'). Follow the suggestions."
+    },
+    {
+      "id": 28,
+      "question": "What’s TF-IDF?",
+      "answer": "An NLP algorithm that weighs keywords in your resume vs. job descriptions."
+    },
+    {
+      "id": 29,
+      "question": "How often are job listings updated?",
+      "answer": "Daily. Recruiters can post new jobs anytime."
+    },
+    {
+      "id": 30,
+      "question": "Can I save jobs to apply later?",
+      "answer": "Yes! Click 'Save' on any job listing."
+    },
+    {
+      "id": 31,
+      "question": "How do I unsubscribe from emails?",
+      "answer": "Profile > Settings > 'Email Preferences'."
+    },
+    {
+      "id": 32,
+      "question": "What’s the privacy policy?",
+      "answer": "Read it at shadowhire.com/privacy. We comply with GDPR."
+    },
+    {
+      "id": 33,
+      "question": "Can I use Shadowhire without an account?",
+      "answer": "No, but signing up takes <1 minute."
+    },
+    {
+      "id": 34,
+      "question": "How do I change my email?",
+      "answer": "Profile > Settings > 'Edit Email'."
+    },
+    {
+      "id": 35,
+      "question": "Does Shadowhire support dark mode?",
+      "answer": "Not yet, but it’s planned for Q3 2025."
+    },
+    {
+      "id": 36,
+      "question": "What languages does Shadowhire support?",
+      "answer": "English only for now. Arabic/French coming soon."
+    },
+    {
+      "id": 37,
+      "question": "How do I report a job posting?",
+      "answer": "Click 'Report' on the job details page."
+    },
+    {
+      "id": 38,
+      "question": "Can I delete my resume after uploading?",
+      "answer": "Yes, go to Profile > 'Resume' > 'Delete'."
+    },
+    {
+      "id": 39,
+      "question": "What industries does Shadowhire cover?",
+      "answer": "Tech, finance, healthcare, engineering, and more."
+    },
+    {
+      "id": 40,
+      "question": "How do I log out?",
+      "answer": "Click your profile picture > 'Logout'."
+    },
+    {
+      "id": 41,
+      "question": "Why is my job match score low?",
+      "answer": "Your resume may lack keywords from job descriptions. Use the feedback tool."
+    },
+    {
+      "id": 42,
+      "question": "Can I upload multiple resumes?",
+      "answer": "No, only one resume per account."
+    },
+    {
+      "id": 43,
+      "question": "How do I know if a recruiter viewed my resume?",
+      "answer": "You’ll see a notification in your dashboard."
+    },
+    {
+      "id": 44,
+      "question": "What’s the average response time from recruiters?",
+      "answer": "Varies by company, but typically 1-2 weeks."
+    },
+    {
+      "id": 45,
+      "question": "How do I withdraw a job application?",
+      "answer": "Go to Applications > 'Withdraw'."
+    },
+    {
+      "id": 46,
+      "question": "Can I edit my resume after uploading?",
+      "answer": "No, but you can delete and re-upload it."
+    },
+    {
+      "id": 47,
+      "question": "What’s the 'AI Feedback' panel?",
+      "answer": "It explains why jobs were matched (e.g., 'Your Python skills match 90% of jobs')."
+    },
+    {
+      "id": 48,
+      "question": "How do I search for jobs?",
+      "answer": "Use the search bar or filters (title, location, salary)."
+    },
+    {
+      "id": 49,
+      "question": "Can I message recruiters?",
+      "answer": "Not directly, but you can attach a cover letter when applying."
+    },
+    {
+      "id": 50,
+      "question": "What’s the 'Skills Gap' feature?",
+      "answer": "It shows skills missing from your resume that are in high demand."
+    },
+    {
+      "id": 51,
+      "question": "How do I enable two-factor authentication?",
+      "answer": "Profile > Security > 'Enable 2FA'."
+    },
+    {
+      "id": 52,
+      "question": "Why was my account suspended?",
+      "answer": "Violations of terms (e.g., fake resumes). Email support@shadowhire.com to appeal."
+    },
+    {
+      "id": 53,
+      "question": "How do I update my skills?",
+      "answer": "Edit your resume and re-upload it."
+    },
+    {
+      "id": 54,
+      "question": "Can I share my resume publicly?",
+      "answer": "No, but you can generate a shareable link (coming soon)."
+    },
+    {
+      "id": 55,
+      "question": "What’s the 'Quick Apply' feature?",
+      "answer": "Apply to jobs with one click using your saved resume."
+    },
+    {
+      "id": 56,
+      "question": "How do I add a profile picture?",
+      "answer": "Profile > 'Edit' > 'Upload Photo'."
+    },
+    {
+      "id": 57,
+      "question": "Does Shadowhire have an API?",
+      "answer": "Yes, for enterprise use. Contact api@shadowhire.com."
+    },
+    {
+      "id": 58,
+      "question": "How do I see my application history?",
+      "answer": "Dashboard > 'Applications'."
+    },
+    {
+      "id": 59,
+      "question": "Can I block a recruiter?",
+      "answer": "Yes, go to the recruiter’s profile > 'Block'."
+    },
+    {
+      "id": 60,
+      "question": "What’s the 'Salary Estimator'?",
+      "answer": "A tool that predicts salary ranges for jobs based on your resume."
+    },
+    {
+      "id": 61,
+      "question": "How do I set up job alerts?",
+      "answer": "Search for a job > 'Create Alert'."
+    },
+    {
+      "id": 62,
+      "question": "Can I use Shadowhire as a recruiter?",
+      "answer": "Yes, sign up as a 'Recruiter' and verify your company email."
+    },
+    {
+      "id": 63,
+      "question": "How do I verify my account?",
+      "answer": "Click the verification link sent to your email."
+    },
+    {
+      "id": 64,
+      "question": "What’s the 'Interview Prep' feature?",
+      "answer": "AI-generated questions based on job descriptions (coming Q4 2025)."
+    },
+    {
+      "id": 65,
+      "question": "How do I change my password?",
+      "answer": "Profile > Security > 'Change Password'."
+    },
+    {
+      "id": 66,
+      "question": "Can I merge duplicate job listings?",
+      "answer": "Only recruiters/admins can do this. Use the 'Report' button."
+    },
+    {
+      "id": 67,
+      "question": "What’s the 'Company Culture Match' score?",
+      "answer": "Measures how well your values align with a company’s (beta)."
+    },
+    {
+      "id": 68,
+      "question": "How do I delete a saved job?",
+      "answer": "Go to 'Saved Jobs' > click the trash icon."
+    },
+    {
+      "id": 69,
+      "question": "Can I schedule interviews through Shadowhire?",
+      "answer": "Not yet, but it’s planned for 2026."
+    },
+    {
+      "id": 70,
+      "question": "What’s the 'Resume Builder'?",
+      "answer": "A tool to create resumes from scratch (premium feature)."
+    },
+    {
+      "id": 71,
+      "question": "How do I see who viewed my profile?",
+      "answer": "Recruiters can see this in their dashboard. Candidates see view counts."
+    },
+    {
+      "id": 72,
+      "question": "Can I export my data?",
+      "answer": "Yes, Profile > Settings > 'Export Data'."
+    },
+    {
+      "id": 73,
+      "question": "What’s the 'Referral Program'?",
+      "answer": "Earn rewards for inviting friends (launching soon)."
+    },
+    {
+      "id": 74,
+      "question": "How do I add a cover letter?",
+      "answer": "During application, click 'Attach Cover Letter'."
+    },
+    {
+      "id": 75,
+      "question": "Can I hide my profile from recruiters?",
+      "answer": "Yes, Profile > Privacy > 'Hide Profile'."
+    },
+    {
+      "id": 76,
+      "question": "What’s the 'Job Fit' score?",
+      "answer": "A percentage (0-100%) showing how well you match a job’s requirements."
+    },
+    {
+      "id": 77,
+      "question": "How do I request a feature?",
+      "answer": "Email features@shadowhire.com or vote on our roadmap page."
+    },
+    {
+      "id": 78,
+      "question": "Can I use Shadowhire for internships?",
+      "answer": "Yes! Filter jobs by 'Internship' type."
+    },
+    {
+      "id": 79,
+      "question": "How do I see my resume’s parsing results?",
+      "answer": "Go to 'Resume Feedback' in your dashboard."
+    },
+    {
+      "id": 80,
+      "question": "What’s the 'Career Path Predictor'?",
+      "answer": "AI tool suggesting roles based on your skills (beta)."
+    },
+    {
+      "id": 81,
+      "question": "How do I report a recruiter?",
+      "answer": "Go to their profile > 'Report'."
+    },
+    {
+      "id": 82,
+      "question": "Can I customize job alerts?",
+      "answer": "Yes, set filters (location, salary) when creating alerts."
+    },
+    {
+      "id": 83,
+      "question": "What’s the 'Resume Health' metric?",
+      "answer": "Checks for missing sections (e.g., education, contact info)."
+    },
+    {
+      "id": 84,
+      "question": "How do I add certifications to my profile?",
+      "answer": "Include them in your resume or add them manually in Profile > 'Certifications'."
+    },
+    {
+      "id": 85,
+      "question": "Can I apply with LinkedIn?",
+      "answer": "Not yet, but we’re working on integration."
+    },
+    {
+      "id": 86,
+      "question": "What’s the 'AI Cover Letter Generator'?",
+      "answer": "Tool that drafts personalized cover letters (premium)."
+    },
+    {
+      "id": 87,
+      "question": "How do I track my applications?",
+      "answer": "Dashboard > 'Applications' shows statuses (Viewed, Rejected, etc.)."
+    },
+    {
+      "id": 88,
+      "question": "Can I flag a job as misleading?",
+      "answer": "Yes, click 'Report' on the job listing."
+    },
+    {
+      "id": 89,
+      "question": "What’s the 'Time to Apply' metric?",
+      "answer": "Estimates how quickly you should apply based on competition."
+    },
+    {
+      "id": 90,
+      "question": "How do I disable notifications?",
+      "answer": "Profile > Settings > 'Notifications'."
+    },
+    {
+      "id": 91,
+      "question": "Can I compare two job offers?",
+      "answer": "Not yet, but this feature is planned."
+    },
+    {
+      "id": 92,
+      "question": "What’s the 'Skills Trend' report?",
+      "answer": "Shows which skills are growing in demand for your industry."
+    },
+    {
+      "id": 93,
+      "question": "How do I add volunteer work to my profile?",
+      "answer": "Include it in your resume or add it manually under 'Experience'."
+    },
+    {
+      "id": 94,
+      "question": "Can I see how many applicants a job has?",
+      "answer": "Yes, listed on the job details page."
+    },
+    {
+      "id": 95,
+      "question": "What’s the 'Application Success Rate'?",
+      "answer": "Your historical rate of getting interviews (premium feature)."
+    },
+    {
+      "id": 96,
+      "question": "How do I change my job preferences?",
+      "answer": "Profile > 'Job Preferences'."
+    },
+    {
+      "id": 97,
+      "question": "Can I upload a video resume?",
+      "answer": "Not yet, but it’s under consideration."
+    },
+    {
+      "id": 98,
+      "question": "What’s the 'Company Review' section?",
+      "answer": "Where candidates rate employers (launching Q1 2026)."
+    },
+    {
+      "id": 99,
+      "question": "How do I delete old applications?",
+      "answer": "You can’t delete them, but you can archive them."
+    },
+    {
+      "id": 100,
+      "question": "Can I use Shadowhire for freelance gigs?",
+      "answer": "Yes, filter jobs by 'Freelance' type."
+    },
+    {
+      "id": 101,
+      "question": "What’s the 'Resume ATS Check'?",
+      "answer": "Ensures your resume is compatible with applicant tracking systems."
+    },
+    {
+      "id": 102,
+      "question": "How do I add references?",
+      "answer": "Include them in your resume or add them manually in Profile > 'References'."
+    },
+    {
+      "id": 103,
+      "question": "Can I see salary ranges for jobs?",
+      "answer": "Yes, if the recruiter provides them."
+    },
+    {
+      "id": 104,
+      "question": "What’s the 'Job Alert Accuracy' score?",
+      "answer": "Measures how well alerts match your profile (beta)."
+    },
+    {
+      "id": 105,
+      "question": "How do I opt out of analytics tracking?",
+      "answer": "Profile > Privacy > 'Disable Analytics'."
+    },
+    {
+      "id": 106,
+      "question": "Can I apply with a GitHub profile?",
+      "answer": "Not directly, but you can link it in your resume."
+    },
+    {
+      "id": 107,
+      "question": "What’s the 'Diversity Score'?",
+      "answer": "Measures a company’s diversity efforts (data from public reports)."
+    },
+    {
+      "id": 108,
+      "question": "How do I report a bug in the AI?",
+      "answer": "Email ai-bugs@shadowhire.com with details."
+    },
+    {
+      "id": 109,
+      "question": "Can I hide my salary expectations?",
+      "answer": "Yes, toggle ‘Show Salary’ in Profile > Privacy."
+    },
+    {
+      "id": 110,
+      "question": "What’s the 'Remote Work Score'?",
+      "answer": "Estimates how likely a job can be done remotely."
+    },
+    {
+      "id": 111,
+      "question": "How do I add a portfolio link?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 112,
+      "question": "Can I see competitor job postings?",
+      "answer": "No, only jobs you’re eligible for."
+    },
+    {
+      "id": 113,
+      "question": "What’s the 'Resume Privacy Mode'?",
+      "answer": "Hides your resume from recruiters but lets you apply to jobs."
+    },
+    {
+      "id": 114,
+      "question": "How do I request my data be deleted?",
+      "answer": "Email privacy@shadowhire.com with 'GDPR Delete Request'."
+    },
+    {
+      "id": 115,
+      "question": "Can I block a company?",
+      "answer": "Yes, go to the company’s page > 'Block'."
+    },
+    {
+      "id": 116,
+      "question": "What’s the 'Job Seeker Badge'?",
+      "answer": "A profile badge for active users (earned after 10 applications)."
+    },
+    {
+      "id": 117,
+      "question": "How do I see trending jobs?",
+      "answer": "Dashboard > 'Trending Jobs' (updated hourly)."
+    },
+    {
+      "id": 118,
+      "question": "Can I share job postings on social media?",
+      "answer": "Yes, click 'Share' on any job listing."
+    },
+    {
+      "id": 119,
+      "question": "What’s the 'Application Autofill' feature?",
+      "answer": "Auto-populates forms using your resume data (premium)."
+    },
+    {
+      "id": 120,
+      "question": "How do I pause job alerts?",
+      "answer": "Go to 'Alerts' > toggle 'Pause'."
+    },
+    {
+      "id": 121,
+      "question": "Can I see who posted a job?",
+      "answer": "Only the recruiter’s name/company is shown."
+    },
+    {
+      "id": 122,
+      "question": "What’s the 'Resume Refresh' tool?",
+      "answer": "AI that suggests updates for outdated resumes."
+    },
+    {
+      "id": 123,
+      "question": "How do I add languages to my profile?",
+      "answer": "Include them in your resume or add them manually in Profile > 'Skills'."
+    },
+    {
+      "id": 124,
+      "question": "Can I apply with a cover letter template?",
+      "answer": "Yes, use our AI generator or upload your own."
+    },
+    {
+      "id": 125,
+      "question": "What’s the 'Job Seeker Dashboard'?",
+      "answer": "Your central hub for applications, matches, and resume feedback."
+    },
+    {
+      "id": 126,
+      "question": "How do I report a phishing email?",
+      "answer": "Forward it to security@shadowhire.com."
+    },
+    {
+      "id": 127,
+      "question": "Can I see how many times my resume was viewed?",
+      "answer": "Yes, in Dashboard > 'Resume Analytics'."
+    },
+    {
+      "id": 128,
+      "question": "What’s the 'Company Growth' metric?",
+      "answer": "Shows hiring trends (e.g., 'This company hired 50% more engineers this year')."
+    },
+    {
+      "id": 129,
+      "question": "How do I add a job to my 'Saved' list?",
+      "answer": "Click the bookmark icon on any job listing."
+    },
+    {
+      "id": 130,
+      "question": "Can I hide my current employer?",
+      "answer": "Yes, edit your resume or toggle ‘Hide Employer’ in Profile > Privacy."
+    },
+    {
+      "id": 131,
+      "question": "What’s the 'Interview Pass Rate'?",
+      "answer": "Your historical rate of passing interviews (premium)."
+    },
+    {
+      "id": 132,
+      "question": "How do I change my primary resume?",
+      "answer": "Profile > 'Resume' > 'Set as Primary'."
+    },
+    {
+      "id": 133,
+      "question": "Can I see competitor salaries?",
+      "answer": "Only aggregate data (e.g., 'Python developers in Tunis earn $X–$Y')."
+    },
+    {
+      "id": 134,
+      "question": "What’s the 'Job Seeker Score'?",
+      "answer": "A metric (1-100) reflecting your profile’s competitiveness."
+    },
+    {
+      "id": 135,
+      "question": "How do I delete old job alerts?",
+      "answer": "Go to 'Alerts' > click the trash icon."
+    },
+    {
+      "id": 136,
+      "question": "Can I apply without a resume?",
+      "answer": "No, a resume is required for matching."
+    },
+    {
+      "id": 137,
+      "question": "What’s the 'Resume Keywords' tool?",
+      "answer": "Shows which keywords recruiters search for in your industry."
+    },
+    {
+      "id": 138,
+      "question": "How do I add a second email?",
+      "answer": "Profile > Settings > 'Add Email'."
+    },
+    {
+      "id": 139,
+      "question": "Can I see my rank for a job?",
+      "answer": "Yes, e.g., 'You’re in the top 20% of applicants' (premium)."
+    },
+    {
+      "id": 140,
+      "question": "What’s the 'Application Deadline' alert?",
+      "answer": "Notifies you when a job’s deadline is approaching."
+    },
+    {
+      "id": 141,
+      "question": "How do I enable dark mode?",
+      "answer": "Not yet available, but coming soon."
+    },
+    {
+      "id": 142,
+      "question": "Can I filter jobs by visa sponsorship?",
+      "answer": "Yes, use the 'Visa Sponsorship' filter."
+    },
+    {
+      "id": 143,
+      "question": "What’s the 'Recruiter Response Score'?",
+      "answer": "Measures how often a recruiter responds to applicants."
+    },
+    {
+      "id": 144,
+      "question": "How do I add a LinkedIn profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 145,
+      "question": "Can I see how many jobs match my skills?",
+      "answer": "Yes, Dashboard > 'Job Matches' shows a count."
+    },
+    {
+      "id": 146,
+      "question": "What’s the 'Resume Age' metric?",
+      "answer": "Shows how old your resume is (e.g., 'Uploaded 30 days ago')."
+    },
+    {
+      "id": 147,
+      "question": "How do I report a broken link?",
+      "answer": "Email support@shadowhire.com with the URL."
+    },
+    {
+      "id": 148,
+      "question": "Can I customize my dashboard?",
+      "answer": "Not yet, but planned for future updates."
+    },
+    {
+      "id": 149,
+      "question": "What’s the 'Job Seeker Community'?",
+      "answer": "A forum to discuss careers (launching 2026)."
+    },
+    {
+      "id": 150,
+      "question": "How do I add a GitHub project?",
+      "answer": "Include it in your resume or add it manually in Profile > 'Projects'."
+    },
+    {
+      "id": 151,
+      "question": "Can I see who viewed my application?",
+      "answer": "Only recruiters can see this data."
+    },
+    {
+      "id": 152,
+      "question": "What’s the 'Resume Traffic Light'?",
+      "answer": "Green/Yellow/Red indicator of resume health."
+    },
+    {
+      "id": 153,
+      "question": "How do I add a Twitter profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 154,
+      "question": "Can I filter jobs by company size?",
+      "answer": "Yes, use the 'Company Size' filter."
+    },
+    {
+      "id": 155,
+      "question": "What’s the 'Application Time' metric?",
+      "answer": "Shows how long you spent applying (e.g., '2 minutes per application')."
+    },
+    {
+      "id": 156,
+      "question": "How do I delete a cover letter?",
+      "answer": "Go to 'Cover Letters' > click the trash icon."
+    },
+    {
+      "id": 157,
+      "question": "Can I see my competitor’s profiles?",
+      "answer": "No, only anonymous aggregate data (e.g., 'Top 10% of candidates have X skill')."
+    },
+    {
+      "id": 158,
+      "question": "What’s the 'Resume Heatmap'?",
+      "answer": "Shows which sections recruiters view most (premium)."
+    },
+    {
+      "id": 159,
+      "question": "How do I add a Behance portfolio?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 160,
+      "question": "Can I filter jobs by remote flexibility?",
+      "answer": "Yes, use the 'Remote' filter."
+    },
+    {
+      "id": 161,
+      "question": "What’s the 'Job Seeker ROI'?",
+      "answer": "Measures time invested vs. applications/interviews (premium)."
+    },
+    {
+      "id": 162,
+      "question": "How do I add a Dribbble portfolio?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 163,
+      "question": "Can I see which jobs I’m overqualified for?",
+      "answer": "Yes, the AI flags these in your matches."
+    },
+    {
+      "id": 164,
+      "question": "What’s the 'Resume Storytelling' tool?",
+      "answer": "AI that rewrites bullet points for impact (premium)."
+    },
+    {
+      "id": 165,
+      "question": "How do I add a Kaggle profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 166,
+      "question": "Can I filter jobs by equity offerings?",
+      "answer": "Yes, use the 'Equity' filter."
+    },
+    {
+      "id": 167,
+      "question": "What’s the 'Job Seeker Burnout' alert?",
+      "answer": "Notifies you if you’re applying too aggressively."
+    },
+    {
+      "id": 168,
+      "question": "How do I add a Stack Overflow profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 169,
+      "question": "Can I see which jobs are about to expire?",
+      "answer": "Yes, sort by 'Deadline' in job searches."
+    },
+    {
+      "id": 170,
+      "question": "What’s the 'Resume A/B Test' feature?",
+      "answer": "Tests two resume versions to see which performs better (premium)."
+    },
+    {
+      "id": 171,
+      "question": "How do I add a Medium blog?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 172,
+      "question": "Can I filter jobs by relocation support?",
+      "answer": "Yes, use the 'Relocation' filter."
+    },
+    {
+      "id": 173,
+      "question": "What’s the 'Job Seeker Zen Mode'?",
+      "answer": "Hides competitive metrics to reduce stress (beta)."
+    },
+    {
+      "id": 174,
+      "question": "How do I add a personal website?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 175,
+      "question": "Can I see which jobs are 'Easy Apply'?",
+      "answer": "Yes, filter by 'Application Type'."
+    },
+    {
+      "id": 176,
+      "question": "What’s the 'Resume SEO' tool?",
+      "answer": "Optimizes your resume for recruiter keyword searches."
+    },
+    {
+      "id": 177,
+      "question": "How do I add a YouTube channel?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 178,
+      "question": "Can I filter jobs by 'No Degree Required'?",
+      "answer": "Yes, use the 'Education' filter."
+    },
+    {
+      "id": 179,
+      "question": "What’s the 'Job Seeker Time Machine'?",
+      "answer": "Simulates how your resume would fare in past/future job markets (beta)."
+    },
+    {
+      "id": 180,
+      "question": "How do I add a GitLab profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 181,
+      "question": "Can I see which jobs are 'High Response Rate'?",
+      "answer": "Yes, sort by 'Recruiter Response Score'."
+    },
+    {
+      "id": 182,
+      "question": "What’s the 'Resume Frankenstein'?",
+      "answer": "Merges sections from multiple resumes (premium)."
+    },
+    {
+      "id": 183,
+      "question": "How do I add a CodePen profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 184,
+      "question": "Can I filter jobs by 'No Whiteboard Interviews'?",
+      "answer": "Not yet, but you can search for 'No Technical Interviews'."
+    },
+    {
+      "id": 185,
+      "question": "What’s the 'Job Seeker Mood' tracker?",
+      "answer": "Logs your job search sentiment (private)."
+    },
+    {
+      "id": 186,
+      "question": "How do I add a Dev.to blog?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 187,
+      "question": "Can I see which jobs are 'Dog-Friendly'?",
+      "answer": "Yes, filter by 'Company Perks'."
+    },
+    {
+      "id": 188,
+      "question": "What’s the 'Resume Time Travel'?",
+      "answer": "Shows how your resume would look in 1990/2030 (fun feature)."
+    },
+    {
+      "id": 189,
+      "question": "How do I add a Twitch channel?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 190,
+      "question": "Can I filter jobs by 'No LeetCode'?",
+      "answer": "Not yet, but planned for developers."
+    },
+    {
+      "id": 191,
+      "question": "What’s the 'Job Seeker Bingo'?",
+      "answer": "A game to track common job search experiences (e.g., 'Ghosted')."
+    },
+    {
+      "id": 192,
+      "question": "How do I add a Patreon?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 193,
+      "question": "Can I see which jobs offer '4-Day Workweeks'?",
+      "answer": "Yes, filter by 'Work Schedule'."
+    },
+    {
+      "id": 194,
+      "question": "What’s the 'Resume Haiku' generator?",
+      "answer": "Converts your resume into a poem (just for fun)."
+    },
+    {
+      "id": 195,
+      "question": "How do I add a SoundCloud?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 196,
+      "question": "Can I filter jobs by 'No Crunch Time'?",
+      "answer": "Not directly, but check company reviews."
+    },
+    {
+      "id": 197,
+      "question": "What’s the 'Job Seeker Tarot'?",
+      "answer": "AI-generated 'predictions' for your job search (fun feature)."
+    },
+    {
+      "id": 198,
+      "question": "How do I add a Gumroad?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 199,
+      "question": "Can I see which jobs are 'Silent Hiring'?",
+      "answer": "Yes, filter by 'Hiring Process'."
+    },
+    {
+      "id": 200,
+      "question": "What’s the 'Resume Rapper'?",
+      "answer": "Turns your skills into a rap (just for laughs)."
+    },
+    {
+      "id": 201,
+      "question": "How do I add a Product Hunt profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 202,
+      "question": "Can I filter jobs by 'No Meetings'?",
+      "answer": "Not yet, but you can search for 'Async Culture'."
+    },
+    {
+      "id": 203,
+      "question": "What’s the 'Job Seeker Horoscope'?",
+      "answer": "Daily 'luck' ratings for your job search (e.g., 'Great day to apply!')."
+    },
+    {
+      "id": 204,
+      "question": "How do I add a Substack?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 205,
+      "question": "Can I see which jobs are 'No Micromanagement'?",
+      "answer": "Check company reviews for this info."
+    },
+    {
+      "id": 206,
+      "question": "What’s the 'Resume Standup Comedy'?",
+      "answer": "Generates jokes from your work history (just for fun)."
+    },
+    {
+      "id": 207,
+      "question": "How do I add a Letterboxd?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 208,
+      "question": "Can I filter jobs by 'No On-Call'?",
+      "answer": "Yes, filter by 'Work Schedule'."
+    },
+    {
+      "id": 209,
+      "question": "What’s the 'Job Seeker ASMR'?",
+      "answer": "Calming sounds for stressful job searches (beta)."
+    },
+    {
+      "id": 210,
+      "question": "How do I add a Goodreads?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 211,
+      "question": "Can I see which jobs are 'No Open Office'?",
+      "answer": "Check company reviews for office setup details."
+    },
+    {
+      "id": 212,
+      "question": "What’s the 'Resume Meme Generator'?",
+      "answer": "Creates memes from your resume (e.g., '10x Engineer’)."
+    },
+    {
+      "id": 213,
+      "question": "How do I add a Duolingo profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 214,
+      "question": "Can I filter jobs by 'No Time Tracking'?",
+      "answer": "Not yet, but planned for remote roles."
+    },
+    {
+      "id": 215,
+      "question": "What’s the 'Job Seeker Affirmations'?",
+      "answer": "Positive messages to boost morale (e.g., 'You’ll land it!')."
+    },
+    {
+      "id": 216,
+      "question": "How do I add a Chess.com profile?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 217,
+      "question": "Can I see which jobs are 'No Standups'?",
+      "answer": "Check company reviews for meeting policies."
+    },
+    {
+      "id": 218,
+      "question": "What’s the 'Resume Limerick'?",
+      "answer": "A silly poem about your career (just for fun)."
+    },
+    {
+      "id": 219,
+      "question": "How do I add a Strava?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 220,
+      "question": "Can I filter jobs by 'No Pair Programming'?",
+      "answer": "Not yet, but planned for dev roles."
+    },
+    {
+      "id": 221,
+      "question": "What’s the 'Job Seeker Dad Jokes'?",
+      "answer": "Random puns to lighten the mood (e.g., 'Why did the resume cross the road?')."
+    },
+    {
+      "id": 222,
+      "question": "How do I add an IMDb?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 223,
+      "question": "Can I see which jobs are 'No Jira'?",
+      "answer": "Check company reviews for tool usage."
+    },
+    {
+      "id": 224,
+      "question": "What’s the 'Resume Sonnet'?",
+      "answer": "A Shakespearean-style poem about your skills."
+    },
+    {
+      "id": 225,
+      "question": "How do I add a Rotten Tomatoes?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 226,
+      "question": "Can I filter jobs by 'No Scrum'?",
+      "answer": "Not yet, but planned for agile roles."
+    },
+    {
+      "id": 227,
+      "question": "What’s the 'Job Seeker Comic Strip'?",
+      "answer": "Generates a comic about your job search."
+    },
+    {
+      "id": 228,
+      "question": "How do I add a Spotify?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 229,
+      "question": "Can I see which jobs are 'No Slack'?",
+      "answer": "Check company reviews for communication tools."
+    },
+    {
+      "id": 230,
+      "question": "What’s the 'Resume Crossword'?",
+      "answer": "A puzzle using your skills as clues."
+    },
+    {
+      "id": 231,
+      "question": "How do I add a TikTok?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 232,
+      "question": "Can I filter jobs by 'No Zoom'?",
+      "answer": "Not yet, but planned for remote roles."
+    },
+    {
+      "id": 233,
+      "question": "What’s the 'Job Seeker Coloring Book'?",
+      "answer": "Printable stress-relief pages (e.g., 'Color Your Dream Job')."
+    },
+    {
+      "id": 234,
+      "question": "How do I add a Pinterest?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 235,
+      "question": "Can I see which jobs are 'No Onsites'?",
+      "answer": "Filter by 'Remote Only'."
+    },
+    {
+      "id": 236,
+      "question": "What’s the 'Resume Mad Libs'?",
+      "answer": "A fill-in-the-blank game using your resume."
+    },
+    {
+      "id": 237,
+      "question": "How do I add a Reddit?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 238,
+      "question": "Can I filter jobs by 'No Tests'?",
+      "answer": "Not yet, but planned for dev roles."
+    },
+    {
+      "id": 239,
+      "question": "What’s the 'Job Seeker Playlist'?",
+      "answer": "Curated music for job searching (e.g., 'Pump Up Tracks')."
+    },
+    {
+      "id": 240,
+      "question": "How do I add a Discord?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 241,
+      "question": "Can I see which jobs are 'No Deadline'?",
+      "answer": "Filter by 'Rolling Applications'."
+    },
+    {
+      "id": 242,
+      "question": "What’s the 'Resume Karaoke'?",
+      "answer": "Sing your resume to popular tunes (just for fun)."
+    },
+    {
+      "id": 243,
+      "question": "How do I add a Telegram?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 244,
+      "question": "Can I filter jobs by 'No Dress Code'?",
+      "answer": "Check company reviews for attire policies."
+    },
+    {
+      "id": 245,
+      "question": "What’s the 'Job Seeker Trivia'?",
+      "answer": "Random facts about careers (e.g., 'Most common interview question')."
+    },
+    {
+      "id": 246,
+      "question": "How do I add a Signal?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 247,
+      "question": "Can I see which jobs are 'No All-Hands'?",
+      "answer": "Check company reviews for meeting culture."
+    },
+    {
+      "id": 248,
+      "question": "What’s the 'Resume TikTok Dance'?",
+      "answer": "A silly dance based on your career (just for laughs)."
+    },
+    {
+      "id": 249,
+      "question": "How do I add a WhatsApp?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 250,
+      "question": "Can I filter jobs by 'No PIPs'?",
+      "answer": "Check company reviews for performance policies."
+    },
+    {
+      "id": 251,
+      "question": "What’s the 'Job Seeker Fortune Cookie'?",
+      "answer": "Random 'fortunes' (e.g., 'A recruiter will email you soon')."
+    },
+    {
+      "id": 252,
+      "question": "How do I add a Clubhouse?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 253,
+      "question": "Can I see which jobs are 'No On-Call'?",
+      "answer": "Filter by 'Work Schedule' > 'No On-Call'."
+    },
+    {
+      "id": 254,
+      "question": "What’s the 'Resume Yoga Poses'?",
+      "answer": "Stretches named after your skills (e.g., 'The Python Twist')."
+    },
+    {
+      "id": 255,
+      "question": "How do I add a Mastodon?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 256,
+      "question": "Can I filter jobs by 'No Probation'?",
+      "answer": "Check company reviews for probation periods."
+    },
+    {
+      "id": 257,
+      "question": "What’s the 'Job Seeker Magic 8-Ball'?",
+      "answer": "Ask yes/no questions about your search (e.g., 'Will I get an offer?')."
+    },
+    {
+      "id": 258,
+      "question": "How do I add a Bluesky?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 259,
+      "question": "Can I see which jobs are 'No Non-Compete'?",
+      "answer": "Check company reviews for contract terms."
+    },
+    {
+      "id": 260,
+      "question": "What’s the 'Resume Pickup Lines'?",
+      "answer": "Flirty jokes about your skills (e.g., 'Are you a DevOps engineer? Because you auto-scale my heart')."
+    },
+    {
+      "id": 261,
+      "question": "How do I add a Threads?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 262,
+      "question": "Can I filter jobs by 'No NDAs'?",
+      "answer": "Check company reviews for legal policies."
+    },
+    {
+      "id": 263,
+      "question": "What’s the 'Job Seeker Rorschach Test'?",
+      "answer": "AI-generated inkblots with career interpretations (e.g., 'This looks like a promotion')."
+    },
+    {
+      "id": 264,
+      "question": "How do I add a PixelFed?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 265,
+      "question": "Can I see which jobs are 'No Micromanagement'?",
+      "answer": "Check company reviews for management style."
+    },
+    {
+      "id": 266,
+      "question": "What’s the 'Resume Tea Leaves'?",
+      "answer": "Fun 'predictions' based on your resume layout (e.g., 'Your margins predict a raise')."
+    },
+    {
+      "id": 267,
+      "question": "How do I add a PeerTube?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 268,
+      "question": "Can I filter jobs by 'No Timesheets'?",
+      "answer": "Check company reviews for tracking policies."
+    },
+    {
+      "id": 269,
+      "question": "What’s the 'Job Seeker Mood Ring'?",
+      "answer": "Changes color based on your job search stress (virtual)."
+    },
+    {
+      "id": 270,
+      "question": "How do I add a Lemmy?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 271,
+      "question": "Can I see which jobs are 'No Surveillance'?",
+      "answer": "Check company reviews for monitoring tools."
+    },
+    {
+      "id": 272,
+      "question": "What’s the 'Resume Zodiac'?",
+      "answer": "A fake horoscope based on your career (e.g., 'Taurus season is good for networking')."
+    },
+    {
+      "id": 273,
+      "question": "How do I add a Diaspora?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 274,
+      "question": "Can I filter jobs by 'No Background Checks'?",
+      "answer": "Check company reviews for hiring processes."
+    },
+    {
+      "id": 275,
+      "question": "What’s the 'Job Seeker Crystal Ball'?",
+      "answer": "Fun 'predictions' (e.g., 'You’ll get 3 interviews next week')."
+    },
+    {
+      "id": 276,
+      "question": "How do I add a Friendica?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 277,
+      "question": "Can I see which jobs are 'No Drug Tests'?",
+      "answer": "Check company reviews for screening policies."
+    },
+    {
+      "id": 278,
+      "question": "What’s the 'Resume Bingo'?",
+      "answer": "Mark off common resume clichés (e.g., 'Team Player')."
+    },
+    {
+      "id": 279,
+      "question": "How do I add a GNU Social?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 280,
+      "question": "Can I filter jobs by 'No Credit Checks'?",
+      "answer": "Check company reviews for financial screenings."
+    },
+    {
+      "id": 281,
+      "question": "What’s the 'Job Seeker Magic Spell'?",
+      "answer": "Fun 'incantations' (e.g., 'Recruiterus Contactus!')."
+    },
+    {
+      "id": 282,
+      "question": "How do I add a Pleroma?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 283,
+      "question": "Can I see which jobs are 'No Social Media Checks'?",
+      "answer": "Check company reviews for privacy policies."
+    },
+    {
+      "id": 284,
+      "question": "What’s the 'Resume Magic Trick'?",
+      "answer": "Fun illusion (e.g., 'Watch this bullet point disappear!')."
+    },
+    {
+      "id": 285,
+      "question": "How do I add a Movim?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 286,
+      "question": "Can I filter jobs by 'No GPA Requirements'?",
+      "answer": "Filter by 'Education' > 'No GPA Required'."
+    },
+    {
+      "id": 287,
+      "question": "What’s the 'Job Seeker Superpower'?",
+      "answer": "Fun quiz (e.g., 'Your power: Instant Cover Letters')."
+    },
+    {
+      "id": 288,
+      "question": "How do I add a Hubzilla?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 289,
+      "question": "Can I see which jobs are 'No Ageism'?",
+      "answer": "Check company reviews for diversity stats."
+    },
+    {
+      "id": 290,
+      "question": "What’s the 'Resume Superhero'?",
+      "answer": "Generates a hero persona from your skills (e.g., 'Captain Python')."
+    },
+    {
+      "id": 291,
+      "question": "How do I add a Streams?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 292,
+      "question": "Can I filter jobs by 'No Sexism'?",
+      "answer": "Check company reviews for inclusivity."
+    },
+    {
+      "id": 293,
+      "question": "What’s the 'Job Seeker Power-Up'?",
+      "answer": "Fun boosts (e.g., '+10 Confidence for interviews')."
+    },
+    {
+      "id": 294,
+      "question": "How do I add a SocialHome?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 295,
+      "question": "Can I see which jobs are 'No Racism'?",
+      "answer": "Check company reviews for DEI efforts."
+    },
+    {
+      "id": 296,
+      "question": "What’s the 'Resume Video Game'?",
+      "answer": "A mini-game where you 'level up' your career (beta)."
+    },
+    {
+      "id": 297,
+      "question": "How do I add a Misskey?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 298,
+      "question": "Can I filter jobs by 'No Ableism'?",
+      "answer": "Check company reviews for accessibility."
+    },
+    {
+      "id": 299,
+      "question": "What’s the 'Job Seeker RPG'?",
+      "answer": "A text adventure game about your job search (e.g., 'You encounter a tricky interview question')."
+    },
+    {
+      "id": 300,
+      "question": "How do I add a Plume?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 301,
+      "question": "Can I see which jobs are 'No LGBTQ+ Discrimination'?",
+      "answer": "Check company reviews for Pride ratings."
+    },
+    {
+      "id": 302,
+      "question": "What’s the 'Resume D&D Character'?",
+      "answer": "Generates a Dungeons & Dragons character based on your career (e.g., 'Class: DevOps Wizard')."
+    },
+    {
+      "id": 303,
+      "question": "How do I add a WriteFreely?",
+      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+    },
+    {
+      "id": 304,
+      "question": "Can I filter jobs by 'No Classism'?",
+      "answer": "Check company reviews for socioeconomic inclusivity."
+    },
+    {
+      "id": 305,
+      "question": "What’s the 'Job Seeker Loot Box'?",
+      "answer": "Fun random rewards (e.g., 'You found a LinkedIn connection!')."
+    },
+    {
+      "id": 306,
+      "question": "How do I add a PixelFed?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 307,
+      "question": "Can I see which jobs are 'No Sizeism'?",
+      "answer": "Check company reviews for body positivity."
+    },
+    {
+      "id": 308,
+      "question": "What’s the 'Resume Trading Cards'?",
+      "answer": "Collectible cards of your skills (e.g., 'Rare: Kubernetes Expert')."
+    },
+    {
+      "id": 309,
+      "question": "How do I add a Funkwhale?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 310,
+      "question": "Can I filter jobs by 'No Lookism'?",
+      "answer": "Check company reviews for appearance policies."
+    },
+    {
+      "id": 311,
+      "question": "What’s the 'Job Seeker Simulator'?",
+      "answer": "A parody game where you 'grind' applications (beta)."
+    },
+    {
+      "id": 312,
+      "question": "How do I add a Nextcloud?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 313,
+      "question": "Can I see which jobs are 'No Nepotism'?",
+      "answer": "Check company reviews for hiring fairness."
+    },
+    {
+      "id": 314,
+      "question": "What’s the 'Resume Emoji Translator'?",
+      "answer": "Converts your resume into emojis (e.g., '👨💻 + 🐍 = Python Dev')."
+    },
+    {
+      "id": 315,
+      "question": "How do I add a Jitsi?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 316,
+      "question": "Can I filter jobs by 'No Cronyism'?",
+      "answer": "Check company reviews for transparency."
+    },
+    {
+      "id": 317,
+      "question": "What’s the 'Job Seeker Escape Room'?",
+      "answer": "A puzzle game where you 'escape' unemployment (beta)."
+    },
+    {
+      "id": 318,
+      "question": "How do I add a BigBlueButton?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 319,
+      "question": "Can I see which jobs are 'No Favoritism'?",
+      "answer": "Check company reviews for promotion fairness."
+    },
+    {
+      "id": 320,
+      "question": "What’s the 'Resume ASCII Art'?",
+      "answer": "Converts your resume into text art (e.g., '> python3 resume.py')."
+    },
+    {
+      "id": 321,
+      "question": "How do I add a Matrix?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 322,
+      "question": "Can I filter jobs by 'No Gossip Culture'?",
+      "answer": "Check company reviews for workplace environment."
+    },
+    {
+      "id": 323,
+      "question": "What’s the 'Job Seeker Whac-A-Mole'?",
+      "answer": "A game where you 'hit' interview questions (beta)."
+    },
+    {
+      "id": 324,
+      "question": "How do I add a XMPP?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 325,
+      "question": "Can I see which jobs are 'No Toxic Positivity'?",
+      "answer": "Check company reviews for mental health policies."
+    },
+    {
+      "id": 326,
+      "question": "What’s the 'Resume Binary Code'?",
+      "answer": "Converts your skills into 1s and 0s (just for fun)."
+    },
+    {
+      "id": 327,
+      "question": "How do I add a IRC?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 328,
+      "question": "Can I filter jobs by 'No Burnout Culture'?",
+      "answer": "Check company reviews for work-life balance."
+    },
+    {
+      "id": 329,
+      "question": "What’s the 'Job Seeker Slot Machine'?",
+      "answer": "Spin for random job search tips (e.g., 'Networking!')."
+    },
+    {
+      "id": 330,
+      "question": "How do I add a SIP?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 331,
+      "question": "Can I see which jobs are 'No Quiet Firing'?",
+      "answer": "Check company reviews for retention rates."
+    },
+    {
+      "id": 332,
+      "question": "What’s the 'Resume QR Code'?",
+      "answer": "Generates a scannable QR code linking to your profile."
+    },
+    {
+      "id": 333,
+      "question": "How do I add a Mumble?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 334,
+      "question": "Can I filter jobs by 'No Ghosting'?",
+      "answer": "Check company reviews for response rates."
+    },
+    {
+      "id": 335,
+      "question": "What’s the 'Job Seeker Roulette'?",
+      "answer": "Spin to get a random job application challenge."
+    },
+    {
+      "id": 336,
+      "question": "How do I add a TeamSpeak?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 337,
+      "question": "Can I see which jobs are 'No Bait-and-Switch'?",
+      "answer": "Check company reviews for role accuracy."
+    },
+    {
+      "id": 338,
+      "question": "What’s the 'Resume Barcode'?",
+      "answer": "A fun barcode generator for your skills."
+    },
+    {
+      "id": 339,
+      "question": "How do I add a Ventrilo?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 340,
+      "question": "Can I filter jobs by 'No Exploding Offers'?",
+      "answer": "Check company reviews for hiring pressure."
+    },
+    {
+      "id": 341,
+      "question": "What’s the 'Job Seeker Dice'?",
+      "answer": "Roll for random actions (e.g., 'Apply to 3 jobs today')."
+    },
+    {
+      "id": 342,
+      "question": "How do I add a Discord?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 343,
+      "question": "Can I see which jobs are 'No Fake Titles'?",
+      "answer": "Check company reviews for role transparency."
+    },
+    {
+      "id": 344,
+      "question": "What’s the 'Resume Password Generator'?",
+      "answer": "Creates strong passwords from your skills (e.g., 'PyTh0nD3v!')."
+    },
+    {
+      "id": 345,
+      "question": "How do I add a Slack?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 346,
+      "question": "Can I filter jobs by 'No Fake Perks'?",
+      "answer": "Check company reviews for benefit honesty."
+    },
+    {
+      "id": 347,
+      "question": "What’s the 'Job Seeker Coin Flip'?",
+      "answer": "Heads: Apply to a job. Tails: Update your resume."
+    },
+    {
+      "id": 348,
+      "question": "How do I add a Skype?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 349,
+      "question": "Can I see which jobs are 'No Fake Hybrid Work'?",
+      "answer": "Check company reviews for remote honesty."
+    },
+    {
+      "id": 350,
+      "question": "What’s the 'Resume Encryption'?",
+      "answer": "A joke 'encryption' of your resume (e.g., 'DevOps → D3v0p5')."
+    },
+    {
+      "id": 351,
+      "question": "How do I add a Zoom?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 352,
+      "question": "Can I filter jobs by 'No Fake Startups'?",
+      "answer": "Check company reviews for funding transparency."
+    },
+    {
+      "id": 353,
+      "question": "What’s the 'Job Seeker Tarot'?",
+      "answer": "Draw a card for job search advice (e.g., 'The Tower: Expect rejection')."
+    },
+    {
+      "id": 354,
+      "question": "How do I add a Google Meet?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 355,
+      "question": "Can I see which jobs are 'No Fake Equity'?",
+      "answer": "Check company reviews for stock option clarity."
+    },
+    {
+      "id": 356,
+      "question": "What’s the 'Resume Lorem Ipsum'?",
+      "answer": "A placeholder version of your resume (for testing)."
+    },
+    {
+      "id": 357,
+      "question": "How do I add a Microsoft Teams?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 358,
+      "question": "Can I filter jobs by 'No Fake Promotions'?",
+      "answer": "Check company reviews for career path honesty."
+    },
+    {
+      "id": 359,
+      "question": "What’s the 'Job Seeker RNG'?",
+      "answer": "Random number generator for decisions (e.g., 'Apply to job #7')."
+    },
+    {
+      "id": 360,
+      "question": "How do I add a Cisco Webex?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 361,
+      "question": "Can I see which jobs are 'No Fake Culture'?",
+      "answer": "Check company reviews for culture honesty."
+    },
+    {
+      "id": 362,
+      "question": "What’s the 'Resume Checksum'?",
+      "answer": "A fake 'checksum' for your resume (e.g., 'Skills: 0x3F2A1')."
+    },
+    {
+      "id": 363,
+      "question": "How do I add a BlueJeans?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 364,
+      "question": "Can I filter jobs by 'No Fake DEI'?",
+      "answer": "Check company reviews for diversity efforts."
+    },
+    {
+      "id": 365,
+      "question": "What’s the 'Job Seeker Magic Conch'?",
+      "answer": "Ask yes/no questions (e.g., 'Should I negotiate?')."
+    },
+    {
+      "id": 366,
+      "question": "How do I add a GoToMeeting?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 367,
+      "question": "Can I see which jobs are 'No Fake ESG'?",
+      "answer": "Check company reviews for sustainability."
+    },
+    {
+      "id": 368,
+      "question": "What’s the 'Resume UUID'?",
+      "answer": "A fun unique ID for your resume (e.g., 'RES-UME-1234')."
+    },
+    {
+      "id": 369,
+      "question": "How do I add a Jami?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 370,
+      "question": "Can I filter jobs by 'No Fake B-Corp'?",
+      "answer": "Check company reviews for certification legitimacy."
+    },
+    {
+      "id": 371,
+      "question": "What’s the 'Job Seeker Magic Beans'?",
+      "answer": "Fun 'beans' that grow into job tips (e.g., 'Water this bean to reveal a networking tip')."
+    },
+    {
+      "id": 372,
+      "question": "How do I add a Signal?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 373,
+      "question": "Can I see which jobs are 'No Fake Impact'?",
+      "answer": "Check company reviews for mission alignment."
+    },
+    {
+      "id": 374,
+      "question": "What’s the 'Resume Hash'?",
+      "answer": "A fake 'hash' of your resume (e.g., 'SHA-Resume-123')."
+    },
+    {
+      "id": 375,
+      "question": "How do I add a Wire?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 376,
+      "question": "Can I filter jobs by 'No Fake Greenwashing'?",
+      "answer": "Check company reviews for environmental claims."
+    },
+    {
+      "id": 377,
+      "question": "What’s the 'Job Seeker Magic Lamp'?",
+      "answer": "Rub for 'genie' job advice (e.g., 'Your next interview is in 3 days')."
+    },
+    {
+      "id": 378,
+      "question": "How do I add a Threema?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 379,
+      "question": "Can I see which jobs are 'No Fake Charity'?",
+      "answer": "Check company reviews for philanthropic transparency."
+    },
+    {
+      "id": 380,
+      "question": "What’s the 'Resume GUID'?",
+      "answer": "A fun global ID for your resume (e.g., 'RES-UME-GUID')."
+    },
+    {
+      "id": 381,
+      "question": "How do I add a Session?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 382,
+      "question": "Can I filter jobs by 'No Fake Volunteering'?",
+      "answer": "Check company reviews for volunteer policies."
+    },
+    {
+      "id": 383,
+      "question": "What’s the 'Job Seeker Magic Mirror'?",
+      "answer": "Ask it who’s the best candidate (spoiler: it’s you)."
+    },
+    {
+      "id": 384,
+      "question": "How do I add a Status?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 385,
+      "question": "Can I see which jobs are 'No Fake Mentorship'?",
+      "answer": "Check company reviews for growth programs."
+    },
+    {
+      "id": 386,
+      "question": "What’s the 'Resume DNA'?",
+      "answer": "A fun 'DNA sequence' of your skills (e.g., 'SKL-PYT-DEV')."
+    },
+    {
+      "id": 387,
+      "question": "How do I add a Briar?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 388,
+      "question": "Can I filter jobs by 'No Fake Training'?",
+      "answer": "Check company reviews for L&D budgets."
+    },
+    {
+      "id": 389,
+      "question": "What’s the 'Job Seeker Magic Potion'?",
+      "answer": "Fun 'potions' (e.g., 'Potion of Confidence: +5 Charisma')."
+    },
+    {
+      "id": 390,
+      "question": "How do I add a Tox?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 391,
+      "question": "Can I see which jobs are 'No Fake Wellness'?",
+      "answer": "Check company reviews for health program quality."
+    },
+    {
+      "id": 392,
+      "question": "What’s the 'Resume RNA'?",
+      "answer": "A joke 'RNA' version of your resume (e.g., 'Translate skills into proteins')."
+    },
+    {
+      "id": 393,
+      "question": "How do I add a RetroShare?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 394,
+      "question": "Can I filter jobs by 'No Fake Sabbaticals'?",
+      "answer": "Check company reviews for sabbatical policies."
+    },
+    {
+      "id": 395,
+      "question": "What’s the 'Job Seeker Magic Scroll'?",
+      "answer": "Unroll for random advice (e.g., 'Network before applying')."
+    },
+    {
+      "id": 396,
+      "question": "How do I add a Ring?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 397,
+      "question": "Can I see which jobs are 'No Fake Unlimited PTO'?",
+      "answer": "Check company reviews for PTO usage rates."
+    },
+    {
+      "id": 398,
+      "question": "What’s the 'Resume Genome Project'?",
+      "answer": "A fun 'study' of your career DNA."
+    },
+    {
+      "id": 399,
+      "question": "How do I add a Jitsi?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 400,
+      "question": "Can I filter jobs by 'No Fake Parental Leave'?",
+      "answer": "Check company reviews for leave policies."
+    },
+    {
+      "id": 401,
+      "question": "What’s the 'Job Seeker Magic Wand'?",
+      "answer": "Wave it for 'magic' job search help (e.g., 'LinkedIn connections appear!')."
+    },
+    {
+      "id": 402,
+      "question": "How do I add a Linphone?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 403,
+      "question": "Can I see which jobs are 'No Fake Pet Insurance'?",
+      "answer": "Check company reviews for pet benefits."
+    },
+    {
+      "id": 404,
+      "question": "What’s the 'Resume Cloning'?",
+      "answer": "A joke about 'cloning' your perfect resume."
+    },
+    {
+      "id": 405,
+      "question": "How do I add a Mumble?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 406,
+      "question": "Can I filter jobs by 'No Fake Lunch Budgets'?",
+      "answer": "Check company reviews for meal perks."
+    },
+    {
+      "id": 407,
+      "question": "What’s the 'Job Seeker Magic Book'?",
+      "answer": "Flip to a random page for tips (e.g., 'Chapter 3: Negotiation')."
+    },
+    {
+      "id": 408,
+      "question": "How do I add a Zoiper?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 409,
+      "question": "Can I see which jobs are 'No Fake Gym Memberships'?",
+      "answer": "Check company reviews for fitness benefits."
+    },
+    {
+      "id": 410,
+      "question": "What’s the 'Resume Mutation'?",
+      "answer": "A fun 'mutation' of your skills (e.g., 'Python → Pyraptor')."
+    },
+    {
+      "id": 411,
+      "question": "How do I add a MicroSIP?",
+      "answer": "Profile > 'Edit' > 'Social Links'."
+    },
+    {
+      "id": 412,
+      "question": "Can I filter jobs by 'No Fake Commuter Benefits'?",
+      "answer": "Check company reviews for transit perks."
+    },
+    {
+      "id": 413,
+      "question": "What’s the 'Job Seeker Magic Cauldron'?",
+      "answer": "Bubble up random job leads (e.g., '3 new matches!')."
+    } ]}
