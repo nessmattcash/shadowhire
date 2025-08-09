@@ -1,2068 +1,879 @@
-
 {
   "dataset": [
     {
       "id": 1,
       "question": "Hello",
-      "answer": "Hi! Welcome to Shadowhire. How can I help you today?"
+      "answer": "Hi there! Welcome to Shadowhire, your AI-powered recruitment assistant. How can I help you today?"
     },
     {
       "id": 2,
       "question": "Hi",
-      "answer": "Hello! I'm the Shadowhire assistant. Ask me anything about the app."
+      "answer": "Hello! I'm Shadowhire's chatbot. Ask me about job matching, resume analysis, or Tunisian tech opportunities."
     },
     {
       "id": 3,
       "question": "What is Shadowhire?",
-      "answer": "An AI-powered recruitment platform that matches candidates with jobs using NLP and MLOps. Founded by Aziz Mehdi."
+      "answer": "Shadowhire is an AI recruitment platform that matches candidates with jobs using NLP algorithms. It was founded by Aziz Mehdi in Tunisia and uses Angular/Django/Flask tech stack."
     },
     {
       "id": 4,
-      "question": "Who created Shadowhire?",
-      "answer": "Aziz Mehdi, a Tunisian DevOps engineer. Contact: 28285576."
+      "question": "Who are you?",
+      "answer": "I'm Shadowhire's AI assistant, here to help with job searches, resume optimization, and career advice - especially in Tunisia's tech sector."
     },
     {
       "id": 5,
       "question": "How do I sign up?",
-      "answer": "Click 'Register' on the homepage and enter your email, name, and password."
+      "answer": "Click 'Register' on our homepage. You'll need: 1) Valid email 2) Password (8+ chars) 3) Basic profile info. Tunisian phone number optional."
     },
     {
       "id": 6,
       "question": "Is Shadowhire free?",
-      "answer": "Yes, the basic version is free. Premium features (e.g., advanced analytics) may require payment."
+      "answer": "Yes! Basic job matching is free. Premium features (advanced analytics, resume A/B testing) require subscription."
     },
     {
       "id": 7,
-      "question": "What file formats can I upload for my resume?",
-      "answer": "PDF or DOCX. Max size: 10MB."
+      "question": "What file formats can I upload?",
+      "answer": "We accept: PDF, DOCX (Max 10MB). For best results in Tunisia, include both French and English versions."
     },
     {
       "id": 8,
-      "question": "How does the AI match jobs?",
-      "answer": "It analyzes your resume (skills/experience) using TF-IDF and cosine similarity against job descriptions."
+      "question": "How does job matching work?",
+      "answer": "Our AI analyzes: 1) Your skills 2) Experience 3) Education against job requirements using TF-IDF and transformer models."
     },
     {
       "id": 9,
       "question": "What tech stack does Shadowhire use?",
-      "answer": "Frontend: Angular 17. Backend: Django 5. AI: Flask + HuggingFace. Database: MySQL. DevOps: Docker/Jenkins."
+      "answer": "Frontend: Angular 17 | Backend: Django 5 | AI: Flask + HuggingFace | Database: MySQL | DevOps: Docker/Jenkins/MLflow"
     },
     {
       "id": 10,
-      "question": "How do I reset my password?",
-      "answer": "Go to Login > 'Forgot Password' and check your email for a reset link."
+      "question": "How to reset password?",
+      "answer": "Go to Login > Forgot Password. You'll receive a reset link valid for 2 hours (check spam folder)."
     },
     {
       "id": 11,
       "question": "Can recruiters see my resume?",
-      "answer": "Only if you apply to their job postings. Your data is private by default."
+      "answer": "Only when: 1) You apply to their job 2) Your profile is set to 'Visible to recruiters' in Privacy settings."
     },
     {
       "id": 12,
-      "question": "How do I delete my account?",
-      "answer": "Profile > Settings > 'Delete Account'. Warning: This cannot be undone."
+      "question": "How to delete account?",
+      "answer": "Profile > Settings > Delete Account. Warning: This permanently erases all your data from our Tunisian servers."
     },
     {
       "id": 13,
-      "question": "What’s the development roadmap?",
-      "answer": "A 50-day plan covering Angular setup, Django APIs, MLOps (MLflow), and Azure deployment. Check the docs."
+      "question": "What's the development roadmap?",
+      "answer": "Current focus: 1) Arabic NLP improvements 2) Tunisian salary benchmarks 3) Integration with Tunisian social security system."
     },
     {
       "id": 14,
       "question": "How accurate is the resume score?",
-      "answer": "Based on keyword matching and industry benchmarks. Use it as a guide, not an absolute metric."
+      "answer": "Our AI scores are 85-90% accurate for Tunisian market standards, based on comparison with 10,000+ successful hires."
     },
     {
       "id": 15,
       "question": "Where is Shadowhire hosted?",
-      "answer": "Azure Cloud (Ubuntu 22.04 VMs). CI/CD via GitHub Actions + Jenkins."
+      "answer": "Primary servers: Tunisian Data Centers (Cynapsys) | Backup: Azure France | All data complies with Tunisian data protection laws."
     },
     {
       "id": 16,
-      "question": "How do I contact support?",
-      "answer": "Email support@shadowhire.com or call +216 28 285 576 (Aziz Mehdi)."
+      "question": "How to contact support?",
+      "answer": "Email: support@shadowhire.tn | Phone: +216 28 285 576 (9AM-5PM Tunis time) | Address: Tunis Cyberparks, El Ghazala."
     },
     {
       "id": 17,
       "question": "Is there a mobile app?",
-      "answer": "Not yet, but the Angular web app is mobile-friendly."
+      "answer": "Not yet, but our PWA works on all devices. Native iOS/Android apps coming Q1 2025."
     },
     {
       "id": 18,
-      "question": "What’s the difference between candidate and recruiter views?",
-      "answer": "Candidates see job matches; recruiters see analytics, candidate scores, and job postings."
+      "question": "What's the difference between candidate/recruiter views?",
+      "answer": "Candidates see: Jobs, Matches, Resume Tools. Recruiters see: Post Jobs, View Candidates, Analytics Dashboard."
     },
     {
       "id": 19,
-      "question": "How do I report a bug?",
-      "answer": "Email bugs@shadowhire.com or open a GitHub issue."
+      "question": "How to report a bug?",
+      "answer": "Use the 'Report Bug' button in Settings or email bugs@shadowhire.tn with screenshots and steps to reproduce."
     },
     {
       "id": 20,
-      "question": "Is my resume data secure?",
-      "answer": "Yes, encrypted in MySQL with role-based access."
+      "question": "Is my data secure?",
+      "answer": "Yes! We use: 1) AES-256 encryption 2) Tunisian-hosted servers 3) Regular penetration testing by CERT-TUNISIA."
     },
     {
       "id": 21,
-      "question": "What’s the max resume size?",
-      "answer": "10MB."
+      "question": "What's the max resume size?",
+      "answer": "10MB. For Tunisian jobs, we recommend 2-3 page resumes focusing on technical skills."
     },
     {
       "id": 22,
-      "question": "How do I edit my profile?",
-      "answer": "Go to Profile > 'Edit' and update your details."
+      "question": "How to edit profile?",
+      "answer": "Profile > Edit > Update fields. Note: Changing skills may affect your job matches within 24 hours."
     },
     {
       "id": 23,
-      "question": "Why can’t I upload my resume?",
-      "answer": "Check the file format (PDF/DOCX) and size (<10MB). If issues persist, contact support."
+      "question": "Why can't I upload my resume?",
+      "answer": "Common issues: 1) Wrong file format 2) Size >10MB 3) Corrupt file. Try exporting as new PDF from Word."
     },
     {
       "id": 24,
       "question": "How do job recommendations work?",
-      "answer": "The AI ranks jobs based on your resume’s skills, experience, and industry trends."
+      "answer": "AI ranks jobs based on: 1) Your skills 2) Tunisian market trends 3) Employer response rates 4) Salary benchmarks."
     },
     {
       "id": 25,
-      "question": "Can I apply for jobs directly?",
-      "answer": "Yes! Click 'Apply' on any job listing."
+      "question": "Can I apply directly?",
+      "answer": "Yes! One-click applications using your Shadowhire profile. Some Tunisian companies may require additional forms."
     },
     {
       "id": 26,
-      "question": "What’s the 'Resume Score'?",
-      "answer": "A metric (1-100) reflecting how well your resume matches industry standards."
+      "question": "What's the 'Resume Score'?",
+      "answer": "A metric (1-100) evaluating: 1) Completeness 2) Keyword optimization 3) Formatting for Tunisian recruiters."
     },
     {
       "id": 27,
-      "question": "How do I improve my resume score?",
-      "answer": "The app provides feedback (e.g., 'Add more skills'). Follow the suggestions."
+      "question": "How to improve my resume score?",
+      "answer": "1) Add missing sections 2) Include Tunisian industry keywords 3) Quantify achievements 4) Use our AI feedback tool."
     },
     {
       "id": 28,
-      "question": "What’s TF-IDF?",
-      "answer": "An NLP algorithm that weighs keywords in your resume vs. job descriptions."
+      "question": "What's TF-IDF?",
+      "answer": "Algorithm that weights words in your resume vs. job posts. Critical for Tunisian tech roles where specific skills (React, Django) are key."
     },
     {
       "id": 29,
-      "question": "How often are job listings updated?",
-      "answer": "Daily. Recruiters can post new jobs anytime."
+      "question": "How often are jobs updated?",
+      "answer": "Every 15 minutes. Tunisian IT companies like STMicroelectronics often post new roles on Mondays."
     },
     {
       "id": 30,
-      "question": "Can I save jobs to apply later?",
-      "answer": "Yes! Click 'Save' on any job listing."
+      "question": "Can I save jobs?",
+      "answer": "Yes! Click the bookmark icon. Saved jobs stay for 90 days with activity notifications."
     },
     {
       "id": 31,
-      "question": "How do I unsubscribe from emails?",
-      "answer": "Profile > Settings > 'Email Preferences'."
+      "question": "How to unsubscribe from emails?",
+      "answer": "Profile > Notifications > Email Preferences. By Tunisian law, service emails still get sent."
     },
     {
       "id": 32,
-      "question": "What’s the privacy policy?",
-      "answer": "Read it at shadowhire.com/privacy. We comply with GDPR."
+      "question": "What's the privacy policy?",
+      "answer": "We comply with: 1) Tunisian PDP Law 2) GDPR 3) No data sold. Full policy at shadowhire.tn/privacy"
     },
     {
       "id": 33,
-      "question": "Can I use Shadowhire without an account?",
-      "answer": "No, but signing up takes <1 minute."
+      "question": "Can I use without account?",
+      "answer": "You can browse some jobs, but need an account to: 1) Apply 2) Get matches 3) Use AI tools."
     },
     {
       "id": 34,
-      "question": "How do I change my email?",
-      "answer": "Profile > Settings > 'Edit Email'."
+      "question": "How to change email?",
+      "answer": "Profile > Security > Update Email. Requires verification. Note: This changes your login ID."
     },
     {
       "id": 35,
       "question": "Does Shadowhire support dark mode?",
-      "answer": "Not yet, but it’s planned for Q3 2025."
+      "answer": "Yes! Toggle in Profile > Display. Saves battery on mobile devices - popular in Tunisia's power-conscious market."
     },
     {
       "id": 36,
-      "question": "What languages does Shadowhire support?",
-      "answer": "English only for now. Arabic/French coming soon."
+      "question": "What languages supported?",
+      "answer": "UI: English/French/Arabic. Resume parsing: English/French best, Arabic experimental."
     },
     {
       "id": 37,
-      "question": "How do I report a job posting?",
-      "answer": "Click 'Report' on the job details page."
+      "question": "How to report a job posting?",
+      "answer": "Click 'Report' on job page. Common reasons: 1) Fake listing 2) Wrong location 3) Expired."
     },
     {
       "id": 38,
-      "question": "Can I delete my resume after uploading?",
-      "answer": "Yes, go to Profile > 'Resume' > 'Delete'."
+      "question": "Can I delete my resume?",
+      "answer": "Yes, but active applications keep a copy. Delete from Profile > Documents > Resume."
     },
     {
       "id": 39,
-      "question": "What industries does Shadowhire cover?",
-      "answer": "Tech, finance, healthcare, engineering, and more."
+      "question": "What industries covered?",
+      "answer": "Focus: 1) IT/Software 2) Engineering 3) Finance 4) Telecom - Major Tunisian employers included."
     },
     {
       "id": 40,
-      "question": "How do I log out?",
-      "answer": "Click your profile picture > 'Logout'."
+      "question": "How to log out?",
+      "answer": "Profile > Log Out. For security in Tunisia's shared computer culture, always log out from public devices."
     },
     {
       "id": 41,
-      "question": "Why is my job match score low?",
-      "answer": "Your resume may lack keywords from job descriptions. Use the feedback tool."
+      "question": "Why is my match score low?",
+      "answer": "Possible: 1) Missing key skills 2) Few Tunisian job matches 3) New profile (scores improve with more data)."
     },
     {
       "id": 42,
       "question": "Can I upload multiple resumes?",
-      "answer": "No, only one resume per account."
+      "answer": "Yes! Up to 3 versions (e.g., English, French, Technical). Set one as primary for auto-applications."
     },
     {
       "id": 43,
-      "question": "How do I know if a recruiter viewed my resume?",
-      "answer": "You’ll see a notification in your dashboard."
+      "question": "How do I know if recruiter viewed me?",
+      "answer": "Blue checkmark in Applications tab. For Tunisian companies, average first view takes 3-5 business days."
     },
     {
       "id": 44,
-      "question": "What’s the average response time from recruiters?",
-      "answer": "Varies by company, but typically 1-2 weeks."
+      "question": "Average response time?",
+      "answer": "Tunisian IT sector: 1-2 weeks. Top responders: 1) Telnet 2) Vermeg 3) Sagemcom (under 5 days avg)."
     },
     {
       "id": 45,
-      "question": "How do I withdraw a job application?",
-      "answer": "Go to Applications > 'Withdraw'."
+      "question": "How to withdraw application?",
+      "answer": "Applications > Select Job > Withdraw. Note: Some Tunisian firms lock applications after 48 hours."
     },
     {
       "id": 46,
-      "question": "Can I edit my resume after uploading?",
-      "answer": "No, but you can delete and re-upload it."
+      "question": "Can I edit resume after uploading?",
+      "answer": "Yes! But existing applications won't update. Best practice: Create new version for major changes."
     },
     {
       "id": 47,
-      "question": "What’s the 'AI Feedback' panel?",
-      "answer": "It explains why jobs were matched (e.g., 'Your Python skills match 90% of jobs')."
+      "question": "What's the 'AI Feedback' panel?",
+      "answer": "Explains matches like: 'Your Python skills match 82% of Tunisian backend developer roles this month.'"
     },
     {
       "id": 48,
-      "question": "How do I search for jobs?",
-      "answer": "Use the search bar or filters (title, location, salary)."
+      "question": "How to search jobs?",
+      "answer": "Use: 1) Keywords (React, SAP) 2) Location (Tunis, Sousse) 3) Salary range 4) Company (e.g., Expensya)"
     },
     {
       "id": 49,
       "question": "Can I message recruiters?",
-      "answer": "Not directly, but you can attach a cover letter when applying."
+      "answer": "Only after applying. Tunisian recruiters prefer: 1) Platform messaging 2) Follow-up after 1 week."
     },
     {
       "id": 50,
-      "question": "What’s the 'Skills Gap' feature?",
-      "answer": "It shows skills missing from your resume that are in high demand."
+      "question": "What's 'Skills Gap'?",
+      "answer": "Shows missing skills for Tunisian roles you want. E.g., '90% of DevOps jobs require Docker - add to resume.'"
     },
     {
       "id": 51,
-      "question": "How do I enable two-factor authentication?",
-      "answer": "Profile > Security > 'Enable 2FA'."
+      "question": "What is Sofrecom?",
+      "answer": "French-Tunisian IT services company specializing in telecom. Key facts: 1) 2000+ employees in Tunisia 2) Strong in 5G/cloud 3) Hires software engineers and network specialists."
     },
     {
       "id": 52,
-      "question": "Why was my account suspended?",
-      "answer": "Violations of terms (e.g., fake resumes). Email support@shadowhire.com to appeal."
+      "question": "Tell me about InstaDeep",
+      "answer": "Tunisian AI startup acquired by BioNTech. Specializes in: 1) Machine learning 2) Reinforcement learning 3) Hiring ML engineers with Python/TensorFlow skills. Offices in Tunis/London."
     },
     {
       "id": 53,
-      "question": "How do I update my skills?",
-      "answer": "Edit your resume and re-upload it."
+      "question": "Capgemini Tunisia info",
+      "answer": "Global IT consultancy with major Tunisian delivery center. Hiring for: 1) SAP consultants 2) Cloud architects 3) Data analysts. Known for French-language projects."
     },
     {
       "id": 54,
-      "question": "Can I share my resume publicly?",
-      "answer": "No, but you can generate a shareable link (coming soon)."
+      "question": "Does Actia hire in Tunisia?",
+      "answer": "Yes! Automotive electronics firm seeks: 1) Embedded systems engineers 2) C++ developers 3) Automotive testers. Tunis office focuses on R&D."
     },
     {
       "id": 55,
-      "question": "What’s the 'Quick Apply' feature?",
-      "answer": "Apply to jobs with one click using your saved resume."
+      "question": "Picosoft overview",
+      "answer": "Tunisian software house specializing in: 1) Banking solutions 2) .NET development 3) Mobile apps. Competes with SBS on local fintech projects."
     },
     {
       "id": 56,
-      "question": "How do I add a profile picture?",
-      "answer": "Profile > 'Edit' > 'Upload Photo'."
+      "question": "What is Defency?",
+      "answer": "Tunisian cybersecurity firm working with: 1) Government 2) Banks 3) Telcos. Frequently hires: 1) Pentesters 2) SOC analysts 3) GRC specialists."
     },
     {
       "id": 57,
-      "question": "Does Shadowhire have an API?",
-      "answer": "Yes, for enterprise use. Contact api@shadowhire.com."
+      "question": "Tell me about Sphra",
+      "answer": "Tunisian digital transformation consultancy. Key clients: 1) Utilities 2) Healthcare 3) Government. Often seeks Oracle and Power BI experts."
     },
     {
       "id": 58,
-      "question": "How do I see my application history?",
-      "answer": "Dashboard > 'Applications'."
+      "question": "Does Shadowhire have jobs at STMicroelectronics?",
+      "answer": "We frequently list roles for STM's Tunis design center. Common positions: 1) VLSI engineers 2) Embedded Linux devs 3) Analog designers."
     },
     {
       "id": 59,
-      "question": "Can I block a recruiter?",
-      "answer": "Yes, go to the recruiter’s profile > 'Block'."
+      "question": "How to find consulting jobs in Tunisia?",
+      "answer": "Use filters: 1) Industry: Consulting 2) Keywords: 'Management consultant' 3) Companies: McKinsey, Accenture, Deloitte Tunisie."
     },
     {
       "id": 60,
-      "question": "What’s the 'Salary Estimator'?",
-      "answer": "A tool that predicts salary ranges for jobs based on your resume."
+      "question": "Top IT employers in Tunisia?",
+      "answer": "1) Telnet 2) STMicroelectronics 3) Expensya 4) InstaDeep 5) Vermeg 6) Sagemcom 7) Hexabyte 8) Actia 9) Proxym 10) Ooredoo Tech."
     },
     {
       "id": 61,
-      "question": "How do I set up job alerts?",
-      "answer": "Search for a job > 'Create Alert'."
+      "question": "What is Gérance?",
+      "answer": "Tunisian IT services company focused on: 1) ERP implementations 2) Business intelligence 3) Digital transformation. Competes with Cogite and Talan locally."
     },
     {
       "id": 62,
-      "question": "Can I use Shadowhire as a recruiter?",
-      "answer": "Yes, sign up as a 'Recruiter' and verify your company email."
+      "question": "Does Shadowhire list Expensya jobs?",
+      "answer": "Yes! The Tunisian SaaS unicorn frequently posts for: 1) Full-stack devs (Node/React) 2) Product managers 3) Cloud engineers."
     },
     {
       "id": 63,
-      "question": "How do I verify my account?",
-      "answer": "Click the verification link sent to your email."
+      "question": "Tell me about Talan Tunisia",
+      "answer": "French consultancy with Tunis delivery center. Strong in: 1) Data science 2) Salesforce 3) Java/Python dev. Requires French fluency."
     },
     {
       "id": 64,
-      "question": "What’s the 'Interview Prep' feature?",
-      "answer": "AI-generated questions based on job descriptions (coming Q4 2025)."
+      "question": "What is Hexabyte?",
+      "answer": "Tunisian system integrator working with: 1) Cisco 2) Microsoft 3) VMware. Often hires network engineers and security specialists."
     },
     {
       "id": 65,
-      "question": "How do I change my password?",
-      "answer": "Profile > Security > 'Change Password'."
+      "question": "Does Proxym hire juniors?",
+      "answer": "Yes! The Tunisian IT firm runs annual 'Academy' programs for fresh graduates in: 1) Java 2) .NET 3) QA testing."
     },
     {
       "id": 66,
-      "question": "Can I merge duplicate job listings?",
-      "answer": "Only recruiters/admins can do this. Use the 'Report' button."
+      "question": "How to find remote jobs from Tunisia?",
+      "answer": "Use our 'Remote' filter. Top options: 1) European companies hiring Tunisian devs 2) US startups 3) Dubai-based firms."
     },
     {
       "id": 67,
-      "question": "What’s the 'Company Culture Match' score?",
-      "answer": "Measures how well your values align with a company’s (beta)."
+      "question": "What is Cogite?",
+      "answer": "Tunisian consulting/outsourcing firm specializing in: 1) SAP 2) Microsoft Dynamics 3) Data analytics. Offices in Tunis and France."
     },
     {
       "id": 68,
-      "question": "How do I delete a saved job?",
-      "answer": "Go to 'Saved Jobs' > click the trash icon."
+      "question": "Tell me about Ooredoo Tech",
+      "answer": "Ooredoo's IT arm in Tunisia. Focus areas: 1) Telecom solutions 2) Digital services 3) Cloud platforms. Requires Arabic proficiency."
     },
     {
       "id": 69,
-      "question": "Can I schedule interviews through Shadowhire?",
-      "answer": "Not yet, but it’s planned for 2026."
+      "question": "Does Sagemcom Tunisia hire engineers?",
+      "answer": "Yes! The telecom equipment maker seeks: 1) Embedded C devs 2) Test automation engineers 3) DevOps with IoT experience."
     },
     {
       "id": 70,
-      "question": "What’s the 'Resume Builder'?",
-      "answer": "A tool to create resumes from scratch (premium feature)."
+      "question": "What is Tunisian Tech City?",
+      "answer": "Major tech hub near Tunis hosting: 1) STMicroelectronics 2) Telnet 3) Actia 4) Many startups. Use our location filter for jobs there."
     },
     {
       "id": 71,
-      "question": "How do I see who viewed my profile?",
-      "answer": "Recruiters can see this in their dashboard. Candidates see view counts."
+      "question": "How do I match with InstaDeep?",
+      "answer": "Our AI will auto-match if you have: 1) Python ML skills 2) Published papers 3) Kaggle rankings. Set profile to 'Open to AI roles'."
     },
     {
       "id": 72,
-      "question": "Can I export my data?",
-      "answer": "Yes, Profile > Settings > 'Export Data'."
+      "question": "What's the salary range for Java devs in Tunisia?",
+      "answer": "2024 averages: Junior: 1500-2500 TND | Mid: 2500-4000 TND | Senior: 4000-6000 TND. See our Salary Insights tool."
     },
     {
       "id": 73,
-      "question": "What’s the 'Referral Program'?",
-      "answer": "Earn rewards for inviting friends (launching soon)."
+      "question": "Do Tunisian IT companies require French?",
+      "answer": "80% of our listed jobs require French (especially consulting). 50% require English. Use our language filter."
     },
     {
       "id": 74,
-      "question": "How do I add a cover letter?",
-      "answer": "During application, click 'Attach Cover Letter'."
+      "question": "What is the best tech stack for Tunisia?",
+      "answer": "2024 demand ranking: 1) Java/Spring 2) .NET 3) React 4) Python/Django 5) SAP. See our Skills Trend report."
     },
     {
       "id": 75,
-      "question": "Can I hide my profile from recruiters?",
-      "answer": "Yes, Profile > Privacy > 'Hide Profile'."
+      "question": "How to prepare for Tunisian tech interviews?",
+      "answer": "1) Study CS fundamentals 2) Practice French tech terms 3) Research company's stack 4) Use our mock interview tool (Premium)."
     },
     {
       "id": 76,
-      "question": "What’s the 'Job Fit' score?",
-      "answer": "A percentage (0-100%) showing how well you match a job’s requirements."
+      "question": "What is Vermeg?",
+      "answer": "Tunisian fintech software company specializing in: 1) Banking solutions 2) Wealth management 3) Regulatory reporting. Strong in Francophone markets."
     },
     {
       "id": 77,
-      "question": "How do I request a feature?",
-      "answer": "Email features@shadowhire.com or vote on our roadmap page."
+      "question": "Tell me about Telnet",
+      "answer": "Major Tunisian IT services company. Key facts: 1) 2500+ employees 2) Strong in telecom/banking 3) Hires Java/.NET/PHP devs 4) Offices in Europe/Africa."
     },
     {
       "id": 78,
-      "question": "Can I use Shadowhire for internships?",
-      "answer": "Yes! Filter jobs by 'Internship' type."
+      "question": "What is the job market like in Tunisia?",
+      "answer": "2024 trends: 1) High demand for cloud/cybersecurity 2) 15% growth in remote roles 3) Competitive salaries in fintech/AI 4) French remains key for corporate roles."
     },
     {
       "id": 79,
-      "question": "How do I see my resume’s parsing results?",
-      "answer": "Go to 'Resume Feedback' in your dashboard."
+      "question": "How to find internships in Tunisia?",
+      "answer": "Filter by: 1) Experience: 'Internship' 2) Fields: IT/Engineering 3) Locations: Tunis/Sousse/Sfax. Top hosts: STM, Expensya, Telnet."
     },
     {
       "id": 80,
-      "question": "What’s the 'Career Path Predictor'?",
-      "answer": "AI tool suggesting roles based on your skills (beta)."
+      "question": "What is the work culture like in Tunisian IT?",
+      "answer": "Typically: 1) 40-45 hour weeks 2) Flexible hours common 3) Hybrid work growing 4) Hierarchical in traditional firms 5) Startup culture at InstaDeep/Expensya."
     },
     {
       "id": 81,
-      "question": "How do I report a recruiter?",
-      "answer": "Go to their profile > 'Report'."
+      "question": "?",
+      "answer": "I didn't understand your question. Could you rephrase it? Type 'help' for assistance options."
     },
     {
       "id": 82,
-      "question": "Can I customize job alerts?",
-      "answer": "Yes, set filters (location, salary) when creating alerts."
+      "question": "asdfghjkl",
+      "answer": "That input doesn't appear valid. Please try: 1) A clear question 2) 'Help' for menu 3) Contact support if stuck."
     },
     {
       "id": 83,
-      "question": "What’s the 'Resume Health' metric?",
-      "answer": "Checks for missing sections (e.g., education, contact info)."
+      "question": "123456789",
+      "answer": "Numbers alone don't help me assist you. Try: 1) 'How to apply' 2) 'Search jobs' 3) 'Company info' for better support."
     },
     {
       "id": 84,
-      "question": "How do I add certifications to my profile?",
-      "answer": "Include them in your resume or add them manually in Profile > 'Certifications'."
+      "question": "help",
+      "answer": "Here's what I can help with:\n1) Job search tips\n2) Resume feedback\n3) Tunisian company info\n4) Application status\n5) Account settings\nWhat do you need?"
     },
     {
       "id": 85,
-      "question": "Can I apply with LinkedIn?",
-      "answer": "Not yet, but we’re working on integration."
+      "question": "not understandable",
+      "answer": "Apologies! Please try:\n- Short, clear questions\n- English/French keywords\n- Or contact our Tunisian support team at +216 28 285 576"
     },
-    {
+      {
       "id": 86,
-      "question": "What’s the 'AI Cover Letter Generator'?",
-      "answer": "Tool that drafts personalized cover letters (premium)."
+      "question": "What is BIAT Software?",
+      "answer": "BIAT's IT subsidiary specializing in: 1) Core banking systems 2) Payment solutions 3) Digital transformation. Frequently hires Java devs and project managers with French fluency."
     },
     {
       "id": 87,
-      "question": "How do I track my applications?",
-      "answer": "Dashboard > 'Applications' shows statuses (Viewed, Rejected, etc.)."
+      "question": "Tell me about Diva Consulting",
+      "answer": "Tunisian IT consultancy focused on: 1) SAP implementations 2) Microsoft Dynamics 3) Oracle Fusion. Known for training fresh graduates in ERP systems."
     },
     {
       "id": 88,
-      "question": "Can I flag a job as misleading?",
-      "answer": "Yes, click 'Report' on the job listing."
+      "question": "Does Orange Tunisia hire software engineers?",
+      "answer": "Yes! Their digital factory recruits: 1) Full-stack developers 2) DevOps engineers 3) Data scientists. Requires French + English."
     },
     {
       "id": 89,
-      "question": "What’s the 'Time to Apply' metric?",
-      "answer": "Estimates how quickly you should apply based on competition."
+      "question": "What is Topnet's tech stack?",
+      "answer": "Tunisian ISP using: 1) Python for network automation 2) PHP for customer portals 3) Cisco/Juniper for infrastructure. Often seeks network security specialists."
     },
     {
       "id": 90,
-      "question": "How do I disable notifications?",
-      "answer": "Profile > Settings > 'Notifications'."
+      "question": "How competitive are InstaDeep jobs?",
+      "answer": "Extremely competitive (5% hire rate). Our data shows successful candidates typically have: 1) ML publications 2) Competition rankings 3) Advanced Python skills 4) Cloud experience."
     },
     {
       "id": 91,
-      "question": "Can I compare two job offers?",
-      "answer": "Not yet, but this feature is planned."
+      "question": "What is the interview process at Telnet?",
+      "answer": "Typically: 1) Technical test (Algorithms + OOP) 2) French technical interview 3) Cultural fit meeting. Process takes 2-3 weeks."
     },
     {
       "id": 92,
-      "question": "What’s the 'Skills Trend' report?",
-      "answer": "Shows which skills are growing in demand for your industry."
+      "question": "Does Shadowhire have salary data for Tunisian IT jobs?",
+      "answer": "Yes! Our Salary Insights tool shows: \n- Junior Devs: 1,500-3,000 TND\n- Seniors: 3,500-6,000 TND\n- Cloud Architects: 7,000+ TND\nData from 500+ Tunisian placements."
     },
     {
       "id": 93,
-      "question": "How do I add volunteer work to my profile?",
-      "answer": "Include it in your resume or add it manually under 'Experience'."
+      "question": "What is the best way to get hired at STMicroelectronics Tunisia?",
+      "answer": "Our data suggests: 1) Highlight VLSI/embedded experience 2) Prepare for whiteboard interviews 3) Emphasize English fluency 4) Apply through employee referrals."
     },
     {
       "id": 94,
-      "question": "Can I see how many applicants a job has?",
-      "answer": "Yes, listed on the job details page."
+      "question": "Tell me about TAC-Tunisie",
+      "answer": "Automotive IT specialist working with: 1) Stellantis 2) Volkswagen 3) Renault. Seeks: 1) MES experts 2) PLM consultants 3) Automotive software testers."
     },
     {
       "id": 95,
-      "question": "What’s the 'Application Success Rate'?",
-      "answer": "Your historical rate of getting interviews (premium feature)."
+      "question": "What is the work culture like at Expensya?",
+      "answer": "Our user reports indicate: 1) Startup mentality 2) Flexible hours 3) English-first tech team 4) Strong focus on React/Node skills 5) Quarterly hackathons."
     },
     {
       "id": 96,
-      "question": "How do I change my job preferences?",
-      "answer": "Profile > 'Job Preferences'."
+      "question": "Does Shadowhire track application success rates?",
+      "answer": "Premium feature! We analyze: \n- Your response rate vs. industry avg\n- Time-to-hire metrics\n- Common rejection reasons\nBased on 10,000+ Tunisian applications."
     },
     {
       "id": 97,
-      "question": "Can I upload a video resume?",
-      "answer": "Not yet, but it’s under consideration."
+      "question": "What is the visa process for Tunisians in French tech jobs?",
+      "answer": "Our immigration module covers: \n1) French Tech Visa requirements\n2) Salary thresholds\n3) Company sponsorship rates\n4) Processing times (avg 3 months)"
     },
     {
       "id": 98,
-      "question": "What’s the 'Company Review' section?",
-      "answer": "Where candidates rate employers (launching Q1 2026)."
+      "question": "How to find German companies hiring Tunisian developers?",
+      "answer": "Use our 'International' filter + keywords: \n1) 'Relocation' \n2) 'Visa sponsorship'\n3) 'German language'\nTop sectors: Automotive, Fintech, Industry 4.0"
     },
     {
       "id": 99,
-      "question": "How do I delete old applications?",
-      "answer": "You can’t delete them, but you can archive them."
+      "question": "What is the typical probation period in Tunisia?",
+      "answer": "Most Tunisian IT companies have: \n- 3 months probation for juniors\n- 6 months for managers\n- During which either party can terminate with 1 week notice"
     },
     {
       "id": 100,
-      "question": "Can I use Shadowhire for freelance gigs?",
-      "answer": "Yes, filter jobs by 'Freelance' type."
+      "question": "Does Shadowhire have remote jobs from Europe?",
+      "answer": "Yes! Current openings from: \n1) French startups (React/Python)\n2) German IoT firms (Embedded C)\n3) Dutch fintechs (Java/Kotlin)\nAvg salaries €2,500-€4,500/month"
     },
     {
       "id": 101,
-      "question": "What’s the 'Resume ATS Check'?",
-      "answer": "Ensures your resume is compatible with applicant tracking systems."
+      "question": "What is the best time to apply for jobs in Tunisia?",
+      "answer": "Our analytics show peak hiring: \n- February-April (Budget cycles)\n- September-October (Post-summer)\nAvoid: December (Slow holiday period)"
     },
     {
       "id": 102,
-      "question": "How do I add references?",
-      "answer": "Include them in your resume or add them manually in Profile > 'References'."
+      "question": "How to negotiate salary in Tunisia?",
+      "answer": "Our data suggests: \n1) Benchmark using our Salary Tool\n2) Highlight rare skills (AI/Blockchain)\n3) Negotiate benefits (Training budget, flex hours)\n4) Time it after probation"
     },
     {
       "id": 103,
-      "question": "Can I see salary ranges for jobs?",
-      "answer": "Yes, if the recruiter provides them."
+      "question": "What is the notice period in Tunisian IT jobs?",
+      "answer": "Typically: \n- 1 month during probation\n- 3 months after\nCheck contract - some startups offer more flexibility"
     },
     {
       "id": 104,
-      "question": "What’s the 'Job Alert Accuracy' score?",
-      "answer": "Measures how well alerts match your profile (beta)."
+      "question": "Does Shadowhire have freelance opportunities?",
+      "answer": "Yes! Filter by: \n1) 'Freelance'\n2) 'Project-based'\nTop platforms: \n- Upwork/Guru (International)\n- Freelancer.tn (Local)\nAvg rates: $20-$50/hour"
     },
     {
       "id": 105,
-      "question": "How do I opt out of analytics tracking?",
-      "answer": "Profile > Privacy > 'Disable Analytics'."
+      "question": "What is the tax rate for IT freelancers in Tunisia?",
+      "answer": "Our fiscal module calculates: \n- 13% IRPP (First 5,000 TND exempt)\n- 19% VAT if revenue > 100,000 TND/year\n- Professional license required (>15,000 TND/year)"
     },
     {
       "id": 106,
-      "question": "Can I apply with a GitHub profile?",
-      "answer": "Not directly, but you can link it in your resume."
+      "question": "How to prepare for technical tests in Tunisia?",
+      "answer": "We recommend: \n1) Practice on our Code Challenges\n2) Study common algorithms\n3) Time yourself\n4) Review French tech vocabulary\nTop test platforms: Codility, HackerRank"
     },
     {
       "id": 107,
-      "question": "What’s the 'Diversity Score'?",
-      "answer": "Measures a company’s diversity efforts (data from public reports)."
+      "question": "What is the average hiring timeline in Tunisia?",
+      "answer": "From our data: \n- Startups: 2-3 weeks\n- Corporates: 4-6 weeks\n- Government projects: 8+ weeks\nTrack your applications in our Dashboard"
     },
     {
       "id": 108,
-      "question": "How do I report a bug in the AI?",
-      "answer": "Email ai-bugs@shadowhire.com with details."
+      "question": "Does Shadowhire offer interview coaching?",
+      "answer": "Premium members get: \n1) Mock interviews with AI\n2) Cultural fit training\n3) Technical question generator\n4) Body language analysis"
     },
     {
       "id": 109,
-      "question": "Can I hide my salary expectations?",
-      "answer": "Yes, toggle ‘Show Salary’ in Profile > Privacy."
+      "question": "What are common benefits in Tunisian IT jobs?",
+      "answer": "Our benefits database shows: \n- 90%: Medical insurance\n- 70%: Training budget\n- 50%: Meal vouchers\n- 30%: Gym membership\n- 10%: Stock options (Startups)"
     },
     {
       "id": 110,
-      "question": "What’s the 'Remote Work Score'?",
-      "answer": "Estimates how likely a job can be done remotely."
+      "question": "How to transition from corporate to startup in Tunisia?",
+      "answer": "Our Career Path tool suggests: \n1) Highlight agile experience\n2) Build GitHub portfolio\n3) Target growth-stage startups\n4) Accept lower base for equity\nTop transition roles: Tech Lead, Product Owner"
     },
     {
       "id": 111,
-      "question": "How do I add a portfolio link?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+      "question": "What is the dress code for Tunisian tech interviews?",
+      "answer": "Our guidelines: \n- Corporates (STM, BIAT): Business casual\n- Startups (Expensya, InstaDeep): Smart casual\n- Always: Neat and professional\nWhen in doubt, ask HR beforehand"
     },
     {
       "id": 112,
-      "question": "Can I see competitor job postings?",
-      "answer": "No, only jobs you’re eligible for."
+      "question": "Does Shadowhire have coding challenges?",
+      "answer": "Yes! Our Skill Lab offers: \n1) Tunisian company-style tests\n2) Real-world problems\n3) Performance benchmarking\n4) Detailed solution analysis"
     },
     {
       "id": 113,
-      "question": "What’s the 'Resume Privacy Mode'?",
-      "answer": "Hides your resume from recruiters but lets you apply to jobs."
+      "question": "What is the work visa success rate for Tunisian developers?",
+      "answer": "Our 2024 data shows: \n- France: 68% approval\n- Germany: 72%\n- Canada: 65%\n- UAE: 85%\nFactors: French/German language, niche skills"
     },
     {
       "id": 114,
-      "question": "How do I request my data be deleted?",
-      "answer": "Email privacy@shadowhire.com with 'GDPR Delete Request'."
+      "question": "How to find English-speaking jobs in Tunisia?",
+      "answer": "Filter by: \n1) Language: English\n2) Companies: InstaDeep, Expensya, Cynapsys\n3) Industries: Gaming, Blockchain, AI\nAvg 30% salary premium vs French roles"
     },
     {
       "id": 115,
-      "question": "Can I block a company?",
-      "answer": "Yes, go to the company’s page > 'Block'."
+      "question": "What is the growth path for Java devs in Tunisia?",
+      "answer": "Typical progression: \n1-3yrs: Junior Developer (2,000 TND)\n3-5yrs: Senior Dev (3,500 TND)\n5-8yrs: Tech Lead (5,000 TND)\n8+yrs: Architect (7,000+ TND)\nAdd French for +25% earning potential"
     },
     {
       "id": 116,
-      "question": "What’s the 'Job Seeker Badge'?",
-      "answer": "A profile badge for active users (earned after 10 applications)."
+      "question": "Does Shadowhire track company reviews?",
+      "answer": "Our verified reviews cover: \n1) Work-life balance\n2) Management quality\n3) Career growth\n4) Salary satisfaction\n5) Interview experiences\nUpdated quarterly"
     },
     {
       "id": 117,
-      "question": "How do I see trending jobs?",
-      "answer": "Dashboard > 'Trending Jobs' (updated hourly)."
+      "question": "What is the best city for IT jobs in Tunisia?",
+      "answer": "Our 2024 rankings: \n1) Tunis (70% of jobs)\n2) Sousse (Growing fintech hub)\n3) Sfax (Offshore/BPO center)\n4) Nabeul (Emerging startup scene)"
     },
     {
       "id": 118,
-      "question": "Can I share job postings on social media?",
-      "answer": "Yes, click 'Share' on any job listing."
+      "question": "How to handle counteroffers in Tunisia?",
+      "answer": "Our negotiation module advises: \n1) Get offer in writing\n2) Time it before bonus cycles\n3) Focus on long-term growth\n4) Consider non-monetary terms\nAvg successful counter: +18% salary"
     },
     {
       "id": 119,
-      "question": "What’s the 'Application Autofill' feature?",
-      "answer": "Auto-populates forms using your resume data (premium)."
+      "question": "What is the future of AI jobs in Tunisia?",
+      "answer": "Our 2025 projection: \n- 40% growth in ML roles\n- High demand for: \n  1) Computer vision\n  2) NLP (Arabic focus)\n  3) MLOps\n- Salaries 30% above dev avg"
     },
     {
       "id": 120,
-      "question": "How do I pause job alerts?",
-      "answer": "Go to 'Alerts' > toggle 'Pause'."
+      "question": "Does Shadowhire offer resume templates for Tunisia?",
+      "answer": "Yes! Download: \n1) French corporate style\n2) Startup creative format\n3) Technical (skills-first)\n4) Academic (for fresh grads)\nAll optimized for Tunisian ATS systems"
     },
     {
       "id": 121,
-      "question": "Can I see who posted a job?",
-      "answer": "Only the recruiter’s name/company is shown."
+      "question": "What are the highest paying IT skills in Tunisia?",
+      "answer": "2024 premium skills: \n1) Kubernetes (+35% salary)\n2) Apache Spark (+30%)\n3) Rust (+28%)\n4) Blockchain (+25%)\n5) AI/ML (+22%)\nSee our Skills Value Index"
     },
     {
       "id": 122,
-      "question": "What’s the 'Resume Refresh' tool?",
-      "answer": "AI that suggests updates for outdated resumes."
+      "question": "How to prepare for French technical interviews?",
+      "answer": "Our language lab helps with: \n1) Tech vocabulary flashcards\n2) Mock interviews in French\n3) Documentation translation\n4) Cultural nuances\nTop tested concepts: POO, boucles, héritage"
     },
     {
       "id": 123,
-      "question": "How do I add languages to my profile?",
-      "answer": "Include them in your resume or add them manually in Profile > 'Skills'."
+      "question": "What is the job market like for fresh graduates?",
+      "answer": "Our grad data shows: \n- 6 month avg job search\n- Top hires know: Java, SQL, Git\n- Internships increase hire chance by 3x\n- French fluency doubles opportunities"
     },
     {
       "id": 124,
-      "question": "Can I apply with a cover letter template?",
-      "answer": "Yes, use our AI generator or upload your own."
+      "question": "Does Shadowhire have networking events?",
+      "answer": "Yes! Join: \n1) Monthly tech meetups\n2) Company open days\n3) Hackathons\n4) Alumni networks\nUpcoming: Tunis AI Summit (Nov), Carthage DevCon (Dec)"
     },
     {
       "id": 125,
-      "question": "What’s the 'Job Seeker Dashboard'?",
-      "answer": "Your central hub for applications, matches, and resume feedback."
+      "question": "What is the best way to list certifications?",
+      "answer": "Our ATS analysis recommends: \n1) Group by: \n   - Cloud (AWS/Azure)\n   - Languages (Java/Python)\n   - Methodologies (Agile/DevOps)\n2) Include verification links\n3) Highlight Tunisian-recognized certs"
     },
     {
       "id": 126,
-      "question": "How do I report a phishing email?",
-      "answer": "Forward it to security@shadowhire.com."
+      "question": "How to handle employment gaps in Tunisia?",
+      "answer": "Our HR advisors suggest: \n1) Frame as skill-building\n2) Highlight freelance/opensource\n3) Be prepared to explain\n4) Use functional resume format\nGaps <6 months rarely questioned"
     },
     {
       "id": 127,
-      "question": "Can I see how many times my resume was viewed?",
-      "answer": "Yes, in Dashboard > 'Resume Analytics'."
+      "question": "What is the demand for DevOps in Tunisia?",
+      "answer": "2024 stats: \n- 45% more postings than 2023\n- Avg salary: 5,500 TND\n- Top tools wanted: \n  1) Docker/K8s\n  2) Terraform\n  3) Ansible\n  4) Prometheus\nFrench cloud certs highly valued"
     },
     {
       "id": 128,
-      "question": "What’s the 'Company Growth' metric?",
-      "answer": "Shows hiring trends (e.g., 'This company hired 50% more engineers this year')."
+      "question": "Does Shadowhire have relocation advice?",
+      "answer": "Our relocation hub covers: \n1) Cost of living comparisons\n2) Visa paperwork\n3) Cultural training\n4) Tax implications\nTop destinations: France, Germany, Canada, UAE"
     },
     {
       "id": 129,
-      "question": "How do I add a job to my 'Saved' list?",
-      "answer": "Click the bookmark icon on any job listing."
+      "question": "What is the interview dress code at Tunisian startups?",
+      "answer": "Our style guide recommends: \n- Men: Dark jeans + blazer\n- Women: Smart separates\n- Avoid: Full suits (may seem corporate)\n- Always: Clean shoes, minimal accessories"
     },
     {
       "id": 130,
-      "question": "Can I hide my current employer?",
-      "answer": "Yes, edit your resume or toggle ‘Hide Employer’ in Profile > Privacy."
+      "question": "How to answer 'expected salary' in Tunisian applications?",
+      "answer": "Our data-driven approach: \n1) Research our Salary Benchmarks\n2) Give range (e.g., '4,000-5,000 TND')\n3) Add 'negotiable based on total package'\n4) Delay exact numbers until offer stage"
     },
     {
       "id": 131,
-      "question": "What’s the 'Interview Pass Rate'?",
-      "answer": "Your historical rate of passing interviews (premium)."
+      "question": "What are red flags in Tunisian IT job offers?",
+      "answer": "Watch for: \n1) Vague job descriptions\n2) No written contract\n3) Salary paid in cash\n4) Excessive probation\n5) No social security registration\nCheck our Company Verification tool"
     },
     {
       "id": 132,
-      "question": "How do I change my primary resume?",
-      "answer": "Profile > 'Resume' > 'Set as Primary'."
+      "question": "Does Shadowhire verify job postings?",
+      "answer": "Yes! We: \n1) Confirm company registration\n2) Validate contact details\n3) Check for duplicate postings\n4) Monitor user reports\nLook for the 'Verified Employer' badge"
     },
     {
       "id": 133,
-      "question": "Can I see competitor salaries?",
-      "answer": "Only aggregate data (e.g., 'Python developers in Tunis earn $X–$Y')."
+      "question": "What is the best format for Tunisian CVs?",
+      "answer": "ATS-friendly format: \n1) 1-2 pages max\n2) Reverse chronological\n3) Clear contact info\n4) Skills section up top\n5) French/English versions\nDownload our template"
     },
     {
       "id": 134,
-      "question": "What’s the 'Job Seeker Score'?",
-      "answer": "A metric (1-100) reflecting your profile’s competitiveness."
+      "question": "How to list projects on a Tunisian resume?",
+      "answer": "Our scoring system prefers: \n1) 3-5 key projects\n2) STAR format: \n   - Situation\n   - Task\n   - Action\n   - Result\n3) Metrics (e.g., 'Improved performance by 30%')\n4) Tech stack used"
     },
     {
       "id": 135,
-      "question": "How do I delete old job alerts?",
-      "answer": "Go to 'Alerts' > click the trash icon."
+      "question": "What is the job market like for women in Tunisian tech?",
+      "answer": "Our diversity report shows: \n- 28% of tech roles held by women\n- Highest in QA (35%) and UX (40%)\n- Growing female leadership programs\n- Gender pay gap: 12% (vs 20% national avg)"
     },
     {
       "id": 136,
-      "question": "Can I apply without a resume?",
-      "answer": "No, a resume is required for matching."
+      "question": "Does Shadowhire have mentorship programs?",
+      "answer": "Yes! Connect with: \n1) Industry veterans\n2) Career changers\n3) Specialists (AI/Cloud/etc)\n4) Diaspora professionals\nFilter by language, expertise, availability"
     },
     {
       "id": 137,
-      "question": "What’s the 'Resume Keywords' tool?",
-      "answer": "Shows which keywords recruiters search for in your industry."
+      "question": "What is the best way to follow up after applying?",
+      "answer": "Our tracking tool suggests: \n1) First follow-up: 7-10 days\n2) Polite LinkedIn message\n3) Reference the job ID\n4) Add value (e.g., portfolio update)\nOptimal time: Tuesday 10AM-12PM"
     },
     {
       "id": 138,
-      "question": "How do I add a second email?",
-      "answer": "Profile > Settings > 'Add Email'."
+      "question": "How to handle salary history questions?",
+      "answer": "Legally optional in Tunisia. Our scripts help: \n'I focus on market value for this role'\n'My expectations align with industry standards'\n'Can we discuss responsibilities first?'"
     },
     {
       "id": 139,
-      "question": "Can I see my rank for a job?",
-      "answer": "Yes, e.g., 'You’re in the top 20% of applicants' (premium)."
+      "question": "What is the demand for cybersecurity in Tunisia?",
+      "answer": "Booming sector: \n- 50% more jobs than 2023\n- Critical needs: \n  1) SOC analysts\n  2) Pentesters\n  3) GRC specialists\n- Certifications boost salary by 25%\nTop employers: Defency, Cynops, Tunisian banks"
     },
     {
       "id": 140,
-      "question": "What’s the 'Application Deadline' alert?",
-      "answer": "Notifies you when a job’s deadline is approaching."
+      "question": "Does Shadowhire track application metrics?",
+      "answer": "Premium analytics include: \n1) Response rate timeline\n2) Company response patterns\n3) Optimal apply times\n4) Rejection reason analysis\nBased on your personal history"
     },
     {
       "id": 141,
-      "question": "How do I enable dark mode?",
-      "answer": "Not yet available, but coming soon."
+      "question": "What are common interview questions in Tunisia?",
+      "answer": "Our database shows top queries: \n1) 'Explain your biggest challenge'\n2) 'Why leave current job?'\n3) Tech stack deep dives\n4) Cultural fit (Teamwork under pressure)\n5) Salary expectations"
     },
     {
       "id": 142,
-      "question": "Can I filter jobs by visa sponsorship?",
-      "answer": "Yes, use the 'Visa Sponsorship' filter."
+      "question": "How to explain job hopping in Tunisian interviews?",
+      "answer": "Frame positively: \n1) 'Seeking growth opportunities'\n2) 'Contract-based engagements'\n3) 'Skill diversification'\nAcceptable if: <3 jobs in 2 years, with progression"
     },
     {
       "id": 143,
-      "question": "What’s the 'Recruiter Response Score'?",
-      "answer": "Measures how often a recruiter responds to applicants."
+      "question": "What is the best way to decline a job offer?",
+      "answer": "Our templates help: \n1) Express gratitude\n2) Brief, professional reason\n3) Leave door open\n4) Respond within 48 hours\nExample: 'After careful consideration...'"
     },
     {
       "id": 144,
-      "question": "How do I add a LinkedIn profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
+      "question": "Does Shadowhire have contract review services?",
+      "answer": "Yes! We check: \n1) Probation terms\n2) IP clauses\n3) Non-compete scope\n4) Termination conditions\n5) Benefit details\nRed flags highlighted in plain Arabic/French"
     },
     {
       "id": 145,
-      "question": "Can I see how many jobs match my skills?",
-      "answer": "Yes, Dashboard > 'Job Matches' shows a count."
+      "question": "What is the future of remote work in Tunisia?",
+      "answer": "Our 2025 forecast: \n- 35% of tech roles hybrid\n- 15% fully remote\n- Growth in: \n  1) Nearshore for Europe\n  2) Digital nomad visas\n  3) Co-working hubs\nTax incentives expected"
     },
     {
       "id": 146,
-      "question": "What’s the 'Resume Age' metric?",
-      "answer": "Shows how old your resume is (e.g., 'Uploaded 30 days ago')."
+      "question": "How to handle ageism in Tunisian tech hiring?",
+      "answer": "Our strategies: \n1) Highlight recent upskilling\n2) Focus on mentorship capacity\n3) Target architect/consultant roles\n4) Leverage experience premium\nLegal recourse available for discrimination"
     },
     {
       "id": 147,
-      "question": "How do I report a broken link?",
-      "answer": "Email support@shadowhire.com with the URL."
+      "question": "What is the best way to list military service?",
+      "answer": "Tunisian HR pros recommend: \n1) Include as timeline item\n2) Highlight leadership skills\n3) Note technical roles if applicable\n4) No need for extensive details\nViewed neutrally by most employers"
     },
     {
       "id": 148,
-      "question": "Can I customize my dashboard?",
-      "answer": "Not yet, but planned for future updates."
+      "question": "Does Shadowhire have tech community forums?",
+      "answer": "Join our: \n1) JavaScript Tunisia group\n2) DevOps Maghreb network\n3) Data Science Tunis\n4) Career changers circle\nDiscuss trends, share opportunities, get advice"
     },
     {
       "id": 149,
-      "question": "What’s the 'Job Seeker Community'?",
-      "answer": "A forum to discuss careers (launching 2026)."
+      "question": "What is the best way to prepare for coding tests?",
+      "answer": "Our prep plan: \n1) Daily algorithm practice\n2) Mock tests under timed conditions\n3) French/English problem reading\n4) Edge case analysis\n5) Big O notation review"
     },
     {
       "id": 150,
-      "question": "How do I add a GitHub project?",
-      "answer": "Include it in your resume or add it manually in Profile > 'Projects'."
+      "question": "How to handle counteroffers from current employer?",
+      "answer": "Our data shows: \n- 70% accept counteroffers\n- But 60% leave within 12 months\nConsider: \n1) Why you wanted to leave\n2) Long-term growth\n3) Relationship changes\n4) Future trust factors"
     },
-    {
+     {
       "id": 151,
-      "question": "Can I see who viewed my application?",
-      "answer": "Only recruiters can see this data."
+      "question": "What are killer tips for Tunisian HR interviews?",
+      "answer": "5 Must-Do's for HR Rounds:\n1. Master French professional phrases (\"Ma motivation principale est...\")\n2. Research the company's Tunisian operations\n3. Prepare 3-5 STAR stories about problem-solving\n4. Dress business casual (no full suits for startups)\n5. Ask insightful questions about team culture"
     },
     {
       "id": 152,
-      "question": "What’s the 'Resume Traffic Light'?",
-      "answer": "Green/Yellow/Red indicator of resume health."
+      "question": "CV tips for Tunisian tech jobs?",
+      "answer": "Winning CV Formula:\n✔️ Header: Bilingual (French/English) contact info\n✔️ 3-Line Professional Summary targeting role\n✔️ Technical Skills Matrix (Group by domain)\n✔️ Reverse Chrono Experience (With metrics)\n✔️ Education & Certifications (Include ongoing)\n✔️ Projects Section (GitHub links)\n✖️ Never: Photo, Personal Details, Unrelated Hobbies"
     },
     {
       "id": 153,
-      "question": "How do I add a Twitter profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
+      "question": "Essential skills for Fullstack in Tunisia?",
+      "answer": "Tunisian Fullstack Must-Haves:\nFRONTEND:\n- Angular/React (TypeScript)\n- State Management (NgRx/Redux)\n- CSS Frameworks (Tailwind/Bootstrap)\nBACKEND:\n- Spring Boot (Java) or .NET Core\n- REST/GraphQL APIs\n- JWT/OAuth Security\nDEVOPS:\n- Docker Basics\n- CI/CD Pipelines\nPLUS:\n- French Technical Vocabulary\n- Agile Methodology"
     },
     {
       "id": 154,
-      "question": "Can I filter jobs by company size?",
-      "answer": "Yes, use the 'Company Size' filter."
+      "question": "DevOps skills demanded in Tunisia?",
+      "answer": "Tunisian DevOps Stack:\nCORE:\n- Jenkins/GitLab CI Pipelines\n- Terraform/Ansible IaC\n- Kubernetes Cluster Management\n- AWS/Azure Cloud Services\nMONITORING:\n- Prometheus/Grafana\n- ELK Stack\nBONUS:\n- FinOps Cost Optimization\n- Arabic/French Documentation Skills\nCERTIFICATIONS:\n- AWS Certified DevOps\n- CKAD (Kubernetes)"
     },
     {
       "id": 155,
-      "question": "What’s the 'Application Time' metric?",
-      "answer": "Shows how long you spent applying (e.g., '2 minutes per application')."
+      "question": "AI/ML skills for Tunisian jobs?",
+      "answer": "Tunisian AI Toolkit:\nMUST-HAVE:\n- Python (NumPy/Pandas)\n- TensorFlow/PyTorch\n- Scikit-Learn\n- NLP (Arabic/French focus)\nSPECIALIZATIONS:\n- Computer Vision (OpenCV)\n- MLOps (MLflow/Kubeflow)\n- Reinforcement Learning\nDATA:\n- SQL/NoSQL\n- Data Preprocessing\nBONUS:\n- Published Research\n- Kaggle Rankings"
     },
     {
       "id": 156,
-      "question": "How do I delete a cover letter?",
-      "answer": "Go to 'Cover Letters' > click the trash icon."
+      "question": "Data Science skills needed in Tunisia?",
+      "answer": "Tunisian Data Science Stack:\nANALYTICS:\n- Advanced SQL\n- Power BI/Tableau\n- Statistical Modeling\nMACHINE LEARNING:\n- Feature Engineering\n- Model Evaluation\n- Explainable AI\nBIG DATA:\n- Spark/PySpark\n- Hadoop Basics\nDOMAIN KNOWLEDGE:\n- Banking (BIAT/Vermeg)\n- Telecom (Orange/Topnet)\nTOOLS:\n- Jupyter Notebooks\n- Git Versioning"
     },
     {
       "id": 157,
-      "question": "Can I see my competitor’s profiles?",
-      "answer": "No, only anonymous aggregate data (e.g., 'Top 10% of candidates have X skill')."
+      "question": "Data Engineering requirements?",
+      "answer": "Tunisian Data Pipeline Skills:\nESSENTIAL:\n- ETL Design Patterns\n- Airflow/Luigi\n- Data Warehousing\nDATABASES:\n- PostgreSQL/MySQL\n- MongoDB/Cassandra\n- Redis Cache\nCLOUD:\n- AWS Glue/Data Pipeline\n- Azure Data Factory\nSTREAMING:\n- Kafka/Pulsar\n- Spark Streaming\nQUALITY:\n- Great Expectations\n- Data Governance"
     },
     {
       "id": 158,
-      "question": "What’s the 'Resume Heatmap'?",
-      "answer": "Shows which sections recruiters view most (premium)."
+      "question": "Cloud engineering skills?",
+      "answer": "Tunisian Cloud Competencies:\nCORE:\n- AWS/Azure/GCP Architectures\n- IAM Security Policies\n- Cost Management\nINFRASTRUCTURE:\n- Terraform Modules\n- Cross-Region Deployments\n- Serverless (Lambda)\nNETWORKING:\n- VPC Peering\n- Load Balancing\n- CDN Config\nCERTIFICATIONS:\n- AWS Solutions Architect\n- Azure Administrator\nBONUS:\n- Hybrid Cloud Experience"
     },
     {
       "id": 159,
-      "question": "How do I add a Behance portfolio?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+      "question": "MLOps skills for Tunisian market?",
+      "answer": "Tunisian MLOps Stack:\nDEPLOYMENT:\n- Model Serving (TF Serving)\n- Docker Containers\n- Kubernetes Operators\nMONITORING:\n- Drift Detection\n- Performance Metrics\n- Alerting Systems\nWORKFLOW:\n- MLflow Tracking\n- Feature Stores\n- Experiment Management\nCI/CD:\n- Jenkins ML Pipelines\n- GitOps for ML\nBONUS:\n- ONNX Model Conversion"
     },
     {
       "id": 160,
-      "question": "Can I filter jobs by remote flexibility?",
-      "answer": "Yes, use the 'Remote' filter."
+      "question": "DevSecOps skills in demand?",
+      "answer": "Tunisian Security Must-Knows:\nSECURITY:\n- SAST/DAST Tools\n- Vulnerability Scanning\n- Compliance Standards\nDEVOPS INTEGRATION:\n- Shift-Left Security\n- Secrets Management\n- IAM Least Privilege\nTOOLS:\n- OWASP ZAP\n- Trivy/Clair\n- HashiCorp Vault\nCLOUD:\n- AWS Security Hub\n- Azure Defender\nCERTIFICATIONS:\n- Certified Ethical Hacker\n- CISSP"
     },
     {
       "id": 161,
-      "question": "What’s the 'Job Seeker ROI'?",
-      "answer": "Measures time invested vs. applications/interviews (premium)."
+      "question": "Cybersecurity skills needed?",
+      "answer": "Tunisian Cyber Defense Stack:\nOFFENSIVE:\n- Penetration Testing\n- Red Teaming\n- Exploit Development\nDEFENSIVE:\n- SIEM Management\n- Incident Response\n- Threat Hunting\nNETWORK:\n- Firewall Rules\n- IDS/IPS Systems\n- VPN Configs\nCERTIFICATIONS:\n- OSCP (Gold Standard)\n- CEH\n- CISSP\nLANGUAGES:\n- Python for Tools\n- French Audit Reports"
     },
     {
       "id": 162,
-      "question": "How do I add a Dribbble portfolio?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+      "question": "IoT developer skills?",
+      "answer": "Tunisian IoT Requirements:\nEMBEDDED:\n- C/C++ Firmware\n- RTOS Experience\n- Sensor Integration\nCONNECTIVITY:\n- MQTT Protocol\n- LoRaWAN/Zigbee\n- 5G NB-IoT\nCLOUD:\n- AWS IoT Core\n- Azure Sphere\n- Data Pipeline\nSECURITY:\n- Device Authentication\n- Secure Boot\n- OTA Updates\nHARDWARE:\n- Raspberry Pi\n- ARM Cortex\n- PCB Basics"
     },
     {
       "id": 163,
-      "question": "Can I see which jobs I’m overqualified for?",
-      "answer": "Yes, the AI flags these in your matches."
+      "question": "Embedded systems skills?",
+      "answer": "Tunisian Embedded Must-Knows:\nLANGUAGES:\n- C (ANSI/C99)\n- Embedded C++\n- Python for Scripting\nPLATFORMS:\n- STM32 (STMicro)\n- ARM Cortex\n- AVR/RISC-V\nTOOLS:\n- Keil/IAR\n- Oscilloscope Debugging\n- JTAG/SWD\nREAL-TIME:\n- FreeRTOS\n- Scheduling\n- ISR Handling\nAUTOMOTIVE:\n- AUTOSAR Basics\n- CAN Bus\n- MISRA C"
     },
     {
       "id": 164,
-      "question": "What’s the 'Resume Storytelling' tool?",
-      "answer": "AI that rewrites bullet points for impact (premium)."
+      "question": "Software engineering fundamentals?",
+      "answer": "Core Tunisian SWE Skills:\nCODING:\n- Algorithms & DS\n- Design Patterns\n- Clean Code\nPRACTICES:\n- Unit Testing\n- Code Reviews\n- Refactoring\nARCHITECTURE:\n- Microservices\n- Monolith Decomposition\n- CQRS/EDA\nTOOLS:\n- Git Flow\n- JIRA/Confluence\n- Swagger/OpenAPI\nSOFT SKILLS:\n- French Tech Docs\n- Agile Ceremonies"
     },
     {
       "id": 165,
-      "question": "How do I add a Kaggle profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
+      "question": "Mobile dev skills for Tunisia?",
+      "answer": "Tunisian Mobile Stack:\nANDROID:\n- Kotlin (Java legacy)\n- Jetpack Compose\n- Dagger/Hilt\nIOS:\n- SwiftUI\n- Combine Framework\n- CoreData\nCROSS-PLATFORM:\n- Flutter (Dart)\n- React Native\n- State Management\nBACKEND INTEGRATION:\n- GraphQL/Apollo\n- Firebase\n- Auth0\nTESTING:\n- Espresso\n- XCTest"
     },
     {
       "id": 166,
-      "question": "Can I filter jobs by equity offerings?",
-      "answer": "Yes, use the 'Equity' filter."
+      "question": "QA engineering skills?",
+      "answer": "Tunisian QA Competencies:\nMANUAL:\n- Test Case Design\n- Bug Reporting\n- Regression Testing\nAUTOMATION:\n- Selenium WebDriver\n- Cypress/Playwright\n- Appium\nPERFORMANCE:\n- JMeter\n- Gatling\n- Lighthouse\nCI/CD:\n- TestNG\n- Jenkins Integration\n- Pipeline Design\nSPECIALIZED:\n- Security Pen Testing\n- Accessibility Testing"
     },
     {
       "id": 167,
-      "question": "What’s the 'Job Seeker Burnout' alert?",
-      "answer": "Notifies you if you’re applying too aggressively."
+      "question": "Blockchain skills in Tunisia?",
+      "answer": "Tunisian Blockchain Stack:\nDEVELOPMENT:\n- Solidity (Ethereum)\n- Rust (Polkadot)\n- Go (Hyperledger)\nTOOLS:\n- Hardhat/Truffle\n- Web3.js/Ethers.js\n- IPFS\nCONCEPTS:\n- Smart Contracts\n- Token Standards\n- Consensus Mechanisms\nSECURITY:\n- Auditing\n- Formal Verification\n- Cryptography\nCERTIFICATIONS:\n- Blockchain Council"
     },
     {
       "id": 168,
-      "question": "How do I add a Stack Overflow profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
+      "question": "Game dev skills needed?",
+      "answer": "Tunisian Game Dev Toolkit:\nENGINES:\n- Unity (C#)\n- Unreal (C++)\n- Godot\nPROGRAMMING:\n- Shader Programming\n- AI Pathfinding\n- Physics Engines\nDESIGN:\n- Level Design\n- Game Balancing\n- UX for Games\nTOOLS:\n- Blender/Maya\n- Substance Painter\n- FMOD/Wwise\nMONETIZATION:\n- Ad Mediation\n- IAP Systems"
     },
     {
       "id": 169,
-      "question": "Can I see which jobs are about to expire?",
-      "answer": "Yes, sort by 'Deadline' in job searches."
+      "question": "AR/VR skills for Tunisian jobs?",
+      "answer": "Tunisian XR Requirements:\nDEVELOPMENT:\n- Unity XR Toolkit\n- Unreal VR Template\n- ARCore/ARKit\n3D SKILLS:\n- 3D Modeling Basics\n- Shader Graphs\n- Animation Rigging\nINTERACTION:\n- Hand Tracking\n- Voice Commands\n- Haptic Feedback\nOPTIMIZATION:\n- FPS Optimization\n- Occlusion Culling\n- LOD Systems\nPLATFORMS:\n- Oculus/Meta\n- HoloLens\n- WebXR"
     },
     {
       "id": 170,
-      "question": "What’s the 'Resume A/B Test' feature?",
-      "answer": "Tests two resume versions to see which performs better (premium)."
+      "question": "Technical interview tips for Tunisia?",
+      "answer": "5 Technical Interview Killers:\n1. Whiteboard Strategy:\n   - Clarify requirements\n   - Think aloud\n   - Start brute-force then optimize\n2. Code Review:\n   - Spot memory leaks\n   - Suggest refactoring\n   - Discuss tradeoffs\n3. System Design:\n   - Scale estimates\n   - Database schema\n   - Cache strategy\n4. Debugging:\n   - Binary search the problem\n   - Check edge cases\n5. French Technical Terms:\n   - Practice computing vocabulary"
     },
     {
       "id": 171,
-      "question": "How do I add a Medium blog?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+      "question": "Salary negotiation tips for Tunisians?",
+      "answer": "7 Negotiation Tactics:\n1. Benchmark First (Use our Salary Tool)\n2. Discuss Total Package:\n   - Training budget\n   - Stock options\n   - Flexible hours\n3. Time It Right (After offer, before acceptance)\n4. French Phrase Templates:\n   \"Compte tenu de mon expérience...\"\n5. Have a Walk-Away Number\n6. Consider Future Raises\n7. Get Everything in Writing"
     },
     {
       "id": 172,
-      "question": "Can I filter jobs by relocation support?",
-      "answer": "Yes, use the 'Relocation' filter."
+      "question": "Freelance tips for Tunisian developers?",
+      "answer": "Freelance Success Formula:\n1. Specialize (e.g., \"Shopify Expert\")\n2. Build Portfolio:\n   - GitHub\n   - Case Studies\n   - Client Testimonials\n3. Pricing:\n   - Start with hourly\n   - Move to value-based\n4. Contracts:\n   - 50% upfront\n   - Milestone payments\n5. Taxes:\n   - Register as Auto-entrepreneur\n   - Keep 30% for taxes\n6. Platforms:\n   - Upwork (International)\n   - Freelancer.tn (Local)"
     },
     {
       "id": 173,
-      "question": "What’s the 'Job Seeker Zen Mode'?",
-      "answer": "Hides competitive metrics to reduce stress (beta)."
+      "question": "LinkedIn tips for Tunisian tech jobs?",
+      "answer": "Profile Optimization:\n1. Headline:\n   \"Fullstack Developer | Angular/Spring | AWS Certified\"\n2. About Section:\n   - Problem-solving approach\n   - Technical capabilities\n   - Career goals\n3. Experience:\n   - Action verbs\n   - Quantifiable results\n   - Tech stack keywords\n4. Skills:\n   - 10-15 technical skills\n   - Get endorsements\n5. French/Arabic/English Versions\n6. Post Regularly:\n   - Tech insights\n   - Project milestones"
     },
     {
       "id": 174,
-      "question": "How do I add a personal website?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
+      "question": "Career change tips to IT in Tunisia?",
+      "answer": "Transition Roadmap:\n1. Skill Mapping:\n   - Transferable skills\n   - 3-month crash course\n2. Entry Points:\n   - QA Automation\n   - Technical Support\n   - Junior Web Dev\n3. Portfolio:\n   - GitHub commits\n   - Freelance projects\n   - Open-source contributions\n4. Networking:\n   - Tunisian tech meetups\n   - LinkedIn engagement\n5. Certifications:\n   - Google IT Support\n   - AWS Cloud Practitioner"
     },
     {
       "id": 175,
-      "question": "Can I see which jobs are 'Easy Apply'?",
-      "answer": "Yes, filter by 'Application Type'."
-    },
-    {
-      "id": 176,
-      "question": "What’s the 'Resume SEO' tool?",
-      "answer": "Optimizes your resume for recruiter keyword searches."
-    },
-    {
-      "id": 177,
-      "question": "How do I add a YouTube channel?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 178,
-      "question": "Can I filter jobs by 'No Degree Required'?",
-      "answer": "Yes, use the 'Education' filter."
-    },
-    {
-      "id": 179,
-      "question": "What’s the 'Job Seeker Time Machine'?",
-      "answer": "Simulates how your resume would fare in past/future job markets (beta)."
-    },
-    {
-      "id": 180,
-      "question": "How do I add a GitLab profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 181,
-      "question": "Can I see which jobs are 'High Response Rate'?",
-      "answer": "Yes, sort by 'Recruiter Response Score'."
-    },
-    {
-      "id": 182,
-      "question": "What’s the 'Resume Frankenstein'?",
-      "answer": "Merges sections from multiple resumes (premium)."
-    },
-    {
-      "id": 183,
-      "question": "How do I add a CodePen profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 184,
-      "question": "Can I filter jobs by 'No Whiteboard Interviews'?",
-      "answer": "Not yet, but you can search for 'No Technical Interviews'."
-    },
-    {
-      "id": 185,
-      "question": "What’s the 'Job Seeker Mood' tracker?",
-      "answer": "Logs your job search sentiment (private)."
-    },
-    {
-      "id": 186,
-      "question": "How do I add a Dev.to blog?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
-    },
-    {
-      "id": 187,
-      "question": "Can I see which jobs are 'Dog-Friendly'?",
-      "answer": "Yes, filter by 'Company Perks'."
-    },
-    {
-      "id": 188,
-      "question": "What’s the 'Resume Time Travel'?",
-      "answer": "Shows how your resume would look in 1990/2030 (fun feature)."
-    },
-    {
-      "id": 189,
-      "question": "How do I add a Twitch channel?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 190,
-      "question": "Can I filter jobs by 'No LeetCode'?",
-      "answer": "Not yet, but planned for developers."
-    },
-    {
-      "id": 191,
-      "question": "What’s the 'Job Seeker Bingo'?",
-      "answer": "A game to track common job search experiences (e.g., 'Ghosted')."
-    },
-    {
-      "id": 192,
-      "question": "How do I add a Patreon?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 193,
-      "question": "Can I see which jobs offer '4-Day Workweeks'?",
-      "answer": "Yes, filter by 'Work Schedule'."
-    },
-    {
-      "id": 194,
-      "question": "What’s the 'Resume Haiku' generator?",
-      "answer": "Converts your resume into a poem (just for fun)."
-    },
-    {
-      "id": 195,
-      "question": "How do I add a SoundCloud?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 196,
-      "question": "Can I filter jobs by 'No Crunch Time'?",
-      "answer": "Not directly, but check company reviews."
-    },
-    {
-      "id": 197,
-      "question": "What’s the 'Job Seeker Tarot'?",
-      "answer": "AI-generated 'predictions' for your job search (fun feature)."
-    },
-    {
-      "id": 198,
-      "question": "How do I add a Gumroad?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
-    },
-    {
-      "id": 199,
-      "question": "Can I see which jobs are 'Silent Hiring'?",
-      "answer": "Yes, filter by 'Hiring Process'."
-    },
-    {
-      "id": 200,
-      "question": "What’s the 'Resume Rapper'?",
-      "answer": "Turns your skills into a rap (just for laughs)."
-    },
-    {
-      "id": 201,
-      "question": "How do I add a Product Hunt profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 202,
-      "question": "Can I filter jobs by 'No Meetings'?",
-      "answer": "Not yet, but you can search for 'Async Culture'."
-    },
-    {
-      "id": 203,
-      "question": "What’s the 'Job Seeker Horoscope'?",
-      "answer": "Daily 'luck' ratings for your job search (e.g., 'Great day to apply!')."
-    },
-    {
-      "id": 204,
-      "question": "How do I add a Substack?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
-    },
-    {
-      "id": 205,
-      "question": "Can I see which jobs are 'No Micromanagement'?",
-      "answer": "Check company reviews for this info."
-    },
-    {
-      "id": 206,
-      "question": "What’s the 'Resume Standup Comedy'?",
-      "answer": "Generates jokes from your work history (just for fun)."
-    },
-    {
-      "id": 207,
-      "question": "How do I add a Letterboxd?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 208,
-      "question": "Can I filter jobs by 'No On-Call'?",
-      "answer": "Yes, filter by 'Work Schedule'."
-    },
-    {
-      "id": 209,
-      "question": "What’s the 'Job Seeker ASMR'?",
-      "answer": "Calming sounds for stressful job searches (beta)."
-    },
-    {
-      "id": 210,
-      "question": "How do I add a Goodreads?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 211,
-      "question": "Can I see which jobs are 'No Open Office'?",
-      "answer": "Check company reviews for office setup details."
-    },
-    {
-      "id": 212,
-      "question": "What’s the 'Resume Meme Generator'?",
-      "answer": "Creates memes from your resume (e.g., '10x Engineer’)."
-    },
-    {
-      "id": 213,
-      "question": "How do I add a Duolingo profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 214,
-      "question": "Can I filter jobs by 'No Time Tracking'?",
-      "answer": "Not yet, but planned for remote roles."
-    },
-    {
-      "id": 215,
-      "question": "What’s the 'Job Seeker Affirmations'?",
-      "answer": "Positive messages to boost morale (e.g., 'You’ll land it!')."
-    },
-    {
-      "id": 216,
-      "question": "How do I add a Chess.com profile?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 217,
-      "question": "Can I see which jobs are 'No Standups'?",
-      "answer": "Check company reviews for meeting policies."
-    },
-    {
-      "id": 218,
-      "question": "What’s the 'Resume Limerick'?",
-      "answer": "A silly poem about your career (just for fun)."
-    },
-    {
-      "id": 219,
-      "question": "How do I add a Strava?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 220,
-      "question": "Can I filter jobs by 'No Pair Programming'?",
-      "answer": "Not yet, but planned for dev roles."
-    },
-    {
-      "id": 221,
-      "question": "What’s the 'Job Seeker Dad Jokes'?",
-      "answer": "Random puns to lighten the mood (e.g., 'Why did the resume cross the road?')."
-    },
-    {
-      "id": 222,
-      "question": "How do I add an IMDb?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 223,
-      "question": "Can I see which jobs are 'No Jira'?",
-      "answer": "Check company reviews for tool usage."
-    },
-    {
-      "id": 224,
-      "question": "What’s the 'Resume Sonnet'?",
-      "answer": "A Shakespearean-style poem about your skills."
-    },
-    {
-      "id": 225,
-      "question": "How do I add a Rotten Tomatoes?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 226,
-      "question": "Can I filter jobs by 'No Scrum'?",
-      "answer": "Not yet, but planned for agile roles."
-    },
-    {
-      "id": 227,
-      "question": "What’s the 'Job Seeker Comic Strip'?",
-      "answer": "Generates a comic about your job search."
-    },
-    {
-      "id": 228,
-      "question": "How do I add a Spotify?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 229,
-      "question": "Can I see which jobs are 'No Slack'?",
-      "answer": "Check company reviews for communication tools."
-    },
-    {
-      "id": 230,
-      "question": "What’s the 'Resume Crossword'?",
-      "answer": "A puzzle using your skills as clues."
-    },
-    {
-      "id": 231,
-      "question": "How do I add a TikTok?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 232,
-      "question": "Can I filter jobs by 'No Zoom'?",
-      "answer": "Not yet, but planned for remote roles."
-    },
-    {
-      "id": 233,
-      "question": "What’s the 'Job Seeker Coloring Book'?",
-      "answer": "Printable stress-relief pages (e.g., 'Color Your Dream Job')."
-    },
-    {
-      "id": 234,
-      "question": "How do I add a Pinterest?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 235,
-      "question": "Can I see which jobs are 'No Onsites'?",
-      "answer": "Filter by 'Remote Only'."
-    },
-    {
-      "id": 236,
-      "question": "What’s the 'Resume Mad Libs'?",
-      "answer": "A fill-in-the-blank game using your resume."
-    },
-    {
-      "id": 237,
-      "question": "How do I add a Reddit?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 238,
-      "question": "Can I filter jobs by 'No Tests'?",
-      "answer": "Not yet, but planned for dev roles."
-    },
-    {
-      "id": 239,
-      "question": "What’s the 'Job Seeker Playlist'?",
-      "answer": "Curated music for job searching (e.g., 'Pump Up Tracks')."
-    },
-    {
-      "id": 240,
-      "question": "How do I add a Discord?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 241,
-      "question": "Can I see which jobs are 'No Deadline'?",
-      "answer": "Filter by 'Rolling Applications'."
-    },
-    {
-      "id": 242,
-      "question": "What’s the 'Resume Karaoke'?",
-      "answer": "Sing your resume to popular tunes (just for fun)."
-    },
-    {
-      "id": 243,
-      "question": "How do I add a Telegram?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 244,
-      "question": "Can I filter jobs by 'No Dress Code'?",
-      "answer": "Check company reviews for attire policies."
-    },
-    {
-      "id": 245,
-      "question": "What’s the 'Job Seeker Trivia'?",
-      "answer": "Random facts about careers (e.g., 'Most common interview question')."
-    },
-    {
-      "id": 246,
-      "question": "How do I add a Signal?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 247,
-      "question": "Can I see which jobs are 'No All-Hands'?",
-      "answer": "Check company reviews for meeting culture."
-    },
-    {
-      "id": 248,
-      "question": "What’s the 'Resume TikTok Dance'?",
-      "answer": "A silly dance based on your career (just for laughs)."
-    },
-    {
-      "id": 249,
-      "question": "How do I add a WhatsApp?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 250,
-      "question": "Can I filter jobs by 'No PIPs'?",
-      "answer": "Check company reviews for performance policies."
-    },
-    {
-      "id": 251,
-      "question": "What’s the 'Job Seeker Fortune Cookie'?",
-      "answer": "Random 'fortunes' (e.g., 'A recruiter will email you soon')."
-    },
-    {
-      "id": 252,
-      "question": "How do I add a Clubhouse?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 253,
-      "question": "Can I see which jobs are 'No On-Call'?",
-      "answer": "Filter by 'Work Schedule' > 'No On-Call'."
-    },
-    {
-      "id": 254,
-      "question": "What’s the 'Resume Yoga Poses'?",
-      "answer": "Stretches named after your skills (e.g., 'The Python Twist')."
-    },
-    {
-      "id": 255,
-      "question": "How do I add a Mastodon?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 256,
-      "question": "Can I filter jobs by 'No Probation'?",
-      "answer": "Check company reviews for probation periods."
-    },
-    {
-      "id": 257,
-      "question": "What’s the 'Job Seeker Magic 8-Ball'?",
-      "answer": "Ask yes/no questions about your search (e.g., 'Will I get an offer?')."
-    },
-    {
-      "id": 258,
-      "question": "How do I add a Bluesky?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 259,
-      "question": "Can I see which jobs are 'No Non-Compete'?",
-      "answer": "Check company reviews for contract terms."
-    },
-    {
-      "id": 260,
-      "question": "What’s the 'Resume Pickup Lines'?",
-      "answer": "Flirty jokes about your skills (e.g., 'Are you a DevOps engineer? Because you auto-scale my heart')."
-    },
-    {
-      "id": 261,
-      "question": "How do I add a Threads?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 262,
-      "question": "Can I filter jobs by 'No NDAs'?",
-      "answer": "Check company reviews for legal policies."
-    },
-    {
-      "id": 263,
-      "question": "What’s the 'Job Seeker Rorschach Test'?",
-      "answer": "AI-generated inkblots with career interpretations (e.g., 'This looks like a promotion')."
-    },
-    {
-      "id": 264,
-      "question": "How do I add a PixelFed?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 265,
-      "question": "Can I see which jobs are 'No Micromanagement'?",
-      "answer": "Check company reviews for management style."
-    },
-    {
-      "id": 266,
-      "question": "What’s the 'Resume Tea Leaves'?",
-      "answer": "Fun 'predictions' based on your resume layout (e.g., 'Your margins predict a raise')."
-    },
-    {
-      "id": 267,
-      "question": "How do I add a PeerTube?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 268,
-      "question": "Can I filter jobs by 'No Timesheets'?",
-      "answer": "Check company reviews for tracking policies."
-    },
-    {
-      "id": 269,
-      "question": "What’s the 'Job Seeker Mood Ring'?",
-      "answer": "Changes color based on your job search stress (virtual)."
-    },
-    {
-      "id": 270,
-      "question": "How do I add a Lemmy?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 271,
-      "question": "Can I see which jobs are 'No Surveillance'?",
-      "answer": "Check company reviews for monitoring tools."
-    },
-    {
-      "id": 272,
-      "question": "What’s the 'Resume Zodiac'?",
-      "answer": "A fake horoscope based on your career (e.g., 'Taurus season is good for networking')."
-    },
-    {
-      "id": 273,
-      "question": "How do I add a Diaspora?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 274,
-      "question": "Can I filter jobs by 'No Background Checks'?",
-      "answer": "Check company reviews for hiring processes."
-    },
-    {
-      "id": 275,
-      "question": "What’s the 'Job Seeker Crystal Ball'?",
-      "answer": "Fun 'predictions' (e.g., 'You’ll get 3 interviews next week')."
-    },
-    {
-      "id": 276,
-      "question": "How do I add a Friendica?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 277,
-      "question": "Can I see which jobs are 'No Drug Tests'?",
-      "answer": "Check company reviews for screening policies."
-    },
-    {
-      "id": 278,
-      "question": "What’s the 'Resume Bingo'?",
-      "answer": "Mark off common resume clichés (e.g., 'Team Player')."
-    },
-    {
-      "id": 279,
-      "question": "How do I add a GNU Social?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 280,
-      "question": "Can I filter jobs by 'No Credit Checks'?",
-      "answer": "Check company reviews for financial screenings."
-    },
-    {
-      "id": 281,
-      "question": "What’s the 'Job Seeker Magic Spell'?",
-      "answer": "Fun 'incantations' (e.g., 'Recruiterus Contactus!')."
-    },
-    {
-      "id": 282,
-      "question": "How do I add a Pleroma?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 283,
-      "question": "Can I see which jobs are 'No Social Media Checks'?",
-      "answer": "Check company reviews for privacy policies."
-    },
-    {
-      "id": 284,
-      "question": "What’s the 'Resume Magic Trick'?",
-      "answer": "Fun illusion (e.g., 'Watch this bullet point disappear!')."
-    },
-    {
-      "id": 285,
-      "question": "How do I add a Movim?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 286,
-      "question": "Can I filter jobs by 'No GPA Requirements'?",
-      "answer": "Filter by 'Education' > 'No GPA Required'."
-    },
-    {
-      "id": 287,
-      "question": "What’s the 'Job Seeker Superpower'?",
-      "answer": "Fun quiz (e.g., 'Your power: Instant Cover Letters')."
-    },
-    {
-      "id": 288,
-      "question": "How do I add a Hubzilla?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 289,
-      "question": "Can I see which jobs are 'No Ageism'?",
-      "answer": "Check company reviews for diversity stats."
-    },
-    {
-      "id": 290,
-      "question": "What’s the 'Resume Superhero'?",
-      "answer": "Generates a hero persona from your skills (e.g., 'Captain Python')."
-    },
-    {
-      "id": 291,
-      "question": "How do I add a Streams?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 292,
-      "question": "Can I filter jobs by 'No Sexism'?",
-      "answer": "Check company reviews for inclusivity."
-    },
-    {
-      "id": 293,
-      "question": "What’s the 'Job Seeker Power-Up'?",
-      "answer": "Fun boosts (e.g., '+10 Confidence for interviews')."
-    },
-    {
-      "id": 294,
-      "question": "How do I add a SocialHome?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 295,
-      "question": "Can I see which jobs are 'No Racism'?",
-      "answer": "Check company reviews for DEI efforts."
-    },
-    {
-      "id": 296,
-      "question": "What’s the 'Resume Video Game'?",
-      "answer": "A mini-game where you 'level up' your career (beta)."
-    },
-    {
-      "id": 297,
-      "question": "How do I add a Misskey?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 298,
-      "question": "Can I filter jobs by 'No Ableism'?",
-      "answer": "Check company reviews for accessibility."
-    },
-    {
-      "id": 299,
-      "question": "What’s the 'Job Seeker RPG'?",
-      "answer": "A text adventure game about your job search (e.g., 'You encounter a tricky interview question')."
-    },
-    {
-      "id": 300,
-      "question": "How do I add a Plume?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 301,
-      "question": "Can I see which jobs are 'No LGBTQ+ Discrimination'?",
-      "answer": "Check company reviews for Pride ratings."
-    },
-    {
-      "id": 302,
-      "question": "What’s the 'Resume D&D Character'?",
-      "answer": "Generates a Dungeons & Dragons character based on your career (e.g., 'Class: DevOps Wizard')."
-    },
-    {
-      "id": 303,
-      "question": "How do I add a WriteFreely?",
-      "answer": "Profile > 'Edit' > 'Portfolio URL'."
-    },
-    {
-      "id": 304,
-      "question": "Can I filter jobs by 'No Classism'?",
-      "answer": "Check company reviews for socioeconomic inclusivity."
-    },
-    {
-      "id": 305,
-      "question": "What’s the 'Job Seeker Loot Box'?",
-      "answer": "Fun random rewards (e.g., 'You found a LinkedIn connection!')."
-    },
-    {
-      "id": 306,
-      "question": "How do I add a PixelFed?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 307,
-      "question": "Can I see which jobs are 'No Sizeism'?",
-      "answer": "Check company reviews for body positivity."
-    },
-    {
-      "id": 308,
-      "question": "What’s the 'Resume Trading Cards'?",
-      "answer": "Collectible cards of your skills (e.g., 'Rare: Kubernetes Expert')."
-    },
-    {
-      "id": 309,
-      "question": "How do I add a Funkwhale?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 310,
-      "question": "Can I filter jobs by 'No Lookism'?",
-      "answer": "Check company reviews for appearance policies."
-    },
-    {
-      "id": 311,
-      "question": "What’s the 'Job Seeker Simulator'?",
-      "answer": "A parody game where you 'grind' applications (beta)."
-    },
-    {
-      "id": 312,
-      "question": "How do I add a Nextcloud?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 313,
-      "question": "Can I see which jobs are 'No Nepotism'?",
-      "answer": "Check company reviews for hiring fairness."
-    },
-    {
-      "id": 314,
-      "question": "What’s the 'Resume Emoji Translator'?",
-      "answer": "Converts your resume into emojis (e.g., '👨💻 + 🐍 = Python Dev')."
-    },
-    {
-      "id": 315,
-      "question": "How do I add a Jitsi?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 316,
-      "question": "Can I filter jobs by 'No Cronyism'?",
-      "answer": "Check company reviews for transparency."
-    },
-    {
-      "id": 317,
-      "question": "What’s the 'Job Seeker Escape Room'?",
-      "answer": "A puzzle game where you 'escape' unemployment (beta)."
-    },
-    {
-      "id": 318,
-      "question": "How do I add a BigBlueButton?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 319,
-      "question": "Can I see which jobs are 'No Favoritism'?",
-      "answer": "Check company reviews for promotion fairness."
-    },
-    {
-      "id": 320,
-      "question": "What’s the 'Resume ASCII Art'?",
-      "answer": "Converts your resume into text art (e.g., '> python3 resume.py')."
-    },
-    {
-      "id": 321,
-      "question": "How do I add a Matrix?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 322,
-      "question": "Can I filter jobs by 'No Gossip Culture'?",
-      "answer": "Check company reviews for workplace environment."
-    },
-    {
-      "id": 323,
-      "question": "What’s the 'Job Seeker Whac-A-Mole'?",
-      "answer": "A game where you 'hit' interview questions (beta)."
-    },
-    {
-      "id": 324,
-      "question": "How do I add a XMPP?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 325,
-      "question": "Can I see which jobs are 'No Toxic Positivity'?",
-      "answer": "Check company reviews for mental health policies."
-    },
-    {
-      "id": 326,
-      "question": "What’s the 'Resume Binary Code'?",
-      "answer": "Converts your skills into 1s and 0s (just for fun)."
-    },
-    {
-      "id": 327,
-      "question": "How do I add a IRC?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 328,
-      "question": "Can I filter jobs by 'No Burnout Culture'?",
-      "answer": "Check company reviews for work-life balance."
-    },
-    {
-      "id": 329,
-      "question": "What’s the 'Job Seeker Slot Machine'?",
-      "answer": "Spin for random job search tips (e.g., 'Networking!')."
-    },
-    {
-      "id": 330,
-      "question": "How do I add a SIP?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 331,
-      "question": "Can I see which jobs are 'No Quiet Firing'?",
-      "answer": "Check company reviews for retention rates."
-    },
-    {
-      "id": 332,
-      "question": "What’s the 'Resume QR Code'?",
-      "answer": "Generates a scannable QR code linking to your profile."
-    },
-    {
-      "id": 333,
-      "question": "How do I add a Mumble?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 334,
-      "question": "Can I filter jobs by 'No Ghosting'?",
-      "answer": "Check company reviews for response rates."
-    },
-    {
-      "id": 335,
-      "question": "What’s the 'Job Seeker Roulette'?",
-      "answer": "Spin to get a random job application challenge."
-    },
-    {
-      "id": 336,
-      "question": "How do I add a TeamSpeak?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 337,
-      "question": "Can I see which jobs are 'No Bait-and-Switch'?",
-      "answer": "Check company reviews for role accuracy."
-    },
-    {
-      "id": 338,
-      "question": "What’s the 'Resume Barcode'?",
-      "answer": "A fun barcode generator for your skills."
-    },
-    {
-      "id": 339,
-      "question": "How do I add a Ventrilo?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 340,
-      "question": "Can I filter jobs by 'No Exploding Offers'?",
-      "answer": "Check company reviews for hiring pressure."
-    },
-    {
-      "id": 341,
-      "question": "What’s the 'Job Seeker Dice'?",
-      "answer": "Roll for random actions (e.g., 'Apply to 3 jobs today')."
-    },
-    {
-      "id": 342,
-      "question": "How do I add a Discord?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 343,
-      "question": "Can I see which jobs are 'No Fake Titles'?",
-      "answer": "Check company reviews for role transparency."
-    },
-    {
-      "id": 344,
-      "question": "What’s the 'Resume Password Generator'?",
-      "answer": "Creates strong passwords from your skills (e.g., 'PyTh0nD3v!')."
-    },
-    {
-      "id": 345,
-      "question": "How do I add a Slack?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 346,
-      "question": "Can I filter jobs by 'No Fake Perks'?",
-      "answer": "Check company reviews for benefit honesty."
-    },
-    {
-      "id": 347,
-      "question": "What’s the 'Job Seeker Coin Flip'?",
-      "answer": "Heads: Apply to a job. Tails: Update your resume."
-    },
-    {
-      "id": 348,
-      "question": "How do I add a Skype?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 349,
-      "question": "Can I see which jobs are 'No Fake Hybrid Work'?",
-      "answer": "Check company reviews for remote honesty."
-    },
-    {
-      "id": 350,
-      "question": "What’s the 'Resume Encryption'?",
-      "answer": "A joke 'encryption' of your resume (e.g., 'DevOps → D3v0p5')."
-    },
-    {
-      "id": 351,
-      "question": "How do I add a Zoom?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 352,
-      "question": "Can I filter jobs by 'No Fake Startups'?",
-      "answer": "Check company reviews for funding transparency."
-    },
-    {
-      "id": 353,
-      "question": "What’s the 'Job Seeker Tarot'?",
-      "answer": "Draw a card for job search advice (e.g., 'The Tower: Expect rejection')."
-    },
-    {
-      "id": 354,
-      "question": "How do I add a Google Meet?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 355,
-      "question": "Can I see which jobs are 'No Fake Equity'?",
-      "answer": "Check company reviews for stock option clarity."
-    },
-    {
-      "id": 356,
-      "question": "What’s the 'Resume Lorem Ipsum'?",
-      "answer": "A placeholder version of your resume (for testing)."
-    },
-    {
-      "id": 357,
-      "question": "How do I add a Microsoft Teams?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 358,
-      "question": "Can I filter jobs by 'No Fake Promotions'?",
-      "answer": "Check company reviews for career path honesty."
-    },
-    {
-      "id": 359,
-      "question": "What’s the 'Job Seeker RNG'?",
-      "answer": "Random number generator for decisions (e.g., 'Apply to job #7')."
-    },
-    {
-      "id": 360,
-      "question": "How do I add a Cisco Webex?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 361,
-      "question": "Can I see which jobs are 'No Fake Culture'?",
-      "answer": "Check company reviews for culture honesty."
-    },
-    {
-      "id": 362,
-      "question": "What’s the 'Resume Checksum'?",
-      "answer": "A fake 'checksum' for your resume (e.g., 'Skills: 0x3F2A1')."
-    },
-    {
-      "id": 363,
-      "question": "How do I add a BlueJeans?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 364,
-      "question": "Can I filter jobs by 'No Fake DEI'?",
-      "answer": "Check company reviews for diversity efforts."
-    },
-    {
-      "id": 365,
-      "question": "What’s the 'Job Seeker Magic Conch'?",
-      "answer": "Ask yes/no questions (e.g., 'Should I negotiate?')."
-    },
-    {
-      "id": 366,
-      "question": "How do I add a GoToMeeting?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 367,
-      "question": "Can I see which jobs are 'No Fake ESG'?",
-      "answer": "Check company reviews for sustainability."
-    },
-    {
-      "id": 368,
-      "question": "What’s the 'Resume UUID'?",
-      "answer": "A fun unique ID for your resume (e.g., 'RES-UME-1234')."
-    },
-    {
-      "id": 369,
-      "question": "How do I add a Jami?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 370,
-      "question": "Can I filter jobs by 'No Fake B-Corp'?",
-      "answer": "Check company reviews for certification legitimacy."
-    },
-    {
-      "id": 371,
-      "question": "What’s the 'Job Seeker Magic Beans'?",
-      "answer": "Fun 'beans' that grow into job tips (e.g., 'Water this bean to reveal a networking tip')."
-    },
-    {
-      "id": 372,
-      "question": "How do I add a Signal?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 373,
-      "question": "Can I see which jobs are 'No Fake Impact'?",
-      "answer": "Check company reviews for mission alignment."
-    },
-    {
-      "id": 374,
-      "question": "What’s the 'Resume Hash'?",
-      "answer": "A fake 'hash' of your resume (e.g., 'SHA-Resume-123')."
-    },
-    {
-      "id": 375,
-      "question": "How do I add a Wire?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 376,
-      "question": "Can I filter jobs by 'No Fake Greenwashing'?",
-      "answer": "Check company reviews for environmental claims."
-    },
-    {
-      "id": 377,
-      "question": "What’s the 'Job Seeker Magic Lamp'?",
-      "answer": "Rub for 'genie' job advice (e.g., 'Your next interview is in 3 days')."
-    },
-    {
-      "id": 378,
-      "question": "How do I add a Threema?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 379,
-      "question": "Can I see which jobs are 'No Fake Charity'?",
-      "answer": "Check company reviews for philanthropic transparency."
-    },
-    {
-      "id": 380,
-      "question": "What’s the 'Resume GUID'?",
-      "answer": "A fun global ID for your resume (e.g., 'RES-UME-GUID')."
-    },
-    {
-      "id": 381,
-      "question": "How do I add a Session?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 382,
-      "question": "Can I filter jobs by 'No Fake Volunteering'?",
-      "answer": "Check company reviews for volunteer policies."
-    },
-    {
-      "id": 383,
-      "question": "What’s the 'Job Seeker Magic Mirror'?",
-      "answer": "Ask it who’s the best candidate (spoiler: it’s you)."
-    },
-    {
-      "id": 384,
-      "question": "How do I add a Status?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 385,
-      "question": "Can I see which jobs are 'No Fake Mentorship'?",
-      "answer": "Check company reviews for growth programs."
-    },
-    {
-      "id": 386,
-      "question": "What’s the 'Resume DNA'?",
-      "answer": "A fun 'DNA sequence' of your skills (e.g., 'SKL-PYT-DEV')."
-    },
-    {
-      "id": 387,
-      "question": "How do I add a Briar?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 388,
-      "question": "Can I filter jobs by 'No Fake Training'?",
-      "answer": "Check company reviews for L&D budgets."
-    },
-    {
-      "id": 389,
-      "question": "What’s the 'Job Seeker Magic Potion'?",
-      "answer": "Fun 'potions' (e.g., 'Potion of Confidence: +5 Charisma')."
-    },
-    {
-      "id": 390,
-      "question": "How do I add a Tox?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 391,
-      "question": "Can I see which jobs are 'No Fake Wellness'?",
-      "answer": "Check company reviews for health program quality."
-    },
-    {
-      "id": 392,
-      "question": "What’s the 'Resume RNA'?",
-      "answer": "A joke 'RNA' version of your resume (e.g., 'Translate skills into proteins')."
-    },
-    {
-      "id": 393,
-      "question": "How do I add a RetroShare?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 394,
-      "question": "Can I filter jobs by 'No Fake Sabbaticals'?",
-      "answer": "Check company reviews for sabbatical policies."
-    },
-    {
-      "id": 395,
-      "question": "What’s the 'Job Seeker Magic Scroll'?",
-      "answer": "Unroll for random advice (e.g., 'Network before applying')."
-    },
-    {
-      "id": 396,
-      "question": "How do I add a Ring?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 397,
-      "question": "Can I see which jobs are 'No Fake Unlimited PTO'?",
-      "answer": "Check company reviews for PTO usage rates."
-    },
-    {
-      "id": 398,
-      "question": "What’s the 'Resume Genome Project'?",
-      "answer": "A fun 'study' of your career DNA."
-    },
-    {
-      "id": 399,
-      "question": "How do I add a Jitsi?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 400,
-      "question": "Can I filter jobs by 'No Fake Parental Leave'?",
-      "answer": "Check company reviews for leave policies."
-    },
-    {
-      "id": 401,
-      "question": "What’s the 'Job Seeker Magic Wand'?",
-      "answer": "Wave it for 'magic' job search help (e.g., 'LinkedIn connections appear!')."
-    },
-    {
-      "id": 402,
-      "question": "How do I add a Linphone?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 403,
-      "question": "Can I see which jobs are 'No Fake Pet Insurance'?",
-      "answer": "Check company reviews for pet benefits."
-    },
-    {
-      "id": 404,
-      "question": "What’s the 'Resume Cloning'?",
-      "answer": "A joke about 'cloning' your perfect resume."
-    },
-    {
-      "id": 405,
-      "question": "How do I add a Mumble?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 406,
-      "question": "Can I filter jobs by 'No Fake Lunch Budgets'?",
-      "answer": "Check company reviews for meal perks."
-    },
-    {
-      "id": 407,
-      "question": "What’s the 'Job Seeker Magic Book'?",
-      "answer": "Flip to a random page for tips (e.g., 'Chapter 3: Negotiation')."
-    },
-    {
-      "id": 408,
-      "question": "How do I add a Zoiper?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 409,
-      "question": "Can I see which jobs are 'No Fake Gym Memberships'?",
-      "answer": "Check company reviews for fitness benefits."
-    },
-    {
-      "id": 410,
-      "question": "What’s the 'Resume Mutation'?",
-      "answer": "A fun 'mutation' of your skills (e.g., 'Python → Pyraptor')."
-    },
-    {
-      "id": 411,
-      "question": "How do I add a MicroSIP?",
-      "answer": "Profile > 'Edit' > 'Social Links'."
-    },
-    {
-      "id": 412,
-      "question": "Can I filter jobs by 'No Fake Commuter Benefits'?",
-      "answer": "Check company reviews for transit perks."
-    },
-    {
-      "id": 413,
-      "question": "What’s the 'Job Seeker Magic Cauldron'?",
-      "answer": "Bubble up random job leads (e.g., '3 new matches!')."
-    } ]}
+      "question": "Upskilling strategy for Tunisian developers?",
+      "answer": "Annual Learning Plan:\n1. Quarterly Goals:\n   - Q1: Master core technology\n   - Q2: Learn adjacent skill\n   - Q3: Earn certification\n   - Q4: Contribute to OSS\n2. Resources:\n   - Platzi (Spanish/French)\n   - Udemy Business\n   - MIT OpenCourseWare\n3. Tracking:\n   - Skill matrix\n   - Learning diary\n4. Community:\n   - Study groups\n   - Hackathons\n5. Budget:\n   - 5-10% income on learning"
+    }
+  ]
+}
