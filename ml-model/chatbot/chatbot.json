@@ -874,6 +874,467 @@
       "id": 175,
       "question": "Upskilling strategy for Tunisian developers?",
       "answer": "Annual Learning Plan:\n1. Quarterly Goals:\n   - Q1: Master core technology\n   - Q2: Learn adjacent skill\n   - Q3: Earn certification\n   - Q4: Contribute to OSS\n2. Resources:\n   - Platzi (Spanish/French)\n   - Udemy Business\n   - MIT OpenCourseWare\n3. Tracking:\n   - Skill matrix\n   - Learning diary\n4. Community:\n   - Study groups\n   - Hackathons\n5. Budget:\n   - 5-10% income on learning"
+    },
+     {
+      "id": 176,
+      "question": "What is the hiring process at Hexabyte?",
+      "answer": "Hexabyte's 4-stage process:\n1. Online technical test (Networking/OS questions)\n2. French-language technical interview\n3. Hands-on lab simulation\n4. HR culture fit meeting\nAverage duration: 3 weeks\nTip: Brush up on Cisco CLI commands"
+    },
+    {
+      "id": 177,
+      "question": "How to get hired at Ooredoo Tech?",
+      "answer": "Ooredoo Tech hiring secrets:\n- Emphasize telecom experience\n- Prepare Arabic technical vocabulary\n- Showcase cloud certification (AWS/Azure)\n- Highlight customer-facing skills\nKey departments hiring: \n1) Digital Transformation\n2) Cloud Solutions\n3) Cybersecurity"
+    },
+    {
+      "id": 178,
+      "question": "What projects impress Tunisian startups?",
+      "answer": "5 Portfolio Projects That Stand Out:\n1. Tunisian market solutions (e.g., e-dinar integration)\n2. Open-source contributions to Tunisian repos\n3. Startup weekend winners\n4. Freelance work for EU clients\n5. Technical blog in French/English"
+    },
+    {
+      "id": 179,
+      "question": "Tell me about TPSynergy",
+      "answer": "TPSynergy profile:\n- Tunisian-German nearshoring specialist\n- Focus areas:\n  1) Automotive software\n  2) Industrial IoT\n  3) Embedded systems\n- Hiring trends:\n  • 50% German B1+ speakers\n  • Strong C++/RTOS skills\n- Offices: Tunis, Stuttgart"
+    },
+    {
+      "id": 180,
+      "question": "What is the work culture at Diva Consulting?",
+      "answer": "Diva culture insights:\n✔️ Formal corporate environment\n✔️ Strong hierarchy\n✔️ Focus on SAP/Oracle certifications\n✔️ Billable hours tracking\n✔️ French-language dominance\nPerks:\n- Training budget\n- International mobility options"
+    },
+    {
+      "id": 181,
+      "question": "How to prepare for Telnet's coding test?",
+      "answer": "Telnet's technical test prep:\n1. Algorithm focus:\n   - Sorting/searching\n   - Dynamic programming\n2. OOP concepts:\n   - Inheritance patterns\n   - Polymorphism cases\n3. French-language:\n   - Practice reading technical docs\n   - Comment code in French\nTest duration: 90 minutes"
+    },
+    {
+      "id": 182,
+      "question": "What is the salary progression at STMicroelectronics?",
+      "answer": "STM Tunisia career ladder:\n1. Fresh Grad: 2,800-3,500 TND\n2. Engineer II (3yrs): 4,200-5,000 TND\n3. Senior (5yrs): 5,500-7,000 TND\n4. Team Lead: 8,000+ TND\nAdditional:\n- Performance bonuses\n- Patent incentives\n- Relocation packages"
+    },
+    {
+      "id": 183,
+      "question": "Tell me about Inova Tunisia",
+      "answer": "Inova snapshot:\n- French-Tunisian IT services\n- Specializations:\n  1) Banking software\n  2) Insurance platforms\n  3) Legacy modernization\n- Hiring profile:\n  • Java EE experts\n  • Mainframe transition skills\n  • Bilingual French/English\n- Tunis offices: Lac 1 & 2"
+    },
+    {
+      "id": 184,
+      "question": "What benefits does Expensya offer?",
+      "answer": "Expensya's benefits package:\n✔️ Competitive salary (USD-pegged)\n✔️ Stock options\n✔️ 100% health insurance\n✔️ 5000TND/year training budget\n✔️ Flexible remote policy\n✔️ Gym membership\n✔️ Quarterly team retreats\nUnique: \n- Macbook Pro + accessories\n- Startup investment opportunities"
+    },
+    {
+      "id": 185,
+      "question": "How to get promoted in Tunisian IT companies?",
+      "answer": "Promotion pathways:\n1. Technical Track:\n   - Certifications\n   - Complex project leadership\n   - Patent filings\n2. Management Track:\n   - PMP certification\n   - Team mentoring\n   - Revenue contributions\n3. Key behaviors:\n   - Visibility (presentations)\n   - Cross-department initiatives\n   - French fluency improvement"
+    },
+    {
+      "id": 186,
+      "question": "What is the interview process at Cogite?",
+      "answer": "Cogite's 5-stage hiring:\n1. CV screening (focus on ERP experience)\n2. Case study (Business process analysis)\n3. Technical deep dive (SAP/Oracle modules)\n4. Client simulation (French-language)\n5. Partner interview\nPro tip: Research their recent Tunisian client implementations"
+    },
+    {
+      "id": 187,
+      "question": "Tell me about SBS Tunisia",
+      "answer": "SBS profile:\n- Banking software leader\n- Flagship product: BANKSOFT\n- Hiring needs:\n  1) Core banking devs\n  2) Payment systems experts\n  3) Regulatory reporting specialists\n- Tech stack:\n  • Java EE\n  • Oracle DB\n  • ISO 20022 knowledge\n- Offices: Tunis, Casablanca, Paris"
+    },
+    {
+      "id": 188,
+      "question": "What skills are needed at TAC-Tunisie?",
+      "answer": "TAC's skill matrix:\nMUST HAVE:\n- Automotive standards:\n  • AUTOSAR\n  • ISO 26262\n- Programming:\n  • Embedded C\n  • CAPL\n  • Python for testing\nNICE TO HAVE:\n- German language\n- HIL testing experience\n- CANoe/CANalyzer"
+    },
+    {
+      "id": 189,
+      "question": "How to build a network in Tunisian tech?",
+      "answer": "Networking blueprint:\n1. Physical Events:\n   - JUG Tunisia (Java)\n   - DevOps Tunisia Meetup\n   - Tunisian AI Conference\n2. Online:\n   - LinkedIn Tunisian Tech Leaders\n   - GitHub Tunisia orgs\n3. Pro Tips:\n   - Contribute to open-source\n   - Write technical articles\n   - Mentor at coding bootcamps"
+    },
+    {
+      "id": 190,
+      "question": "What is the dress code at Vermeg?",
+      "answer": "Vermeg attire guidelines:\n- Client-facing roles:\n  • Men: Suit no tie\n  • Women: Business suits\n- Technical roles:\n  • Smart casual (no jeans)\n- Fridays:\n  • Casual but professional\nNote: Conservative style preferred\nPro tip: Always carry a blazer"
+    },
+    {
+      "id": 191,
+      "question": "Tell me about Proxym IT",
+      "answer": "Proxym snapshot:\n- Tunisian systems integrator\n- Specializations:\n  1) Microsoft solutions\n  2) Citrix virtualization\n  3) Enterprise security\n- Hiring peaks:\n  • March-April (Budget cycles)\n  • September (Post-summer)\n- Career paths:\n  • Technical (MCSA/MCSE)\n  • Consulting (PMP)"
+    },
+    {
+      "id": 192,
+      "question": "What are red flags in Tunisian IT contracts?",
+      "answer": "Contract warning signs:\n🚩 Vague job description\n🚩 No clear KPIs\n🚩 Excessive non-compete ( >1 year)\n🚩 IP ownership clauses\n🚩 Unpaid overtime expectations\n🚩 Salary paid in cash\n🚩 No CNSS registration\nAlways consult our Contract Review Service"
+    },
+    {
+      "id": 193,
+      "question": "How to handle probation periods?",
+      "answer": "Probation survival guide:\n1. First 30 days:\n   - Document everything\n   - Over-communicate\n   - Identify key stakeholders\n2. Mid-point:\n   - Request feedback\n   - Adjust approach\n3. Final month:\n   - Show measurable impact\n   - Discuss permanency terms\nTunisian law: Max 6 months probation"
+    },
+    {
+      "id": 194,
+      "question": "What is the hiring freeze pattern in Tunisia?",
+      "answer": "Annual hiring cycles:\n❄️ Freeze periods:\n- December (Budget planning)\n- Ramadan (Reduced activity)\n- August (Summer vacations)\n🔥 Hot periods:\n- February-April\n- September-October\nPro tip: Apply 1 month before hot periods"
+    },
+    {
+      "id": 195,
+      "question": "Tell me about GFI Tunisia",
+      "answer": "GFI profile:\n- French IT giant's Tunis delivery center\n- Focus areas:\n  1) Banking software\n  2) Public sector digitization\n  3) Healthcare IT\n- Hiring process:\n  • 3 technical interviews\n  • French fluency test\n  • Case presentation\n- Perks: EU mobility options"
+    },
+    {
+      "id": 196,
+      "question": "What are Tunisian tech headhunters looking for?",
+      "answer": "Headhunter magnets:\n1. Profile keywords:\n   - Kubernetes\n   - React Native\n   - SAP S/4HANA\n   - Azure AI\n2. Experience:\n   - EU client projects\n   - Scale-up environments\n3. Visibility:\n   - LinkedIn engagement\n   - Conference talks\n   - Technical publications"
+    },
+    {
+      "id": 197,
+      "question": "How to ace case interviews in Tunisia?",
+      "answer": "Case interview formula:\n1. Structure:\n   - Problem definition\n   - Analysis framework\n   - Solution options\n   - Recommendation\n2. Tunisian specifics:\n   - Local market awareness\n   - French business terms\n   - Regulatory constraints\n3. Practice cases:\n   - Telecom pricing\n   - Banking app rollout\n   - E-gov solutions"
+    },
+    {
+      "id": 198,
+      "question": "What is the career path at Orange Digital Factory?",
+      "answer": "Orange DF progression:\n1. Junior Dev (1-2yrs): 3,500-4,500 TND\n2. DevOps Engineer (3yrs): 5,000-6,500 TND\n3. Squad Lead (5yrs): 7,500+ TND\n4. Chapter Lead (8yrs): 10,000+ TND\nKey skills for growth:\n- Cloud native development\n- Agile coaching\n- French fluency"
+    },
+    {
+      "id": 199,
+      "question": "Tell me about Alstom Tunisia Tech",
+      "answer": "Alstom tech hub:\n- Focus: Railway digital solutions\n- Tech stack:\n  1) Embedded systems\n  2) IoT platforms\n  3) Predictive maintenance AI\n- Hiring criteria:\n  • C++17/20 mastery\n  • SIL4 safety standards\n  • French technical writing\n- Unique perk: EU rail industry exposure"
+    },
+    {
+      "id": 200,
+      "question": "What are Tunisian tech salary bands?",
+      "answer": "2024 Salary Benchmark (Monthly TND):\n▸ Junior Web Dev: 1,800-2,500\n▸ Mid Fullstack: 3,000-4,500\n▸ Senior DevOps: 5,000-7,000\n▸ Data Scientist: 4,500-6,500\n▸ Cybersecurity Lead: 6,000-9,000\n▸ CTO (Startup): 8,000-15,000\nNote: French adds 15-25% premium"
+    },
+    {
+      "id": 201,
+      "question": "How to transition from corporate to startup?",
+      "answer": "Startup transition kit:\n1. Mindset shift:\n   - Embrace ambiguity\n   - Accept equity tradeoffs\n   - Wear multiple hats\n2. Skill prep:\n   - Lean methodologies\n   - Fundraising basics\n   - Growth hacking\n3. Target roles:\n   - Tech Lead at Series A\n   - VP Eng at Seed\n   - CTO at Pre-seed"
+    },
+    {
+      "id": 202,
+      "question": "What is the work-life balance at Tunisian consultancies?",
+      "answer": "Consultancy realities:\n✔️ Project-based intensity\n✔️ Client site requirements\n✔️ Off-hours maintenance\nBalancing strategies:\n- Set clear boundaries\n- Track overtime\n- Use comp time\n- Leverage bench periods\nTop firms for balance:\n1) Sagemcom\n2) Actia\n3) Hexabyte"
+    },
+    {
+      "id": 203,
+      "question": "Tell me about Talan Tunisie",
+      "answer": "Talan snapshot:\n- French consultancy's delivery center\n- Focus:\n  1) Data engineering\n  2) Digital transformation\n  3) Cloud migration\n- Hiring process:\n  • Case study (French)\n  • Technical panel\n  • Cultural fit\n- Growth path:\n  • 18-24 months between grades\n  • Paris rotation options"
+    },
+    {
+      "id": 204,
+      "question": "How to handle counteroffers in Tunisia?",
+      "answer": "Counteroffer playbook:\n1. Preparation:\n   - Market data\n   - Promotion timeline\n2. Delivery:\n   - Focus on value\n   - Avoid ultimatums\n3. Alternatives:\n   - Training commitments\n   - Remote days\n   - Project leadership\n4. Exit strategy:\n   - Graceful transition\n   - Knowledge transfer"
+    },
+    {
+      "id": 205,
+      "question": "What is the interview process at BIAT IT?",
+      "answer": "BIAT IT stages:\n1. Online screening (Banking domain quiz)\n2. Technical interview (Java + SQL)\n3. Security clearance\n4. Central Bank compliance check\nKey prep:\n- Study payment systems\n- Review banking regulations\n- Practice French finance terms"
+    },
+    {
+      "id": 206,
+      "question": "Tell me about Cynapsys",
+      "answer": "Cynapsys profile:\n- Tunisian tech pioneer\n- Specializations:\n  1) E-gov solutions\n  2) Healthcare IT\n  3) Smart cities\n- Hiring trends:\n  • Java/Spring dominance\n  • Angular expertise\n  • French public sector experience\n- Culture:\n  • Research-oriented\n  • Patent-driven"
+    },
+    {
+      "id": 207,
+      "question": "What are Tunisian tech bonus structures?",
+      "answer": "Bonus landscape:\n💰 Performance bonus: 1-3 months salary\n💰 Profit sharing: 5-15% annual\n💰 Spot bonuses: 500-2000 TND\n💰 Retention bonuses: 2-6 months\n💰 Equity: Startups only\nTax note: Bonuses taxed at 15% flat rate"
+    },
+    {
+      "id": 208,
+      "question": "How to prepare for French-language tech interviews?",
+      "answer": "French interview prep:\n1. Technical vocabulary:\n   - Boucle = Loop\n   - Héritage = Inheritance\n   - Surcharge = Overloading\n2. Practice:\n   - Explain projects in French\n   - Whiteboard in French\n3. Resources:\n   - CNRS tech glossaries\n   - France Université Numérique"
+    },
+    {
+      "id": 209,
+      "question": "What is the hiring process at Sagemcom Tunisia?",
+      "answer": "Sagemcom stages:\n1. HR screening (French/English)\n2. Technical test (C/Python)\n3. Team interview (Embedded systems)\n4. Manager meeting\nInsider tip:\n- Emphasize telecom standards\n- Show hardware/software interface skills\n- Prepare for whiteboard sessions"
+    },
+    {
+      "id": 210,
+      "question": "Tell me about Inetum Tunisia",
+      "answer": "Inetum (ex-GFI) facts:\n- French IT services giant\n- Tunis delivery center focus:\n  1) Application maintenance\n  2) Cloud migration\n  3) Legacy modernization\n- Career paths:\n  • Technical (15 certification tracks)\n  • Functional (Domain expertise)\n- Perk: International mobility"
+    },
+    {
+      "id": 211,
+      "question": "What are Tunisian non-compete clauses?",
+      "answer": "Non-compete realities:\n📜 Max 2 years duration\n📜 Must specify:\n   - Geography\n   - Industry\n   - Compensation\n📜 Unenforceable if:\n   - Too broad\n   - No compensation\n   - Prevents livelihood\nAlways negotiate before signing"
+    },
+    {
+      "id": 212,
+      "question": "How to find English-speaking tech jobs in Tunisia?",
+      "answer": "English job sources:\n1. Companies:\n   - InstaDeep\n   - Expensya\n   - Cynapsys\n2. Platforms:\n   - AngelList Tunisia\n   - Wuzzuf English\n3. Keywords:\n   - \"English required\"\n   - \"Multilingual team\"\n4. Networks:\n   - Tunisian Startup Meetup\n   - Digital Nomads Tunis"
+    },
+    {
+      "id": 213,
+      "question": "What is the interview process at Topnet?",
+      "answer": "Topnet hiring journey:\n1. Technical quiz (Networking basics)\n2. Practical lab (Cisco config)\n3. Architecture discussion\n4. HR interview (Arabic)\nPrep tips:\n- Study OSI model\n- Know Tunisian ISP landscape\n- Practice troubleshooting scenarios"
+    },
+    {
+      "id": 214,
+      "question": "Tell me about Comete Engineering",
+      "answer": "Comete profile:\n- Tunisian-German engineering firm\n- Focus areas:\n  1) Automotive embedded\n  2) Industrial automation\n  3) Mechatronics\n- Hiring needs:\n  • MATLAB/Simulink experts\n  • German B2+ speakers\n  • CAN bus experience\n- Culture:\n  • Precision-focused\n  • Certification-driven"
+    },
+    {
+      "id": 215,
+      "question": "What are Tunisian tech severance packages?",
+      "answer": "Severance standards:\n💼 Legal minimum:\n- 1 month per year\n- 3 months minimum\n💼 Corporate norms:\n- Additional 2-6 months\n- Outplacement services\n💼 Startup variations:\n- Equity acceleration\n- Extended healthcare\nNote: Negotiate before signing termination"
+    },
+    {
+      "id": 216,
+      "question": "How to get into Tunisian fintech?",
+      "answer": "Fintech entry paths:\n1. Technical skills:\n   - Payment protocols\n   - Blockchain basics\n   - Regulatory tech\n2. Target companies:\n   - Expensya\n   - Wevioo\n   - BIAT Digital Factory\n3. Certifications:\n   - FinTech Institute\n   - CFA Investment Foundations"
+    },
+    {
+      "id": 217,
+      "question": "What is the hiring process at TPSynergy?",
+      "answer": "TPSynergy stages:\n1. German language test (B1+)\n2. Technical assessment (C++/RTOS)\n3. Cultural fit interview\n4. Client matching\nUnique aspects:\n- Emphasis on German technical terms\n- Automotive domain quiz\n- Willingness for Stuttgart rotations"
+    },
+    {
+      "id": 218,
+      "question": "Tell me about Wevioo",
+      "answer": "Wevioo snapshot:\n- Tunisian digital services leader\n- Focus sectors:\n  1) Banking\n  2) Insurance\n  3) Healthcare\n- Tech stack:\n  • Java EE\n  • .NET Core\n  • Low-code platforms\n- Hiring peaks:\n  • Q1 (Budget cycles)\n  • Q3 (Project ramp-up)"
+    },
+    {
+      "id": 219,
+      "question": "What are Tunisian tech probation terms?",
+      "answer": "Probation standards:\n⏳ Duration:\n- 3 months (typical)\n- 6 months (management)\n⚖️ Termination:\n- 1 week notice\n- No severance\n🔑 Conversion:\n- Automatic unless notified\n- Salary review opportunity\nPro tip: Document achievements monthly"
+    },
+    {
+      "id": 220,
+      "question": "How to prepare for BIAT's technical test?",
+      "answer": "BIAT test prep:\n1. Core topics:\n   - SQL queries\n   - Java threading\n   - Banking algorithms\n2. Format:\n   - 60 minutes\n   - French-language\n   - Practical problems\n3. Resources:\n   - Oracle Banking docs\n   - SWIFT message specs"
+    },
+    {
+      "id": 221,
+      "question": "Tell me about SQLI Tunisia",
+      "answer": "SQLI profile:\n- French digital agency's Tunis hub\n- Specializations:\n  1) E-commerce platforms\n  2) CX transformation\n  3) Headless architectures\n- Hiring criteria:\n  • Adobe Experience Cloud\n  • Shopify/Liferay\n  • French fluency\n- Perk: Paris secondments"
+    },
+    {
+      "id": 222,
+      "question": "What are Tunisian tech equity options?",
+      "answer": "Equity landscape:\n💵 Startup grants:\n- 0.1%-1% for key hires\n- 4 year vesting\n💵 Stock options:\n- Rare outside funded startups\n- Taxed at exercise\n💵 Phantom stock:\n- Cash-settled\n- No ownership\nKey: Get valuation cap in writing"
+    },
+    {
+      "id": 223,
+      "question": "How to negotiate remote work in Tunisia?",
+      "answer": "Remote negotiation tactics:\n1. Frame as productivity boost\n2. Propose trial period\n3. Highlight cost savings\n4. Suggest core office days\n5. Leverage competing offers\nModel clauses:\n- Equipment reimbursement\n- Internet stipend\n- Co-working access"
+    },
+    {
+      "id": 224,
+      "question": "What is the interview process at Comete Engineering?",
+      "answer": "Comete's rigorous process:\n1. Technical screening (MATLAB/Simulink)\n2. German technical interview\n3. Practical lab (Hardware debugging)\n4. Cultural fit (Precision focus)\nPrep tips:\n- Review automotive standards\n- Practice German engineering terms\n- Study signal processing basics"
+    },
+    {
+      "id": 225,
+      "question": "Tell me about NEOXAM Tunisie",
+      "answer": "Neoxam profile:\n- French fintech's Tunis R&D center\n- Focus:\n  1) Asset management software\n  2) Portfolio analytics\n  3) Regulatory reporting\n- Hiring needs:\n  • Java/Python devs\n  • Financial math\n  • French fluency\n- Perk: CFA sponsorship"
+    },
+    {
+      "id": 226,
+      "question": "What are Tunisian tech training budgets?",
+      "answer": "Training norms:\n📚 Corporate average: 3,000-5,000 TND/year\n📚 Startup range: 1,000-10,000 TND\n📚 Typical uses:\n- Certifications (70%)\n- Conferences (20%)\n- Degree programs (10%)\nPro tip: Negotiate separate from salary"
+    },
+    {
+      "id": 227,
+      "question": "How to prepare for Vermeg's case interview?",
+      "answer": "Vermeg case prep:\n1. Study:\n   - Banking software trends\n   - Wealth management workflows\n   - Regulatory reporting (CRS/FATCA)\n2. Framework:\n   - Requirements gathering\n   - Solution architecture\n   - Implementation plan\n3. Deliverables:\n   - French-language presentation\n   - Technical documentation outline"
+    },
+    {
+      "id": 228,
+      "question": "Tell me about Devoteam Tunisia",
+      "answer": "Devoteam facts:\n- French consultancy's Tunis hub\n- Focus areas:\n  1) Cloud transformation\n  2) Cybersecurity\n  3) Data analytics\n- Hiring process:\n  • Technical case study\n  • Client scenario roleplay\n  • Cultural fit\n- Growth path:\n  • 12-18 months between levels"
+    },
+    {
+      "id": 229,
+      "question": "What are Tunisian tech contract types?",
+      "answer": "Employment models:\n1. CDI (Permanent):\n   - Standard benefits\n   - Hard to terminate\n2. CDD (Fixed-term):\n   - Renewable twice\n   - Project-based\n3. Freelance:\n   - Auto-entrepreneur\n   - Higher risk/reward\n4. Stage (Internship):\n   - Max 6 months\n   - Often leads to CDI"
+    },
+    {
+      "id": 230,
+      "question": "How to get promoted at STMicroelectronics?",
+      "answer": "STM promotion drivers:\n1. Technical track:\n   - Patent filings\n   - Complex design ownership\n   - Yield improvements\n2. Leadership track:\n   - Team mentoring\n   - Cross-site coordination\n   - Customer interfacing\nKey: Document achievements quarterly"
+    },
+    {
+      "id": 231,
+      "question": "Tell me about Accenture Tunisia",
+      "answer": "Accenture snapshot:\n- Global consultancy's Tunis delivery center\n- Focus:\n  1) SAP implementations\n  2) Cloud migration\n  3) Digital commerce\n- Hiring peaks:\n  • March-April\n  • September-October\n- Career paths:\n  • Technology\n  • Strategy\n  • Operations"
+    },
+    {
+      "id": 232,
+      "question": "What are Tunisian tech exit interview tips?",
+      "answer": "Exit strategy:\n1. Goals:\n   - Maintain relationships\n   - Protect references\n   - Leave documentation\n2. Script:\n   \"Grateful for opportunity...\"\n   \"Seeking new challenges...\"\n   \"Open to future collaboration\"\n3. Avoid:\n   - Burning bridges\n   - Over-sharing\n   - Negativity"
+    },
+    {
+      "id": 233,
+      "question": "How to prepare for SBS Tunisia's technical test?",
+      "answer": "SBS test prep:\n1. Core banking concepts:\n   - Ledger systems\n   - Payment processing\n   - Reconciliation\n2. Technical skills:\n   - Java EE patterns\n   - Oracle PL/SQL\n   - Batch processing\n3. Format:\n   - 120 minutes\n   - French/English"
+    },
+    {
+      "id": 234,
+      "question": "Tell me about UltraTunisia",
+      "answer": "Ultra profile:\n- Defense/aerospace engineering\n- Focus areas:\n  1) Secure communications\n  2) Embedded systems\n  3) Cryptographic solutions\n- Hiring requirements:\n  • Security clearance\n  • French fluency\n  • C/Ada expertise\n- Culture:\n  • Highly structured\n  • Process-driven"
+    },
+    {
+      "id": 235,
+      "question": "What are Tunisian tech garden leave policies?",
+      "answer": "Garden leave norms:\n🌿 Common in:\n- Banking/fintech\n- High-security roles\n🌿 Typical terms:\n- 1-3 months duration\n- Full salary\n- No work duties\n🌿 Restrictions:\n- No competitor contact\n- No work activities\n🌿 Negotiation:\n- Can reduce duration"
+    },
+    {
+      "id": 236,
+      "question": "How to handle Tunisian tech layoffs?",
+      "answer": "Layoff survival guide:\n1. Legal rights:\n   - Minimum severance\n   - Notice period\n   - Unemployment benefits\n2. Practical steps:\n   - Get written notice\n   - Negotiate references\n   - Secure documentation\n3. Next steps:\n   - Update LinkedIn\n   - Activate network\n   - Consider freelancing"
+    },
+    {
+      "id": 237,
+      "question": "Tell me about Alten Tunisia",
+      "answer": "Alten facts:\n- French engineering services\n- Tunis focus:\n  1) Automotive\n  2) Aerospace\n  3) Energy\n- Hiring process:\n  • Technical test (French)\n  • Engineering problem-solving\n  • Client interview\n- Perk: International assignments"
+    },
+    {
+      "id": 238,
+      "question": "What are Tunisian tech moonlighting rules?",
+      "answer": "Moonlighting policies:\n🌙 Common restrictions:\n- No competitors\n- No IP conflicts\n- Limited hours\n🌙 Required steps:\n- Disclose to employer\n- Get written approval\n- Separate equipment\n🌙 High-risk sectors:\n- Banking\n- Defense\n- Proprietary tech"
+    },
+    {
+      "id": 239,
+      "question": "How to prepare for GFI's case interview?",
+      "answer": "GFI case prep:\n1. Study:\n   - Legacy modernization\n   - Mainframe migration\n   - French public sector\n2. Framework:\n   - AS-IS analysis\n   - TO-BE architecture\n   - Transition plan\n3. Deliverables:\n   - Cost estimation\n   - Risk assessment\n   - Team structure"
+    },
+    {
+      "id": 240,
+      "question": "Tell me about Thales Tunisia",
+      "answer": "Thales profile:\n- Defense/aerospace giant\n- Tunis engineering center:\n  1) Avionics\n  2) Air traffic systems\n  3) Cybersecurity\n- Hiring criteria:\n  • French security clearance\n  • DO-178C experience\n  • Model-based design\n- Culture:\n  • Process rigor\n  • Long-term projects"
+    },
+    {
+      "id": 241,
+      "question": "What are Tunisian tech termination clauses?",
+      "answer": "Termination terms:\n⚠️ Employee rights:\n- Written notice\n- Severance pay\n- Unemployment access\n⚠️ Common causes:\n- Performance\n- Economic reasons\n- Misconduct\n⚠️ Negotiation:\n- Extended benefits\n- Positive references\n- Outplacement"
+    },
+    {
+      "id": 242,
+      "question": "How to transition from academia to Tunisian tech?",
+      "answer": "Academia-to-industry path:\n1. Skill translation:\n   - Research = Problem-solving\n   - Teaching = Knowledge transfer\n2. Target roles:\n   - Research engineer\n   - Technical consultant\n   - Data scientist\n3. Portfolio:\n   - Industry collaborations\n   - Applied projects\n   - Blog translations"
+    },
+    {
+      "id": 243,
+      "question": "Tell me about IBM Tunisia",
+      "answer": "IBM Tunis snapshot:\n- Focus areas:\n  1) Cloud consulting\n  2) AI solutions\n  3) Blockchain\n- Hiring process:\n  • Cognitive ability test\n  • Technical interview\n  • Case study\n- Career paths:\n  • Technical\n  • Consulting\n  • Sales\n- Perk: Global mobility"
+    },
+    {
+      "id": 244,
+      "question": "What are Tunisian tech IP assignment clauses?",
+      "answer": "IP ownership norms:\n🔐 Standard terms:\n- Employer owns work product\n- Inventions clause\n🔐 Negotiation points:\n- Pre-existing IP\n- Open-source contributions\n- Personal projects\n🔐 Special cases:\n- Academic research\n- Moonlighting work\nAlways review before signing"
+    },
+    {
+      "id": 245,
+      "question": "How to prepare for SQLI's design challenge?",
+      "answer": "SQLI design prep:\n1. Study:\n   - E-commerce trends\n   - UX best practices\n   - Headless architectures\n2. Tools:\n   - Figma/Sketch\n   - Adobe XD\n3. Deliverables:\n   - User flows\n   - Wireframes\n   - Technical constraints\n4. Presentation:\n   - French/English\n   - Business justification"
+    },
+    {
+      "id": 246,
+      "question": "Tell me about Atos Tunisia",
+      "answer": "Atos profile:\n- French IT giant's delivery center\n- Focus:\n  1) Cloud migration\n  2) SAP HANA\n  3) Digital workplace\n- Hiring needs:\n  • Hybrid cloud skills\n  • French fluency\n  • Industry certifications\n- Career:\n  • 18-24 month rotations\n  • International projects"
+    },
+    {
+      "id": 247,
+      "question": "What are Tunisian tech reference check practices?",
+      "answer": "Reference norms:\n📞 Common requests:\n- 2 professional references\n- Direct supervisors\n- Recent roles\n📞 Verification:\n- Employment dates\n- Position held\n- Performance\n📞 Pro tips:\n- Prep your references\n- Provide context\n- Discreet checks common"
+    },
+    {
+      "id": 248,
+      "question": "How to handle Tunisian tech job gaps?",
+      "answer": "Gap explanation strategies:\n1. Productive gaps:\n   - Upskilling\n   - Freelance projects\n   - Family care\n2. Presentation:\n   - Functional resume\n   - Cover letter context\n3. Tunisian context:\n   - Military service\n   - Startup attempts\n   - Health recovery"
+    },
+    {
+      "id": 249,
+      "question": "Tell me about Ericsson Tunisia",
+      "answer": "Ericsson facts:\n- Telecom equipment leader\n- Tunis R&D focus:\n  1) 5G solutions\n  2) Network optimization\n  3) IoT platforms\n- Hiring criteria:\n  • Telecom standards\n  • C++/Python\n  • Cloud native\n- Perk: Global rotation program"
+    },
+    {
+      "id": 250,
+      "question": "What are Tunisian tech background check scopes?",
+      "answer": "Background check norms:\n🔍 Standard:\n- Employment verification\n- Education credentials\n- Criminal record\n🔍 Enhanced:\n- Credit history\n- Social media\n- Reference interviews\n🔍 Restricted:\n- Medical history\n- Family status\n- Political affiliation"
+    },
+    {
+      "id": 251,
+      "question": "How to prepare for Thales' security interview?",
+      "answer": "Thales security prep:\n1. Study:\n   - DO-178C\n   - Common Criteria\n   - TEMPEST\n2. Technical:\n   - Secure coding\n   - Crypto basics\n   - Threat modeling\n3. Clearance:\n   - Prepare family history\n   - Financial records\n   - Travel history"
+    },
+    {
+      "id": 252,
+      "question": "Tell me about HPE Tunisia",
+      "answer": "HPE profile:\n- Tech giant's Tunis delivery center\n- Focus areas:\n  1) Hybrid cloud\n  2) Edge computing\n  3) AI Ops\n- Hiring process:\n  • Technical deep dive\n  • Architecture exercise\n  • Cultural fit\n- Perks:\n  • Stock purchase plan\n  • Global projects"
+    },
+    {
+      "id": 253,
+      "question": "What are Tunisian tech termination for cause?",
+      "answer": "For-cause termination:\n⚖️ Valid reasons:\n- Theft/fraud\n- Harassment\n- Gross negligence\n⚖️ Process:\n- Written notice\n- Right to respond\n- Severance may apply\n⚖️ Protection:\n- Document everything\n- Seek legal counsel\n- CNSS appeal rights"
+    },
+    {
+      "id": 254,
+      "question": "How to negotiate stock options in Tunisia?",
+      "answer": "Equity negotiation:\n1. Key terms:\n   - Vesting schedule\n   - Cliff period\n   - Acceleration\n2. Valuation:\n   - Last round price\n   - 409A valuation\n   - Liquidation pref\n3. Tunisian context:\n   - Rare in traditional firms\n   - Startup norm\n   - Tax implications"
+    },
+    {     "id": 255,
+      "question": "Tell me about Capgemini Tunisia",
+      "answer": "Capgemini profile:\n- Global consultancy's Tunis hub\n- Focus:\n  1) Digital transformation\n  2) Cloud services\n  3) SAP solutions\n- Hiring process:\n  • Case study (French)\n  • Technical interview\n  • Cultural fit\n- Career paths:\n  • Technology\n  • Consulting\n  • Operations"
+      
+    },
+    {
+      "id": 256,
+      "question": "How does Shadowhire ensure data privacy?",
+      "answer": "Our platform employs AES-256 encryption, strong access controls, and regular security audits to protect your personal data."
+    },
+    {
+      "id": 257,
+      "question": "What support options are available for premium accounts?",
+      "answer": "Premium members enjoy priority support via live chat, scheduled callbacks, and dedicated email channels during business hours."
+    },
+    {
+      "id": 258,
+      "question": "How can I update my profile image?",
+      "answer": "Go to Profile > Edit Profile, click on the image section, and upload a new file. Ensure the image meets our size and file type criteria."
+    },
+    {
+      "id": 259,
+      "question": "What is Shadowhire's refund policy?",
+      "answer": "Refunds for premium features can be requested within 30 days of purchase if you're not satisfied. Please contact support for assistance."
+    },
+    {
+      "id": 260,
+      "question": "How often is the job dataset updated?",
+      "answer": "Job listings are refreshed every 15 minutes to provide you with the most current opportunities on the platform."
+    },
+    {
+      "id": 261,
+      "question": "How do I change my notification settings?",
+      "answer": "Navigate to Settings > Notifications and customize your alert preferences according to your needs."
+    },
+    {
+      "id": 262,
+      "question": "Is my personal data shared with third parties?",
+      "answer": "We do not share your personal data with third parties without your consent. Data is used solely for improving your experience."
+    },
+    {
+      "id": 263,
+      "question": "Where can I find the full privacy policy?",
+      "answer": "Our complete privacy policy is available at shadowhire.tn/privacy and outlines all data handling practices."
+    },
+    {
+      "id": 264,
+      "question": "How can I contact customer support?",
+      "answer": "You can reach our support team via email at support@shadowhire.tn or through the live chat option on our website."
+    },
+    {
+      "id": 265,
+      "question": "What are the benefits of a premium account?",
+      "answer": "Premium accounts offer enhanced features such as advanced analytics, priority support, and access to exclusive job listings."
+    },
+    {
+      "id": 266,
+      "question": "How do I update my account password?",
+      "answer": "Visit Settings > Security, then follow the prompts to change your password securely."
+    },
+    {
+      "id": 267,
+      "question": "Can I recover a deleted account?",
+      "answer": "Account recovery is only possible within 30 days of deletion. After that, data may be permanently removed."
     }
+    
   ]
 }
