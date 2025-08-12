@@ -1334,7 +1334,592 @@
       "id": 267,
       "question": "Can I recover a deleted account?",
       "answer": "Account recovery is only possible within 30 days of deletion. After that, data may be permanently removed."
+    },
+    {
+      "id": 268,
+      "question": "What French tech companies hire Tunisian developers remotely?",
+      "answer": "Top French companies hiring remotely:\n1. Capgemini (Cloud roles)\n2. Société Générale (Fintech)\n3. Criteo (Adtech)\n4. Doctolib (Healthtech)\n5. BlaBlaCar (Mobility)\nRequirements:\n- French B2+ level\n- EU timezone overlap\n- 3+ years experience"
+    },
+    {
+      "id": 269,
+      "question": "How to prepare for Tunisian technical interviews?",
+      "answer": "5-Step Preparation:\n1. Study core algorithms (Sorting, Searching)\n2. Practice whiteboarding in French\n3. Research company's tech stack\n4. Prepare 2-3 project deep dives\n5. Mock interviews using our AI tool\nTop tested concepts: OOP, DB design, REST APIs"
+    },
+    {
+      "id": 270,
+      "question": "What is the visa process for Tunisian developers in France?",
+      "answer": "French Tech Visa Process:\n1. Job offer ≥€39,100/year\n2. Employer applies for work permit\n3. Tunisian candidate submits:\n   - Passport\n   - Employment contract\n   - Diploma copies\n4. Processing time: 3-5 weeks\nFast-track options for AI/Cloud specialists"
+    },
+    {
+      "id": 271,
+      "question": "Which Tunisian startups offer stock options?",
+      "answer": "Startups with equity programs:\n1. Expensya (ESOP for key hires)\n2. InstaDeep (Pre-IPO options)\n3. Wevioo (Performance shares)\n4. Saphon Energy (Tech leads)\n5. Digital Factory (Founding team)\nTypical vesting: 4 years with 1-year cliff"
+    },
+    {
+      "id": 272,
+      "question": "How does salary negotiation work in French companies?",
+      "answer": "French Salary Negotiation:\n1. Research via Glassdoor France\n2. Discuss brut vs net salary\n3. Target 13th month bonus\n4. Ask for 'tickets restaurant' (meal vouchers)\n5. Negotiate remote work days\nAverage Tunisian salaries in France:\n- Junior: €35-45k\n- Senior: €50-70k"
+    },
+    {
+      "id": 273,
+      "question": "What are the highest demand tech skills in France?",
+      "answer": "2024 French Market Demand:\n1. Kubernetes/OpenShift\n2. Data Engineering (Spark)\n3. Cybersecurity (SOC)\n4. Salesforce Commerce\n5. Embedded Rust\nBonus: French technical documentation skills"
+    },
+    {
+      "id": 274,
+      "question": "How to network with French tech recruiters?",
+      "answer": "Effective Networking Strategies:\n1. LinkedIn: French-language posts\n2. Meetups: Tunisian-French Tech events\n3. GitHub: Contribute to French repos\n4. Blogs: Technical articles in French\n5. Alumni networks: French-educated Tunisians"
+    },
+    {
+      "id": 275,
+      "question": "What are common benefits in French tech contracts?",
+      "answer": "Standard French Benefits:\n✔️ Mutuelle (Health insurance)\n✔️ Tickets restaurant (€8-11/day)\n✔️ 50% transport reimbursement\n✔️ CE (Cultural/sports budget)\n✔️ RTT (Extra vacation days)\n✔️ Telework allowance (€2-5/day)"
+    },
+    {
+      "id": 276,
+      "question": "Tell me about Vinci Energies Tunisia",
+      "answer": "Vinci Energies Profile:\n- French industrial tech giant\n- Tunis office focuses on:\n  1. Smart buildings\n  2. Industrial IoT\n  3. Energy management\n- Hiring needs:\n  • SCADA specialists\n  • BMS engineers\n  • French-speaking project managers\n- Culture: Safety-first, structured"
+    },
+    {
+      "id": 277,
+      "question": "What is the interview process at Orange France?",
+      "answer": "Orange France Process:\n1. HR screening (French/English)\n2. Technical test (Coding + Architecture)\n3. Team fit interview\n4. Final director meeting\nKey Tips:\n- Prepare telecom domain knowledge\n- Showcase open-source contributions\n- Highlight EU work authorization"
+    },
+    {
+      "id": 278,
+      "question": "How to find English-speaking jobs in France?",
+      "answer": "English-Friendly French Companies:\n1. Doctolib\n2. Deezer\n3. Dataiku\n4. Algolia\n5. PayFit\nJob Boards:\n- Welcome to the Jungle\n- Talent.io\nKeywords: \"English OK\", \"International team\""
+    },
+    {
+      "id": 279,
+      "question": "What is the cost of living comparison Tunis vs Paris?",
+      "answer": "Monthly Cost Comparison:\n          Tunis   Paris\nRent 1BR: 800TND   €1200\nFood:    400TND    €600\nTransport: 50TND  €75\nSalary Ratio: 1:3 (After tax)\nSavings Potential: Paris offers 3-4x higher net savings"
+    },
+    {
+      "id": 280,
+      "question": "Tell me about Thales France hiring Tunisians",
+      "answer": "Thales France Hiring:\n- Key departments:\n  1. Aerospace\n  2. Defense\n  3. Digital Identity\n- Process:\n  • Security clearance\n  • French fluency\n  • Technical panel\n- Benefits:\n  • EU mobility\n  • R&D exposure\n  • Family relocation"
+    },
+    {
+      "id": 281,
+      "question": "What are French tech probation periods?",
+      "answer": "French Probation Rules:\n⏳ Duration:\n- 4 months (standard)\n- 8 months (managers)\n⚖️ Termination:\n- 48 hours notice\n- No justification needed\n🔑 Conversion:\n- Automatic after period\n- Salary review possible"
+    },
+    {
+      "id": 282,
+      "question": "How to prepare for French coding interviews?",
+      "answer": "French Coding Interview Prep:\n1. Platform: CodinGame (French)\n2. Study:\n   - Graph algorithms\n   - System design\n   - SQL optimization\n3. French Terms:\n   - Tableau = Array\n   - Fonction = Function\n   - Boucle = Loop\n4. Time complexity in French"
+    },
+    {
+      "id": 283,
+      "question": "What is the work culture difference Tunis-France?",
+      "answer": "Cultural Contrast:\nTunisia:\n- Hierarchical\n- Face-time important\n- Flexible deadlines\nFrance:\n- Flat structure\n- Work-life balance\n- Strict meeting culture\nKey Adjustment:\n- Punctuality\n- Direct communication\n- Vacation planning"
+    },
+    {
+      "id": 284,
+      "question": "Tell me about Airbus Tunisia opportunities",
+      "answer": "Airbus Tunisia Roles:\n- Focus areas:\n  1. Aerospace software\n  2. Flight systems\n  3. Data analytics\n- Requirements:\n  • DO-178C knowledge\n  • French/German\n  • Security clearance\n- Hiring process: 6-8 weeks"
+    },
+    {
+      "id": 285,
+      "question": "How to get French work visa as Tunisian developer?",
+      "answer": "Visa Types:\n1. Talent Passport (4 years):\n   - Bachelor's + €39.1k offer\n2. EU Blue Card (4 years):\n   - €53.8k offer\n3. Intra-Company Transfer\nProcess:\n- Offer → Work permit → Visa application\nProcessing: 1-3 months"
+    },
+    {
+      "id": 286,
+      "question": "What are French tech salary taxes?",
+      "answer": "French Tax Breakdown:\n✔️ Social charges: ~22%\n✔️ Income tax: Progressive 0-45%\n✔️ Typical net: 75-78% of brut\nOptimizations:\n1. Tax credit for R&D\n2. Reduced rates for expats\n3. Flat tax on investments"
+    },
+    {
+      "id": 287,
+      "question": "Tell me about Dassault Systèmes Tunisia",
+      "answer": "Dassault Systèmes Profile:\n- 3DEXPERIENCE platform\n- Tunis roles:\n  1. PLM consultants\n  2. Simulation experts\n  3. Cloud DevOps\n- Hiring criteria:\n  • French fluency\n  • CAD/CAE knowledge\n  • Agile experience\n- Perk: Global project rotation"
+    },
+    {
+      "id": 288,
+      "question": "How to search jobs at French companies from Tunisia?",
+      "answer": "Effective Search Strategies:\n1. LinkedIn: Filter \"France\" + \"Remote OK\"\n2. French job boards: APEC, Welcome to the Jungle\n3. Tunisian-French connection events\n4. Shadowhire's EU job filter\n5. Target companies with Tunisian offices"
+    },
+    {
+      "id": 289,
+      "question": "What are French tech notice periods?",
+      "answer": "Notice Period Norms:\n👨💻 Employees:\n- 1-3 months\n👔 Managers:\n- 3-6 months\n💼 Probation:\n- 48 hours\nNegotiation Tips:\n- Garden leave options\n- Early release clauses\n- Non-compete considerations"
+    },
+    {
+      "id": 290,
+      "question": "Tell me about Atos France hiring Tunisians",
+      "answer": "Atos France Hiring:\n- Key projects:\n  1. European cloud (GAIA-X)\n  2. Quantum computing\n  3. Cybersecurity\n- Process:\n  • Technical case study\n  • French language test\n  • Client interview\n- Benefits:\n  • EU mobility\n  • Training budget"
+    },
+    {
+      "id": 291,
+      "question": "How to explain Tunisian experience to French recruiters?",
+      "answer": "Effective Framing:\n1. Highlight:\n   - EU client projects\n   - International standards\n   - French collaborations\n2. Convert:\n   - Tunisian diplomas to LMD\n   - Company sizes to EU equivalents\n3. Showcase:\n   - Multilingual abilities\n   - Cultural adaptability"
+    },
+    {
+      "id": 292,
+      "question": "What are French tech equity options?",
+      "answer": "French Equity Types:\n1. BSPCE (Startup stock)\n   - Tax advantages\n   - 4-year vesting\n2. Stock options\n   - Large companies\n   - Taxed at exercise\n3. Profit sharing\n   - Mandatory in 50+ companies\n   - Tax-free up to €7.5k"
+    },
+    {
+      "id": 293,
+      "question": "Tell me about Sopra Steria Tunisia-France mobility",
+      "answer": "Sopra Steria Mobility:\n- Program: \"Tunisian Talent Pipeline\"\n- Process:\n  1. 1 year Tunisia\n  2. Transfer to France\n  3. CDI contract\n- Requirements:\n  • French fluency\n  • Performance >8/10\n  • Security clearance\n- Departments: Banking, Aerospace"
+    },
+    {
+      "id": 294,
+      "question": "How to handle French technical interviews in French?",
+      "answer": "French Tech Interview Prep:\n1. Key Vocabulary:\n   - Héritage = Inheritance\n   - Surcharge = Overloading\n   - Boucle = Loop\n2. Practice:\n   - Explain projects in French\n   - Whiteboard in French\n3. Resources:\n   - CNRS tech glossaries\n   - France Université Numérique"
+    },
+    {
+      "id": 295,
+      "question": "What are French tech non-compete clauses?",
+      "answer": "French Non-Compete Rules:\n📜 Must be:\n- Limited in time (max 2 years)\n- Limited geographically\n- Compensated (15-50% salary)\n📜 Unenforceable if:\n- Too broad\n- Prevents employment\n- No compensation\nAlways consult French labor lawyer"
+    },
+    {
+      "id": 296,
+      "question": "Tell me about Amadeus Tunisia-France opportunities",
+      "answer": "Amadeus Mobility:\n- Travel tech leader\n- Tunis roles:\n  1. Java backend\n  2. Payment systems\n  3. Cloud migration\n- France transfers:\n  • 18+ months in Tunisia\n  • French B2+\n  • Performance >8/10\n- Nice/Marseille offices"
+    },
+    {
+      "id": 297,
+      "question": "How to prepare for French system design interviews?",
+      "answer": "French System Design Prep:\n1. Study:\n   - Scalability\n   - Database sharding\n   - Cache strategies\n2. French Terms:\n   - Cache = Mémoire tampon\n   - Load balancing = Répartition charge\n   - Microservices = Microservices\n3. Practice:\n   - French case studies\n   - Whiteboard in French"
+    },
+    {
+      "id": 298,
+      "question": "What are French tech internship salaries?",
+      "answer": "2024 French Internship Pay:\n🎓 Bachelor's: €800-1,200/month\n🎓 Master's: €1,200-1,800/month\n🎓 Engineering schools: €1,500-2,200/month\nAdditional:\n✔️ Housing assistance\n✔️ Meal vouchers\n✔️ 50% transport\nNote: Mandatory for French degrees"
+    },
+    {
+      "id": 299,
+      "question": "Tell me about STMicroelectronics France-Tunisia mobility",
+      "answer": "STM Mobility Program:\n- Path:\n  1. 2 years in Tunisia\n  2. Transfer to:\n     • Grenoble (Analog)\n     • Rousset (Digital)\n- Requirements:\n  • Top 10% performance\n  • French B2+\n  • Specialized skills\n- Benefits:\n  • Relocation package\n  • EU salary"
+    },
+    {
+      "id": 300,
+      "question": "How to negotiate remote work with French companies?",
+      "answer": "Remote Negotiation Tactics:\n1. Frame as:\n   - Productivity boost\n   - Cost savings\n2. Propose:\n   - Trial period\n   - Quarterly visits\n3. Target:\n   - Digital native companies\n   - Teams with Tunisian members\n4. Contract:\n   - Tax implications\n   - Equipment clauses"
+    },
+     {
+      "id": 301,
+      "question": "What are the key differences between Tunisian and French CV formats?",
+      "answer": "CV Format Comparison:\nTunisia:\n- Photo common\n- Personal details (age, marital status)\n- 2-3 pages acceptable\n- French/Arabic versions\nFrance:\n- No photo/private details\n- Strict 1-page limit\n- Reverse chronological\n- English/French only\nShadowhire Tip: Use our 'Europass' template for French applications"
+    },
+    {
+      "id": 302,
+      "question": "How to list Tunisian degrees for French recruiters?",
+      "answer": "Degree Equivalency:\n1. License = Bachelor's (Bac+3)\n2. Master = Master's (Bac+5)\n3. Doctorat = PhD\nFormat:\n\"Diplôme d'Ingénieur (Bac+5)\nEquivalent to French Master's in Computer Engineering\"\nInclude:\n- ECTS credits if available\n- Major/minor specializations"
+    },
+    {
+      "id": 303,
+      "question": "What French tech companies have offices in Tunisia?",
+      "answer": "French Tech in Tunisia:\n1. Capgemini (Tunis & Sousse)\n2. Atos (Tunis)\n3. Sopra Steria (Tunis)\n4. Amadeus (Tunis)\n5. Dassault Systèmes (Tunis)\nHiring Focus:\n- Nearshore development\n- French-speaking teams\n- Cloud/Data projects"
+    },
+    {
+      "id": 304,
+      "question": "How to prepare for Tunisian government tech jobs?",
+      "answer": "Government Job Guide:\n1. Exam Prep:\n   - Algorithms\n   - Database design\n   - Security protocols\n2. Language:\n   - Fluent Arabic technical terms\n3. Process:\n   - Concours system\n   - 6-12 month timeline\nTop Employers: Cynapsys, Tunisie Telecom, CNI"
+    },
+    {
+      "id": 305,
+      "question": "What are the best tech meetups in Tunis?",
+      "answer": "Top Tunis Tech Events:\n1. DevOps Tunisia\n2. Google Developer Groups\n3. Tunisian AI Meetup\n4. JavaScript Tunis\n5. French-Tunisian Tech Forum\nShadowhire Tip: Attend our monthly 'Tech Connect' networking nights at Tunis Cyberparc"
+    },
+    {
+      "id": 306,
+      "question": "How does French tech salary compare to Tunisia?",
+      "answer": "2024 Salary Comparison (Monthly):\nPosition | Tunisia (TND) | France (€)\nJunior Dev | 1,800-2,500 | 2,800-3,500\nSenior Dev | 3,500-5,000 | 4,500-6,500\nCloud Arch | 6,000-8,000 | 7,000-10,000\nNote: French salaries are 2.5-3x higher after tax"
+    },
+    {
+      "id": 307,
+      "question": "What are common French tech interview questions?",
+      "answer": "Top 5 French Tech Questions:\n1. \"Décrivez un projet complexe\" (Explain a complex project)\n2. \"Comment optimiser cette requête SQL?\" (SQL optimization)\n3. \"Décrivez le pattern MVC\" (Design patterns)\n4. \"Gestion de conflits en équipe\" (Teamwork)\n5. \"Pourquoi notre entreprise?\" (Company fit)"
+    },
+    {
+      "id": 308,
+      "question": "How to handle salary expectations in French interviews?",
+      "answer": "Salary Discussion Tips:\n1. Research:\n   - Glassdoor France\n   - Payscale\n2. Phrasing:\n   \"Mes attentes sont alignées avec le marché français...\"\n3. Range:\n   Give €5k range (e.g., €45-50k)\n4. Focus on:\n   - Total package (bonuses, RSUs)\n   - Growth potential"
+    },
+    {
+      "id": 309,
+      "question": "What are the best French cities for Tunisian tech workers?",
+      "answer": "Top French Cities:\n1. Paris (Most jobs, high salary)\n2. Lyon (Lower cost, growing tech)\n3. Toulouse (Aerospace hub)\n4. Nantes (Work-life balance)\n5. Montpellier (Startup scene)\nConsider:\n- Tunisian communities\n- Cost of living\n- Industry specialization"
+    },
+    {
+      "id": 310,
+      "question": "How to explain career gaps to French recruiters?",
+      "answer": "Gap Explanation Framework:\n1. Productive Periods:\n   \"Formation continue\" (Upskilling)\n   \"Projets personnels\" (Freelance)\n2. Life Events:\n   \"Raisons familiales\" (Family)\n   \"Service militaire\" (Military)\n3. Positive Spin:\n   Highlight skills gained\n   Show current competency"
+    },
+    {
+      "id": 311,
+      "question": "What French tech certifications are valuable?",
+      "answer": "Top 5 Certifications:\n1. AWS/Azure Cloud (Associate+)\n2. TOGAF (Architecture)\n3. CISSP (Security)\n4. Scrum Master (Agile)\n5. DELF B2 (French language)\nShadowhire Tip: Our certification roadmap tool helps prioritize based on your career goals"
+    },
+    {
+      "id": 312,
+      "question": "How to network with French tech professionals?",
+      "answer": "Effective Networking:\n1. LinkedIn:\n   - French-language content\n   - Engage with French tech posts\n2. Events:\n   - Viva Technology Paris\n   - French Tech Tunisia\n3. Alumni:\n   - Tunisian engineers in France\n   - Erasmus networks"
+    },
+    {
+      "id": 313,
+      "question": "What are French tech contract types?",
+      "answer": "French Contract Types:\n1. CDI (Permanent):\n   - Standard full-time\n   - Hard to terminate\n2. CDD (Fixed-term):\n   - Max 18 months\n   - Renewable once\n3. Stage (Internship):\n   - Max 6 months\n   - Must be part of studies"
+    },
+    {
+      "id": 314,
+      "question": "How to prepare for French whiteboard interviews?",
+      "answer": "Whiteboard Prep:\n1. Practice:\n   - HackerRank in French\n   - Pramp mock interviews\n2. Technique:\n   - Clarify requirements\n   - Think aloud\n   - Test edge cases\n3. Vocabulary:\n   - Algorithm terms in French\n   - Complexity discussion"
+    },
+    {
+      "id": 315,
+      "question": "What are the best French job boards for tech?",
+      "answer": "Top French Job Platforms:\n1. Welcome to the Jungle\n2. Talent.io\n3. Hired.com\n4. APEC (For experienced)\n5. LinkedIn France\nShadowhire Pro Tip: Filter for \"Télétravail possible\" (Remote work) options"
+    },
+    {
+      "id": 316,
+      "question": "How to write a French-style cover letter?",
+      "answer": "French Cover Letter Structure:\n1. Header:\n   - Contact info\n   - Date/Location\n2. Opening:\n   \"Madame, Monsieur,\"\n3. Body:\n   - Motivation for company\n   - Relevant experience\n4. Closing:\n   \"Dans l'attente de votre réponse...\"\nKey: 1 page max, formal tone"
+    },
+    {
+      "id": 317,
+      "question": "What are French tech probation periods?",
+      "answer": "French Probation Rules:\n⏳ Duration:\n- 4 months (standard)\n- 8 months (managers)\n⚖️ Termination:\n- 48h notice period\n🔑 Conversion:\n- Automatic after period\n- Salary review possible"
+    },
+    {
+      "id": 318,
+      "question": "How to negotiate relocation packages in France?",
+      "answer": "Relocation Negotiation:\n1. Standard Package:\n   - Flight reimbursement\n   - 1 month temp housing\n   - Visa fees\n2. Negotiable:\n   - Language courses\n   - Family support\n   - Home search assistance\n3. Tax Implications:\n   - €5k tax-free allowance"
+    },
+    {
+      "id": 319,
+      "question": "What are French tech non-compete clauses?",
+      "answer": "French Non-Compete Rules:\n📜 Must be:\n- Limited in scope\n- Compensated (30-50% salary)\n- Max 2 years\n📜 Unenforceable if:\n- Too broad\n- Prevents employment\nAlways review with French labor lawyer"
+    },
+    {
+      "id": 320,
+      "question": "How to prepare for French HR interviews?",
+      "answer": "French HR Interview Prep:\n1. Study:\n   - Company culture\n   - French labor laws\n2. Practice:\n   - \"Pourquoi nous?\" (Why us?)\n   - \"Défis rencontrés\" (Challenges)\n3. Mindset:\n   - Professional but authentic\n   - Cultural awareness"
+    },
+    {
+      "id": 321,
+      "question": "What are the best French tech conferences?",
+      "answer": "Top French Tech Events:\n1. Viva Technology (Paris)\n2. Devoxx France\n3. Big Data Paris\n4. Cloud Expo Europe\n5. Toulouse Space Show\nShadowhire Tip: Many offer 'billet réduit' (discount tickets) for students"
+    },
+    {
+      "id": 322,
+      "question": "How to handle French technical tests?",
+      "answer": "Technical Test Strategy:\n1. Platform Prep:\n   - CodinGame (French)\n   - Codingame\n2. Time Management:\n   - 70% solution first\n   - Then optimize\n3. Documentation:\n   - French code comments\n   - Readme in French/English"
+    },
+    {
+      "id": 323,
+      "question": "What are French tech equity options?",
+      "answer": "French Equity Types:\n1. BSPCE (Startups):\n   - Tax advantages\n   - 4-year vesting\n2. Stock Options:\n   - Large companies\n   - Taxed at exercise\n3. Profit Sharing:\n   - Mandatory in 50+ companies\n   - Up to €7.5k tax-free"
+    },
+    {
+      "id": 324,
+      "question": "How to explain Tunisian work experience in France?",
+      "answer": "Experience Translation:\n1. Company Context:\n   \"Entreprise leader en Tunisie avec 100+ employés\"\n2. Project Scale:\n   Highlight international aspects\n3. Technologies:\n   Standardize terminology\n4. Metrics:\n   Quantify impact globally"
+    },
+    {
+      "id": 325,
+      "question": "What are French tech internship requirements?",
+      "answer": "French Internship Rules:\n1. Must be part of studies\n2. Max 6 months/year\n3. Minimum wage:\n   - €4.05/hour (Bachelor's)\n   - €5.40/hour (Master's)\n4. Benefits:\n   - Meal vouchers\n   - 50% transport\n   - Possible housing aid"
+    },
+    {
+      "id": 326,
+      "question": "How to find English-speaking tech jobs in France?",
+      "answer": "English-Friendly Companies:\n1. Startups:\n   - Doctolib\n   - PayFit\n2. Scale-ups:\n   - Dataiku\n   - Algolia\n3. Multinationals:\n   - Google Paris\n   - Meta France\nJob Boards: Welcome to the Jungle, Talent.io"
+    },
+    {
+      "id": 327,
+      "question": "What are French tech benefits?",
+      "answer": "Standard French Benefits:\n✔️ Mutuelle (Health insurance)\n✔️ Tickets restaurant (€8-11/day)\n✔️ 50% transport reimbursement\n✔️ CE (Cultural budget)\n✔️ RTT (Extra vacation days)\n✔️ Telework allowance (€2-5/day)"
+    },
+    {
+      "id": 328,
+      "question": "How to prepare for French system design interviews?",
+      "answer": "System Design Prep:\n1. Study:\n   - Scalability patterns\n   - Database sharding\n2. French Terms:\n   - Cache = Mémoire tampon\n   - API = Interface\n3. Practice:\n   - French case studies\n   - Whiteboard in French"
+    },
+    {
+      "id": 329,
+      "question": "What are French tech notice periods?",
+      "answer": "Notice Period Norms:\n👨💻 Employees:\n- 1-3 months\n👔 Managers:\n- 3-6 months\n💼 Probation:\n- 48 hours\nNegotiation Tips:\n- Garden leave options\n- Early release clauses"
+    },
+    {
+      "id": 330,
+      "question": "How to get French work visa as Tunisian developer?",
+      "answer": "Visa Types:\n1. Talent Passport (4 years):\n   - Bachelor's + €39.1k offer\n2. EU Blue Card (4 years):\n   - €53.8k offer\n3. Intra-Company Transfer\nProcess:\n- Offer → Work permit → Visa application\nTimeline: 1-3 months"
+    },
+    {
+      "id": 331,
+      "question": "What are French tech salary taxes?",
+      "answer": "French Tax Breakdown:\n✔️ Social charges: ~22%\n✔️ Income tax: Progressive 0-45%\n✔️ Typical net: 75-78% of brut\nOptimizations:\n- Tax credit for R&D\n- Reduced rates for expats\n- Flat tax on investments"
+    },
+    {
+      "id": 332,
+      "question": "How to negotiate remote work with French companies?",
+      "answer": "Remote Negotiation:\n1. Frame as:\n   - Productivity boost\n   - Cost savings\n2. Propose:\n   - Trial period\n   - Quarterly visits\n3. Contract:\n   - Tax implications\n   - Equipment clauses\n4. Target:\n   - Digital native companies"
+    },
+    {
+      "id": 333,
+      "question": "What are French tech interview dress codes?",
+      "answer": "French Interview Attire:\n👔 Corporate (BNP, L'Oréal):\n   - Suit & tie\n👨💻 Startups (Doctolib):\n   - Smart casual\n👗 Women:\n   - Business dress\n   - Minimal accessories\nKey: When in doubt, overdress"
+    },
+    {
+      "id": 334,
+      "question": "How to prepare for French behavioral interviews?",
+      "answer": "Behavioral Interview Prep:\n1. STAR Method:\n   - Situation\n   - Tâche (Task)\n   - Action\n   - Résultat\n2. Common Questions:\n   - \"Décrivez un conflit\"\n   - \"Gestion de pression\"\n3. Practice:\n   - French-language responses\n   - Cultural nuances"
+    },
+    {
+      "id": 335,
+      "question": "What are French tech equity tax rules?",
+      "answer": "Equity Taxation:\n1. BSPCE:\n   - 30% flat tax after 5 years\n2. Stock Options:\n   - Taxed as income at exercise\n3. Capital Gains:\n   - 30% flat tax\nPlanning Tip:\n- Consult French tax advisor\n- Consider wealth tax implications"
+    },
+    {
+      "id": 336,
+      "question": "How to handle French background checks?",
+      "answer": "Background Check Prep:\n1. Documents:\n   - Diplomas\n   - Employment certificates\n2. References:\n   - Notify contacts\n   - Provide context\n3. Timeline:\n   - 2-4 weeks process\n4. Rights:\n   - Access to report\n   - Dispute inaccuracies"
+    },
+    {
+      "id": 337,
+      "question": "What are French tech severance packages?",
+      "answer": "Severance Standards:\n1. Legal Minimum:\n   - 1/5 month per year\n2. Corporate Norms:\n   - 2-6 months\n   - Outplacement\n3. Negotiation:\n   - Extended benefits\n   - Positive references\n   - Non-disparagement"
+    },
+    {
+      "id": 338,
+      "question": "How to explain Tunisian education to French recruiters?",
+      "answer": "Education Translation:\n1. Context:\n   \"Top engineering school in Tunisia\"\n2. Equivalency:\n   \"Bac+5 équivalent Master\"\n3. Grading:\n   Convert to /20 scale\n4. Specializations:\n   Highlight transferable skills\nShadowhire Tip: Use our degree equivalency tool"
+    },
+    {
+      "id": 339,
+      "question": "What are French tech internship visa rules?",
+      "answer": "Internship Visa:\n1. Requirements:\n   - Enrollment proof\n   - Training agreement\n   - €615/month salary\n2. Process:\n   - Employer applies\n   - 3-6 weeks\n3. Duration:\n   - Max 6 months\n   - Renewable once"
+    },
+    {
+      "id": 340,
+      "question": "How to find French tech mentors?",
+      "answer": "Finding Mentors:\n1. Platforms:\n   - Mentorat French Tech\n   - ADPList\n2. Networks:\n   - Tunisian engineers in France\n   - Alumni associations\n3. Shadowhire:\n   - Our mentor matching program\n   - Monthly meetups"
+    },
+    {
+      "id": 341,
+      "question": "What are French tech company hierarchies?",
+      "answer": "French Corporate Structure:\n1. Ingénieur (Engineer)\n2. Chef de projet (Project Lead)\n3. Manager\n4. Directeur (Director)\n5. PDG (CEO)\nKey Traits:\n- Formal communication\n- Clear reporting lines\n- Title importance"
+    },
+    {
+      "id": 342,
+      "question": "How to prepare for French case interviews?",
+      "answer": "Case Interview Prep:\n1. Framework:\n   - Analyse\n   - Solution\n   - Recommandation\n2. Practice:\n   - French case books\n   - Partner drills\n3. Language:\n   - Business French\n   - Technical terms\n4. Common Cases:\n   - Market entry\n   - Product launch"
+    },
+    {
+      "id": 343,
+      "question": "What are French tech work hours?",
+      "answer": "Standard Work Schedule:\n⏳ 35h/week (legal)\n🏢 Common practice:\n- 9h-18h with lunch break\n- RTT days (5-10 extra days off)\n🚀 Startups:\n- More flexible\n- Possible on-call\nKey: Lunch breaks are sacred (1-2h)"
+    },
+    {
+      "id": 344,
+      "question": "How to handle French tech job rejections?",
+      "answer": "Rejection Follow-up:\n1. Thank you email:\n   \"Merci pour l'opportunité...\"\n2. Feedback request:\n   \"Des conseils pour améliorer?\"\n3. Maintain connection:\n   - LinkedIn\n   - Future opportunities\nShadowhire Tip: Use our rejection analytics tool"
+    },
+    {
+      "id": 345,
+      "question": "What are French tech bonus structures?",
+      "answer": "Bonus Types:\n💰 Performance: 1-3 months\n💰 Profit sharing: Mandatory\n💰 Spot bonuses: €500-2000\n💰 Retention: 2-6 months\n💰 Equity: Startups\nTax:\n- Bonuses taxed as income\n- Except participation/intéressement"
+    },
+    {
+      "id": 346,
+      "question": "How to prepare for French coding challenges?",
+      "answer": "Coding Challenge Prep:\n1. Platforms:\n   - CodinGame\n   - LeetCode (French filter)\n2. Focus:\n   - Graph algorithms\n   - System design\n3. Language:\n   - French comments\n   - Variable names in French\n4. Time Management:\n   - 70% solution first"
+    },
+    {
+      "id": 347,
+      "question": "What are French tech pension contributions?",
+      "answer": "Pension System:\n✔️ Employee: 10.1%\n✔️ Employer: 15.3%\n✔️ Vesting: 5 years\n✔️ Calculation:\n   - 25 best years\n   - 50% of avg salary\nExpats: Can transfer contributions after 2 years"
+    },
+    {
+      "id": 348,
+      "question": "How to explain Tunisian military service in France?",
+      "answer": "Military Service Explanation:\n1. Frame positively:\n   \"Service national obligatoire\"\n2. Highlight skills:\n   - Leadership\n   - Discipline\n   - Teamwork\n3. Timeline:\n   Clearly date the period\n4. Optional:\n   \"Disponible pour missions\" (if relevant)"
+    },
+    {
+      "id": 349,
+      "question": "What are French tech sick leave policies?",
+      "answer": "Sick Leave Rules:\n🤒 Short-term (<30 days):\n   - 50% salary days 4-30\n   - Doctor's note required\n🏥 Long-term:\n   - Up to 3 years\n   - Social security coverage\n💊 Probation:\n   - No protection first 3 months"
+    },
+    {
+      "id": 350,
+      "question": "How to negotiate French tech job offers?",
+      "answer": "Negotiation Strategy:\n1. Research:\n   - Glassdoor\n   - PayScale\n2. Package:\n   - Base > bonus\n   - Equity/RSUs\n3. Benefits:\n   - RTT days\n   - Remote work\n4. Timing:\n   - After offer, before signing"
+    },
+    {
+      "id": 351,
+      "question": "What are French tech maternity/paternity benefits?",
+      "answer": "Parental Leave:\n🤰 Maternity:\n   - 16 weeks paid\n   - 100% salary\n👨 Paternity:\n   - 28 days\n   - Mandatory 3 days\nAdditional:\n- Protected from dismissal\n- Nursing breaks\n- CAF family benefits"
+    },
+    {
+      "id": 352,
+      "question": "How to handle French tech contract reviews?",
+      "answer": "Contract Review Checklist:\n1. Key Clauses:\n   - Non-compete\n   - IP ownership\n   - Termination\n2. Compensation:\n   - Brut vs net\n   - Bonus structure\n3. Shadowhire Service:\n   - Free contract review\n   - Red flag detection"
+    },
+    {
+      "id": 353,
+      "question": "What are French tech unemployment benefits?",
+      "answer": "Unemployment (Pôle Emploi):\n💰 Amount:\n   - 57-75% previous salary\n⏳ Duration:\n   - 6-24 months\n📝 Requirements:\n   - 6 months work\n   - Resignation invalid\n💼 Job Search:\n   - Monthly check-ins"
+    },
+    {
+      "id": 354,
+      "question": "How to prepare for French tech leadership interviews?",
+      "answer": "Leadership Interview Prep:\n1. Study:\n   - Management styles\n   - Conflict resolution\n2. Examples:\n   - Team growth\n   - Difficult decisions\n3. French Terms:\n   - \"Gestion d'équipe\"\n   - \"Prise de décision\"\n4. Culture:\n   - Consensus-building"
+    },
+    {
+      "id": 355,
+      "question": "What are French tech apprenticeship programs?",
+      "answer": "Apprenticeship (Alternance):\n🎓 Structure:\n   - 1-2 weeks school/month\n   - Rest with company\n💰 Salary:\n   - €1,100-1,800/month\n📝 Requirements:\n   - French enrollment\n   - Under 30 preferred\nTop Companies: Capgemini, Thales, Société Générale"
+    },
+    {
+      "id": 356,
+      "question": "How to explain Tunisian freelance work in France?",
+      "answer": "Freelance Experience Translation:\n1. Legal Status:\n   \"Auto-entrepreneur en Tunisie\"\n2. Client Focus:\n   Highlight international clients\n3. Metrics:\n   Revenue, projects completed\n4. Transition:\n   \"Désormais cherche CDI en France\""
+    },
+    {
+      "id": 357,
+      "question": "What are French tech employee representation?",
+      "answer": "Workplace Representation:\n1. Comité Social Économique (CSE):\n   - Mandatory in 50+ companies\n   - Budget for activities\n2. Unions:\n   - CFDT, CGT common\n3. Rights:\n   - Collective bargaining\n   - Strike participation"
+    },
+    {
+      "id": 358,
+      "question": "How to prepare for French tech panel interviews?",
+      "answer": "Panel Interview Tips:\n1. Greet:\n   \"Bonjour à tous\"\n2. Engage:\n   - Eye contact\n   - Names if possible\n3. Structure:\n   - Clear answers\n   - Time management\n4. Follow-up:\n   Thank you emails to all"
+    },
+    {
+      "id": 359,
+      "question": "What are French tech training budgets?",
+      "answer": "Training Norms:\n📚 Legal Minimum:\n   - 1% payroll (50+ employees)\n📚 Corporate Average:\n   - €3,000-5,000/year\n📚 Common Uses:\n   - Certifications\n   - Language courses\n   - Conference attendance\nNegotiation Tip: Ask during offer phase"
+    },
+    {
+      "id": 360,
+      "question": "How to handle French tech job transitions?",
+      "answer": "Job Transition Guide:\n1. Notice Period:\n   - Negotiate early release\n2. Knowledge Transfer:\n   - Document everything\n3. Exit Interview:\n   - Professional tone\n4. Bridge:\n   - Gardening leave options\n5. Shadowhire Tip: Use our transition planner"
+    },
+    {
+      "id": 361,
+      "question": "What are French tech company social events?",
+      "answer": "Common Social Activities:\n1. Afterworks (Apéros)\n2. Seminars/Retreats\n3. Sports clubs\n4. CE Activities (Theater, trips)\n5. Holiday parties\nCultural Note:\n- Wine common at events\n- Formal/informal mix"
+    },
+    {
+      "id": 362,
+      "question": "How to prepare for French tech salary reviews?",
+      "answer": "Salary Review Prep:\n1. Document:\n   - Achievements\n   - Metrics\n2. Market Data:\n   - Glassdoor\n   - Payscale\n3. Language:\n   \"Compte tenu de mes contributions...\"\n4. Timing:\n   - Annual review cycle"
+    },
+    {
+      "id": 363,
+      "question": "What are French tech workplace dress codes?",
+      "answer": "Dress Code Norms:\n🏢 Corporate:\n   - Business casual\n🚀 Startups:\n   - Jeans OK\n👔 Client Meetings:\n   - Suit/blazer\n🌞 Summer:\n   - More relaxed\nKey: Observe first week"
+    },
+    {
+      "id": 364,
+      "question": "How to explain Tunisian startup experience in France?",
+      "answer": "Startup Experience Translation:\n1. Scale:\n   \"Première startup de Tunisie dans...\"\n2. Roles:\n   Highlight versatility\n3. Metrics:\n   Growth, funding\n4. French Connection:\n   \"Modèle similaire à French Tech\""
+    },
+    {
+      "id": 365,
+      "question": "What are French tech employee discounts?",
+      "answer": "Common Discounts:\n1. CE (Comité d'Entreprise):\n   - Vacation packages\n   - Concert tickets\n2. Corporate:\n   - Tech products\n   - Gym memberships\n3. Transport:\n   - 50% reimbursement\nAverage Value: €1,000-3,000/year"
+    },
+    {
+      "id": 366,
+      "question": "How to handle French tech job burnout?",
+      "answer": "Burnout Management:\n1. Legal Protections:\n   - Doctor's note\n   - Paid leave\n2. Company Resources:\n   - Psychosocial support\n3. Culture:\n   - Speak to manager\n   - Use RTT days\n4. Shadowhire Tip: Our wellness resources"
+    },
+    {
+      "id": 367,
+      "question": "What are French tech company languages?",
+      "answer": "Workplace Language Norms:\n💬 Meetings:\n   - Mostly French\n📧 Documentation:\n   - Technical: English\n   - Process: French\n👨💻 Coding:\n   - English variables\n   - French comments\nStartups: More English-friendly"
+    },
+    {
+      "id": 368,
+      "question": "How to prepare for French tech team interviews?",
+      "answer": "Team Interview Prep:\n1. Research:\n   - Team structure\n   - Projects\n2. Prepare:\n   - Collaboration examples\n3. Questions:\n   \"Quels sont les défis actuels?\"\n4. Culture Fit:\n   - French workplace norms"
+    },
+    {
+      "id": 369,
+      "question": "What are French tech company values?",
+      "answer": "Common Corporate Values:\n1. Innovation\n2. Collaboration\n3. Customer Focus\n4. Sustainability\n5. Diversity\nAssessment Tip:\n- Check company's \"Raison d'être\"\n- Glassdoor reviews"
+    },
+    {
+      "id": 370,
+      "question": "How to explain academic research to French tech recruiters?",
+      "answer": "Research Translation:\n1. Practical Applications:\n   \"Applications industrielles de...\"\n2. Skills:\n   - Data analysis\n   - Problem-solving\n3. Publications:\n   Highlight cited works\n4. Collaboration:\n   International partners"
+    },
+    {
+      "id": 371,
+      "question": "What are French tech company hierarchies?",
+      "answer": "Corporate Structure Levels:\n1. Ingénieur\n2. Chef de projet\n3. Manager\n4. Directeur\n5. PDG\nPromotion Path:\n- 2-3 years per level\n- Management vs technical track"
+    },
+    {
+      "id": 372,
+      "question": "How to handle French tech job scams?",
+      "answer": "Scam Red Flags:\n🚩 No company email\n🚩 Payment for training\n🚩 Vague job description\n🚩 Urgent hiring\nVerification:\n1. Check societe.com\n2. LinkedIn employees\n3. Physical address"
+    },
+    {
+      "id": 373,
+      "question": "What are French tech company retreats?",
+      "answer": "Corporate Retreat Norms:\n🏕️ Frequency:\n   - 1-2 times/year\n📍 Locations:\n   - French countryside\n   - European cities\n💼 Structure:\n   - 50% work\n   - 50% team building\nBudget: €1,000-3,000/person"
+    },
+    {
+      "id": 374,
+      "question": "How to prepare for French tech reference checks?",
+      "answer": "Reference Prep:\n1. Notify:\n   - 3 professional contacts\n2. Brief:\n   - Job description\n   - Key points\n3. Language:\n   - French-speaking referees\n4. Shadowhire Tip: Our reference coaching"
+    },
+    {
+      "id": 375,
+      "question": "What are French tech company cars?",
+      "answer": "Company Car Policies:\n🚗 Eligibility:\n   - Managers+\n   - Field roles\n💰 Packages:\n   - Full ownership\n   - Allowance\n⚡ Electric:\n   - Tax advantages\nAverage Value: €5,000-10,000/year"
+    },
+    {
+      "id": 376,
+      "question": "How to explain Tunisian consulting experience in France?",
+      "answer": "Consulting Experience Translation:\n1. Clients:\n   Highlight international\n2. Methodologies:\n   \"Approche similaire à...\"\n3. Scale:\n   Budgets, team sizes\n4. French Firms:\n   Compare to Capgemini/Accenture"
+    },
+    {
+      "id": 377,
+      "question": "What are French tech company stocks?",
+      "answer": "Employee Stock Options:\n1. BSPCE (Startups):\n   - Tax advantages\n2. Stock Options:\n   - Large companies\n3. ESPP:\n   - Discounted purchase\nTaxation:\n- 30% flat rate after 5 years"
+    },
+    {
+      "id": 378,
+      "question": "How to handle French tech job dissatisfaction?",
+      "answer": "Dissatisfaction Path:\n1. Internal:\n   - Discuss with manager\n   - Request changes\n2. Legal:\n   - HR mediation\n3. Exit:\n   - Quiet quitting\n   - Resignation\nShadowhire Tip: Career coaching"
+    },
+    {
+      "id": 379,
+      "question": "What are French tech company patents?",
+      "answer": "Patent Policies:\n📜 Ownership:\n   - Typically employer\n💰 Incentives:\n   - Bonuses (€1,000-10,000)\n🏆 Recognition:\n   - Career advancement\nProcess:\n   - Invention disclosure\n   - Legal review"
+    },
+    {
+      "id": 380,
+      "question": "How to prepare for French tech assessment centers?",
+      "answer": "Assessment Center Prep:\n1. Exercises:\n   - Case studies\n   - Group discussions\n2. Language:\n   - Business French\n3. Dress Code:\n   - Business formal\n4. Shadowhire Tip: Mock assessments"
+    },
+    {
+      "id": 381,
+      "question": "What are French tech company pensions?",
+      "answer": "Pension Schemes:\n1. State:\n   - Basic coverage\n2. Complementary:\n   - AGIRC-ARRCO\n3. Corporate:\n   - Top-up plans\nContribution:\n   - 10% employee\n   - 15% employer"
+    },
+    {
+      "id": 382,
+      "question": "How to explain Tunisian teaching experience in France?",
+      "answer": "Teaching Experience Translation:\n1. Skills:\n   - Knowledge transfer\n   - Public speaking\n2. Context:\n   \"Enseignement supérieur en...\"\n3. Relevance:\n   - Training roles\n   - Documentation"
+    },
+    {
+      "id": 383,
+      "question": "What are French tech company health benefits?",
+      "answer": "Health Benefits:\n1. Mutuelle:\n   - 50-100% coverage\n2. Prevention:\n   - Gym subsidies\n3. Mental Health:\n   - Counseling\n4. Vision/Dental:\n   - Full reimbursement\nAverage Value: €1,500/year"
+    },
+    {
+      "id": 384,
+      "question": "How to prepare for French tech job fairs?",
+      "answer": "Job Fair Strategy:\n1. Research:\n   - Attending companies\n2. Materials:\n   - French CV\n   - Elevator pitch\n3. Follow-up:\n   - LinkedIn connections\n   - Thank you emails\nShadowhire Tip: Our fair calendar"
     }
-    
+
   ]
 }
