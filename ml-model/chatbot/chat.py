@@ -33,6 +33,37 @@ def clean_text(text, lowercase=True):
 df["question_clean"] = df["question"].apply(lambda t: clean_text(t, True))
 df["answer_clean"]   = df["answer"].apply(lambda t: clean_text(t, False))
 
+#new step augment dataset
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+paraphraser_model = "Vamsi/T5_Paraphrase_Paws"
+tokenizer_para = AutoTokenizer.from_pretrained(paraphraser_model)
+model_para = AutoModelForSeq2SeqLM.from_pretrained(paraphraser_model)
+
+def paraphrase(text, num_return=3):
+    input_text = f"paraphrase: {text} </s>"
+    encoding = tokenizer_para.encode_plus(input_text, return_tensors="pt", max_length=256, truncation=True)
+    outputs = model_para.generate(
+        **encoding,
+        max_length=256,
+        num_beams=5,
+        num_return_sequences=num_return,
+        temperature=1.5
+    )
+    return [tokenizer_para.decode(o, skip_special_tokens=True) for o in outputs]
+
+# Example: generate paraphrases for all questions
+augmented_qas = []
+for i, row in df.iterrows():
+    paras = paraphrase(row["question_clean"], num_return=3)
+    for q in paras:
+        augmented_qas.append({"question_clean": q, "answer_clean": row["answer_clean"]})
+
+df_aug = pd.DataFrame(augmented_qas)
+print("Augmented dataset size:", len(df_aug))
+
+#split the dataset
+
 train_df, temp_df = train_test_split(df, test_size=0.2, random_state=42)
 val_df, test_df    = train_test_split(temp_df, test_size=0.5, random_state=42)
 
@@ -96,6 +127,9 @@ from torch.utils.data import Dataset, DataLoader
 model_name = "t5-small"   # change to larger later (e.g., t5-base, flan-t5-small) if you have GPU
 tokenizer = T5Tokenizer.from_pretrained(model_name)
 model = T5ForConditionalGeneration.from_pretrained(model_name)
+model.config.dropout_rate = 0.2          # default ~0.1
+model.config.attention_dropout_rate = 0.2
+
 
 class RAGDataset(Dataset):
     def __init__(self, inputs, targets, tokenizer, max_len_input=256, max_len_target=128):
@@ -118,7 +152,7 @@ class RAGDataset(Dataset):
             "attention_mask": enc_inp.attention_mask.squeeze(),
             "labels": labels
         }
-
+train_inputs, train_targets = make_context_for_train(train_df, embedder, index, train_answers, top_k=3)
 train_dataset = RAGDataset(train_inputs, train_targets, tokenizer)
 val_inputs, val_targets = make_context_for_train(val_df, embedder, index, train_answers, top_k=3)  # use val similarly
 val_dataset = RAGDataset(val_inputs, val_targets, tokenizer)
@@ -133,7 +167,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device:", device)
 model.to(device)
 
-optimizer = AdamW(model.parameters(), lr=3e-5)
+optimizer = AdamW(model.parameters(), lr=1e-5, weight_decay=0.01)
 
 
 # 9 trainning loop
@@ -166,17 +200,29 @@ def eval_epoch(model, loader, device):
             total_loss += outputs.loss.item()
     return total_loss / len(loader)
 
-epochs = 6
+epochs = 5
+best_val_loss = float("inf")
+patience = 2
+patience_counter = 0
+
 for epoch in range(1, epochs+1):
     t0 = time.time()
     train_loss = train_epoch(model, train_loader, optimizer, device)
     val_loss = eval_epoch(model, val_loader, device)
     print(f"Epoch {epoch}/{epochs} — train_loss: {train_loss:.4f} val_loss: {val_loss:.4f} time: {time.time()-t0:.0f}s")
 
-# Save model + tokenizer after training
-model.save_pretrained("t5_rag_model")
-tokenizer.save_pretrained("t5_rag_tokenizer")
-print("Saved model to t5_rag_model/")
+    if val_loss < best_val_loss:
+        best_val_loss = val_loss
+        patience_counter = 0
+        model.save_pretrained("t5_rag_model")
+        tokenizer.save_pretrained("t5_rag_tokenizer")
+        print("✅ Model saved.")
+    else:
+        patience_counter += 1
+        if patience_counter >= patience:
+            print("⏹ Early stopping triggered.")
+            break
+
 
 # result Epoch 1/6 — train_loss: 4.7961 val_loss: 5.0115 time: 213s,Epoch 2/6 — train_loss: 4.5286 val_loss: 4.6988 time: 231s
 # result Epoch 3/6 — train_loss: 4.4076 val_loss: 4.5418 time: 208s
@@ -194,7 +240,7 @@ fr2en = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
 # EN -> FR
 en2fr = pipeline("translation", model="Helsinki-NLP/opus-mt-en-fr")
 
-#10 interface 
+#10 inference 
 # Colab cell
 from langdetect import detect, DetectorFactory
 DetectorFactory.seed = 0
