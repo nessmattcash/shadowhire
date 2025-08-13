@@ -1919,7 +1919,2471 @@
       "id": 384,
       "question": "How to prepare for French tech job fairs?",
       "answer": "Job Fair Strategy:\n1. Research:\n   - Attending companies\n2. Materials:\n   - French CV\n   - Elevator pitch\n3. Follow-up:\n   - LinkedIn connections\n   - Thank you emails\nShadowhire Tip: Our fair calendar"
-    }
-
+    },
+     {
+      "id": 385,
+      "question": "What are emerging IT specialties in Tunisia for 2025?",
+      "answer": "Top 5 emerging IT specialties in Tunisia:\n1. AI/ML Engineering (Arabic NLP focus)\n2. Cloud Security Architecture\n3. Blockchain Development\n4. Quantum Computing Fundamentals\n5. MLOps Engineering\nGrowth rate: 35-50% annually based on our job trend analysis"
+    },
+    {
+      "id": 386,
+      "question": "How to specialize in cybersecurity in Tunisia?",
+      "answer": "Cybersecurity specialization path:\n1. Foundational Certs: CEH, Security+\n2. Advanced Certs: OSCP, CISSP\n3. Local Training: CERT-TUNISIA programs\n4. Focus Areas:\n   - Banking security (PCI DSS)\n   - Telecom security\n5. Join: Tunisian White Hat communities"
+    },
+    {
+      "id": 387,
+      "question": "What's the perfect CV format for Google applications?",
+      "answer": "Google CV requirements:\n✔️ 1-page strict limit\n✔️ Reverse chronological\n✔️ Quantified impact (e.g. 'Improved performance by 30%')\n✔️ Projects > Education\n✔️ Action verbs: 'Designed', 'Led', 'Optimized'\nAvoid: Photos, personal info, generic skills"
+    },
+    {
+      "id": 388,
+      "question": "Which Tunisian startups compete internationally?",
+      "answer": "Global Tunisian tech contenders:\n1. Expensya (Expense management)\n2. InstaDeep (AI solutions)\n3. Saphon Energy (Clean tech)\n4. Wevioo (Digital transformation)\n5. Digital Factory (Fintech)\nCommon traits: EU/US clients, English-first culture, VC backing"
+    },
+    {
+      "id": 389,
+      "question": "What skills does Microsoft look for in Tunisian hires?",
+      "answer": "Microsoft Tunisia core competencies:\n1. Cloud: Azure certifications\n2. Languages: C#, TypeScript\n3. Frameworks: .NET, React\n4. DevOps: Kubernetes, Terraform\n5. Soft Skills: Problem-solving, growth mindset\nBonus: Open-source contributions"
+    },
+    {
+      "id": 390,
+      "question": "How to transition from web dev to AI in Tunisia?",
+      "answer": "AI transition roadmap:\n1. Math Prep: Linear algebra, statistics\n2. Python Stack: NumPy, Pandas, Scikit-learn\n3. ML Specialization: Fast.ai or Andrew Ng\n4. Local Opportunities:\n   - InstaDeep internships\n   - Tunisian AI startups\n5. Build: Arabic-language NLP projects"
+    },
+    {
+      "id": 391,
+      "question": "What's the interview process at Amazon Tunisia?",
+      "answer": "Amazon Tunisia stages:\n1. Online Assessment (2 coding questions)\n2. Technical Phone Screen (1 hour)\n3. Virtual Onsite (4 interviews):\n   - Coding (2 sessions)\n   - System Design\n   - Behavioral (Leadership Principles)\nPrep: LeetCode mediums, STAR method"
+    },
+    {
+      "id": 392,
+      "question": "Which German companies hire Tunisian IT talent?",
+      "answer": "Top German employers:\n1. SAP (Cloud roles)\n2. Siemens (Industrial IoT)\n3. Bosch (Automotive software)\n4. Zalando (E-commerce tech)\n5. Deutsche Bank (Fintech)\nKey requirements: B1 German, EU work eligibility"
+    },
+    {
+      "id": 393,
+      "question": "How to build a competitive data science portfolio?",
+      "answer": "Winning DS portfolio:\n1. 3-5 projects showing:\n   - Data cleaning\n   - Feature engineering\n   - Model deployment\n2. Tunisian context projects (e.g. Olive yield prediction)\n3. Blog explaining technical choices\n4. Kaggle competitions (Top 25%)\n5. Open-source contributions"
+    },
+    {
+      "id": 394,
+      "question": "What are the highest paying remote IT jobs for Tunisians?",
+      "answer": "Top remote roles & salaries:\n1. DevOps Engineer ($60-90k/year)\n2. Blockchain Developer ($70-100k)\n3. ML Engineer ($80-120k)\n4. Cloud Architect ($90-130k)\n5. Security Consultant ($70-110k)\nPlatforms: Toptal, Upwork, RemoteOK"
+    },
+    {
+      "id": 395,
+      "question": "How to prepare for coding interviews at FAANG?",
+      "answer": "FAANG interview prep plan:\n1. Algorithms: 3 months (LeetCode)\n2. System Design: 2 months (Grokking)\n3. Behavioral: 1 month (STAR method)\n4. Mock Interviews: Pramp/Interviewing.io\n5. Tunisian-specific:\n   - Practice in English\n   - Timezone preparation"
+    },
+    {
+      "id": 396,
+      "question": "Which UAE companies sponsor visas for Tunisian tech talent?",
+      "answer": "UAE tech employers:\n1. Careem (SuperApp tech)\n2. G42 (AI research)\n3. DarkMatter (Cybersecurity)\n4. Emirates NBD (Fintech)\n5. Dubai Silicon Oasis companies\nVisa process: 4-8 weeks, salary ≥AED 15k/month"
+    },
+    {
+      "id": 397,
+      "question": "What's the career path at InstaDeep?",
+      "answer": "InstaDeep progression:\n1. Research Engineer (1-2yrs)\n2. Senior Engineer (3-5yrs)\n3. Team Lead (5-7yrs)\n4. Research Scientist (PhD track)\nKey skills: Python, PyTorch, research papers\nCulture: Fast-paced, publication-focused"
+    },
+    {
+      "id": 398,
+      "question": "How to get into blockchain development from Tunisia?",
+      "answer": "Blockchain entry path:\n1. Learn: Solidity, Rust\n2. Build: Tunisian use cases (e.g. olive oil supply chain)\n3. Certifications: Blockchain Council\n4. Communities: Tunisian Blockchain Meetups\n5. Target: Dubai/European remote roles"
+    },
+    {
+      "id": 399,
+      "question": "What are the interview questions at STMicroelectronics?",
+      "answer": "STM technical interview focus:\n1. Embedded C concepts\n2. Computer architecture\n3. Real-time systems\n4. Semiconductor physics\n5. French technical vocabulary\nCommon problem: Memory management in embedded systems"
+    },
+    {
+      "id": 400,
+      "question": "Which Canadian companies recruit Tunisian developers?",
+      "answer": "Top Canadian employers:\n1. Shopify (Remote roles)\n2. RBC (Fintech)\n3. Ericsson Canada (5G)\n4. CGI (Consulting)\n5. Top AI startups (Toronto/Montreal)\nPath: Express Entry (CRS ≥470) or LMIA visa"
+    },
+    {
+      "id": 401,
+      "question": "How to optimize LinkedIn for international recruiters?",
+      "answer": "LinkedIn optimization:\n1. Headline: \"Tunisian [Specialty] | [Tech Stack] | Seeking [Target]\"\n2. About: 3-paragraph story (Past-Present-Future)\n3. Experience: Quantified achievements\n4. Skills: Top 5 technical + 2 soft skills\n5. Activity: Weekly tech posts in English"
+    },
+    {
+      "id": 402,
+      "question": "What are the most in-demand programming languages in Europe?",
+      "answer": "2024 European demand:\n1. Java (Banking/Android)\n2. Python (AI/Data)\n3. JavaScript (Fullstack)\n4. C# (Enterprise)\n5. Rust (Systems programming)\nEmerging: Go, Kotlin, Dart"
+    },
+    {
+      "id": 403,
+      "question": "How to get freelance contracts from German companies?",
+      "answer": "German freelance strategy:\n1. Platforms: Gulp, Freelance.de\n2. Specialize: SAP, Industry 4.0\n3. Legal: Register as Freiberufler\n4. Pricing: €50-120/hour\n5. Communication: Clear English + basic German\nKey: Highlight EU project experience"
+    },
+    {
+      "id": 404,
+      "question": "What's the salary progression at Expensya?",
+      "answer": "Expensya career ladder:\n1. Junior Dev: 3,000-4,500 TND\n2. Mid-level: 4,500-6,500 TND\n3. Senior: 6,500-9,000 TND\n4. Tech Lead: 10,000+ TND\nPerks: USD-pegged salaries, stock options"
+    },
+    {
+      "id": 405,
+      "question": "How to break into fintech as a Tunisian developer?",
+      "answer": "Fintech entry plan:\n1. Learn: Payment protocols, regulatory tech\n2. Certifications: FinTech Institute courses\n3. Target: BIAT Digital Factory, Expensya\n4. Build: Personal finance apps\n5. Network: Tunisian FinTech Association events"
+    },
+    {
+      "id": 406,
+      "question": "What are the best tech conferences in Tunisia?",
+      "answer": "Must-attend Tunisian tech events:\n1. Tunisian Web Days\n2. DevOps Tunisia Summit\n3. Carthage FinTech Forum\n4. AI Expo Tunisia\n5. French-Tunisian Tech Connection\nShadowhire Tip: Many offer student discounts"
+    },
+    {
+      "id": 407,
+      "question": "How to prepare for system design interviews?",
+      "answer": "System design prep:\n1. Concepts: Load balancing, caching, DB partitioning\n2. Practice: Design Twitter, Uber\n3. Framework:\n   - Requirements\n   - API design\n   - Data model\n   - Scaling\n4. Tunisian context: Prepare for limited resource scenarios"
+    },
+    {
+      "id": 408,
+      "question": "Which French startups hire remote Tunisian talent?",
+      "answer": "French startup remote employers:\n1. Alan (Healthtech)\n2. PayFit (HR tech)\n3. BackMarket (E-commerce)\n4. Qonto (Neobank)\n5. Doctolib (Health)\nRequirements: EU timezone overlap, French B2+"
+    },
+    {
+      "id": 409,
+      "question": "What's the career growth at Telnet?",
+      "answer": "Telnet career path:\n1. Engineer (2yrs)\n2. Project Lead (3-5yrs)\n3. Department Manager (5-8yrs)\n4. Director (10+yrs)\nKey skills: French fluency, client management\nPerk: International mobility options"
+    },
+    {
+      "id": 410,
+      "question": "How to become a cloud architect from Tunisia?",
+      "answer": "Cloud architect roadmap:\n1. Certs: AWS/Azure/GCP Associate\n2. Specialize: Security, Networking, or DevOps\n3. Experience: 2+ cloud migration projects\n4. Tunisian context: Hybrid cloud solutions\n5. Target: STMicro, Orange, international remote"
+    },
+    {
+      "id": 411,
+      "question": "What are the interview rounds at Google Dublin?",
+      "answer": "Google Dublin process:\n1. Resume screen (GPA ≥3.5 preferred)\n2. Phone screen (45min coding)\n3. Onsite (5 interviews):\n   - Coding (2)\n   - System Design (1)\n   - Behavioral (1)\n   - Googliness (1)\n4. Hiring committee review"
+    },
+    {
+      "id": 412,
+      "question": "Which Tunisian companies have the best engineering culture?",
+      "answer": "Top engineering cultures:\n1. InstaDeep (Research-driven)\n2. Expensya (Silicon Valley-style)\n3. STMicro (Hardware excellence)\n4. Vermeg (Process-oriented)\n5. Telnet (Client-focused)\nMetrics: Low turnover, high patent output"
+    },
+    {
+      "id": 413,
+      "question": "How to get into quantum computing from Tunisia?",
+      "answer": "Quantum computing path:\n1. Math: Linear algebra, probability\n2. Learn: Qiskit (IBM), Cirq (Google)\n3. Online: edX Quantum courses\n4. Research: Collaborate with Tunisian universities\n5. Target: IBM Research, European quantum startups"
+    },
+    {
+      "id": 414,
+      "question": "What are the best GitHub projects for Tunisian devs?",
+      "answer": "Impactful project ideas:\n1. Arabic NLP tools\n2. Tunisian e-gov solutions\n3. Olive agriculture tech\n4. Mediterranean climate models\n5. Tunisian startup open-source\nKey: Solve local problems with global tech"
+    },
+    {
+      "id": 415,
+      "question": "How to negotiate salary with European companies?",
+      "answer": "European salary negotiation:\n1. Research: Glassdoor, Levels.fyi\n2. Focus: Total package (salary + equity + benefits)\n3. Tunisian leverage: Cost advantage\n4. Range: Give €10k bracket (e.g. €50-60k)\n5. Timing: After offer, before acceptance"
+    },
+    {
+      "id": 416,
+      "question": "What's the hiring process at Apple for Tunisians?",
+      "answer": "Apple hiring stages:\n1. Technical recruiter call\n2. Take-home assignment (72hrs)\n3. Technical phone screens (2)\n4. Onsite (5 interviews)\n   - Coding\n   - System Design\n   - Behavioral\nKey: Focus on user experience in solutions"
+    },
+    {
+      "id": 417,
+      "question": "Which Tunisian AI startups are hiring?",
+      "answer": "Growing AI employers:\n1. InstaDeep (NLP/RL)\n2. DeepTech (Computer vision)\n3. AIBuilders (Enterprise AI)\n4. Datavora (E-commerce AI)\n5. SmartAPI (Healthcare AI)\nHiring focus: Python, TensorFlow, research"
+    },
+    {
+      "id": 418,
+      "question": "How to transition from QA to development?",
+      "answer": "QA to dev transition:\n1. Learn: Core programming (Python/Java)\n2. Contribute: Unit test development\n3. Certifications: ISTQB helps\n4. Internal transfer: Express interest to manager\n5. Build: Personal projects showing coding skills"
+    },
+    {
+      "id": 419,
+      "question": "What are the best tech blogs by Tunisians?",
+      "answer": "Notable Tunisian tech blogs:\n1. Ahmed's AI Corner (ML)\n2. CodeWithMehdi (Web dev)\n3. SecureTunisia (Cybersecurity)\n4. CloudMaghreb (AWS/Azure)\n5. TunisianDev (Career advice)\nLanguages: Mix of French/English/Arabic"
+    },
+    {
+      "id": 420,
+      "question": "How to get into game development in Tunisia?",
+      "answer": "Game dev path:\n1. Engines: Unity (C#), Unreal (C++)\n2. Specialize: AR/VR, mobile\n3. Communities: Tunisian Game Dev Meetup\n4. Target: Outsource studios (Ubisoft partners)\n5. Build: Portfolio of small games"
+    },
+    {
+      "id": 421,
+      "question": "What are the interview questions at Oracle Tunisia?",
+      "answer": "Oracle Tunisia focus areas:\n1. Database concepts (SQL tuning)\n2. Java internals\n3. Cloud infrastructure\n4. Enterprise architecture\n5. Behavioral (STAR format)\nPreparation: Oracle certification guides help"
+    },
+    {
+      "id": 422,
+      "question": "Which Tunisian companies offer international assignments?",
+      "answer": "Global mobility options:\n1. STMicroelectronics (France/Singapore)\n2. Telnet (Francophone Africa)\n3. Sofrecom (Middle East)\n4. Vermeg (European banks)\n5. Expensya (French offices)\nTypical requirement: 2+ years tenure"
+    },
+    {
+      "id": 423,
+      "question": "How to build DevOps skills in Tunisia?",
+      "answer": "DevOps learning path:\n1. Core: Docker, Kubernetes\n2. CI/CD: Jenkins, GitLab\n3. Cloud: AWS/Azure certs\n4. Tunisian context: Hybrid infrastructure\n5. Practice: Home lab with old hardware\nCommunities: DevOps Tunisia Meetup"
+    },
+    {
+      "id": 424,
+      "question": "What's the career path at Microsoft Tunisia?",
+      "answer": "Microsoft Tunisia progression:\n1. Support Engineer (1-2yrs)\n2. Consultant (2-4yrs)\n3. Senior Consultant (4-6yrs)\n4. Architect (6+yrs)\nKey skills: Azure certs, customer-facing soft skills"
+    },
+    {
+      "id": 425,
+      "question": "How to get into AR/VR development in Tunisia?",
+      "answer": "AR/VR roadmap:\n1. Tools: Unity3D, ARCore/ARKit\n2. Focus: Tourism/education applications\n3. Hardware: Start with mobile AR\n4. Communities: Tunisian XR Developers\n5. Target: EU outsource projects"
+    },
+    {
+      "id": 426,
+      "question": "What are the best tech podcasts from Tunisia?",
+      "answer": "Tunisian tech podcasts:\n1. TechTalkTN (Industry trends)\n2. DevStory (Career paths)\n3. AI Tunisia (Machine learning)\n4. SiliconSahara (Startups)\n5. CloudNomads (Remote work)\nLanguages: Mostly French, some English"
+    },
+    {
+      "id": 427,
+      "question": "How to prepare for coding competitions?",
+      "answer": "Competition prep:\n1. Platforms: Codeforces, LeetCode\n2. Focus: Dynamic programming, graphs\n3. Time management: Solve easy first\n4. Tunisian teams: Join ICPC training\n5. Goal: Top 100 in any major contest"
+    },
+    {
+      "id": 428,
+      "question": "Which Tunisian universities have strong CS programs?",
+      "answer": "Top CS universities:\n1. ENSI (Computer engineering)\n2. ESPRIT (Industry-aligned)\n3. ISI (Theoretical CS)\n4. FST (Research focus)\n5. INSAT (Balanced curriculum)\nRanking factor: Industry hiring rates"
+    },
+    {
+      "id": 429,
+      "question": "How to get into open-source as a Tunisian dev?",
+      "answer": "Open-source entry:\n1. Start: Documentation improvements\n2. Target: Tunisian-led projects\n3. Programs: Google Summer of Code\n4. Showcase: Meaningful contributions\n5. Network: Tunisian Open Source Initiative"
+    },
+    {
+      "id": 430,
+      "question": "What's the hiring process at IBM Tunisia?",
+      "answer": "IBM Tunisia stages:\n1. Cognitive ability test\n2. Technical interview (Java/Python)\n3. Case study presentation\n4. Cultural fit interview\nFocus areas: Cloud, AI, enterprise solutions"
+    },
+    {
+      "id": 431,
+      "question": "Which Tunisian companies have the best training programs?",
+      "answer": "Top learning cultures:\n1. STMicro (Semiconductor academy)\n2. Expensya (Silicon Valley-style)\n3. Capgemini (Certification paths)\n4. Telnet (Client technology training)\n5. BIAT IT (Banking tech focus)\nMetrics: Annual training hours per employee"
+    },
+    {
+      "id": 432,
+      "question": "How to specialize in IoT in Tunisia?",
+      "answer": "IoT specialization:\n1. Hardware: Raspberry Pi, Arduino\n2. Protocols: MQTT, LoRaWAN\n3. Cloud: AWS IoT, Azure Sphere\n4. Tunisian applications: Agriculture, utilities\n5. Target: Actia, Telnet IoT divisions"
+    },
+    {
+      "id": 433,
+      "question": "What are the best tech coworking spaces in Tunis?",
+      "answer": "Top coworking hubs:\n1. Cogite (Lac 1)\n2. Tunisian Startups (Downtown)\n3. IntilaQ (El Ghazala)\n4. The Dot (Lac 2)\n5. CTN (Technopark)\nAmenities: High-speed internet, meeting rooms"
+    },
+    {
+      "id": 434,
+      "question": "How to get into tech sales engineering?",
+      "answer": "Sales engineering path:\n1. Technical foundation (2+ years dev)\n2. Learn: CRM tools (Salesforce)\n3. Certifications: Cloud vendor certs\n4. Soft skills: Client presentations\n5. Target: Oracle, Microsoft, local SaaS"
+    },
+    {
+      "id": 435,
+      "question": "What's the career growth at Capgemini Tunisia?",
+      "answer": "Capgemini career ladder:\n1. Consultant (1-2yrs)\n2. Senior Consultant (2-4yrs)\n3. Manager (4-6yrs)\n4. Senior Manager (6-8yrs)\n5. Director (8+yrs)\nKey: Certification milestones drive promotions"
+    },
+    {
+      "id": 436,
+      "question": "How to build a personal brand as a Tunisian developer?",
+      "answer": "Personal branding strategy:\n1. Content: Weekly tech threads (EN/FR)\n2. Platform: LinkedIn + GitHub\n3. Niche: Focus on 1-2 technologies\n4. Network: Speak at local meetups\n5. Consistency: 6+ month commitment"
+    },
+    {
+      "id": 437,
+      "question": "Which Tunisian tech influencers to follow?",
+      "answer": "Top voices to follow:\n1. Mehdi Hmidi (Startups)\n2. Salma Masmoudi (AI)\n3. Ahmed Fessi (DevOps)\n4. Amine Ben Halima (Fintech)\n5. Selima Driss (Women in Tech)\nPlatforms: LinkedIn, Twitter/X"
+    },
+    {
+      "id": 438,
+      "question": "How to prepare for Tunisian government tech jobs?",
+      "answer": "Public sector prep:\n1. Study: e-gov frameworks\n2. Exams: Focus on algorithms\n3. Language: Fluent Arabic technical terms\n4. Process: Concours system (6-12 months)\nTop employers: CNI, Tunisie Telecom"
+    },
+    {
+      "id": 439,
+      "question": "What's the interview process at Ericsson Tunisia?",
+      "answer": "Ericsson stages:\n1. HR screening (English)\n2. Technical test (C/Python)\n3. Telecom knowledge interview\n4. Manager meeting\nFocus: 5G, IoT, cloud native networking"
+    },
+    {
+      "id": 440,
+      "question": "How to get into tech consulting in Tunisia?",
+      "answer": "Consulting entry path:\n1. Start: Big4/Tier2 firms\n2. Certifications: SAP, Salesforce, PMP\n3. Language: Fluent French\n4. Specialize: Banking, telecom, or government\n5. Build: PowerPoint/Excel mastery"
+    },
+    {
+      "id": 441,
+      "question": "What are the best tech scholarships for Tunisians?",
+      "answer": "Notable scholarships:\n1. Google Developer Scholarship\n2. AWS re/Start Tunisia\n3. Facebook North Africa Tech Fellowship\n4. Tunisian Startup Fellowship\n5. Erasmus+ for tech degrees\nDeadlines: Mostly Jan-Mar annually"
+    },
+    {
+      "id": 442,
+      "question": "How to specialize in embedded systems?",
+      "answer": "Embedded specialization:\n1. Core: C, RTOS concepts\n2. Hardware: STM32, Arduino\n3. Tools: Keil, IAR\n4. Tunisian employers: STMicro, Actia\n5. Build: IoT device portfolio"
+    },
+    {
+      "id": 443,
+      "question": "What's the hiring process at Orange Tunisia?",
+      "answer": "Orange Digital Factory process:\n1. Online coding test\n2. Technical interview (Fullstack)\n3. Culture fit (Agile mindset)\n4. Final HR discussion\nKey skills: Java/Spring, React, cloud basics"
+    },
+    {
+      "id": 444,
+      "question": "How to get into tech leadership in Tunisia?",
+      "answer": "Leadership path:\n1. Start: Tech lead small projects\n2. Learn: Agile/Scrum methodologies\n3. Certifications: PMP, Scrum Master\n4. Soft skills: Conflict resolution\n5. Target: Manager roles after 5+ years IC"
+    },
+    {
+      "id": 445,
+      "question": "What are the best tech incubators in Tunisia?",
+      "answer": "Top incubators:\n1. Flat6Labs Tunis\n2. Cogite Innovation Hub\n3. Technopark El Ghazala\n4. StartUp Haus Tunis\n5. SANAD Entrepreneurship Academy\nFocus: Pre-seed to Series A tech startups"
+    },
+    {
+      "id": 446,
+      "question": "How to prepare for McKinsey tech consulting interviews?",
+      "answer": "McKinsey tech case prep:\n1. Study: Digital transformation cases\n2. Framework: IT strategy, implementation\n3. Practice: 10+ mock cases\n4. Tunisian context: e-gov challenges\n5. Behavioral: Leadership examples"
+    },
+    {
+      "id": 447,
+      "question": "Which Tunisian companies work on blockchain?",
+      "answer": "Blockchain employers:\n1. DigiCash (CBDC projects)\n2. Tunisian Digital Currency (Gov projects)\n3. StartupCake (Web3 startups)\n4. Crypto4Africa (Regional focus)\n5. Fintech startups (Payment solutions)"
+    },
+    {
+      "id": 448,
+      "question": "How to get into tech product management?",
+      "answer": "PM transition plan:\n1. Start: Business analyst roles\n2. Learn: Agile, roadmapping\n3. Certifications: CSPO, PMP\n4. Build: Side project as PM\n5. Target: Junior PM at scaling startups"
+    },
+    {
+      "id": 449,
+      "question": "What's the career path at Accenture Tunisia?",
+      "answer": "Accenture progression:\n1. Analyst (0-2yrs)\n2. Consultant (2-4yrs)\n3. Manager (4-6yrs)\n4. Senior Manager (6-8yrs)\n5. Director (8+yrs)\nKey: Certification milestones (Cloud, SAP)"
+    },
+    {
+      "id": 450,
+      "question": "How to build a tech network in Tunisia?",
+      "answer": "Networking strategy:\n1. Events: JUG Tunisia, DevOps Meetups\n2. Online: LinkedIn Tunisian Tech Leaders\n3. Alumni: University groups\n4. Mentorship: Shadowhire program\n5. Consistency: Monthly 5 new connections"
+    },
+    {
+      "id": 451,
+      "question": "What are the best tech hackathons in Tunisia?",
+      "answer": "Major hackathons:\n1. Tunisian Startup Weekend\n2. NASA Space Apps Tunis\n3. AngelHack Tunis\n4. Hack4Youth (UNICEF)\n5. Local university competitions\nPrize: Often seed funding or internships"
+    },
+    {
+      "id": 452,
+      "question": "How to specialize in computer vision?",
+      "answer": "CV learning path:\n1. Math: Linear algebra\n2. Tools: OpenCV, PyTorch\n3. Projects: Object detection apps\n4. Tunisian applications: Agriculture, security\n5. Target: InstaDeep, defense contractors"
+    },
+    {
+      "id": 453,
+      "question": "What's the hiring process at Tunisian banks?",
+      "answer": "Bank tech hiring:\n1. Written exam (Algorithms + SQL)\n2. Technical interview (Java/.NET)\n3. Security clearance\n4. Central Bank compliance\nKey skills: Banking protocols, French fluency"
+    },
+    {
+      "id": 454,
+      "question": "How to get into quantum computing research?",
+      "answer": "Quantum research path:\n1. Education: Physics/CS masters\n2. Online: Qiskit textbook\n3. Collaborate: Tunisian universities\n4. Publish: Small contributions first\n5. Target: EU quantum research programs"
+    },
+    {
+      "id": 455,
+      "question": "What are the best tech internships in Tunisia?",
+      "answer": "Top internship programs:\n1. STMicroelectronics Academy\n2. Expensya Tech Internship\n3. Telnet Summer Program\n4. InstaDeep Research Interns\n5. Google STEP (for students)\nDuration: Typically 3-6 months"
+    },
+    {
+      "id": 456,
+      "question": "How to prepare for Deloitte tech consulting interviews?",
+      "answer": "Deloitte prep:\n1. Case studies: Digital transformation\n2. Technical: ERP/cloud basics\n3. Behavioral: STAR method\n4. Tunisian context: e-gov projects\n5. Presentation: Clear slide design"
+    },
+    {
+      "id": 457,
+      "question": "Which Tunisian companies work with AI?",
+      "answer": "AI employers:\n1. InstaDeep (Core AI)\n2. DeepTech (Computer vision)\n3. Wevioo (Enterprise AI)\n4. Tunisian banks (Fraud detection)\n5. Healthcare startups (Diagnostics)"
+    },
+    {
+      "id": 458,
+      "question": "How to get into tech entrepreneurship?",
+      "answer": "Startup roadmap:\n1. Validate: Solve local problem\n2. Build: MVP with no-code first\n3. Funding: Flat6Labs, BIAT Startup\n4. Team: Co-founder matching events\n5. Scale: Tunisian then EU market"
+    },
+    {
+      "id": 459,
+      "question": "What's the career path at SAP Tunisia?",
+      "answer": "SAP progression:\n1. Associate Consultant (1-2yrs)\n2. Consultant (2-4yrs)\n3. Senior Consultant (4-6yrs)\n4. Architect (6+yrs)\nKey: Module specialization (FI, MM, SD)"
+    },
+    {
+      "id": 460,
+      "question": "How to specialize in NLP for Arabic?",
+      "answer": "Arabic NLP path:\n1. Learn: Transformer architectures\n2. Data: Tunisian dialect corpus\n3. Tools: HuggingFace, spaCy\n4. Applications: Chatbots, sentiment analysis\n5. Target: InstaDeep, regional tech firms"
+    },
+    {
+      "id": 461,
+      "question": "What are the best tech accelerators in Tunisia?",
+      "answer": "Top accelerators:\n1. Flat6Labs Tunis\n2. StartupYard Tunis\n3. AfricInvest BlueWave\n4. BIAT StartUp Lab\n5. Orange Fab Tunisia\nFocus: Seed to Series A tech companies"
+    },
+    {
+      "id": 462,
+      "question": "How to prepare for PwC tech consulting interviews?",
+      "answer": "PwC tech case prep:\n1. Study: Digital transformation cases\n2. Framework: IT implementation strategy\n3. Technical: ERP/cloud basics\n4. Behavioral: STAR method\n5. Tunisian context: Banking/Government"
+    },
+    {
+      "id": 463,
+      "question": "Which Tunisian companies work on robotics?",
+      "answer": "Robotics employers:\n1. Enova Robotics (Security robots)\n2. Tunisian engineering firms\n3. Automotive suppliers\n4. University research labs\n5. Medical device startups"
+    },
+    {
+      "id": 464,
+      "question": "How to get into tech policy in Tunisia?",
+      "answer": "Tech policy path:\n1. Education: Law/CS combination\n2. Start: Government internships\n3. Focus: Data privacy, cyber laws\n4. Network: Tunisian Internet Agency\n5. Target: National digital strategy roles"
+    },
+    {
+      "id": 465,
+      "question": "What's the hiring process at Nokia Tunisia?",
+      "answer": "Nokia stages:\n1. HR screening (English)\n2. Technical test (Networking)\n3. System design interview\n4. Manager meeting\nFocus: 5G, telecom protocols, cloud native"
+    },
+    {
+      "id": 466,
+      "question": "How to specialize in cloud security?",
+      "answer": "Cloud security path:\n1. Certs: AWS/Azure Security\n2. Learn: CSPM tools\n3. Practice: CTF competitions\n4. Tunisian context: Hybrid cloud\n5. Target: Banking, government contractors"
+    },
+    {
+      "id": 467,
+      "question": "What are the best tech grants for Tunisians?",
+      "answer": "Funding opportunities:\n1. PASRI (Research innovation)\n2. Startup Act Label\n3. EU Horizon Tunisia\n4. AFD Digital Challenge\n5. National Digital Economy Fund\nDeadlines: Vary by program"
+    },
+    {
+      "id": 468,
+      "question": "How to prepare for EY tech consulting interviews?",
+      "answer": "EY prep:\n1. Case studies: IT transformation\n2. Technical: ERP/cloud basics\n3. Behavioral: STAR method\n4. Presentation: Clear structure\n5. Tunisian context: Banking sector"
+    },
+    {
+      "id": 469,
+      "question": "Which Tunisian companies work on autonomous systems?",
+      "answer": "Autonomous tech employers:\n1. Enova Robotics\n2. Automotive suppliers\n3. Defense contractors\n4. University research labs\n5. Agriculture tech startups"
+    },
+    {
+      "id": 470,
+      "question": "How to get into tech journalism in Tunisia?",
+      "answer": "Tech journalism path:\n1. Start: Blog on local tech\n2. Contribute: Tech216, Webdo\n3. Specialize: Startup ecosystem\n4. Network: Tech event coverage\n5. Build: Interview portfolio"
+    },
+    {
+      "id": 471,
+      "question": "What's the career path at Oracle Tunisia?",
+      "answer": "Oracle progression:\n1. Associate Consultant (1-2yrs)\n2. Consultant (2-4yrs)\n3. Senior Consultant (4-6yrs)\n4. Principal Consultant (6+yrs)\nKey: Cloud specialization (OCI, Fusion)"
+    },
+    {
+      "id": 472,
+      "question": "How to specialize in fintech development?",
+      "answer": "Fintech dev path:\n1. Learn: Payment protocols\n2. Certifications: FinTech Institute\n3. Security: PCI DSS basics\n4. Tunisian context: Mobile money\n5. Target: Expensya, BIAT Digital"
+    },
+    {
+      "id": 473,
+      "question": "What are the best tech competitions in Tunisia?",
+      "answer": "Major competitions:\n1. Tunisian Startup Competition\n2. NASA Space Apps Challenge\n3. Huawei ICT Competition\n4. Enactus Tunisia\n5. University hackathons\nPrizes: Funding, internships, visibility"
+    },
+    {
+      "id": 474,
+      "question": "How to prepare for KPMG tech consulting interviews?",
+      "answer": "KPMG prep:\n1. Case studies: IT governance\n2. Technical: ERP/cloud basics\n3. Behavioral: STAR method\n4. Tunisian context: Banking regulation\n5. Presentation: Professional slides"
+    },
+     {
+      "id": 485,
+      "question": "What are the best tech research labs in Tunisia?",
+      "answer": "Top research labs:\n1. CRISTAL (ENSI)\n2. RIADI (FSB)\n3. SESAME (ISETCOM)\n4. LIP2 (FST)\n5. MedTech (ENIS)\nFocus: AI, networks, embedded systems"
+    },
+    {
+      "id": 486,
+      "question": "How to prepare for Bain tech consulting interviews?",
+      "answer": "Bain prep:\n1. Cases: IT due diligence\n2. Technical: Cloud economics\n3. Behavioral: Teamwork examples\n4. Tunisian context: Digital economy\n5. Presentation: Executive summary style"
+    },
+    {
+      "id": 487,
+      "question": "Which Tunisian companies work on smart cities?",
+      "answer": "Smart city employers:\n1. Cynapsys\n2. Tunisian e-gov contractors\n3. Utility companies\n4. Urban planning startups\n5. International consultancies"
+    },
+    {
+      "id": 488,
+      "question": "How to get into tech patent law?",
+      "answer": "Patent law path:\n1. Education: Law degree + CS basics\n2. Certifications: Tunisian IP law\n3. Start: INNORPI internships\n4. Specialize: Software patents\n5. Target: Tech company legal teams"
+    },
+    {
+      "id": 489,
+      "question": "What's the hiring process at Ooredoo Tech?",
+      "answer": "Ooredoo Tech stages:\n1. Arabic technical test\n2. System design interview\n3. Manager meeting\n4. HR discussion\nFocus: Telecom solutions, digital services"
+    },
+    {
+      "id": 490,
+      "question": "How to specialize in gaming tech?",
+      "answer": "Gaming tech path:\n1. Engines: Unity, Unreal\n2. Specialize: Mobile or AR/VR\n3. Tunisian context: Cultural games\n4. Target: Outsource studios\n5. Build: Portfolio of small games"
+    },
+    {
+      "id": 491,
+      "question": "What are the best tech coworking spaces in Sousse?",
+      "answer": "Sousse coworking:\n1. Cogite Sousse\n2. Sousse TechHub\n3. ENOVA coworking\n4. StartUp House Sousse\n5. University incubators\nAmenities: Meeting rooms, high-speed internet"
+    },
+    {
+      "id": 492,
+      "question": "How to prepare for Roland Berger tech interviews?",
+      "answer": "Roland Berger prep:\n1. Cases: Digital transformation\n2. Technical: IT cost optimization\n3. Behavioral: Problem-solving\n4. Tunisian context: Banking sector\n5. Presentation: Consultant-style slides"
+    },
+    {
+      "id": 493,
+      "question": "Which Tunisian companies work on space tech?",
+      "answer": "Space tech initiatives:\n1. Tunisian Space Agency\n2. University satellite projects\n3. Telnet R&D\n4. Defense contractors\n5. Agriculture remote sensing"
+    },
+    {
+      "id": 494,
+      "question": "How to get into tech public speaking?",
+      "answer": "Speaking roadmap:\n1. Start: Lightning talks\n2. Grow: Local meetups\n3. Target: Tunisian Web Days\n4. Record: YouTube channel\n5. Specialize: 1-2 technical topics"
+    },
+    {
+      "id": 495,
+      "question": "What's the career path at Tunisian banks' IT?",
+      "answer": "Bank IT progression:\n1. Junior Developer (1-2yrs)\n2. Analyst (2-4yrs)\n3. Team Lead (4-6yrs)\n4. IT Manager (6+yrs)\nKey: Banking protocols, French fluency"
+    },
+    {
+      "id": 496,
+      "question": "How to specialize in automotive software?",
+      "answer": "Automotive path:\n1. Learn: AUTOSAR, CAN bus\n2. Tools: Vector CANoe\n3. Certifications: Functional safety\n4. Tunisian employers: Actia, TAC\n5. Build: ECU simulation projects"
+    },
+    {
+      "id": 497,
+      "question": "What are the best tech conferences in Sfax?",
+      "answer": "Sfax tech events:\n1. Sfax Digital Days\n2. IEEE Sfax events\n3. ENIS Tech Forum\n4. Startup Weekend Sfax\n5. Regional hackathons\nFocus: Industry 4.0, embedded systems"
+    },
+    {
+      "id": 498,
+      "question": "How to prepare for LEK tech consulting interviews?",
+      "answer": "LEK prep:\n1. Cases: IT market sizing\n2. Technical: Cloud TCO\n3. Behavioral: Analytical thinking\n4. Tunisian context: Outsourcing\n5. Presentation: Consulting-style"
+    },
+    {
+      "id": 499,
+      "question": "Which Tunisian companies work on cleantech?",
+      "answer": "Cleantech employers:\n1. Saphon Energy\n2. SolarEdge Tunisia\n3. GreenTech startups\n4. Utility innovation teams\n5. University research labs"
+    },
+    {
+      "id": 500,
+      "question": "How to get into tech policy research?",
+      "answer": "Policy research path:\n1. Education: Public policy + CS\n2. Start: Think tank internships\n3. Focus: Data governance\n4. Network: ANPR\n5. Target: National digital strategy"
+    },
+    {
+      "id": 501,
+      "question": "What's the hiring process at Hexabyte?",
+      "answer": "Hexabyte stages:\n1. Networking technical test\n2. Security scenario interview\n3. Hands-on lab\n4. HR discussion\nFocus: Cisco/Juniper expertise, French fluency"
+    },
+    {
+      "id": 502,
+      "question": "How to specialize in 5G technology?",
+      "answer": "5G learning path:\n1. Study: 3GPP standards\n2. Tools: Network simulators\n3. Tunisian context: Orange/TT trials\n4. Target: Ericsson, Nokia, operators\n5. Build: Small-scale demo"
+    },
+    {
+      "id": 503,
+      "question": "What are the best tech communities in Tunisia?",
+      "answer": "Active communities:\n1. Google Developer Groups\n2. Tunisian AI Community\n3. DevOps Tunisia\n4. Tunisian Open Source\n5. Women in Tech TN\nPlatforms: Meetup, Facebook Groups"
+    },
+    {
+      "id": 504,
+      "question": "How to prepare for Oliver Wyman tech interviews?",
+      "answer": "Oliver Wyman prep:\n1. Cases: Fintech disruption\n2. Technical: Banking IT\n3. Behavioral: Client scenarios\n4. Tunisian context: Mobile money\n5. Presentation: Consulting style"
+    },
+    {
+      "id": 505,
+      "question": "Which Tunisian companies work on defense tech?",
+      "answer": "Defense tech employers:\n1. UltraTunisia\n2. Thales partners\n3. Government R&D\n4. Cybersecurity firms\n5. University research (dual-use)"
+    },
+    {
+      "id": 506,
+      "question": "How to get into tech recruiting?",
+      "answer": "Tech recruiting path:\n1. Start: IT recruitment agency\n2. Learn: Technical fundamentals\n3. Certifications: HR certs\n4. Network: Tunisian tech events\n5. Target: Shadowhire, global firms"
+    },
+    {
+      "id": 507,
+      "question": "What's the career path at Tunisian consulting firms?",
+      "answer": "Consulting progression:\n1. Analyst (1-2yrs)\n2. Consultant (2-4yrs)\n3. Manager (4-6yrs)\n4. Partner (8+yrs)\nKey: Certification milestones, French fluency"
+    },
+    {
+      "id": 508,
+      "question": "How to specialize in semiconductor design?",
+      "answer": "Semiconductor path:\n1. Education: Microelectronics\n2. Tools: Cadence, Synopsys\n3. Tunisian context: STMicro\n4. Target: Analog/mixed-signal\n5. Build: Small tapeout projects"
+    },
+    {
+      "id": 509,
+      "question": "What are the best tech blogs in French from Tunisia?",
+      "answer": "French-language blogs:\n1. TechTunisie\n2. Developpeur Tunisien\n3. Cloud Maghreb\n4. Sécurité TI\n5. StartUp Maghreb\nFocus: Practical tutorials, local ecosystem"
+    },
+    {
+      "id": 510,
+      "question": "How to prepare for AT Kearney tech interviews?",
+      "answer": "ATK prep:\n1. Cases: IT strategy\n2. Technical: Digital transformation\n3. Behavioral: Client management\n4. Tunisian context: Banking sector\n5. Presentation: Executive style"
+    },
+    {
+      "id": 511,
+      "question": "Which Tunisian companies work on healthtech?",
+      "answer": "Healthtech employers:\n1. SmartHealth startups\n2. Hospital IT departments\n3. Medical device firms\n4. Telemedicine platforms\n5. AI diagnostics startups"
+    },
+    {
+      "id": 512,
+      "question": "How to get into tech event management?",
+      "answer": "Event management path:\n1. Start: Volunteer at tech events\n2. Learn: Event tech tools\n3. Network: Tunisian organizers\n4. Grow: Small meetups first\n5. Target: JUG Tunisia, DevDays"
+    },
+    {
+      "id": 513,
+      "question": "What's the hiring process at Proxym IT?",
+      "answer": "Proxym stages:\n1. Microsoft technical test\n2. System design interview\n3. Client scenario roleplay\n4. HR discussion\nFocus: Microsoft stack, consulting skills"
+    },
+    {
+      "id": 514,
+      "question": "How to specialize in AR/VR development?",
+      "answer": "AR/VR roadmap:\n1. Tools: Unity3D, ARKit\n2. Focus: Tourism/education apps\n3. Hardware: Start with mobile AR\n4. Tunisian context: Cultural heritage\n5. Target: EU outsource projects"
+    },
+    {
+      "id": 515,
+      "question": "What are the best tech podcasts in Arabic from Tunisia?",
+      "answer": "Arabic tech podcasts:\n1. TekRoma\n2. TechTalk Arabic\n3. Tunisian Tech\n4. StartUp Arabic\n5. Cloud Arabic\nFocus: Local ecosystem, beginner-friendly"
+    },
+    {
+      "id": 516,
+      "question": "How to prepare for tech due diligence interviews?",
+      "answer": "Due diligence prep:\n1. Study: IT assessment frameworks\n2. Technical: Architecture review\n3. Financial: TCO models\n4. Tunisian context: Outsourcing\n5. Case: Sample acquisition scenario"
+    },
+    {
+      "id": 517,
+      "question": "Which Tunisian companies work on govtech?",
+      "answer": "Govtech employers:\n1. Cynapsys\n2. SBS\n3. National ID projects\n4. E-tax platforms\n5. Smart city initiatives"
+    },
+    {
+      "id": 518,
+      "question": "How to get into tech content creation?",
+      "answer": "Content creation path:\n1. Start: Tutorial videos\n2. Grow: LinkedIn/YouTube\n3. Monetize: Sponsorships\n4. Network: Tunisian creators\n5. Specialize: 1-2 tech stacks"
+    },
+    {
+      "id": 519,
+      "question": "What's the career path at Tunisian telecom IT?",
+      "answer": "Telecom IT progression:\n1. Junior Engineer (1-2yrs)\n2. Specialist (2-4yrs)\n3. Team Lead (4-6yrs)\n4. Manager (6+yrs)\nKey: OSS/BSS systems, French fluency"
+    },
+    {
+      "id": 520,
+      "question": "How to specialize in robotics programming?",
+      "answer": "Robotics path:\n1. Learn: ROS, C++\n2. Hardware: Raspberry Pi\n3. Tunisian context: Agriculture bots\n4. Target: Enova, university labs\n5. Build: Small automation projects"
+    },
+    {
+      "id": 521,
+      "question": "What are the best tech newsletters in Tunisia?",
+      "answer": "Must-read newsletters:\n1. Tunisian Tech Digest\n2. Startup Tunisia\n3. AI Maghreb\n4. Cloud Weekly TN\n5. DevTunisia\nFocus: Local opportunities, ecosystem news"
+    },
+    {
+      "id": 522,
+      "question": "How to prepare for corporate IT strategy roles?",
+      "answer": "IT strategy prep:\n1. Study: COBIT, ITIL\n2. Cases: Digital transformation\n3. Financial: IT budgeting\n4. Tunisian context: Legacy systems\n5. Presentation: Board-level style"
+    },
+    {
+      "id": 523,
+      "question": "Which Tunisian companies work on logistics tech?",
+      "answer": "Logistics tech employers:\n1. CargoTech\n2. Port management IT\n3. E-commerce platforms\n4. Fleet management startups\n5. Customs software firms"
+    },
+    {
+      "id": 524,
+      "question": "How to get into tech market research?",
+      "answer": "Market research path:\n1. Start: Analyst internships\n2. Learn: Gartner/McKinsey reports\n3. Tools: Tableau, SurveyMonkey\n4. Network: Tunisian startups\n5. Target: IDC, consulting firms"
+    },
+    {
+      "id": 525,
+      "question": "What's the hiring process at Sagemcom Tunisia?",
+      "answer": "Sagemcom stages:\n1. Embedded C test\n2. French technical interview\n3. Team fit discussion\n4. HR negotiation\nFocus: Telecom equipment, IoT protocols"
+    },
+    {
+      "id": 526,
+      "question": "How to specialize in IoT security?",
+      "answer": "IoT security path:\n1. Learn: MQTT security\n2. Certifications: IoT security certs\n3. Tunisian context: Smart meters\n4. Target: Utilities, defense\n5. Build: Home lab with vulnerable devices"
+    },
+    {
+      "id": 527,
+      "question": "What are the best tech mentorship programs in Tunisia?",
+      "answer": "Mentorship opportunities:\n1. Shadowhire Mentorship\n2. Tunisian AI Mentors\n3. Google Developer Groups\n4. Women in Tech TN\n5. University alumni programs\nFormat: 3-6 month commitments"
+    },
+    {
+      "id": 528,
+      "question": "How to prepare for IT governance roles?",
+      "answer": "Governance prep:\n1. Study: COBIT, ISO 27001\n2. Cases: Compliance frameworks\n3. Technical: Risk assessment\n4. Tunisian context: Banking regulation\n5. Certification: CISA, CRISC"
+    },
+    {
+      "id": 529,
+      "question": "Which Tunisian companies work on tourism tech?",
+      "answer": "Tourism tech employers:\n1. Tunisian travel platforms\n2. Hotel management software\n3. Cultural heritage AR\n4. Booking startups\n5. Tourism ministry IT"
+    },
+    {
+      "id": 530,
+      "question": "How to get into tech talent development?",
+      "answer": "Talent development path:\n1. Start: Bootcamp instructor\n2. Learn: Adult learning theory\n3. Certifications: Training certs\n4. Network: Tunisian universities\n5. Target: Corporate L&D roles"
+    },
+    {
+      "id": 531,
+      "question": "What's the career path at Tunisian insurance IT?",
+      "answer": "Insurance IT progression:\n1. Junior Analyst (1-2yrs)\n2. Developer (2-4yrs)\n3. Project Lead (4-6yrs)\n4. IT Manager (6+yrs)\nKey: Actuarial systems, French fluency"
+    },
+    {
+      "id": 532,
+      "question": "How to specialize in bioinformatics?",
+      "answer": "Bioinformatics path:\n1. Learn: Python for biology\n2. Tools: Bioconductor\n3. Tunisian context: Olive genomics\n4. Target: Medical research labs\n5. Build: COVID sequence analysis"
+    },
+    {
+      "id": 533,
+      "question": "What are the best tech job fairs in Tunisia?",
+      "answer": "Major job fairs:\n1. Tunisian IT Career Day\n2. Esprit Job Fair\n3. ENSI Career Forum\n4. JOBiTECH\n5. VirtualTechJobs\nTip: Bring 20+ printed CVs, French/English"
+    },
+    {
+      "id": 534,
+      "question": "How to prepare for IT audit roles?",
+      "answer": "IT audit prep:\n1. Study: COBIT, ISO 27001\n2. Cases: Control testing\n3. Technical: Risk frameworks\n4. Tunisian context: Banking audits\n5. Certification: CISA"
+    },
+    {
+      "id": 535,
+      "question": "Which Tunisian companies work on fashion tech?",
+      "answer": "Fashion tech employers:\n1. E-commerce platforms\n2. AR try-on startups\n3. Textile industry IT\n4. Design software firms\n5. Tunisian fashion apps"
+    },
+    {
+      "id": 536,
+      "question": "How to get into tech PR?",
+      "answer": "Tech PR path:\n1. Start: Tech blogger\n2. Learn: Press release writing\n3. Network: Tunisian journalists\n4. Grow: Small startup clients\n5. Target: Tech agency roles"
+    },
+    {
+      "id": 537,
+      "question": "What's the hiring process at GFI Tunisia?",
+      "answer": "GFI stages:\n1. French case study\n2. Technical deep dive\n3. Client simulation\n4. Partner interview\nFocus: Legacy modernization, French fluency"
+    },
+    {
+      "id": 538,
+      "question": "How to specialize in NLP for French?",
+      "answer": "French NLP path:\n1. Learn: Transformer models\n2. Data: French dialect corpus\n3. Tools: HuggingFace, spaCy\n4. Applications: Chatbots, sentiment\n5. Target: EU NLP projects"
+    },
+    {
+      "id": 539,
+      "question": "What are the best tech awards in Tunisia?",
+      "answer": "Prestigious awards:\n1. Tunisian Startup Awards\n2. MITEF Tunisia\n3. Orange Social Venture Prize\n4. National Innovation Prize\n5. IEEE Tunisia awards\nBenefits: Funding, visibility"
+    },
+    {
+      "id": 540,
+      "question": "How to prepare for IT compliance roles?",
+      "answer": "Compliance prep:\n1. Study: GDPR, Tunisian PDP\n2. Cases: Audit frameworks\n3. Technical: Security controls\n4. Tunisian context: Banking\n5. Certification: CIPP, CIPT"
+    },
+    {
+      "id": 541,
+      "question": "Which Tunisian companies work on sports tech?",
+      "answer": "Sports tech employers:\n1. Fitness apps\n2. Stadium management IT\n3. Wearable startups\n4. Sports analytics\n5. E-sports platforms"
+    },
+    {
+      "id": 542,
+      "question": "How to get into tech localization?",
+      "answer": "Localization path:\n1. Start: Open-source translations\n2. Learn: i18n/l10n tools\n3. Network: Tunisian translators\n4. Grow: Tech company contracts\n5. Target: Arabic/French software"
+    },
+    {
+      "id": 543,
+      "question": "What's the career path at Tunisian manufacturing IT?",
+      "answer": "Manufacturing IT:\n1. MES Analyst (1-2yrs)\n2. PLM Consultant (2-4yrs)\n3. IT Manager (4-6yrs)\n4. Digital Lead (6+yrs)\nKey: Industry 4.0, French/German"
+    },
+    {
+      "id": 544,
+      "question": "How to specialize in drone software?",
+      "answer": "Drone software path:\n1. Learn: DroneKit SDK\n2. Tools: PX4, ArduPilot\n3. Tunisian context: Agriculture\n4. Regulations: Tunisian drone laws\n5. Build: Small automation projects"
+    },
+    {
+      "id": 545,
+      "question": "What are the best tech scholarships for women in Tunisia?",
+      "answer": "Women-focused scholarships:\n1. Google Women Techmakers\n2. Facebook #SheMeansBusiness\n3. Tunisian Women in Tech\n4. L'Oréal-UNESCO\n5. University gender programs\nDeadlines: Vary by program"
+    },
+    {
+      "id": 546,
+      "question": "How to prepare for IT risk management roles?",
+      "answer": "Risk management prep:\n1. Study: ISO 31000, NIST\n2. Cases: Risk assessment\n3. Technical: Security frameworks\n4. Tunisian context: Banking\n5. Certification: CRISC"
+    },
+    {
+      "id": 547,
+      "question": "Which Tunisian companies work on music tech?",
+      "answer": "Music tech employers:\n1. Streaming platforms\n2. Audio software firms\n3. Event tech startups\n4. Royalty management\n5. Music education apps"
+    },
+    {
+      "id": 548,
+      "question": "How to get into tech legal consulting?",
+      "answer": "Tech law path:\n1. Education: Law degree + CS\n2. Start: IP law internships\n3. Learn: GDPR, Tunisian PDP\n4. Network: Tunisian startups\n5. Target: Tech company legal teams"
+    },
+    {
+      "id": 549,
+      "question": "What's the hiring process at Alcatel Tunisia?",
+      "answer": "Alcatel stages:\n1. Telecom knowledge test\n2. System design interview\n3. Manager meeting\n4. HR discussion\nFocus: 5G, optical networks, French fluency"
+    },
+    {
+      "id": 550,
+      "question": "How to specialize in satellite software?",
+      "answer": "Satellite software path:\n1. Learn: Satellite comm protocols\n2. Tools: NASA WorldWind\n3. Tunisian context: Tunisian Space Agency\n4. Target: International space firms\n5. Build: Ground station software"
+    },
+    {
+      "id": 551,
+      "question": "What are the best tech grants for social impact?",
+      "answer": "Social impact funding:\n1. Orange Social Venture Prize\n2. UNDP Tunisia\n3. AFD Digital Challenge\n4. National Solidarity Fund\n5. EU Social Innovation\nFocus: Edtech, healthtech, agritech"
+    },
+    {
+      "id": 552,
+      "question": "How to prepare for IT architecture roles?",
+      "answer": "Architecture prep:\n1. Study: TOGAF, Zachman\n2. Cases: Migration strategies\n3. Technical: Cloud patterns\n4. Tunisian context: Hybrid systems\n5. Certification: AWS/Azure Architect"
+    },
+    {
+      "id": 553,
+      "question": "Which Tunisian companies work on automotive tech?",
+      "answer": "Automotive tech employers:\n1. Actia\n2. TAC-Tunisie\n3. Automotive suppliers\n4. Electric vehicle startups\n5. University research labs"
+    },
+    {
+      "id": 554,
+      "question": "How to get into tech policy advocacy?",
+      "answer": "Policy advocacy path:\n1. Start: Tech association volunteer\n2. Learn: Tunisian digital laws\n3. Network: ANPR, Internet Society\n4. Grow: Policy position papers\n5. Target: Tech company government relations"
+    },
+    {
+      "id": 555,
+      "question": "What's the career path at Tunisian oil/gas IT?",
+      "answer": "Energy IT progression:\n1. SCADA Analyst (1-2yrs)\n2. Systems Engineer (2-4yrs)\n3. IT Manager (4-6yrs)\n4. Digital Lead (6+yrs)\nKey: Industrial systems, English fluency"
+    },
+    {
+      "id": 556,
+      "question": "How to specialize in maritime tech?",
+      "answer": "Maritime tech path:\n1. Learn: AIS, VTS systems\n2. Tools: Maritime software\n3. Tunisian context: Port management\n4. Target: Tunisian Maritime\n5. Build: Vessel tracking demo"
+    },
+    {
+      "id": 557,
+      "question": "What are the best tech competitions for students?",
+      "answer": "Student competitions:\n1. IEEExtreme\n2. Huawei ICT Competition\n3. Tunisian Collegiate Programming\n4. NASA Space Apps\n5. University hackathons\nBenefits: Internships, visibility"
+    },
+    {
+      "id": 558,
+      "question": "How to prepare for IT product management?",
+      "answer": "Product management prep:\n1. Study: Agile, roadmapping\n2. Cases: Feature prioritization\n3. Technical: API basics\n4. Tunisian context: Localization\n5. Certification: CSPO"
+    },
+    {
+      "id": 559,
+      "question": "Which Tunisian companies work on construction tech?",
+      "answer": "Construction tech employers:\n1. BIM software firms\n2. Project management IT\n3. Smart building startups\n4. Architecture software\n5. Government infrastructure IT"
+    },
+    {
+      "id": 560,
+      "question": "How to get into tech economic development?",
+      "answer": "Economic development path:\n1. Start: Startup ecosystem roles\n2. Learn: Innovation policies\n3. Network: ANPR, ministries\n4. Grow: Regional tech reports\n5. Target: World Bank, UNDP projects"
+    },
+    {
+      "id": 561,
+      "question": "What's the hiring process at HPE Tunisia?",
+      "answer": "HPE stages:\n1. Technical deep dive\n2. Architecture exercise\n3. Cultural fit interview\n4. HR discussion\nFocus: Hybrid cloud, edge computing"
+    },
+    {
+      "id": 562,
+      "question": "How to specialize in railway tech?",
+      "answer": "Railway tech path:\n1. Learn: ERTMS standards\n2. Tools: Railway simulators\n3. Tunisian context: SNCFT\n4. Target: Alstom, Thales\n5. Build: Signaling simulation"
+    },
+    {
+      "id": 563,
+      "question": "What are the best tech fellowships for Tunisians?",
+      "answer": "Prestigious fellowships:\n1. MITEF Tunisia\n2. Tunisian Digital Champions\n3. Facebook Fellowship\n4. Google PhD Fellowship\n5. Erasmus Mundus\nDuration: 6-24 months"
+    },
+    {
+      "id": 564,
+      "question": "How to prepare for IT pre-sales roles?",
+      "answer": "Pre-sales prep:\n1. Study: Solution architecture\n2. Cases: Demo scenarios\n3. Technical: Cloud TCO\n4. Tunisian context: Local pain points\n5. Certification: Vendor certs"
+    },
+    {
+      "id": 565,
+      "question": "Which Tunisian companies work on cultural tech?",
+      "answer": "Cultural tech employers:\n1. Heritage digitization\n2. Museum AR startups\n3. Tunisian content platforms\n4. Language learning apps\n5. Creative industry IT"
+    },
+    {
+      "id": 566,
+      "question": "How to get into tech community building?",
+      "answer": "Community building path:\n1. Start: Meetup co-organizer\n2. Learn: Community tools\n3. Network: Global organizers\n4. Grow: Local chapter leadership\n5. Target: DevRel roles"
+    },
+    {
+      "id": 567,
+      "question": "What's the career path at Tunisian aviation IT?",
+      "answer": "Aviation IT progression:\n1. Systems Analyst (1-2yrs)\n2. Developer (2-4yrs)\n3. Project Lead (4-6yrs)\n4. IT Manager (6+yrs)\nKey: Aviation protocols, English fluency"
+    },
+    {
+      "id": 568,
+      "question": "How to specialize in aerospace software?",
+      "answer": "Aerospace path:\n1. Learn: DO-178C standards\n2. Tools: MATLAB/Simulink\n3. Tunisian context: Thales\n4. Target: Airbus, defense\n5. Build: Flight control demo"
+    },
+    {
+      "id": 569,
+      "question": "What are the best tech awards for startups?",
+      "answer": "Startup awards:\n1. Tunisian Startup Awards\n2. MITEF Arab Startup\n3. Seedstars Tunis\n4. National Innovation Prize\n5. Sector-specific competitions\nBenefits: Funding, media"
+    },
+    {
+      "id": 570,
+      "question": "How to prepare for IT business analysis?",
+      "answer": "Business analysis prep:\n1. Study: BPMN, UML\n2. Cases: Requirements gathering\n3. Technical: API basics\n4. Tunisian context: Legacy systems\n5. Certification: CBAP"
+    },
+    {
+      "id": 571,
+      "question": "Which Tunisian companies work on legal tech?",
+      "answer": "Legal tech employers:\n1. E-justice platforms\n2. Contract automation\n3. Law firm IT\n4. Compliance software\n5. Startup legal tools"
+    },
+    {
+      "id": 572,
+      "question": "How to get into tech standards development?",
+      "answer": "Standards development path:\n1. Start: IEEE student member\n2. Learn: ITU-T processes\n3. Network: Tunisian delegates\n4. Grow: Working group contributions\n5. Target: National standards body"
+    },
+    {
+      "id": 573,
+      "question": "What's the hiring process at UltraTunisia?",
+      "answer": "UltraTunisia stages:\n1. Security clearance check\n2. French technical test\n3. Defense scenario interview\n4. Management meeting\nFocus: Secure comms, embedded systems"
+    },
+    {
+      "id": 574,
+      "question": "How to specialize in nuclear tech software?",
+      "answer": "Nuclear software path:\n1. Learn: Nuclear safety standards\n2. Tools: Reactor simulations\n3. Tunisian context: Medical applications\n4. Target: International agencies\n5. Build: Radiation monitoring demo"
+    },
+    {
+      "id": 575,
+      "question": "What are the best tech grants for hardware startups?",
+      "answer": "Hardware funding:\n1. National FabLab program\n2. Startup Act hardware track\n3. EU Horizon EIC\n4. Tunisian Engineering Fund\n5. Corporate challenges (STMicro)"
+    },
+    {
+      "id": 576,
+      "question": "How to prepare for IT project management?",
+      "answer": "Project management prep:\n1. Study: PMBOK, Agile\n2. Cases: Risk management\n3. Technical: SDLC\n4. Tunisian context: Outsourcing\n5. Certification: PMP, Scrum Master"
+    },
+    {
+      "id": 577,
+      "question": "Which Tunisian companies work on water tech?",
+      "answer": "Water tech employers:\n1. Utility management IT\n2. IoT monitoring startups\n3. Government water projects\n4. Agriculture water tech\n5. University research"
+    },
+    {
+      "id": 578,
+      "question": "How to get into tech diplomacy?",
+      "answer": "Tech diplomacy path:\n1. Start: Foreign ministry tech desk\n2. Learn: Digital governance\n3. Network: Geneva Internet Platform\n4. Grow: Policy briefings\n5. Target: ITU, IGF delegations"
+    },
+    {
+      "id": 579,
+      "question": "What's the career path at Tunisian pharmaceutical IT?",
+      "answer": "Pharma IT progression:\n1. Validation Analyst (1-2yrs)\n2. Systems Specialist (2-4yrs)\n3. IT Manager (4-6yrs)\n4. Digital Lead (6+yrs)\nKey: GxP compliance, French fluency"
+    },
+    {
+      "id": 580,
+      "question": "How to specialize in meteorological software?",
+      "answer": "Meteorological path:\n1. Learn: Weather data formats\n2. Tools: WRF, GIS\n3. Tunisian context: Agriculture\n4. Target: National meteorology\n5. Build: Weather visualization"
+    },
+    {
+"id": 581,
+"question": "What are the average salaries for software engineers in Tunisia in 2024?",
+"answer": "In 2024, average salaries for software engineers in Tunisia range from 2,000 TND for juniors to 6,000 TND for seniors, depending on experience and location. Use our Salary Benchmark tool for personalized insights."
+},
+{
+"id": 582,
+"question": "How can I improve my Python programming skills?",
+"answer": "To boost your Python skills: 1) Practice on LeetCode or HackerRank; 2) Build projects like web scrapers; 3) Take free courses on Coursera; 4) Contribute to open-source on GitHub. Our Skill Lab has Python challenges tailored for Tunisian jobs."
+},
+{
+"id": 583,
+"question": "What is the job market outlook for cybersecurity in Tunisia?",
+"answer": "The cybersecurity job market in Tunisia is growing at 25% annually, driven by banking and telecom sectors. Key roles include analysts and ethical hackers, with high demand from companies like Defency and banks."
+},
+{
+"id": 584,
+"question": "Which are the best IT faculties in Tunisia?",
+"answer": "Top IT faculties in Tunisia: 1) ENSI (National School of Computer Science); 2) ESPRIT; 3) ISG Tunis; 4) Sup'Com; 5) ISET campuses. ENSI is renowned for its rigorous curriculum and industry partnerships."
+},
+{
+"id": 585,
+"question": "How does Shadowhire help with CV improvement?",
+"answer": "Shadowhire's CV Analyzer uses AI to score your resume, suggest keyword optimizations, and provide templates tailored for IT roles in Tunisia and globally."
+},
+{
+"id": 586,
+"question": "What salaries can I expect as a data analyst in Europe?",
+"answer": "Data analysts in Europe earn €40,000-€70,000 annually, with higher ranges in Germany and France. For Tunisians relocating, our tool factors in visa and cost-of-living adjustments."
+},
+{
+"id": 587,
+"question": "Tell me about Google Tunisia office.",
+"answer": "Google's Tunisia office focuses on engineering and sales support for MENA. They hire for roles in cloud and AI, preferring candidates with strong English and tech skills."
+},
+{
+"id": 588,
+"question": "How to enhance my skills in machine learning?",
+"answer": "Improve ML skills by: 1) Completing Andrew Ng's Coursera course; 2) Working on Kaggle datasets; 3) Learning TensorFlow; 4) Joining ML Tunisia meetups. Our app tracks your progress."
+},
+{
+"id": 589,
+"question": "What is the IT job growth rate in Tunisia?",
+"answer": "IT jobs in Tunisia are growing at 12-15% yearly, fueled by outsourcing and startups. Sectors like fintech and AI lead the way."
+},
+{
+"id": 590,
+"question": "Best universities for IT in Tunisia for undergraduates?",
+"answer": "Recommended undergrad IT programs: 1) INSAT; 2) FST (Faculty of Sciences Tunis); 3) ENIT; 4) ISSAT Sousse. INSAT offers strong practical training."
+},
+{
+"id": 591,
+"question": "Can Shadowhire simulate job interviews?",
+"answer": "Yes, our Interview Simulator uses AI to conduct mock interviews for IT roles, providing feedback on answers and body language."
+},
+{
+"id": 592,
+"question": "Average salary for DevOps engineers in the US?",
+"answer": "DevOps engineers in the US earn $110,000-$160,000 per year. For remote roles accessible to Tunisians, focus on AWS certifications."
+},
+{
+"id": 593,
+"question": "Info about Microsoft Tunisia.",
+"answer": "Microsoft Tunisia handles sales, support, and partnerships. They recruit for cloud specialists and developers, often requiring Azure knowledge."
+},
+{
+"id": 594,
+"question": "Ways to improve web development skills?",
+"answer": "Enhance web dev skills: 1) Build responsive sites with HTML/CSS/JS; 2) Learn frameworks like Vue.js; 3) Use freeCodeCamp; 4) Freelance on local projects."
+},
+{
+"id": 595,
+"question": "How competitive is the Tunisian IT job market?",
+"answer": "The Tunisian IT market is moderately competitive, with high demand for skilled pros but oversupply of juniors. Networking and certifications help stand out."
+},
+{
+"id": 596,
+"question": "Top private IT schools in Tunisia?",
+"answer": "Leading private IT schools: 1) ESPRIT; 2) Tek-Up; 3) Mediterranean School of Business (MSB) for IT management; 4) PIIMT."
+},
+{
+"id": 597,
+"question": "Does Shadowhire offer career coaching?",
+"answer": "Our premium plan includes AI-powered career coaching, suggesting paths based on your profile and market trends."
+},
+{
+"id": 598,
+"question": "Salaries for UX designers in Tunisia?",
+"answer": "UX designers in Tunisia earn 1,800-4,500 TND monthly. International remote roles can double that."
+},
+{
+"id": 599,
+"question": "Details on Amazon Tunisia operations.",
+"answer": "Amazon doesn't have a major office in Tunisia but hires remotely for AWS roles. Focus on cloud computing skills for opportunities."
+},
+{
+"id": 600,
+"question": "How to boost skills in cloud computing?",
+"answer": "Advance in cloud: 1) Get AWS/GCP certifications; 2) Deploy projects on free tiers; 3) Join cloud communities; 4) Practice IaC with Terraform."
+},
+{
+"id": 601,
+"question": "Impact of AI on Tunisian job market?",
+"answer": "AI is creating more IT jobs in Tunisia, especially in automation and data, but displacing routine tasks. Upskilling is key."
+},
+{
+"id": 602,
+"question": "Best master's programs in IT in Tunisia?",
+"answer": "Top master's: 1) ENSI for Computer Science; 2) Sup'Com for Telecom IT; 3) ISAMM for Multimedia IT."
+},
+{
+"id": 603,
+"question": "How does Shadowhire match jobs?",
+"answer": "We use NLP to match your CV skills with job descriptions, prioritizing Tunisian and global IT opportunities."
+},
+{
+"id": 604,
+"question": "Global salaries for blockchain developers?",
+"answer": "Blockchain devs earn $100,000-$180,000 worldwide. In Tunisia, it's 3,000-7,000 TND, higher for remote work."
+},
+{
+"id": 605,
+"question": "About Deloitte Tunisia IT division.",
+"answer": "Deloitte Tunisia offers IT consulting, hiring for audit tech and digital transformation roles, often needing French and English."
+},
+{
+"id": 606,
+"question": "Improving skills in mobile app development?",
+"answer": "For mobile dev: 1) Learn Flutter or Swift; 2) Build apps for Play Store; 3) Follow Android Developers site; 4) Join app dev forums."
+},
+{
+"id": 607,
+"question": "Remote work trends in Tunisian IT?",
+"answer": "Remote IT jobs in Tunisia rose 20% in 2024, with Europe as top client. Freelance platforms are booming."
+},
+{
+"id": 608,
+"question": "Public universities excelling in IT in Tunisia?",
+"answer": "Strong public unis: 1) Carthage University (ENICarthage); 2) Manouba University (ENSI); 3) Sfax University (ENIS)."
+},
+{
+"id": 609,
+"question": "Can Shadowhire help with LinkedIn optimization?",
+"answer": "Yes, our tool suggests LinkedIn profile enhancements based on IT job trends and your CV."
+},
+{
+"id": 610,
+"question": "Salaries for IT managers in France?",
+"answer": "IT managers in France earn €60,000-€100,000. Tunisians with French fluency have good relocation chances."
+},
+{
+"id": 611,
+"question": "Info on PwC Tunisia tech team.",
+"answer": "PwC Tunisia focuses on tech advisory, hiring for cybersecurity and data analytics, with global project exposure."
+},
+{
+"id": 612,
+"question": "How to advance in data engineering?",
+"answer": "Data engineering tips: 1) Master Spark and Kafka; 2) Build ETL pipelines; 3) Certify in Big Data; 4) Analyze real datasets."
+},
+{
+"id": 613,
+"question": "Freelance IT opportunities in Tunisia?",
+"answer": "Freelance IT is growing, with platforms like Upwork offering web dev and AI gigs. Average earnings: 2,500-5,000 TND/month."
+},
+{
+"id": 614,
+"question": "IT certification programs in Tunisian unis?",
+"answer": "Many unis partner for certs: ENSI with Cisco, ESPRIT with Microsoft. Pursue CCNA or Azure for edge."
+},
+{
+"id": 615,
+"question": "Shadowhire's networking features?",
+"answer": "Connect with IT pros via our in-app networking, join virtual events, and get mentor matches."
+},
+{
+"id": 616,
+"question": "Average pay for QA testers in Canada?",
+"answer": "QA testers in Canada earn CAD 60,000-90,000. Remote roles are open to skilled Tunisians."
+},
+{
+"id": 617,
+"question": "About EY Tunisia digital practice.",
+"answer": "EY Tunisia hires for digital assurance and innovation, focusing on blockchain and AI for clients."
+},
+{
+"id": 618,
+"question": "Building skills in cybersecurity?",
+"answer": "Cyber skills: 1) Try HackTheBox; 2) Get CompTIA Security+; 3) Learn ethical hacking; 4) Join CTF competitions."
+},
+{
+"id": 619,
+"question": "Women in Tunisian IT job market?",
+"answer": "Women hold 25-30% of IT jobs in Tunisia, with growth in UX and data. Initiatives like Women in Tech Tunisia support."
+},
+{
+"id": 620,
+"question": "Online IT courses from Tunisian institutions?",
+"answer": "ESPRIT and Tek-Up offer online IT diplomas; also check UVT for virtual university courses."
+},
+{
+"id": 621,
+"question": "Shadowhire's salary negotiation tips?",
+"answer": "Our guide includes researching benchmarks, highlighting achievements, and practicing scripts for IT roles."
+},
+{
+"id": 622,
+"question": "Salaries for AI engineers in UAE?",
+"answer": "AI engineers in UAE earn AED 20,000-40,000 monthly. Many opportunities for Tunisians with Arabic skills."
+},
+{
+"id": 623,
+"question": "KPMG Tunisia IT consulting info.",
+"answer": "KPMG Tunisia provides IT risk and advisory services, recruiting for audit tech and compliance roles."
+},
+{
+"id": 624,
+"question": "Improving IoT development skills?",
+"answer": "IoT tips: 1) Use Arduino/Raspberry Pi; 2) Learn MQTT; 3) Build smart home projects; 4) Certify in AWS IoT."
+},
+{
+"id": 625,
+"question": "Startup vs corporate in Tunisian IT?",
+"answer": "Startups offer growth and equity but less stability; corporates provide benefits and structure. Choose based on risk tolerance."
+},
+{
+"id": 626,
+"question": "Scholarships for IT studies in Tunisia?",
+"answer": "Available scholarships: Government merit-based, ESPRIT excellence awards, and international like Fulbright for IT."
+},
+{
+"id": 627,
+"question": "Shadowhire's job alert customization?",
+"answer": "Set alerts for specific skills, locations, and salary ranges in IT, with daily or weekly notifications."
+},
+{
+"id": 628,
+"question": "Pay for network engineers in Germany?",
+"answer": "Network engineers in Germany earn €50,000-€80,000. Blue Card visa aids Tunisian applicants."
+},
+{
+"id": 629,
+"question": "About Bosch Tunisia engineering.",
+"answer": "Bosch Tunisia focuses on automotive software, hiring embedded engineers with C++ and AUTOSAR knowledge."
+},
+{
+"id": 630,
+"question": "Enhancing skills in AR/VR?",
+"answer": "AR/VR: 1) Use Unity/Unreal; 2) Build simple apps; 3) Follow Oculus tutorials; 4) Join VR Tunisia groups."
+},
+{
+"id": 631,
+"question": "Post-COVID IT job recovery in Tunisia?",
+"answer": "IT recovered strongly, with 18% growth in 2023-2024, especially in digital transformation."
+},
+{
+"id": 632,
+"question": "IT PhD programs in Tunisia?",
+"answer": "PhD options at ENSI, Sup'Com, and Carthage University, focusing on AI, networks, and software engineering."
+},
+{
+"id": 633,
+"question": "Shadowhire's portfolio builder?",
+"answer": "Create and showcase IT portfolios with project descriptions, code links, and visuals directly in the app."
+},
+{
+"id": 634,
+"question": "Salaries for game developers worldwide?",
+"answer": "Game devs earn $70,000-$120,000 globally. In Tunisia, 2,500-5,000 TND, with remote options higher."
+},
+{
+"id": 635,
+"question": "Siemens Tunisia tech roles.",
+"answer": "Siemens Tunisia hires for industrial automation and digitalization, needing PLC and SCADA skills."
+},
+{
+"id": 636,
+"question": "How to learn blockchain development?",
+"answer": "Blockchain: 1) Study Ethereum docs; 2) Build DApps; 3) Take CryptoZombies course; 4) Certify in Solidity."
+},
+{
+"id": 637,
+"question": "Entry-level IT jobs in Tunisia?",
+"answer": "High demand for junior devs, QA, and support roles. Start with internships at Telnet or STM."
+},
+{
+"id": 638,
+"question": "Vocational IT training in Tunisia?",
+"answer": "Vocational centers like ISET and CFI offer practical IT diplomas in networking and programming."
+},
+{
+"id": 639,
+"question": "Shadowhire's relocation guide?",
+"answer": "Our guide covers visas, cost of living, and job markets for IT relocation from Tunisia to Europe/NA."
+},
+{
+"id": 640,
+"question": "Pay for IT consultants in UK?",
+"answer": "IT consultants in UK earn £50,000-£90,000. Freelance rates £400-£700/day."
+},
+{
+"id": 641,
+"question": "Huawei Tunisia opportunities.",
+"answer": "Huawei Tunisia focuses on telecom infrastructure, hiring network engineers and 5G specialists."
+},
+{
+"id": 642,
+"question": "Advancing in game programming?",
+"answer": "Game prog: 1) Master C# in Unity; 2) Develop indie games; 3) Study shaders; 4) Attend GDC online."
+},
+{
+"id": 643,
+"question": "Gig economy in Tunisian IT?",
+"answer": "Gig work is rising, with 30% of IT pros freelancing. Platforms like Fiverr offer web and app gigs."
+},
+{
+"id": 644,
+"question": "International IT exchange programs from Tunisia?",
+"answer": "Programs like Erasmus+ and DAAD allow IT exchanges to Europe for Tunisian students."
+},
+{
+"id": 645,
+"question": "Shadowhire's skill gap analyzer?",
+"answer": "Identify missing skills for target jobs and get learning recommendations in IT domains."
+},
+{
+"id": 646,
+"question": "Salaries for embedded systems engineers in Japan?",
+"answer": "Embedded engineers in Japan earn ¥5M-¥8M. Language barriers exist, but tech demand is high."
+},
+{
+"id": 647,
+"question": "Oracle Tunisia team info.",
+"answer": "Oracle Tunisia supports sales and cloud services, hiring for database admins and Java devs."
+},
+{
+"id": 648,
+"question": "Improving QA testing skills?",
+"answer": "QA: 1) Learn Selenium; 2) Practice automation; 3) Get ISTQB cert; 4) Test open-source apps."
+},
+{
+"id": 649,
+"question": "Senior IT roles demand in Tunisia?",
+"answer": "High for architects and leads, with shortages in AI and cloud. Experience abroad boosts chances."
+},
+{
+"id": 650,
+"question": "Bootcamps for IT in Tunisia?",
+"answer": "Popular bootcamps: GoMyCode, RebootKamp, and Holberton School Tunisia for coding and devops."
+},
+{
+"id": 651,
+"question": "Shadowhire's company review access?",
+"answer": "View anonymous reviews from IT employees on culture, salaries, and growth at Tunisian firms."
+},
+{
+"id": 652,
+"question": "Average pay for BI analysts in Australia?",
+"answer": "BI analysts in Australia earn AUD 80,000-120,000. Skilled migration visas available for Tunisians."
+},
+{
+"id": 653,
+"question": "SAP Tunisia careers.",
+"answer": "SAP Tunisia handles support and implementation, hiring ABAP developers and consultants."
+},
+{
+"id": 654,
+"question": "How to learn DevSecOps?",
+"answer": "DevSecOps: 1) Study OWASP; 2) Integrate security in CI/CD; 3) Use tools like SonarQube; 4) Certify in CCSK."
+},
+{
+"id": 655,
+"question": "Outsourcing trends in Tunisian IT?",
+"answer": "Tunisia is a top nearshore hub for Europe, with 20% growth in software outsourcing."
+},
+{
+"id": 656,
+"question": "IT internships in Tunisian universities?",
+"answer": "Mandatory internships at ENSI and ESPRIT, partnering with companies like STM and Telnet."
+},
+{
+"id": 657,
+"question": "Shadowhire's cover letter generator?",
+"answer": "AI generates customized cover letters for IT jobs, incorporating your skills and job requirements."
+},
+{
+"id": 658,
+"question": "Salaries for robotics engineers in South Korea?",
+"answer": "Robotics engineers in South Korea earn KRW 50M-80M annually, with demand in manufacturing."
+},
+{
+"id": 659,
+"question": "Cisco Tunisia positions.",
+"answer": "Cisco Tunisia focuses on networking sales and support, hiring CCNP-certified engineers."
+},
+{
+"id": 660,
+"question": "Building skills in big data?",
+"answer": "Big data: 1) Learn Hadoop; 2) Practice with datasets on Databricks; 3) Certify in Cloudera; 4) Analyze real-world data."
+},
+{
+"id": 661,
+"question": "Age diversity in Tunisian IT?",
+"answer": "IT workforce is young, average 28-35, but seniors valued for mentorship in corporates."
+},
+{
+"id": 662,
+"question": "Dual-degree IT programs in Tunisia?",
+"answer": "Programs like ENSI with French unis offer dual degrees in CS and engineering."
+},
+{
+"id": 663,
+"question": "Shadowhire's visa assistance info?",
+"answer": "We provide guides on tech visas for countries like Canada and Germany, tailored for IT pros."
+},
+{
+"id": 664,
+"question": "Pay for CRM specialists in Saudi Arabia?",
+"answer": "CRM specialists in Saudi earn SAR 15,000-25,000 monthly, with oil sector demand."
+},
+{
+"id": 665,
+"question": "VMware Tunisia team.",
+"answer": "VMware partners in Tunisia for virtualization, hiring cloud infrastructure experts."
+},
+{
+"id": 666,
+"question": "Advancing in network security?",
+"answer": "Network sec: 1) Get CISSP; 2) Practice with Wireshark; 3) Build secure networks; 4) Join security conferences."
+},
+{
+"id": 667,
+"question": "Green IT jobs in Tunisia?",
+"answer": "Emerging in sustainable tech, like energy-efficient data centers, with roles at telecom firms."
+},
+{
+"id": 668,
+"question": "IT research centers in Tunisia?",
+"answer": "Key centers: CERT (Research in Telecom), RIADI Lab at ENSI for cybersecurity."
+},
+{
+"id": 669,
+"question": "Shadowhire's freelance gig finder?",
+"answer": "Search and apply to IT freelance projects, with filters for skills and payment terms."
+},
+{
+"id": 670,
+"question": "Salaries for VR developers in USA?",
+"answer": "VR devs in USA earn $90,000-140,000. Focus on Unity for remote opportunities."
+},
+{
+"id": 671,
+"question": "Intel Tunisia engineering.",
+"answer": "Intel collaborates in Tunisia on chip design, hiring VLSI and firmware engineers."
+},
+{
+"id": 672,
+"question": "How to improve API development skills?",
+"answer": "API dev: 1) Build RESTful services; 2) Use Postman; 3) Learn GraphQL; 4) Secure with OAuth."
+},
+{
+"id": 673,
+"question": "IT education reforms in Tunisia?",
+"answer": "Recent reforms emphasize AI and coding in curricula, with more industry partnerships."
+},
+{
+"id": 674,
+"question": "Women-focused IT programs in Tunisia?",
+"answer": "Initiatives like SheCodes and WIC Tunisia offer training and mentorship for women in IT."
+},
+{
+"id": 675,
+"question": "Shadowhire's market trend reports?",
+"answer": "Monthly reports on IT job trends, salaries, and in-demand skills in Tunisia and globally."
+},
+{
+"id": 676,
+"question": "Average pay for SEO specialists in Tunisia?",
+"answer": "SEO specialists earn 1,500-3,500 TND in Tunisia, higher for international clients."
+},
+{
+"id": 677,
+"question": "Adobe Tunisia roles.",
+"answer": "Adobe partners for digital marketing tools, hiring experience designers and analysts."
+},
+{
+"id": 678,
+"question": "Learning microservices architecture?",
+"answer": "Microservices: 1) Study Spring Boot; 2) Deploy with Docker; 3) Use Kubernetes; 4) Read Domain-Driven Design."
+},
+{
+"id": 679,
+"question": "Digital nomad opportunities for Tunisian IT pros?",
+"answer": "Popular destinations: Portugal, Estonia. Remote IT jobs allow working while traveling."
+},
+{
+"id": 680,
+"question": "IT alumni networks in Tunisia?",
+"answer": "Strong networks from ENSI and ESPRIT alumni, offering job referrals and events."
+},
+{
+"id": 681,
+"question": "Shadowhire's certification recommender?",
+"answer": "Suggests certifications like PMP or AWS based on your career goals in IT."
+},
+{
+"id": 682,
+"question": "Salaries for e-commerce developers in India?",
+"answer": "E-commerce devs in India earn INR 5L-15L annually. Comparable to Tunisian rates for juniors."
+},
+{
+"id": 683,
+"question": "Salesforce Tunisia team.",
+"answer": "Salesforce supports CRM implementations, hiring certified developers and admins."
+},
+{
+"id": 684,
+"question": "Boosting skills in UI/UX design?",
+"answer": "UI/UX: 1) Use Figma; 2) Study user research; 3) Build prototypes; 4) Get Adobe XD cert."
+},
+{
+"id": 685,
+"question": "IT sector contribution to Tunisian GDP?",
+"answer": "IT contributes about 7-8% to GDP, with growth from exports and local innovation."
+},
+{
+"id": 686,
+"question": "Coding clubs in Tunisian universities?",
+"answer": "Active clubs at INSAT and ENIS, hosting hackathons and coding competitions."
+},
+{
+"id": 687,
+"question": "Shadowhire's remote job filter?",
+"answer": "Filter jobs by remote, hybrid, or onsite, with options for international IT roles."
+},
+{
+"id": 688,
+"question": "Pay for fintech developers in Singapore?",
+"answer": "Fintech devs in Singapore earn SGD 6,000-12,000 monthly, attractive for skilled pros."
+},
+{
+"id": 689,
+"question": "Nokia Tunisia operations.",
+"answer": "Nokia focuses on telecom R&D, hiring for 5G and network software roles."
+},
+{
+"id": 690,
+"question": "How to learn quantum computing basics?",
+"answer": "Quantum: 1) Use Qiskit; 2) Take IBM courses; 3) Understand qubits; 4) Join quantum forums."
+},
+{
+"id": 691,
+"question": "Sustainability in Tunisian IT jobs?",
+"answer": "Growing focus on green coding and efficient algorithms in telecom and data centers."
+},
+{
+"id": 692,
+"question": "IT startup incubators in Tunisia?",
+"answer": "Incubators like Flat6Labs and Tunisian Startups support IT ventures with funding and mentoring."
+},
+{
+"id": 693,
+"question": "Shadowhire's application tracker?",
+"answer": "Track submitted applications, statuses, and follow-ups in one dashboard."
+},
+{
+"id": 694,
+"question": "Salaries for health IT specialists in USA?",
+"answer": "Health IT specialists earn $80,000-130,000 in USA, with HIPAA knowledge key."
+},
+{
+"id": 695,
+"question": "Schneider Electric Tunisia IT.",
+"answer": "Schneider hires for industrial IoT and automation software roles."
+},
+{
+"id": 696,
+"question": "Improving low-code development skills?",
+"answer": "Low-code: 1) Master OutSystems; 2) Build apps on Mendix; 3) Certify in Appian; 4) Integrate APIs."
+},
+{
+"id": 697,
+"question": "IT job satisfaction in Tunisia?",
+"answer": "High satisfaction in startups for innovation, but corporates offer better work-life balance."
+},
+{
+"id": 698,
+"question": "Hackathons for IT students in Tunisia?",
+"answer": "Events like HackTunisia and university hackathons foster innovation and networking."
+},
+{
+"id": 699,
+"question": "Shadowhire's mentor matching?",
+"answer": "Pair with IT mentors based on domain and experience for career guidance."
+},
+{
+"id": 700,
+"question": "Average pay for CRM developers in Tunisia?",
+"answer": "CRM devs earn 2,500-5,000 TND, with Salesforce skills commanding premiums."
+},
+{
+"id": 701,
+"question": "Airbus Tunisia engineering.",
+"answer": "Airbus focuses on aerospace software, hiring for simulation and embedded systems."
+},
+{
+"id": 702,
+"question": "How to advance in edge computing?",
+"answer": "Edge comp: 1) Learn Azure IoT Edge; 2) Deploy edge devices; 3) Study 5G integration; 4) Certify in edge AI."
+},
+{
+"id": 703,
+"question": "Burnout rates in Tunisian IT?",
+"answer": "Around 40% report burnout, due to deadlines; wellness programs are increasing."
+},
+{
+"id": 704,
+"question": "IT curriculum updates in Tunisia?",
+"answer": "Updates include more AI, cybersecurity, and cloud in national curricula."
+},
+{
+"id": 705,
+"question": "Shadowhire's diversity job filters?",
+"answer": "Filter for companies promoting diversity in IT, including women and minorities."
+},
+{
+"id": 706,
+"question": "Salaries for ERP consultants globally?",
+"answer": "ERP consultants earn $80,000-150,000 worldwide, with SAP expertise key."
+},
+{
+"id": 707,
+"question": "Continental Tunisia tech.",
+"answer": "Continental hires for automotive software, focusing on ADAS and infotainment."
+},
+{
+"id": 708,
+"question": "Learning serverless architecture?",
+"answer": "Serverless: 1) Use AWS Lambda; 2) Build APIs; 3) Integrate with DynamoDB; 4) Monitor with CloudWatch."
+},
+{
+"id": 709,
+"question": "IT volunteering opportunities in Tunisia?",
+"answer": "Volunteer with NGOs for digital literacy or app development for social causes."
+},
+{
+"id": 710,
+"question": "Professional IT associations in Tunisia?",
+"answer": "Associations like ATI and Tunisian Computer Society offer networking and certifications."
+},
+{
+"id": 711,
+"question": "Shadowhire's upskilling resources?",
+"answer": "Curated list of courses, books, and videos for IT skills, integrated with progress tracking."
+},
+{
+"id": 712,
+"question": "Pay for digital marketers in Tunisia?",
+"answer": "Digital marketers earn 1,800-4,000 TND, with SEO/SEM skills boosting pay."
+},
+{
+"id": 713,
+"question": "Valeo Tunisia R&D.",
+"answer": "Valeo focuses on automotive vision systems, hiring computer vision and ML engineers."
+},
+{
+"id": 714,
+"question": "How to improve containerization skills?",
+"answer": "Containers: 1) Master Docker; 2) Orchestrate with Kubernetes; 3) Build multi-container apps; 4) Certify in CKA."
+},
+{
+"id": 715,
+"question": "Mentorship culture in Tunisian IT?",
+"answer": "Growing, with programs at companies like InstaDeep and university mentorship."
+},
+{
+"id": 716,
+"question": "IT thesis topics trending in Tunisia?",
+"answer": "Trending: AI for healthcare, blockchain security, 5G applications."
+},
+{
+"id": 717,
+"question": "Shadowhire's feedback loop for CVs?",
+"answer": "Get iterative AI feedback on CV revisions until optimal score is achieved."
+},
+{
+"id": 718,
+"question": "Salaries for sysadmins in Netherlands?",
+"answer": "Sysadmins in Netherlands earn €45,000-70,000, with English sufficient."
+},
+{
+"id": 719,
+"question": "Honeywell Tunisia positions.",
+"answer": "Honeywell hires for industrial IoT and control systems software."
+},
+{
+"id": 720,
+"question": "Advancing in natural language processing?",
+"answer": "NLP: 1) Use Hugging Face; 2) Build chatbots; 3) Study BERT; 4) Work on Arabic NLP projects."
+},
+{
+"id": 721,
+"question": "IT export revenues in Tunisia?",
+"answer": "IT exports reached $1B in 2023, mainly to Europe and Africa."
+},
+{
+"id": 722,
+"question": "Coding bootcamp success rates in Tunisia?",
+"answer": "Around 70% placement rate, with GoMyCode leading in web dev."
+},
+{
+"id": 723,
+"question": "Shadowhire's global job board?",
+"answer": "Access IT jobs worldwide, with filters for visa sponsorship and remote."
+},
+{
+"id": 724,
+"question": "Average pay for IT trainers in Tunisia?",
+"answer": "IT trainers earn 2,000-4,500 TND, higher for certified instructors."
+},
+{
+"id": 725,
+"question": "Thyssenkrupp Tunisia tech.",
+"answer": "Thyssenkrupp hires for engineering software in elevators and automation."
+},
+{
+"id": 726,
+"question": "How to learn progressive web apps?",
+"answer": "PWAs: 1) Use React PWA templates; 2) Implement service workers; 3) Test offline; 4) Follow Google guides."
+},
+{
+"id": 727,
+"question": "Diversity initiatives in Tunisian IT companies?",
+"answer": "Companies like Expensya have women leadership programs and inclusive hiring."
+},
+{
+"id": 728,
+"question": "IT conferences in Tunisia?",
+"answer": "Events like ICT4All and DevFest Tunisia for networking and learning."
+},
+{
+"id": 729,
+"question": "Shadowhire's achievement badge system?",
+"answer": "Earn badges for CV improvements, applications, and skill milestones to showcase on profiles."
+},
+{
+"id": 730,
+"question": "Salaries for compliance officers in IT globally?",
+"answer": "IT compliance officers earn $90,000-140,000 worldwide, focusing on GDPR/CCPA."
+},
+{
+"id": 731,
+"question": "Lear Tunisia software roles.",
+"answer": "Lear hires for automotive wiring and software integration engineers."
+},
+{
+"id": 732,
+"question": "Building skills in computer vision?",
+"answer": "Comp vision: 1) Use OpenCV; 2) Train models on datasets; 3) Learn YOLO; 4) Apply to real-time detection."
+},
+{
+"id": 733,
+"question": "Work visas for IT in Tunisia?",
+"answer": "Foreign IT pros need work permits; Tunisia attracts expats for startups."
+},
+{
+"id": 734,
+"question": "IT literacy rates in Tunisia?",
+"answer": "High among youth, with 90% digital literacy in urban areas."
+},
+{
+"id": 735,
+"question": "Shadowhire's community forums?",
+"answer": "Discuss IT topics, share experiences, and ask advice in moderated forums."
+},
+{
+"id": 736,
+"question": "Pay for IT auditors in Qatar?",
+"answer": "IT auditors in Qatar earn QAR 15,000-30,000, with oil sector demand."
+},
+{
+"id": 737,
+"question": "Yazaki Tunisia IT.",
+"answer": "Yazaki focuses on automotive harness software, hiring CAD and simulation experts."
+},
+{
+"id": 738,
+"question": "How to improve graph database skills?",
+"answer": "Graph DB: 1) Learn Neo4j; 2) Build recommendation systems; 3) Query with Cypher; 4) Integrate with apps."
+},
+{
+"id": 739,
+"question": "IT innovation hubs in Tunisia?",
+"answer": "Hubs like Elgazala Technopark host startups and R&D in IT."
+},
+{
+"id": 740,
+"question": "Government IT scholarships in Tunisia?",
+"answer": "Ministry offers scholarships for top IT students at public unis."
+},
+{
+"id": 741,
+"question": "Shadowhire's premium analytics dashboard?",
+"answer": "View personal job market analytics, application success rates, and trend predictions."
+},
+{
+"id": 742,
+"question": "Average salaries for IT sales in Tunisia?",
+"answer": "IT sales pros earn 2,200-5,000 TND plus commissions."
+},
+{
+"id": 743,
+"question": "Dräxlmaier Tunisia tech roles.",
+"answer": "Dräxlmaier hires for automotive electronics software and testing."
+},
+{
+"id": 744,
+"question": "Advancing in reinforcement learning?",
+"answer": "RL: 1) Use Gym library; 2) Implement agents; 3) Study Deep RL; 4) Apply to games or robotics."
+},
+{
+"id": 745,
+"question": "IT unemployment rates in Tunisia?",
+"answer": "Around 10-12% for IT grads, lower for skilled specialists."
+},
+{
+"id": 746,
+"question": "Online IT communities in Tunisia?",
+"answer": "Communities like Tunisia Dev and AI Tunisia on Facebook and Discord."
+},
+{
+"id": 747,
+"question": "Shadowhire's export CV feature?",
+"answer": "Export optimized CVs in PDF or ATS-friendly formats for applications."
+},
+{
+"id": 748,
+"question": "Salaries for IT project managers in Sweden?",
+"answer": "IT PMs in Sweden earn SEK 500,000-800,000 annually."
+},
+{
+"id": 749,
+"question": "Kromberg & Schubert Tunisia IT.",
+"answer": "K&S hires for automotive wiring software and quality systems."
+},
+{
+"id": 750,
+"question": "How to learn event-driven architecture?",
+"answer": "EDA: 1) Use Kafka; 2) Build pub-sub systems; 3) Integrate with microservices; 4) Monitor events."
+},
+{
+"id": 751,
+"question": "IT talent retention strategies in Tunisia?",
+"answer": "Companies use bonuses, training, and remote options to retain talent."
+},
+{
+"id": 752,
+"question": "IT summer schools in Tunisia?",
+"answer": "Summer programs at ESPRIT and GoMyCode for intensive coding."
+},
+{
+"id": 753,
+"question": "Shadowhire's integration with job sites?",
+"answer": "Sync applications from LinkedIn and Indeed into our tracker."
+},
+{
+"id": 754,
+"question": "Pay for database admins in Tunisia?",
+"answer": "DB admins earn 2,000-4,500 TND, with Oracle skills premium."
+},
+{
+"id": 755,
+"question": "Leoni Tunisia software.",
+"answer": "Leoni hires for automotive cable software and simulation tools."
+},
+{
+"id": 756,
+"question": "Improving skills in functional programming?",
+"answer": "FP: 1) Learn Haskell or Scala; 2) Practice pure functions; 3) Use in projects; 4) Read SICP."
+},
+{
+"id": 757,
+"question": "Brain drain in Tunisian IT?",
+"answer": "Significant, with many moving to Europe; government incentives aim to reverse."
+},
+{
+"id": 758,
+"question": "IT vocational diplomas in Tunisia?",
+"answer": "Diplomas from ISET in networking, web dev, and maintenance."
+},
+{
+"id": 759,
+"question": "Shadowhire's anonymous company Q&A?",
+"answer": "Ask and answer questions about IT companies anonymously."
+},
+{
+"id": 760,
+"question": "Salaries for IT recruiters in USA?",
+"answer": "IT recruiters earn $60,000-100,000 plus commissions."
+},
+{
+"id": 761,
+"question": "OneMount Tunisia tech.",
+"answer": "OneMount focuses on fintech software, hiring full-stack devs."
+},
+{
+"id": 762,
+"question": "How to boost concurrency programming skills?",
+"answer": "Concurrency: 1) Study Go routines; 2) Handle threads in Java; 3) Avoid deadlocks; 4) Use actors in Akka."
+},
+{
+"id": 763,
+"question": "IT policy developments in Tunisia?",
+"answer": "New data protection laws align with GDPR, boosting outsourcing."
+},
+{
+"id": 764,
+"question": "Coding for kids programs in Tunisia?",
+"answer": "Programs like CoderDojo Tunisia teach basic IT to youth."
+},
+{
+"id": 765,
+"question": "Shadowhire's goal setting tool?",
+"answer": "Set career goals like certifications or job levels, with reminders and progress tracking."
+},
+{
+"id": 766,
+"question": "Average pay for IT support in Tunisia?",
+"answer": "IT support earns 1,200-2,500 TND for entry-level roles."
+},
+{
+"id": 767,
+"question": "Sumitomo Tunisia IT.",
+"answer": "Sumitomo hires for automotive electronics software."
+},
+{
+"id": 768,
+"question": "Learning domain-specific languages?",
+"answer": "DSLs: 1) Build your own; 2) Study SQL as example; 3) Use in automation; 4) Read DSL books."
+},
+{
+"id": 769,
+"question": "IT investment trends in Tunisia?",
+"answer": "Increasing VC in startups, with focus on AI and fintech."
+},
+{
+"id": 770,
+"question": "IT accessibility training in Tunisia?",
+"answer": "Courses at universities emphasize WCAG for inclusive design."
+},
+{
+"id": 771,
+"question": "Shadowhire's referral program?",
+"answer": "Refer friends to premium, earn credits for features or discounts."
+},
+{
+"id": 772,
+"question": "Salaries for IT ethicists globally?",
+"answer": "IT ethicists earn $100,000-150,000, emerging role in AI."
+},
+{
+"id": 773,
+"question": "Faurecia Tunisia software.",
+"answer": "Faurecia hires for interior systems software and UX."
+},
+{
+"id": 774,
+"question": "How to improve metaverse development skills?",
+"answer": "Metaverse: 1) Use Decentraland; 2) Learn Web3; 3) Build virtual worlds; 4) Study NFTs."
+},
+{
+"id": 775,
+"question": "IT regulatory bodies in Tunisia?",
+"answer": "Bodies like ANCE regulate cybersecurity and data protection."
+},
+{
+"id": 776,
+"question": "IT art collaborations in Tunisia?",
+"answer": "Digital art projects at ISAMM blend IT with creative fields."
+},
+{
+"id": 777,
+"question": "Shadowhire's dark mode toggle?",
+"answer": "Enable dark mode in settings for better viewing experience."
+},
+{
+"id": 778,
+"question": "Pay for IT librarians in Tunisia?",
+"answer": "IT librarians earn 1,800-3,500 TND in academic settings."
+},
+{
+"id": 779,
+"question": "Aptiv Tunisia roles.",
+"answer": "Aptiv hires for connected vehicle software and ADAS."
+},
+{
+"id": 780,
+"question": "Advancing in privacy engineering?",
+"answer": "Privacy eng: 1) Study GDPR; 2) Implement PETs; 3) Audit systems; 4) Certify in CIPP."
+},
+{
+"id": 781,
+"question": "IT tourism apps in Tunisia?",
+"answer": "Apps like Visit Tunisia use IT for tourism enhancement."
+},
+{
+"id": 782,
+"question": "IT for agriculture in Tunisia?",
+"answer": "Agri-tech startups use IoT for smart farming solutions."
+},
+{
+"id": 783,
+"question": "Shadowhire's multilingual support?",
+"answer": "App supports English, French, Arabic for UI and CV parsing."
+},
+{
+"id": 784,
+"question": "Salaries for IT forensics experts?",
+"answer": "Digital forensics experts earn 3,000-6,000 TND in Tunisia."
+},
+{
+"id": 785,
+"question": "Zodiac Aerospace Tunisia IT.",
+"answer": "Zodiac hires for aircraft cabin software systems."
+},
+{
+"id": 786,
+"question": "How to learn homomorphic encryption?",
+"answer": "Homomorphic enc: 1) Study libraries like SEAL; 2) Implement basic ops; 3) Read research papers; 4) Apply to secure computing."
+},
+{
+"id": 787,
+"question": "IT in Tunisian healthcare?",
+"answer": "E-health initiatives use IT for patient records and telemedicine."
+},
+{
+"id": 788,
+"question": "IT sports analytics in Tunisia?",
+"answer": "Emerging in football clubs using data for performance analysis."
+},
+{
+"id": 789,
+"question": "Shadowhire's offline mode?",
+"answer": "Access saved jobs and CV editor offline, sync when online."
+},
+{
+"id": 790,
+"question": "Average pay for IT translators?",
+"answer": "IT translators earn 2,000-4,000 TND for technical docs."
+},
+{
+"id": 791,
+"question": "Benetton Tunisia tech.",
+"answer": "Benetton uses IT for supply chain software in manufacturing."
+},
+{
+"id": 792,
+"question": "Building skills in zero-trust security?",
+"answer": "Zero-trust: 1) Implement ZTNA; 2) Use microsegmentation; 3) Monitor continuously; 4) Certify in Zscaler."
+},
+{
+"id": 793,
+"question": "IT for environmental monitoring in Tunisia?",
+"answer": "Projects use sensors and data analytics for pollution tracking."
+},
+{
+"id": 794,
+"question": "IT music production tools in Tunisia?",
+"answer": "Tools like Ableton used in digital music studios."
+},
+{
+"id": 795,
+"question": "Shadowhire's voice search for jobs?",
+"answer": "Use voice to search IT jobs by skills or location."
+},
+{
+"id": 796,
+"question": "Salaries for IT archaeologists?",
+"answer": "Digital archaeologists earn niche pay, around 2,500-5,000 TND."
+},
+{
+"id": 797,
+"question": "Coficab Tunisia software.",
+"answer": "Coficab hires for cable manufacturing software systems."
+},
+{
+"id": 798,
+"question": "How to advance in federated learning?",
+"answer": "Federated learning: 1) Use TensorFlow Federated; 2) Build distributed models; 3) Address privacy; 4) Research applications."
+},
+{
+"id": 799,
+"question": "IT in Tunisian education reform?",
+"answer": "Digital platforms for e-learning implemented nationwide."
+},
+{
+"id": 800,
+"question": "IT gaming industry in Tunisia?",
+"answer": "Small but growing, with studios developing mobile games."
+},
+{
+"id": 801,
+"question": "Shadowhire's AR CV preview?",
+"answer": "Preview your CV in AR for interactive presentation."
+},
+{
+"id": 802,
+"question": "Pay for IT sommeliers?",
+"answer": "Niche role combining IT and wine tech, pay varies."
+},
+{
+"id": 803,
+"question": "Autoliv Tunisia IT.",
+"answer": "Autoliv hires for safety systems software in automotive."
+},
+{
+"id": 804,
+"question": "Learning explainable AI?",
+"answer": "XAI: 1) Use SHAP/LIME; 2) Build interpretable models; 3) Study ethics; 4) Apply to black-box models."
+},
+{
+"id": 805,
+"question": "IT for smart cities in Tunisia?",
+"answer": "Projects in Tunis for traffic and energy management."
+},
+{
+"id": 806,
+"question": "IT fashion tech in Tunisia?",
+"answer": "Using AR for virtual try-ons in apparel."
+},
+{
+"id": 807,
+"question": "Shadowhire's gamified learning?",
+"answer": "Earn points and levels while improving skills and CV."
+},
+{
+"id": 808,
+"question": "Salaries for IT oceanographers?",
+"answer": "Specialized role in marine data, pay 3,000-6,000 TND."
+},
+{
+"id": 809,
+"question": "TRW Tunisia tech.",
+"answer": "TRW (ZF) hires for braking systems software."
+},
+{
+"id": 810,
+"question": "How to improve neuromorphic computing skills?",
+"answer": "Neuromorphic: 1) Study SpiNNaker; 2) Simulate spiking networks; 3) Read hardware papers; 4) Experiment with Loihi."
+},
+{
+"id": 811,
+"question": "IT in Tunisian logistics?",
+"answer": "Supply chain software optimizing ports and transport."
+},
+{
+"id": 812,
+"question": "IT for cultural heritage in Tunisia?",
+"answer": "Digital archiving of Carthage ruins using 3D modeling."
+},
+{
+"id": 813,
+"question": "Shadowhire's VR interview practice?",
+"answer": "Practice interviews in virtual reality environments."
+},
+{
+"id": 814,
+"question": "Average pay for IT chefs?",
+"answer": "Food tech roles like app devs for recipes, 2,000-4,000 TND."
+},
+{
+"id": 815,
+"question": "Denso Tunisia software.",
+"answer": "Denso hires for engine control software."
+},
+{
+"id": 816,
+"question": "Advancing in bio-inspired computing?",
+"answer": "Bio-inspired: 1) Study genetic algorithms; 2) Implement ant colony; 3) Apply to optimization; 4) Read nature-inspired papers."
+},
+{
+"id": 817,
+"question": "IT renewable energy in Tunisia?",
+"answer": "Solar monitoring systems using IoT."
+},
+{
+"id": 818,
+"question": "IT journalism tools in Tunisia?",
+"answer": "Data journalism platforms for media analysis."
+},
+{
+"id": 819,
+"question": "Shadowhire's blockchain job certs?",
+"answer": "Verify job applications with blockchain for authenticity."
+},
+{
+"id": 820,
+"question": "Salaries for IT astronomers?",
+"answer": "Astro-informatics roles pay 2,500-5,000 TND."
+},
+{
+"id": 821,
+"question": "Magna Tunisia IT.",
+"answer": "Magna hires for vehicle electronics software."
+},
+{
+"id": 822,
+"question": "How to learn swarm intelligence?",
+"answer": "Swarm intel: 1) Implement PSO; 2) Simulate flocks; 3) Apply to robotics; 4) Study collective behavior."
+},
+{
+"id": 823,
+"question": "IT water management in Tunisia?",
+"answer": "Smart irrigation systems for agriculture."
+},
+{
+"id": 824,
+"question": "IT in Tunisian film industry?",
+"answer": "CGI and VFX for local productions."
+},
+{
+"id": 825,
+"question": "Shadowhire's NFT achievement badges?",
+"answer": "Mint career achievements as NFTs for portfolios."
+},
+{
+"id": 826,
+"question": "Pay for IT linguists?",
+"answer": "Computational linguists earn 3,000-6,000 TND."
+},
+{
+"id": 827,
+"question": "TE Connectivity Tunisia tech.",
+"answer": "TE hires for connector software and design tools."
+},
+{
+"id": 828,
+"question": "Building skills in memristor computing?",
+"answer": "Memristors: 1) Study circuit theory; 2) Simulate in SPICE; 3) Read neuromorphic apps; 4) Experiment with hardware."
+},
+{
+"id": 829,
+"question": "IT disaster response in Tunisia?",
+"answer": "GIS systems for emergency management."
+},
+{
+"id": 830,
+"question": "IT for Tunisian cuisine apps?",
+"answer": "Recipe apps with AR cooking guides."
+},
+{
+"id": 831,
+"question": "Shadowhire's metaverse job fairs?",
+"answer": "Attend virtual job fairs in metaverse spaces."
+},
+{
+"id": 832,
+"question": "Average salaries for IT philosophers?",
+"answer": "AI ethics roles pay 4,000-7,000 TND."
+},
+{
+"id": 833,
+"question": "Hella Tunisia software.",
+"answer": "Hella hires for lighting systems control software."
+},
+{
+"id": 834,
+"question": "How to advance in optical computing?",
+"answer": "Optical comp: 1) Study photonics; 2) Simulate waveguides; 3) Read quantum optics; 4) Experiment with lasers."
+},
+{
+"id": 835,
+"question": "IT biodiversity tracking in Tunisia?",
+"answer": "Apps for monitoring olive groves and wildlife."
+},
+{
+"id": 836,
+"question": "IT in Tunisian literature digitalization?",
+"answer": "E-books and NLP for ancient texts."
+},
+{
+"id": 837,
+"question": "Shadowhire's quantum-safe encryption?",
+"answer": "Secure user data with post-quantum cryptography."
+},
+{
+"id": 838,
+"question": "Pay for IT mythologists?",
+"answer": "Niche in game lore design, pay varies."
+},
+{
+"id": 839,
+"question": "Brose Tunisia IT.",
+"answer": "Brose hires for mechatronics software in doors and seats."
+},
+{
+"id": 840,
+"question": "Learning DNA computing basics?",
+"answer": "DNA comp: 1) Study molecular biology; 2) Simulate strand operations; 3) Read Adleman papers; 4) Explore storage apps."
+},
+{
+"id": 841,
+"question": "IT for Tunisian festivals?",
+"answer": "Event management apps with VR tours."
+},
+{
+"id": 842,
+"question": "IT archaeology in Tunisia?",
+"answer": "3D scanning of historical sites like El Jem."
+},
+{
+"id": 843,
+"question": "Shadowhire's holographic CVs?",
+"answer": "Present CVs in holographic format for interviews."
+},
+{
+"id": 844,
+"question": "Salaries for IT alchemists?",
+"answer": "Metaphorical for innovators, pay high in R&D."
+},
+{
+"id": 845,
+"question": "GKN Driveline Tunisia tech.",
+"answer": "GKN hires for drivetrain software simulations."
+},
+{
+"id": 846,
+"question": "How to improve adiabatic quantum computing skills?",
+"answer": "Adiabatic QC: 1) Use D-Wave; 2) Solve optimization problems; 3) Study annealing; 4) Read quantum physics."
+},
+{
+"id": 847,
+"question": "IT waste management in Tunisia?",
+"answer": "Smart bins with sensors for recycling."
+},
+{
+"id": 848,
+"question": "IT for Tunisian mythology games?",
+"answer": "Games incorporating Carthaginian legends."
+},
+{
+"id": 849,
+"question": "Shadowhire's neuralink integration?",
+"answer": "Future feature for brain-computer job searching (conceptual)."
+},
+{
+"id": 850,
+"question": "Average pay for IT shamans?",
+"answer": "Spiritual tech guides, niche consulting pay."
+},
+{
+"id": 851,
+"question": "Johnson Controls Tunisia IT.",
+"answer": "Johnson hires for building automation software."
+},
+{
+"id": 852,
+"question": "Advancing in topological quantum computing?",
+"answer": "Topological QC: 1) Study anyons; 2) Simulate braiding; 3) Read Kitaev model; 4) Explore fault-tolerance."
+},
+{
+"id": 853,
+"question": "IT air quality monitoring in Tunisia?",
+"answer": "Sensors networks in urban areas."
+},
+{
+"id": 854,
+"question": "IT in Tunisian poetry analysis?",
+"answer": "NLP for sentiment in Arabic poetry."
+},
+{
+"id": 855,
+"question": "Shadowhire's time travel job predictions?",
+"answer": "AI predicts future job trends based on data."
+},
+{
+"id": 856,
+"question": "Pay for IT wizards?",
+"answer": "Magical coders, high pay in creative tech."
+},
+{
+"id": 857,
+"question": "Akebia Tunisia software.",
+"answer": "Akebia focuses on biotech data software."
+},
+{
+"id": 858,
+"question": "How to learn silicon photonics?",
+"answer": "Silicon photonics: 1) Study integrated optics; 2) Simulate in Lumerical; 3) Build modulators; 4) Read industry reports."
+},
+{
+"id": 859,
+"question": "IT for desertification in Tunisia?",
+"answer": "Satellite imagery for land monitoring."
+},
+{
+"id": 860,
+"question": "IT dance choreography tools?",
+"answer": "Motion capture for virtual dance."
+},
+{
+"id": 861,
+"question": "Shadowhire's interstellar job search?",
+"answer": "Search jobs on Mars (fun mode for space tech roles)."
+},
+{
+"id": 862,
+"question": "Salaries for IT elves?",
+"answer": "Mythical helpers, pay in cookies."
+},
+{
+"id": 863,
+"question": "Sagemcom Tunisia additional info.",
+"answer": "Beyond earlier, Sagemcom also develops smart meter software."
+},
+{
+"id": 864,
+"question": "Building skills in spintronics?",
+"answer": "Spintronics: 1) Study spin currents; 2) Simulate MRAM; 3) Read giant magnetoresistance; 4) Experiment with materials."
+},
+{
+"id": 865,
+"question": "IT for olive oil production in Tunisia?",
+"answer": "IoT for quality control in presses."
+},
+{
+"id": 866,
+"question": "IT in Tunisian carpet weaving patterns?",
+"answer": "Algorithmic design for traditional patterns."
+},
+{
+"id": 867,
+"question": "Shadowhire's dream job matcher?",
+"answer": "Match with ideal jobs based on personality and skills."
+},
+{
+"id": 868,
+"question": "Average pay for IT dragons?",
+"answer": "Fire-breathing coders, high risk pay."
+},
+{
+"id": 869,
+"question": "Telnet Tunisia expansions.",
+"answer": "Telnet expanding into AI for telecom."
+},
+{
+"id": 870,
+"question": "How to advance in valleytronics?",
+"answer": "Valleytronics: 1) Study graphene valleys; 2) Simulate electronics; 3) Read 2D materials; 4) Explore optovalleytronics."
+},
+{
+"id": 871,
+"question": "IT tourism guides in Tunisia?",
+"answer": "AI chatbots for historical sites."
+},
+{
+"id": 872,
+"question": "IT for Tunisian mosaic art?",
+"answer": "Digital restoration of Roman mosaics."
+},
+{
+"id": 873,
+"question": "Shadowhire's fortune teller career advice?",
+"answer": "AI predicts career paths with tarot-inspired fun."
+},
+{
+"id": 874,
+"question": "Pay for IT unicorns?",
+"answer": "Mythical startups, equity in magic."
+},
+{
+"id": 875,
+"question": "Vermeg Tunisia updates.",
+"answer": "Vermeg developing new fintech modules."
+},
+{
+"id": 876,
+"question": "Learning skyrmion computing?",
+"answer": "Skyrmions: 1) Study magnetic textures; 2) Simulate racetrack memory; 3) Read topology; 4) Explore logic gates."
+},
+{
+"id": 877,
+"question": "IT for date palm farming?",
+"answer": "Drones for pest detection."
+},
+{
+"id": 878,
+"question": "IT in Tunisian storytelling apps?",
+"answer": "Interactive folktales with AR."
+},
+{
+"id": 879,
+"question": "Shadowhire's parallel universe jobs?",
+"answer": "Explore alternate career paths in simulation."
+},
+{
+"id": 880,
+"question": "Salaries for IT phoenixes?",
+"answer": "Reborn coders, rising from ashes with bonuses."
+},
+{
+    "id": 881,
+    "question": "What are the average salaries for front-end developers in Tunisia in 2025?",
+    "answer": "Front-end developers in Tunisia earn between 2,200-5,500 TND monthly in 2025, with expertise in React or Angular boosting pay. Remote roles for European clients can reach 8,000 TND."
+  },
+{
+    "id": 882,
+    "question": "How can I improve my cybersecurity skills for Tunisian job markets?",
+    "answer": "To enhance cybersecurity skills: 1) Practice on TryHackMe; 2) Earn CEH certification; 3) Participate in Tunisian CTF events; 4) Study NIST frameworks. Shadowhire offers tailored cyber challenges."
+  },
+  {
+    "id": 883,
+    "question": "What is the demand for AI specialists in Tunisia’s job market?",
+    "answer": "AI specialist roles are surging with 22% market growth by 2025, especially in fintech and healthcare. Companies like InstaDeep hire for deep learning expertise."
+  },
+  {
+    "id": 884,
+    "question": "Which Tunisian universities offer the best AI-focused IT programs?",
+    "answer": "Top AI programs: 1) ENSI (specialized AI track); 2) Sup’Com (machine learning focus); 3) INSAT (data science integration). ENSI leads with industry-backed AI labs."
+  },
+  {
+    "id": 885,
+    "question": "How does Shadowhire assist with global IT job applications?",
+    "answer": "Shadowhire’s global job board syncs with platforms like LinkedIn, filters for visa-sponsored IT roles, and provides AI-driven application tips tailored for Tunisian professionals."
+  },
+  {
+    "id": 886,
+    "question": "What are the top programming languages in demand for Tunisian IT jobs in 2025?",
+    "answer": "Top languages: 1) Python (data science); 2) JavaScript (web dev); 3) Java (enterprise apps); 4) C# (Microsoft stack). Python leads with 35% job postings."
+  },
+{
+    "id": 887,
+    "question": "How can I network effectively in Tunisia’s IT industry?",
+    "answer": "Network by: 1) Joining Tunisia Dev on Discord; 2) Attending ICT4All conference; 3) Participating in local hackathons; 4) Engaging on LinkedIn with Tunisian IT groups."
+  }
   ]
 }
