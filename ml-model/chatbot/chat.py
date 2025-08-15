@@ -12,6 +12,7 @@ data_list = raw["dataset"] if isinstance(raw, dict) and "dataset" in raw else ra
 print("Total items:", len(data_list))
 # quick sample
 print(data_list[0])
+print(len(data_list))
 
 
 
@@ -23,19 +24,54 @@ from sklearn.model_selection import train_test_split
 
 df = pd.DataFrame(data_list)
 # simple cleaning function
+import json
+import pandas as pd
+import re
+import unicodedata
+from sklearn.model_selection import train_test_split
+
+# Load dataset
+with open("chatbot.json", "r", encoding="utf-8") as f:
+    raw = json.load(f)
+data_list = raw["dataset"] if isinstance(raw, dict) and "dataset" in raw else raw
+print("Total items:", len(data_list))  # Expected: 877
+
+df = pd.DataFrame(data_list)
+
+# Enhanced clean_text function
 def clean_text(text, lowercase=True):
-    if text is None: return ""
+    if text is None or pd.isna(text):
+        return ""
     t = unicodedata.normalize("NFC", str(text))
-    t = re.sub(r"[\x00-\x1f\x7f]+", " ", t)
-    t = re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"[\x00-\x1f\x7f]+", " ", t)  # Remove control characters
+    t = re.sub(r"\s+", " ", t).strip()  # Normalize spaces
+    t = re.sub(r"(.)\1{3,}", r"\1", t)  # Remove excessive repeats
+    t = re.sub(r"[\/]{2,}", "", t)  # Remove excessive slashes
     return t.lower() if lowercase else t
 
+# Clean questions and answers
 df["question_clean"] = df["question"].apply(lambda t: clean_text(t, True))
-df["answer_clean"]   = df["answer"].apply(lambda t: clean_text(t, False))
+df["answer_clean"] = df["answer"].apply(lambda t: clean_text(t, False))
 
+# Remove invalid or duplicate entries
+df = df[df["question_clean"].str.len() > 5]  # Min question length
+df = df[df["answer_clean"].str.len() > 10]  # Min answer length
+df = df.drop_duplicates(subset=["question_clean", "answer_clean"])
+print("Cleaned dataset size:", len(df))  # Expected: ~800-850
+
+# Split dataset
+train_df, temp_df = train_test_split(df, test_size=0.3, random_state=42)
+val_df, test_df = train_test_split(temp_df, test_size=0.5, random_state=42)
+print("Train / Val / Test:", len(train_df), len(val_df), len(test_df))  # Expected: ~560, ~120, ~120
+
+# Save splits
+train_df.to_json("train.json", orient="records", force_ascii=False)
+val_df.to_json("val.json", orient="records", force_ascii=False)
+test_df.to_json("test.json", orient="records", force_ascii=False)
 #new step augment dataset
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import re
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 paraphraser_model = "ramsrigouthamg/t5_paraphraser"
 tokenizer_para = AutoTokenizer.from_pretrained(paraphraser_model)
@@ -49,25 +85,44 @@ def paraphrase(text, num_return=2):
         max_length=256,
         num_beams=5,
         num_return_sequences=num_return,
-        temperature=1.0  # Lower temperature for better quality
+        temperature=0.7,  # Lower for coherence
+        repetition_penalty=1.5  # Prevent repetitions
     )
     paras = [tokenizer_para.decode(o, skip_special_tokens=True) for o in outputs]
-    # Filter bad paraphrases (e.g., repetitive or too short)
-    filtered = [p for p in paras if len(p) > 10 and not re.search(r'(.)\1{3,}', p)]  # No 3+ repeats
-    return filtered or paras  # Fallback to original paras if all filtered
+    # Stricter filtering
+    filtered = [
+        p for p in paras
+        if len(p) > 10 and
+        len(p.split()) > 3 and
+        not re.search(r'(.)\1{3,}', p) and
+        p.lower() != text.lower()
+    ]
+    return filtered or paras[:1]  # Fallback to one paraphrase
 
-# Generate augmented QA pairs
+# Augment train_df
 augmented_qas = []
-for i, row in df.iterrows():
+embedder = SentenceTransformer("all-MiniLM-L6-v2")  # For similarity filtering
+for i, row in train_df.iterrows():
     paras = paraphrase(row["question_clean"], num_return=2)
-    for q in paras:
-        augmented_qas.append({"question_clean": q, "answer_clean": row["answer_clean"]})
+    q_emb = embedder.encode([row["question_clean"]], convert_to_numpy=True)
+    for p in paras:
+        p_emb = embedder.encode([p], convert_to_numpy=True)
+        similarity = cosine_similarity(q_emb, p_emb)[0][0]
+        if similarity < 0.9:  # Ensure diversity
+            augmented_qas.append({
+                "question": p,
+                "answer": row["answer_clean"],
+                "question_clean": clean_text(p, True),
+                "answer_clean": row["answer_clean"]
+            })
 
 df_aug = pd.DataFrame(augmented_qas)
-print("Augmented dataset size:", len(df_aug))
-df.to_json("UPDATEDDATASET.json", orient="records", lines=True)
+train_df = pd.concat([train_df, df_aug], ignore_index=True)
+train_df = train_df.drop_duplicates(subset=["question_clean", "answer_clean"])
+print("Augmented train size:", len(train_df))  # Expected: ~560 + ~1,120 = ~1,680
 
-
+# Save augmented train set
+train_df.to_json("train_augmented.json", orient="records", force_ascii=False)
 
 #split the dataset
 
