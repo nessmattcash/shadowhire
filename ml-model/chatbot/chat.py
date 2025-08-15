@@ -124,24 +124,10 @@ print("Augmented train size:", len(train_df))  # Expected: ~560 + ~1,120 = ~1,68
 # Save augmented train set
 train_df.to_json("train_augmented.json", orient="records", force_ascii=False)
 
-#split the dataset
-
-from sklearn.model_selection import train_test_split
-
-df["question_clean"] = df["question"].apply(lambda t: clean_text(t, True))
-df["answer_clean"] = df["answer"].apply(lambda t: clean_text(t, False))
-
-train_df, temp_df = train_test_split(df, test_size=0.3, random_state=42)
-val_df, test_df = train_test_split(temp_df, test_size=0.5, random_state=42)
-print("Train / Val / Test:", len(train_df), len(val_df), len(test_df))
-train_df.to_json("train.json", orient="records", force_ascii=False)
-val_df.to_json("val.json", orient="records", force_ascii=False)
-test_df.to_json("test.json", orient="records", force_ascii=False)
 
 
 
 #4 vector embedding
-# Colab cell
 from sentence_transformers import SentenceTransformer
 import faiss, numpy as np
 
@@ -153,33 +139,28 @@ train_embs = embedder.encode(train_questions, convert_to_numpy=True, show_progre
 dim = train_embs.shape[1]
 index = faiss.IndexFlatL2(dim)
 index.add(train_embs)
-print("FAISS index built with", index.ntotal, "vectors.")  # Expected ~1,842
+print("FAISS index built with", index.ntotal, "vectors.")  # Expected ~1,680
 
 #5 retrieve similar questions
 
 def make_context_for_train(df_inputs, embedder, index, all_answers, top_k=5):
-    new_inputs = []
-    new_targets = []
-    
+    new_inputs, new_targets = [], []
     for i, row in df_inputs.iterrows():
         q_emb = embedder.encode([row["question_clean"]], convert_to_numpy=True)
-        distances, indices = index.search(q_emb, top_k + 1)  # +1 to allow skipping same item
-        
+        distances, indices = index.search(q_emb, top_k + 1)
         retrieved = []
         for idx in indices[0]:
-            if idx < len(all_answers):  # ✅ prevent out-of-range error
+            if idx != i and idx < len(all_answers):
                 retrieved.append(all_answers[idx])
             if len(retrieved) >= top_k:
                 break
-        
         context = " ".join(retrieved)
         new_inputs.append(f"question: {row['question_clean']} context: {context}")
         new_targets.append(row["answer_clean"])
-    
     return new_inputs, new_targets
-train_inputs, train_targets = make_context_for_train(train_df, embedder, index, train_answers, top_k=5)
-val_inputs, val_targets = make_context_for_train(val_df, embedder, index, train_answers, top_k=5)    
 
+train_inputs, train_targets = make_context_for_train(train_df, embedder, index, train_answers, top_k=5)
+val_inputs, val_targets = make_context_for_train(val_df, embedder, index, train_answers, top_k=5)
 #6 dataloader
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
@@ -220,6 +201,7 @@ val_dataset = RAGDataset(val_inputs, val_targets, tokenizer)
 
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=4)
+
 
 # 7 check the device
 # Colab cell
@@ -270,18 +252,25 @@ def eval_epoch(model, loader, device, tokenizer):
             labels = batch["labels"].to(device)
             outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
             total_loss += outputs.loss.item()
-            gen_outputs = model.generate(input_ids=input_ids, max_length=200, num_beams=6, do_sample=True, top_p=0.9, length_penalty=1.2)
+            gen_outputs = model.generate(
+                input_ids=input_ids,
+                max_length=200,
+                num_beams=6,
+                do_sample=True,
+                top_p=0.9,
+                repetition_penalty=1.2
+            )
             for pred, ref in zip(gen_outputs, labels):
                 pred_text = tokenizer.decode(pred, skip_special_tokens=True).strip()
                 ref_text = tokenizer.decode(ref[ref != -100], skip_special_tokens=True).strip()
-                if pred_text and ref_text:
+                if pred_text and ref_text and len(pred_text.split()) > 3 and len(ref_text.split()) > 3:
                     scores = scorer.score(ref_text, pred_text)
                     rouge_scores.append(scores['rougeL'].fmeasure)
+                    if len(rouge_scores) <= 5:
+                        print(f"Pred: {pred_text} | Ref: {ref_text} | ROUGE-L: {scores['rougeL'].fmeasure}")
                 else:
                     rouge_scores.append(0.0)
-                if len(rouge_scores) <= 5:
-                    print(f"Pred: {pred_text} | Ref: {ref_text} | ROUGE-L: {scores['rougeL'].fmeasure}")
-    return total_loss / len(loader), sum(rouge_scores) / len(rouge_scores)
+    return total_loss / len(loader), sum(rouge_scores) / len(rouge_scores) if rouge_scores else 0.0
 
 epochs = 10
 best_val_loss = float("inf")
@@ -289,7 +278,7 @@ patience = 5
 patience_counter = 0
 train_losses, val_losses, val_rouges = [], [], []
 
-for epoch in range(1, epochs+1):
+for epoch in range(1, epochs + 1):
     t0 = time.time()
     train_loss = train_epoch(model, train_loader, optimizer, device)
     val_loss, val_rouge = eval_epoch(model, val_loader, device, tokenizer)
@@ -311,14 +300,6 @@ for epoch in range(1, epochs+1):
             print("⏹ Early stopping triggered.")
             break
 
-# result Epoch 1/6 — train_loss: 4.7961 val_loss: 5.0115 time: 213s,Epoch 2/6 — train_loss: 4.5286 val_loss: 4.6988 time: 231s
-# result Epoch 3/6 — train_loss: 4.4076 val_loss: 4.5418 time: 208s
-# result Epoch 4/6 — train_loss: 4.3078 val_loss: 4.4712 time: 212s
-# result Epoch 5/6 — train_loss: 4.2474 val_loss: 4.4123 time: 210s
-# result Epoch 6/6 — train_loss: 4.2114 val_loss: 4.3533 time: 209s
-
-
-
 #9 french english 
 # Colab cell
 from transformers import pipeline
@@ -329,40 +310,74 @@ en2fr = pipeline("translation", model="Helsinki-NLP/opus-mt-en-fr")
 
 #10 inference 
 # Colab cell
-from langdetect import detect, DetectorFactory
-DetectorFactory.seed = 0
-
-def rag_generate(user_text, embedder, index, train_answers, model, tokenizer, device, top_k=3, max_length=180):
-    # 1) detect language
+def rag_generate(user_text, embedder, index, train_answers, model, tokenizer, device, top_k=5, max_length=200):
     try:
         lang = detect(user_text)
     except:
         lang = "en"
-    # 2) translate to English if French
     query_en = user_text
     if lang.startswith("fr"):
-        # keep short; pipeline may need the raw string
         query_en = fr2en(user_text)[0]['translation_text']
-    # 3) retrieve top_k contexts
     q_emb = embedder.encode([query_en], convert_to_numpy=True)
     D, I = index.search(q_emb, top_k)
-    contexts = [train_answers[idx] for idx in I[0]]
+    contexts = [train_answers[idx] for idx in I[0] if idx < len(train_answers)]
     context = " ".join(contexts)
-    # 4) build prompt for T5 (instruction style)
-    input_text = f"instruction: You are a helpful bilingual assistant. Use the context to answer the question in English. Context: {context} Question: {query_en}"
+    input_text = f"question: {query_en} context: {context}"
     input_ids = tokenizer.encode(input_text, return_tensors="pt", truncation=True, max_length=256).to(device)
-    # 5) generate with tuned decoding for long, professional answers
     outputs = model.generate(
         input_ids=input_ids,
         max_length=max_length,
         num_beams=6,
-        length_penalty=1.2,
-        no_repeat_ngram_size=3,
+        do_sample=True,
+        top_p=0.9,
+        repetition_penalty=1.2,
+        length_penalty=1.0,
         early_stopping=True
     )
     answer_en = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    # 6) translate back to French if needed
     if lang.startswith("fr"):
         answer_fr = en2fr(answer_en)[0]['translation_text']
         return answer_fr
     return answer_en
+
+
+# Example usage for multiple questions
+# Combine old + new questions
+quest = [
+    # OLD QUESTIONS
+    "Hello", "Hi", "What is Shadowhire?", "Who are you?", "How do I sign up?",
+    "Is Shadowhire free?", "What file formats can I upload?", "How does job matching work?",
+    "What tech stack does Shadowhire use?", "How to reset password?",
+    "Can recruiters see my resume?", "How to delete account?", "What's the development roadmap?",
+    "How accurate is the resume score?", "Where is Shadowhire hosted?",
+    "How to contact support?", "Is there a mobile app?", "What's the difference between candidate/recruiter views?",
+    "How to report a bug?", "Is my data secure?", "Quel est le format maximum d'un CV ?",
+    "Comment modifier mon profil ?", "Pourquoi ne puis-je pas télécharger mon CV ?",
+    "Comment fonctionnent les recommandations d'emploi ?", "Puis-je postuler directement ?",
+    "Qu'est-ce que le 'Resume Score' ?", "Comment améliorer mon score de CV ?", "Qu'est-ce que le TF-IDF ?",
+    "À quelle fréquence les offres d'emploi sont-elles mises à jour ?", "Puis-je sauvegarder des offres d'emploi ?",
+
+    # NEW DATASET QUESTIONS
+    "What's the max resume size?", "How to edit profile?", "Why can't I upload my resume?",
+    "How do job recommendations work?", "Can I apply directly?", "What's the 'Resume Score'?",
+    "How to improve my resume score?", "What's TF-IDF?", "How often are jobs updated?",
+    "Can I save jobs?", "How to unsubscribe from emails?", "What's the privacy policy?",
+    "Can I use without account?", "How to change email?", "Does Shadowhire support dark mode?",
+    "What languages supported?", "How to report a job posting?", "Can I delete my resume?",
+    "What industries covered?", "How to log out?", "Why is my match score low?",
+    "Can I upload multiple resumes?", "How do I know if recruiter viewed me?", "Average response time?",
+    "How to withdraw application?", "Can I edit resume after uploading?", "What's the 'AI Feedback' panel?",
+    "How to search jobs?", "Can I message recruiters?", "What's 'Skills Gap'?",
+    "What is Sofrecom?", "Tell me about InstaDeep", "Capgemini Tunisia info",
+    "Does Actia hire in Tunisia?", "Picosoft overview", "What is Defency?",
+    "Tell me about Sphra", "Does Shadowhire have jobs at STMicroelectronics?"
+]
+
+# Run RAG on each question
+answers = [rag_generate(q, embedder, index, train_answers, model, tokenizer, device) for q in quest]
+
+# Print results
+for q, a in zip(quest, answers):
+    print(f"Q: {q}\nA: {a}\n{'-'*80}")
+
+# result 
