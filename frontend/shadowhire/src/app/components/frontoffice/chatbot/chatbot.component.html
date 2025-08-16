@@ -1,0 +1,117 @@
+<div class="chatbot-wrapper">
+  <div class="chatbot-container" [ngClass]="{'open': isChatOpen, 'initialized': isInitialized}">
+    <button class="chatbot-toggle" (click)="toggleChat()">
+      <span class="toggle-icon">
+        <svg class="chat-icon" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M19.005 3.175H4.674C3.642 3.175 3 3.789 3 4.821V21.02l3.544-3.514h12.461c1.033 0 2.064-1.06 2.064-2.093V4.821c-.001-1.032-1.032-1.646-2.064-1.646zm-4.989 9.869H7.041V11.1h6.975v1.944zm3-4H7.041V7.1h9.975v1.944z"/>
+        </svg>
+        <svg class="close-icon" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </span>
+      <span class="toggle-text">{{ isChatOpen ? 'Close Assistant' : 'Shadowhire AI' }}</span>
+      <span class="ping-animation"></span>
+    </button>
+    
+    <div class="chatbot-window" *ngIf="isChatOpen">
+      <div class="chat-header">
+        <div class="logo-container">
+          <div class="logo-circle">
+            <svg class="logo-icon" viewBox="0 0 24 24">
+              <path fill="#FF6B35" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              <path fill="#114B5F" d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+              <path fill="#FF6B35" d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+          </div>
+          <h3>Shadowhire AI Assistant</h3>
+        </div>
+        <div class="header-actions">
+          <button class="minimize-btn" (click)="toggleChat()" title="Minimize">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M19 13H5v-2h14v2z"/>
+            </svg>
+          </button>
+          <button class="clear-btn" (click)="clearChat()" title="Clear Chat">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="chat-messages">
+        <!-- Initial questions that appear on open -->
+        <div class="initial-questions" *ngIf="showInitialQuestions">
+          <h4>How can I help you today?</h4>
+          <div class="question-bubbles">
+            <button class="question-bubble" (click)="selectInitialQuestion('What is Shadowhire?')">
+              What is Shadowhire?
+            </button>
+            <button class="question-bubble" (click)="selectInitialQuestion('How does job matching work?')">
+              How does job matching work?
+            </button>
+            <button class="question-bubble" (click)="selectInitialQuestion('How accurate is the resume score?')">
+              How accurate is the resume score?
+            </button>
+          </div>
+        </div>
+        
+        <!-- Chat history -->
+        <div *ngFor="let message of chatHistory" class="message" [ngClass]="{'bot-message': message.sender === 'bot', 'user-message': message.sender === 'user'}">
+          <div class="message-content">
+            <div class="message-sender">
+              <span class="sender-icon">
+                <svg *ngIf="message.sender === 'bot'" viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="#FF6B35" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                  <path fill="#114B5F" d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                </svg>
+                <svg *ngIf="message.sender === 'user'" viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="#114B5F" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+              </span>
+              <strong>{{ message.sender === 'bot' ? 'Shadowhire AI' : 'You' }}:</strong>
+            </div>
+            <div class="message-text" [innerHTML]="message.text"></div>
+            <div class="message-time">{{ message.time | date:'shortTime' }}</div>
+          </div>
+        </div>
+        
+        <!-- Loading indicator with animation -->
+        <div *ngIf="isLoading" class="loading-indicator">
+          <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <span>Shadowhire AI is thinking...</span>
+        </div>
+        
+        <!-- Error message -->
+        <div *ngIf="errorMessage" class="error-message">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path fill="#FF6B35" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          {{ errorMessage }}
+        </div>
+      </div>
+      
+      <div class="chat-input-container">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            [(ngModel)]="userInput"
+            (keyup.enter)="sendMessage()"
+            placeholder="Ask about jobs, skills, or companies..."
+            [disabled]="isLoading"
+          />
+          <button class="send-btn" (click)="sendMessage()" [disabled]="isLoading || !userInput.trim()">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
