@@ -2,6 +2,8 @@ import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { ChatbotComponent } from '../chatbot/chatbot.component';
+import { ChatbotService } from '../../../services/chatbot.service';
 
 declare const AOS: any;
 declare const Swiper: any;
@@ -11,13 +13,18 @@ declare const Isotope: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'], // Only component-specific styles
+  styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, HeaderComponent, FooterComponent, ChatbotComponent]
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
+  constructor(private chatbotService: ChatbotService) {}
   infoEmail = 'info@example.com';
   contactEmail = 'contact@example.com';
+
+  toggleChatbot(): void {
+    this.chatbotService.toggleChat();
+  }
 
   ngAfterViewInit() {
     if (typeof window !== 'undefined') {
@@ -30,8 +37,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         AOS.init({
           duration: 800,
           easing: 'ease-in-out',
-          once: true, // Elements animate once
-          mirror: false, // No reverse animation
+          once: true,
+          mirror: false
         });
       }
 
@@ -47,7 +54,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       // Initialize GLightbox
       if (typeof GLightbox !== 'undefined') {
         GLightbox({
-          selector: '.glightbox',
+          selector: '.glightbox'
         });
       }
 
@@ -57,7 +64,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         if (isotopeContainer) {
           const isotope = new Isotope(isotopeContainer, {
             itemSelector: '.isotope-item',
-            layoutMode: 'masonry',
+            layoutMode: 'masonry'
           });
           const filters = document.querySelectorAll('.isotope-filters li');
           filters.forEach((filter) => {
@@ -65,7 +72,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
               filters.forEach((el) => el.classList.remove('filter-active'));
               filter.classList.add('filter-active');
               isotope.arrange({
-                filter: filter.getAttribute('data-filter'),
+                filter: filter.getAttribute('data-filter')
               });
             });
           });

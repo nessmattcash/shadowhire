@@ -19,7 +19,8 @@ import { RegisterComponent } from './components/backoffice/register/register.com
 import { CandidateManagementComponent } from './components/backoffice/candidate-management/candidate-management.component';
 import { MlFeedbackPanelComponent } from './components/backoffice/ml-feedback-panel/ml-feedback-panel.component';
 import { OfferManagementComponent } from './components/backoffice/offer-management/offer-management.component';
-
+import { ChatbotComponent } from './components/frontoffice/chatbot/chatbot.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [],
@@ -41,7 +42,9 @@ import { OfferManagementComponent } from './components/backoffice/offer-manageme
     RegisterComponent,
     CandidateManagementComponent,
     MlFeedbackPanelComponent,
-    OfferManagementComponent
+    ChatbotComponent,
+    OfferManagementComponent,
+    BrowserAnimationsModule, // Enable animations
   ],
    providers: [
     {

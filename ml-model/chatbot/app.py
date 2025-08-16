@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import json
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
@@ -69,7 +70,9 @@ except Exception as e:
 
 # --- Flask app ---
 app = Flask(__name__)
+CORS(app, resources={r"/chat": {"origins": "http://localhost:4200"}})
 
+# --- Chatbot logic ---
 def rag_generate(user_text, top_k=5, max_length=200):
     try:
         lang = detect(user_text)
