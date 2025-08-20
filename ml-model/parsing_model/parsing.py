@@ -398,4 +398,27 @@ def weak_label_text(text):
 
 
 
+#9 genrate weak labels for all resumes
+MAX_SAMPLES = len(df)
+examples = []
+for idx, row in tqdm(df.head(MAX_SAMPLES).iterrows(), total=min(MAX_SAMPLES,len(df))):
+    text = row['resume_text']
+    tokens, labels = weak_label_text(text)
+    # collapse whitespace tokens (we kept them earlier) to obtain word tokens
+    word_tokens = []
+    word_labels = []
+    for tok, lab in zip(tokens, labels):
+        if tok.strip()=='':
+            continue
+        word_tokens.append(tok)
+        word_labels.append(lab)
+    examples.append({'id': str(row['ID']), 'tokens': word_tokens, 'labels': word_labels, 'raw_text': text})
+print("examples:", len(examples))
+
+#10 inspect some examples
+for ex in examples[:3]:
+    print("ID:", ex['id'])
+    for t,l in list(zip(ex['tokens'][:120], ex['labels'][:120]))[:80]:
+        print(f"{t} -> {l}")
+    print("-----\n")
 
