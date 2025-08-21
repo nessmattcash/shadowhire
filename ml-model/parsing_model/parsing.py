@@ -874,7 +874,7 @@ def infer_resume_safe(text, chunk_size=200, ner_tokenizer=ner_tokenizer, ner_mod
 
 
 #testing with my cv 
-!pip install PyPDF2 -q
+#!pip install PyPDF2 -q
 
 import PyPDF2
 
