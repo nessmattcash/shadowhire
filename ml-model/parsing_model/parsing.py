@@ -40,6 +40,13 @@ df = pd.read_csv(CSV_PATH, encoding='utf-8', dtype=str, low_memory=False)
 df = df.fillna('')  # replace NaN
 print("rows:", len(df))
 display(df.head(2).T)
+#result 
+#rows: 2484
+#0	1
+#ID	16852973	22323967
+#Resume_str	HR ADMINISTRATOR/MARKETING ASSOCIATE\...	HR SPECIALIST, US HR OPERATIONS ...
+#Resume_html	<div class="fontsize fontface vmargins hmargin...	<div class="fontsize fontface vmargins hmargin...
+#Category	HR	HR
 
 
 #6 cleanning function 
@@ -422,3 +429,470 @@ for ex in examples[:3]:
         print(f"{t} -> {l}")
     print("-----\n")
 
+#result
+#ID: 16852973
+#HR -> B-SKILL
+#ADMINISTRATOR/MARKETING -> B-SKILL
+#ASSOCIATE -> B-SKILL
+#HR -> B-SKILL
+#ADMINISTRATOR -> B-SKILL
+#Summary -> B-SKILL
+#Dedicated -> B-SKILL
+#Customer -> B-SKILL
+#Service -> B-SKILL
+#Manager -> B-SKILL
+#with -> O
+#15+ -> O
+#years -> B-SKILL
+#of -> O
+#experience -> B-SKILL
+#in -> B-EXP
+#Hospitality -> B-EXP
+#and -> B-EXP
+#Customer -> B-SKILL
+#Service -> B-SKILL
+#Management. -> B-EXP
+#Respected -> B-SKILL
+#builder -> B-SKILL
+#and -> B-EXP
+#leader -> B-SKILL
+#of -> B-EXP
+#customer-focused -> B-SKILL
+#teams; -> B-EXP
+#strives -> B-SKILL
+#to -> B-EXP
+#instill -> B-EXP
+#a -> B-EXP
+#shared, -> B-SKILL
+#enthusiastic -> B-SKILL
+#commitment -> B-SKILL
+#to -> B-EXP
+#customer -> B-SKILL
+#service. -> B-SKILL
+#Highlights -> B-EXP
+#Focused -> B-SKILL
+#on -> B-EXP
+#customer -> B-SKILL
+#satisfaction -> B-SKILL
+#Team -> B-EXP
+#management -> B-EXP
+#Marketing -> B-SKILL
+#savvy -> B-EXP
+#Conflict -> B-SKILL
+#resolution -> B-SKILL
+#techniques -> B-SKILL
+#Training -> B-SKILL
+#and -> B-EXP
+#development -> B-EXP
+#Skilled -> B-EXP
+#multi-tasker -> B-SKILL
+#Client -> B-SKILL
+#relations -> B-SKILL
+#specialist -> B-SKILL
+#Accomplishments -> B-SKILL
+#Missouri -> B-SKILL
+#DOT -> B-EXP
+#Supervisor -> B-SKILL
+#Training -> B-SKILL
+#Certification -> B-SKILL
+#Certified -> B-SKILL
+#by -> B-EXP
+#IHG -> B-EXP
+#in -> B-EXP
+#Customer -> B-SKILL
+#Loyalty -> B-EXP
+#and -> B-EXP
+#Marketing -> B-SKILL
+#by -> B-EXP
+#Segment -> B-EXP
+#Hilton -> B-EXP
+#Worldwide -> B-SKILL
+#General -> B-SKILL
+#Manager -> B-SKILL
+#Training -> B-SKILL
+#Certification -> B-SKILL
+
+
+
+
+#11 convert to huggingface dataset
+from transformers import AutoTokenizer, AutoModelForTokenClassification
+
+MODEL_NAME = "bert-base-multilingual-cased"
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+
+# build labels list
+unique_labels = set(l for ex in examples for l in ex['labels'])
+label_list = sorted(list(unique_labels))
+label_list
+from datasets import Dataset
+
+def encode_example(ex):
+    tokens = ex['tokens']
+    labels = ex['labels']
+    encoding = tokenizer(tokens, is_split_into_words=True, truncation=True, padding='max_length', max_length=512)
+    word_ids = encoding.word_ids()
+    label_ids = []
+    for idx, word_id in enumerate(word_ids):
+        if word_id is None:
+            label_ids.append(-100)  # special tokens keep -100
+        else:
+            label = labels[word_id]
+            label_ids.append(label_list.index(label))
+    encoding['labels'] = label_ids
+    encoding['id'] = ex['id']
+    return encoding
+
+hf_dataset = Dataset.from_list(examples)
+hf_dataset_enc = hf_dataset.map(lambda x: encode_example(x), batched=False, remove_columns=hf_dataset.column_names)
+hf_dataset_enc = hf_dataset_enc.train_test_split(test_size=0.1)
+train_ds = hf_dataset_enc['train']
+eval_ds = hf_dataset_enc['test']
+
+print(train_ds[0].keys())
+
+
+
+
+#12 define the model and training arguments
+from transformers import AutoModelForTokenClassification, TrainingArguments, Trainer
+model = AutoModelForTokenClassification.from_pretrained(MODEL_NAME, num_labels=len(label_list))
+training_args = TrainingArguments(
+    output_dir="/content/models/resume-ner",
+    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    do_eval=True,
+    save_strategy="epoch",
+    learning_rate=3e-5,
+    weight_decay=0.01,
+    logging_steps=50,
+    push_to_hub=False,
+    report_to="none"   # 🚀 disables wandb/logging
+
+)
+
+
+#13 metrics function
+#!pip install -U --force-reinstall datasets evaluate seqeval
+import numpy as np
+from datasets import load_metric
+metric = load_metric("seqeval")
+
+def align_predictions(predictions, label_ids):
+    preds = np.argmax(predictions, axis=2)
+    batch_size, seq_len = preds.shape
+    out_label_list = []
+    out_pred_list = []
+    for i in range(batch_size):
+        example_labels = []
+        example_preds = []
+        for j in range(seq_len):
+            if label_ids[i,j] != -100:
+                example_labels.append(label_list[label_ids[i,j]])
+                example_preds.append(label_list[preds[i,j]])
+        out_label_list.append(example_labels)
+        out_pred_list.append(example_preds)
+    return out_pred_list, out_label_list
+
+def compute_metrics(p):
+    preds, labels = p
+    preds_list, labels_list = align_predictions(preds, labels)
+    results = metric.compute(predictions=preds_list, references=labels_list)
+    # return basic f1
+    return {"overall_f1": results.get("overall_f1",0)}
+
+
+#14 define the trainer
+import os
+os.environ["WANDB_DISABLED"] = "true"
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_ds,
+    eval_dataset=eval_ds,
+    tokenizer=tokenizer,
+    compute_metrics=compute_metrics
+)
+trainer.train()
+trainer.save_model("/content/models/resume-ner")
+tokenizer.save_pretrained("/content/models/resume-ner")
+#result
+# Training Loss
+# 50	1.026000
+# 100	0.802400
+# 150	0.632100
+# 200	0.581800
+# 250	0.443000
+# 300	0.331700
+# 350	0.253500
+# 400	0.250100
+# 450	0.217800
+# 500	0.187500
+# 550	0.161200
+# 600	0.146900
+# 650	0.144100
+# 700	0.132700
+# 750	0.126700
+# 800	0.121400
+# 850	0.120100
+# 900	0.116100
+# 950	0.102300
+# 1000	0.105800
+# 1050	0.099000
+# 1100	0.099700
+# 1150	0.092600
+# 1200	0.081900
+# 1250	0.091200
+# 1300	0.088600
+# 1350	0.080300
+# 1400	0.075500
+# 1450	0.067200
+# 1500	0.076000
+# 1550	0.081200
+# 1600	0.071600
+# 1650	0.061600
+# Saved model and tokenizer to (('/content/models/resume-ner/tokenizer_config.json', 
+# '/content/models/resume-ner/special_tokens_map.json', 
+# '/content/models/resume-ner/vocab.txt', 
+# '/content/models/resume-ner/added_tokens.json', 
+# '/content/models/resume-ner/tokenizer.json'))
+
+
+#15 inference function
+from collections import defaultdict
+import torch
+import re
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+model.eval()
+
+def infer_resume(text):
+    # Tokenize words first
+    words = [w for w in re.split(r'\s+', text) if w]
+    
+    # Keep the batch encoding to access word_ids
+    enc = tokenizer(words, is_split_into_words=True, truncation=True, max_length=512, return_tensors='pt')
+    
+    # Save word_ids before moving to tensors
+    word_ids = enc.word_ids(batch_index=0)
+    
+    # Move tensors to device
+    enc = {k: v.to(device) for k, v in enc.items()}
+    
+    with torch.no_grad():
+        out = model(**enc)
+    
+    preds = torch.argmax(out.logits, dim=2).squeeze().tolist()
+    
+    result = defaultdict(list)
+    current = None
+    for idx, wid in enumerate(word_ids):
+        if wid is None:
+            continue
+        label = label_list[preds[idx]]
+        token = words[wid]
+        
+        if label == 'O':
+            current = None
+            continue
+        
+        if label.startswith('B-'):
+            ent = label.split('-',1)[1]
+            result[ent].append(token)
+            current = ent
+        elif label.startswith('I-') and current is not None:
+            result[current].append(token)
+        else:
+            current = None
+    
+    out_json = {}
+    for ent, toks in result.items():
+        joined = " ".join(toks)
+        if ent == 'SKILL':
+            found = []
+            low = joined.lower()
+            for sk in GENERAL_SKILLS:
+                if sk in low:
+                    found.append(sk)
+            out_json['skills'] = list(set(found)) if found else [joined]
+        else:
+            out_json[ent.lower()] = joined
+
+    return out_json
+
+# Example
+sample_text = df['resume_text'].iloc[0]
+print(infer_resume(sample_text))
+
+# Example output
+{'skills': ['hr', 'c', 'conflict resolution', 'customer service', 'go', 'rds', 'lua', 'sem', 'leadership', 'ar', 'marketing', 'r', 'oci', 'time management', 'san', 'sales', 'soc'], 'exp': 'in Hospitality Hospitality and Management. Management. and of teams; teams; to instill instill instill a to Highlights Highlights on Team management savvy savvy savvy and development Skilled Skilled Skilled DOT DOT by IHG IHG IHG in Loyalty Loyalty Loyalty and by Segment Segment Hilton hospitality hospitality systems as Hilton OnQ OnQ , PMS PMS , Fidelio Fidelio System Holidex Holidex Holidex and in 2013 to Name － , State Helps Helps to develop and as employment, employment, benefits, benefits, and employee employee and Keeps Keeps of benefits plans as and pension plan, plan, as and and employee Advises Advises Advises management in of employee issues. issues. benefits as life, life, health, health, dental, dental, pension plans, plans, leave, leave, leave of and employee Designed Designed and meetings, meetings,'}
+
+#16 inference with traduction 
+from collections import defaultdict
+from langdetect import detect
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForTokenClassification
+import torch
+import pandas as pd
+import re
+
+# Device setup
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Load translation model
+mt_model_name = "Helsinki-NLP/opus-mt-fr-en"
+mt_tokenizer = AutoTokenizer.from_pretrained(mt_model_name, use_fast=True)
+mt_model = AutoModelForSeq2SeqLM.from_pretrained(mt_model_name).to(device)
+
+# Load NER model and tokenizer
+ner_model_name = "dslim/bert-base-NER"  # Replace with your specific NER model
+ner_tokenizer = AutoTokenizer.from_pretrained(ner_model_name, use_fast=True)
+ner_model = AutoModelForTokenClassification.from_pretrained(ner_model_name).to(device)
+ner_model.eval()
+
+
+
+def translate_fr_to_en(text):
+    try:
+        if detect(text) == 'fr':
+            inputs = mt_tokenizer([text], return_tensors="pt", padding=True).to(device)
+            translated_tokens = mt_model.generate(**inputs, max_length=512)
+            return mt_tokenizer.batch_decode(translated_tokens, skip_special_tokens=True)[0]
+        return text
+    except:
+        return text
+
+def infer_resume(text, ner_tokenizer=ner_tokenizer, ner_model=ner_model, label_list=label_list, general_skills=GENERAL_SKILLS):
+    # Tokenize words first
+    words = [w for w in re.split(r'\s+', text) if w]
+    
+    # Keep the batch encoding to access word_ids
+    enc = ner_tokenizer(words, is_split_into_words=True, truncation=True, max_length=512, return_tensors='pt')
+    
+    # Save word_ids before moving to tensors
+    word_ids = enc.word_ids(batch_index=0)
+    
+    # Move tensors to device
+    enc = {k: v.to(device) for k, v in enc.items()}
+    
+    with torch.no_grad():
+        out = ner_model(**enc)
+    
+    preds = torch.argmax(out.logits, dim=2).squeeze().tolist()
+    
+    result = defaultdict(list)
+    current = None
+    for idx, wid in enumerate(word_ids):
+        if wid is None:
+            continue
+        label = label_list[preds[idx]]
+        token = words[wid]
+        
+        if label == 'O':
+            current = None
+            continue
+        
+        if label.startswith('B-'):
+            ent = label.split('-', 1)[1]
+            result[ent].append(token)
+            current = ent
+        elif label.startswith('I-') and current is not None:
+            result[current].append(token)
+        else:
+            current = None
+    
+    out_json = {}
+    for ent, toks in result.items():
+        joined = " ".join(toks)
+        if ent == 'SKILL':
+            found = []
+            low = joined.lower()
+            for sk in general_skills:
+                if sk in low:
+                    found.append(sk)
+            out_json['skills'] = list(set(found)) if found else [joined]
+        else:
+            out_json[ent.lower()] = joined
+
+    return out_json
+
+# Example usage
+sample_text = df['resume_text'].iloc[0]  # Assuming df is defined
+translated_text = translate_fr_to_en(sample_text)
+resume_json = infer_resume(translated_text)
+print(resume_json)
+
+#safe inference function
+def infer_resume_safe(text, chunk_size=200, ner_tokenizer=ner_tokenizer, ner_model=ner_model, label_list=label_list, general_skills=GENERAL_SKILLS):
+    lines = re.split(r'[\n\.]', text)  # split by line or sentence
+    all_results = defaultdict(list)
+
+    for line in lines:
+        words = [w for w in re.split(r'\s+', line) if w]
+        if not words:
+            continue
+
+        enc = ner_tokenizer(words, is_split_into_words=True, truncation=True, max_length=chunk_size, return_tensors='pt')
+        word_ids = enc.word_ids(batch_index=0)
+        enc = {k: v.to(device) for k, v in enc.items()}
+
+        with torch.no_grad():
+            out = ner_model(**enc)
+        preds = torch.argmax(out.logits, dim=2).squeeze().tolist()
+
+        current = None
+        for idx, wid in enumerate(word_ids):
+            if wid is None:
+                continue
+            label = label_list[preds[idx]]
+            token = words[wid]
+
+            if label == 'O':
+                current = None
+                continue
+            if label.startswith('B-'):
+                ent = label.split('-',1)[1]
+                all_results[ent].append(token)
+                current = ent
+            elif label.startswith('I-') and current is not None:
+                all_results[current].append(token)
+            else:
+                current = None
+
+    # Postprocess results
+    out_json = {}
+    for ent, toks in all_results.items():
+        joined = " ".join(toks)
+        if ent == 'SKILL':
+            found = [sk for sk in general_skills if sk.lower() in joined.lower()]
+            out_json['skills'] = list(set(found)) if found else [joined]
+        else:
+            out_json[ent.lower()] = joined
+
+    return out_json
+
+
+#testing with my cv 
+!pip install PyPDF2 -q
+
+import PyPDF2
+
+# Open your PDF file
+pdf_path = "/content/aziz.pdf"
+pdf_file = open(pdf_path, "rb")
+reader = PyPDF2.PdfReader(pdf_file)
+
+# Extract text from all pages
+pdf_text = ""
+for page in reader.pages:
+    pdf_text += page.extract_text() + "\n"
+
+pdf_file.close()
+
+print("First 500 chars of extracted text:\n", pdf_text[:500], "...\n")
+
+# Then you can feed this to your existing pipeline
+resume_json = infer_resume_safe(pdf_text)
+
+print("Extracted resume info:\n", resume_json)
