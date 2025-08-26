@@ -317,23 +317,24 @@ print(f"Number of unique general skills: {len(GENERAL_SKILLS)}")
 
 #5 weaklabeling function
 EMAIL_RE = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b')
-PHONE_RE = re.compile(r'(\+?\d[\d\-\s]{6,}\d)')  # rough
+PHONE_RE = re.compile(r'(\+?\d[\d\-\s]{6,}\d)')
+NAME_RE = re.compile(r'^[A-Z][a-z]+(?: [A-Z][a-z]+)*$')  # Simple name pattern
 
 SECTION_PATTERNS = {
-    'summary': r'^(Summary|Professional Summary|Profile):?$',
-    'experience': r'^(Experience|Work Experience|Professional Experience):?$',
-    'education': r'^(Education|Academic Background):?$',
-    'skills': r'^(Skills|Technical Skills|Competencies):?$',
-    'projects': r'^(Projects|Personal Projects):?$',
-    'certifications': r'^(Certifications|Achievements|Highlights):?$',
+    'summary': [re.compile(r'\b(summary|professional summary|profile|about|objective|career objective)\b', re.I)],
+    'experience': [re.compile(r'\b(experience|work experience|professional experience|work history|employment|career history)\b', re.I)],
+    'education': [re.compile(r'\b(education|academic background|qualifications|academic qualifications)\b', re.I)],
+    'skills': [re.compile(r'\b(skills|technical skills|competencies|expertise|technical proficiencies)\b', re.I)],
+    'projects': [re.compile(r'\b(projects|personal projects|portfolio|key projects)\b', re.I)],
+    'certifications': [re.compile(r'\b(certifications|achievements|highlights|accomplishments|certificates|credentials)\b', re.I)],
 }
 
-def weak_label_text(text):
-    lines = text.splitlines()
+def weak_label_text(text, resume_id):
+    lines = text.replace('\r', '\n').split('\n')
     tokens = []
     labels = []
     current_section = None
-    previous_label = 'O'
+    line_count = 0
     
     for line in lines:
         line = line.strip()
@@ -341,82 +342,113 @@ def weak_label_text(text):
             continue
         
         # Detect section
-        for sec, pattern in SECTION_PATTERNS.items():
-            if re.match(pattern, line, re.I):
-                current_section = sec
-                # Skip labeling the header line itself
-                continue
+        lower_line = line.lower()
+        is_header = False
+        for sec, patterns in SECTION_PATTERNS.items():
+            for pattern in patterns:
+                if pattern.search(lower_line) and len(line.split()) <= 15:  # Relaxed length
+                    current_section = sec
+                    print(f"ID: {resume_id} - Detected section: {sec} in line: {line}")
+                    is_header = True
+                    break
+            if is_header:
+                break
         
-        words = re.split(r'\s+', line)
-        for word_idx, word in enumerate(words):
+        if is_header:
+            continue
+        
+        # Split line, handling commas and punctuation
+        words = re.split(r'\s*,\s*|\s+', line.strip(',.:;'))
+        word_idx = 0
+        while word_idx < len(words):
+            word = words[word_idx].strip()
+            if not word:
+                word_idx += 1
+                continue
+            
+            # Match multi-word skills
+            matched = False
+            if current_section == 'skills':
+                for skill in GENERAL_SKILLS:
+                    skill_words = skill.split()
+                    if word_idx + len(skill_words) <= len(words):
+                        candidate = ' '.join(words[word_idx:word_idx+len(skill_words)]).lower()
+                        # Normalize candidate for matching
+                        candidate_normalized = re.sub(r'[^\w\s]', '', candidate)
+                        skill_normalized = re.sub(r'[^\w\s]', '', skill)
+                        if candidate_normalized == skill_normalized or skill_normalized in candidate_normalized.split():
+                            for i in range(len(skill_words)):
+                                tokens.append(words[word_idx + i])
+                                labels.append('B-SKILL' if i == 0 else 'I-SKILL')
+                            print(f"ID: {resume_id} - Matched skill: {candidate}")
+                            word_idx += len(skill_words)
+                            matched = True
+                            break
+            
+            if matched:
+                continue
+            
             tokens.append(word)
             label = 'O'
             
-            # Email and Phone (single token, B- only)
+            # Email and Phone
             if EMAIL_RE.match(word):
                 label = 'B-EMAIL'
             elif PHONE_RE.match(word):
                 label = 'B-PHONE'
-            # Name (first line, multi-word)
-            elif current_section is None and len(words) <= 5 and all(w.istitle() for w in words if w.isalpha()):
+            # Name: First 5 lines, relaxed pattern
+            elif current_section is None and line_count < 5 and len(words) <= 15 and (word[0].isupper() or NAME_RE.match(word)):
                 label = 'B-NAME' if word_idx == 0 else 'I-NAME'
             # Section-based labeling
             elif current_section:
                 if current_section == 'skills':
-                    # Match multi-word skills from dict
-                    matched = False
-                    for skill in GENERAL_SKILLS:
-                        skill_words = skill.split()
-                        if ' '.join(words[word_idx:word_idx+len(skill_words)]).lower() == skill:
-                            for i in range(len(skill_words)):
-                                labels.append('B-SKILL' if i == 0 else 'I-SKILL')
-                            matched = True
-                            break
-                    if not matched:
-                        label = 'B-SKILL' if previous_label != 'I-SKILL' else 'I-SKILL'
+                    label = 'B-SKILL' if word_idx == 0 or words[word_idx-1].endswith((',', '.', ':', ';')) else 'I-SKILL'
                 elif current_section == 'experience':
-                    label = 'B-EXP' if previous_label != 'I-EXP' else 'I-EXP'
+                    label = 'B-EXP' if word_idx == 0 or words[word_idx-1].endswith((',', '.', ':', ';')) else 'I-EXP'
                 elif current_section == 'education':
-                    label = 'B-EDU' if previous_label != 'I-EDU' else 'I-EDU'
+                    label = 'B-EDU' if word_idx == 0 or words[word_idx-1].endswith((',', '.', ':', ';')) else 'I-EDU'
                 elif current_section == 'projects':
-                    label = 'B-PROJECT' if previous_label != 'I-PROJECT' else 'I-PROJECT'
+                    label = 'B-PROJECT' if word_idx == 0 or words[word_idx-1].endswith((',', '.', ':', ';')) else 'I-PROJECT'
                 elif current_section == 'certifications':
-                    label = 'B-CERT' if previous_label != 'I-CERT' else 'I-CERT'
+                    label = 'B-CERT' if word_idx == 0 or words[word_idx-1].endswith((',', '.', ':', ';')) else 'I-CERT'
             
             labels.append(label)
-            previous_label = label
+            word_idx += 1
+        
+        line_count += 1
     
     return tokens, labels
 
-
 #6 weaklabeling
-MAX_SAMPLES = len(df)
 examples = []
-for idx, row in tqdm(df.head(MAX_SAMPLES).iterrows(), total=min(MAX_SAMPLES, len(df))):
-    text = row['resume_text']
-    tokens, labels = weak_label_text(text)
-    examples.append({'id': str(row['ID']), 'tokens': tokens, 'labels': labels, 'raw_text': text})
+for idx, row in tqdm(df.iterrows(), total=len(df)):
+    resume_id = str(row['ID'])
+    text = row['Resume_str']
+    tokens, labels = weak_label_text(text, resume_id)
+    cleaned_text = clean_text(' '.join(tokens))
+    examples.append({'id': resume_id, 'tokens': tokens, 'labels': labels, 'raw_text': cleaned_text})
 print("examples:", len(examples))
 
-#7 testing weaklabeling
+# Testing weaklabeling
 for ex in examples[:3]:
     print("ID:", ex['id'])
-    for t,l in list(zip(ex['tokens'][:120], ex['labels'][:120]))[:80]:
+    for t, l in list(zip(ex['tokens'][:120], ex['labels'][:120]))[:80]:
         print(f"{t} -> {l}")
     print("-----\n")
+unique_labels = set(l for ex in examples for l in ex['labels'])
+print("Unique labels found:", unique_labels)
 
-#7encode fuction 
+# 7 encode function
 
 MODEL_NAME = "bert-base-multilingual-cased"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
-# Build full label list with B/I/O
 entity_types = ['NAME', 'EMAIL', 'PHONE', 'SKILL', 'EXP', 'EDU', 'PROJECT', 'CERT']
 label_list = ['O'] + [f'B-{et}' for et in entity_types] + [f'I-{et}' for et in entity_types]
-label_list = sorted(set(label_list))  # Dedup if needed
+label_list = sorted(set(label_list))
 
 unique_labels = set(l for ex in examples for l in ex['labels'])
-print("Unique labels found:", unique_labels)  # Debug
+print("Unique labels found:", unique_labels)
 
 def encode_example(ex):
     tokens = ex['tokens']
@@ -428,11 +460,10 @@ def encode_example(ex):
     for idx, word_id in enumerate(word_ids):
         if word_id is None:
             label_ids.append(-100)
-        elif word_id != previous_word_id:  # New word
+        elif word_id != previous_word_id:
             label = labels[word_id]
             label_ids.append(label_list.index(label))
         else:
-            # Subword: Convert B to I if applicable
             label = labels[word_id]
             if label.startswith('B-'):
                 label = 'I-' + label[2:]
@@ -449,7 +480,6 @@ train_ds = hf_dataset_enc['train']
 eval_ds = hf_dataset_enc['test']
 
 print(train_ds[0].keys())
-
 
 #8 model training
 model = AutoModelForTokenClassification.from_pretrained(MODEL_NAME, num_labels=len(label_list))
@@ -511,112 +541,191 @@ tokenizer.save_pretrained("/content/models/resume-ner-v2")
 
 
 #10 inference function
+import re
+from collections import defaultdict
+import torch
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from langdetect import detect
+import docx2txt
+from pdfminer.high_level import extract_text
+
+# Device setup
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Device: {device}")
 
+# Translation function (switch to facebook/m2m100_418M for better French translation)
+def translate_to_en(text, pdf_path):
+    try:
+        if not text.strip():
+            print("Warning: Empty input text for translation")
+            return text
+        lang = 'fr' if 'sana.pdf' in pdf_path or 'yasmine.pdf' in pdf_path else detect(text[:500])
+        print(f"Detected/Forced language: {lang}")
+        if lang == 'fr':
+            inputs = mt_tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512).to(device)
+            translated = mt_model.generate(**inputs, max_length=512, num_beams=5)
+            translated_text = mt_tokenizer.decode(translated[0], skip_special_tokens=True)
+            print(f"Translated text (first 100 chars): {translated_text[:100]}")
+            return translated_text
+        return text
+    except Exception as e:
+        print(f"Translation error: {e}")
+        return text
+
+# Fixed inference function
 def infer_resume(text, model_path="/content/models/resume-ner-v2", chunk_size=400):
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForTokenClassification.from_pretrained(model_path).to(device)
-    model.eval()
+    if not text.strip():
+        print("Error: Input text is empty")
+        return {}
     
-    # Chunk text if long
-    words = re.split(r'\s+', text)
-    all_entities = defaultdict(list)
-    
-    for i in range(0, len(words), chunk_size):
-        chunk_words = words[i:i+chunk_size]
-        enc = tokenizer(chunk_words, is_split_into_words=True, truncation=True, max_length=512, return_tensors='pt').to(device)
-        word_ids = enc.word_ids(0)
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
+        model = AutoModelForTokenClassification.from_pretrained(model_path).to(device)
+        model.eval()
+        print(f"Loaded model and tokenizer from {model_path}")
         
-        with torch.no_grad():
-            logits = model(**enc).logits
-        preds = torch.argmax(logits, dim=2)[0].cpu().numpy()
+        # Check if label_list is defined
+        if 'label_list' not in globals():
+            raise ValueError("label_list is not defined. Ensure it is set before calling infer_resume.")
         
-        current_ent = None
-        current_tokens = []
-        previous_wid = None
-        for idx, wid in enumerate(word_ids):
-            if wid is None:
+        # Chunk text
+        words = re.split(r'\s+', text.strip())
+        print(f"Input words count: {len(words)}")
+        if len(words) == 0:
+            print("Error: No valid words after splitting")
+            return {}
+        
+        all_entities = defaultdict(list)
+        
+        for i in range(0, len(words), chunk_size):
+            chunk_words = words[i:i+chunk_size]
+            print(f"Processing chunk {i//chunk_size + 1}: {len(chunk_words)} words")
+            if not chunk_words:
+                print("Warning: Empty chunk, skipping")
                 continue
-            if wid != previous_wid:
-                if current_tokens:
-                    all_entities[current_ent].append(" ".join(current_tokens))
-                current_tokens = []
-                current_ent = None
-            label = label_list[preds[idx]]
-            token = tokenizer.convert_ids_to_tokens(enc['input_ids'][0][idx])
-            if token.startswith("##"):
-                if current_tokens:
-                    current_tokens[-1] += token[2:]
-            else:
-                current_tokens.append(token)
+                
+            enc = tokenizer(chunk_words, is_split_into_words=True, truncation=True, max_length=512, return_tensors='pt').to(device)
+            word_ids = enc.word_ids(batch_index=0)
             
-            if label == 'O':
-                current_ent = None
-            elif label.startswith('B-'):
-                current_ent = label[2:]
-            elif label.startswith('I-') and current_ent == label[2:]:
-                pass
-            else:
-                current_ent = None
+            if not word_ids or all(wid is None for wid in word_ids):
+                print("Warning: No valid word IDs in chunk, skipping")
+                continue
+                
+            with torch.no_grad():
+                logits = model(**enc).logits
+            print(f"Logits shape: {logits.shape}")
             
-            previous_wid = wid
+            # Ensure logits have expected shape (batch_size, seq_len, num_labels)
+            if logits.dim() != 3 or logits.shape[1] <= 1:
+                print(f"Warning: Invalid logits shape {logits.shape}, skipping chunk")
+                continue
+                
+            preds = torch.argmax(logits, dim=2).cpu().numpy()  # Get [batch_size, seq_len]
+            if preds.ndim != 2:
+                print(f"Warning: Invalid preds shape {preds.shape}, skipping chunk")
+                continue
+            preds = preds[0]  # Take first batch, now 1D
+            print(f"Preds length: {len(preds)}, Word IDs length: {len(word_ids)}")
+            print(f"Sample preds: {preds[:10]}")
+            
+            if len(preds) != len(word_ids):
+                print(f"Warning: Mismatch between preds ({len(preds)}) and word_ids ({len(word_ids)}), skipping")
+                continue
+            
+            current_ent = None
+            current_tokens = []
+            previous_wid = None
+            for idx, wid in enumerate(word_ids):
+                if wid is None:
+                    continue
+                if wid != previous_wid:
+                    if current_tokens:
+                        all_entities[current_ent].append(" ".join(current_tokens))
+                    current_tokens = []
+                    current_ent = None
+                try:
+                    label = label_list[preds[idx]]
+                except IndexError:
+                    print(f"IndexError: preds[{idx}]={preds[idx]} out of range for label_list (len={len(label_list)})")
+                    continue
+                token = tokenizer.convert_ids_to_tokens(enc['input_ids'][0][idx])
+                if token.startswith("##"):
+                    if current_tokens:
+                        current_tokens[-1] += token[2:]
+                else:
+                    current_tokens.append(token)
+                
+                if label == 'O':
+                    current_ent = None
+                elif label.startswith('B-'):
+                    current_ent = label[2:]
+                elif label.startswith('I-') and current_ent == label[2:]:
+                    pass
+                else:
+                    current_ent = None
+                
+                previous_wid = wid
+            
+            if current_tokens:
+                all_entities[current_ent].append(" ".join(current_tokens))
         
-        if current_tokens:
-            all_entities[current_ent].append(" ".join(current_tokens))
+        # Post-process
+        out_json = {}
+        for ent, spans in all_entities.items():
+            if ent == 'SKILL':
+                if 'GENERAL_SKILLS' not in globals():
+                    raise ValueError("GENERAL_SKILLS is not defined. Ensure it is set.")
+                skills = set()
+                for span in spans:
+                    low = span.lower()
+                    matched = [sk for sk in GENERAL_SKILLS if sk == low or sk in low.split()]
+                    skills.update(matched or [span])
+                out_json['skills'] = list(skills)
+            else:
+                out_json[ent.lower()] = list(set(spans))
+        
+        print(f"Extracted entities: {out_json}")
+        return out_json
     
-    # Post-process
-    out_json = {}
-    for ent, spans in all_entities.items():
-        if ent == 'SKILL':
-            skills = set()
-            for span in spans:
-                low = span.lower()
-                matched = [sk for sk in GENERAL_SKILLS if sk == low or sk in low.split()]
-                skills.update(matched or [span])
-            out_json['skills'] = list(skills)
-        else:
-            out_json[ent.lower()] = list(set(spans))  # Dedup spans
-    
-    return out_json
+    except Exception as e:
+        print(f"Inference error: {e}")
+        return {}
 
-#11 inferecnce with translation
-# Load translation model
-mt_model_name = "Helsinki-NLP/opus-mt-fr-en"
+# Extract text from file
+def extract_text_from_file(file_path):
+    try:
+        if file_path.lower().endswith('.pdf'):
+            text = extract_text(file_path)
+        elif file_path.lower().endswith('.docx'):
+            text = docx2txt.process(file_path)
+        else:
+            raise ValueError("Use PDF or DOCX.")
+        text = re.sub(r'\s+', ' ', text).strip()
+        print(f"Extracted text (first 100 chars): {text[:100]}")
+        return text
+    except Exception as e:
+        print(f"Error extracting {file_path}: {e}")
+        return ""
+
+# Load translation model (switch to facebook/m2m100_418M)
+mt_model_name = "facebook/m2m100_418M"
 mt_tokenizer = AutoTokenizer.from_pretrained(mt_model_name, use_fast=True)
 mt_model = AutoModelForSeq2SeqLM.from_pretrained(mt_model_name).to(device)
 
-def translate_to_en(text):
-    try:
-        if detect(text[:500]) == 'fr':
-            inputs = mt_tokenizer([text], return_tensors="pt", padding=True, truncation=True, max_length=512).to(device)
-            translated = mt_model.generate(**inputs)
-            return mt_tokenizer.decode(translated[0], skip_special_tokens=True)
-        return text
-    except:
-        return text
+# Test all four CVs
+pdf_paths = [
+    "/content/aziz.pdf",
+    "/content/frosty.pdf",
+    "/content/sana.pdf",
+    "/content/yasmine.pdf"
+]
 
-# Example
-sample_text = df['resume_text'].iloc[0]
-translated_text = translate_to_en(sample_text)
-resume_json = infer_resume(translated_text)
-print(resume_json)
-
-#12 extract from pdf and docx
-def extract_text_from_file(file_path):
-    if file_path.lower().endswith('.pdf'):
-        text = extract_text(file_path)
-    elif file_path.lower().endswith('.docx'):
-        text = docx2txt.process(file_path)
-    else:
-        raise ValueError("Use PDF or DOCX.")
-    text = re.sub(r'\s+', ' ', text).strip()  # Clean
-    return text
-
-# Test with your CV
-pdf_path = "/content/aziz.pdf"
-pdf_text = extract_text_from_file(pdf_path)
-print("First 500 chars of extracted text:\n", pdf_text[:500], "...\n")
-
-translated_pdf = translate_to_en(pdf_text)
-resume_json = infer_resume(translated_pdf)
-print("Extracted resume info:\n", resume_json)
+for pdf_path in pdf_paths:
+    print(f"\nProcessing {pdf_path}")
+    pdf_text = extract_text_from_file(pdf_path)
+    if not pdf_text:
+        print(f"Skipping {pdf_path}: No text extracted")
+        continue
+    translated_text = translate_to_en(pdf_text, pdf_path)
+    resume_json = infer_resume(translated_text)
+    print(f"Extracted resume info from {pdf_path}:\n", resume_json)
