@@ -1,1 +1,184 @@
-<p>jobs works!</p>
+<app-header></app-header>
+<div class="jobs-portal">
+  <!-- Hero Section with 3D Company Showcase -->
+  <section class="hero-section dark-blue-bg">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">Find Your Dream <span class="highlight">Job</span></h1>
+        <p class="hero-subtitle">Discover opportunities from top companies around the world</p>
+        
+        <!-- Search Bar -->
+        <div class="search-container" data-aos="fade-up" data-aos-delay="200">
+          <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" id="jobSearch" placeholder="Search by job title, skills or company..." 
+                   (input)="onSearchChange($event)">
+            <button class="search-btn" (click)="triggerSearch()">Search</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3D Company Logo Showcase -->
+      <div class="company-showcase" data-aos="zoom-in" data-aos-delay="400">
+        <div class="swiper-container" #companySwiper>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="logo-3d">
+                <img src="assets/EY.jpg" alt="EY" class="company-logo">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="logo-3d">
+                <img src="assets/cap.jpeg" alt="Capgemini" class="company-logo">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="logo-3d">
+                <img src="assets/micro.jpg" alt="Microsoft" class="company-logo">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="logo-3d">
+                <img src="/assets/ACTIA.jpg" alt="ACTIA" class="company-logo">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="logo-3d">
+                <img src="assets/sopra.jpg" alt="Sopra Steria" class="company-logo">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="logo-3d">
+                <img src="assets/OpenAI.jpg" alt="OpenAI" class="company-logo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters-header">
+        <h2>Refine Your Search</h2>
+        <button class="btn-clear" (click)="clearFilters()">Clear All</button>
+      </div>
+      
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label for="skillsFilter">Skills</label>
+          <input type="text" id="skillsFilter" placeholder="e.g. JavaScript, Python, React" 
+                 [(ngModel)]="skillsFilter" (input)="applyFilters()">
+        </div>
+        
+        <div class="filter-group">
+          <label for="locationFilter">Location</label>
+          <input type="text" id="locationFilter" placeholder="e.g. Paris, Remote, New York" 
+                 [(ngModel)]="locationFilter" (input)="applyFilters()">
+        </div>
+        
+        <div class="filter-group">
+          <label for="companyFilter">Company</label>
+          <input type="text" id="companyFilter" placeholder="e.g. Microsoft, Google" 
+                 [(ngModel)]="companyFilter" (input)="applyFilters()">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jobs Listing Section -->
+  <section class="jobs-section">
+    <div class="container">
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading opportunities...</p>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="error-container">
+        <i class="bi bi-exclamation-triangle"></i>
+        <p>{{ error }}</p>
+        <button class="btn-retry" (click)="fetchJobs()">Try Again</button>
+      </div>
+
+      <!-- Results Count -->
+      <div *ngIf="!isLoading && !error" class="results-header">
+        <h3>Found <span class="count">{{ filteredJobs.length }}</span> job opportunities</h3>
+        <div class="sort-options">
+          <label>Sort by:</label>
+          <select (change)="onSortChange($event)">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="company">Company A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Job Cards Grid -->
+      <div *ngIf="!isLoading && !error" class="jobs-grid">
+        <div *ngFor="let job of filteredJobs" class="job-card" [class.featured]="job.featured" data-aos="fade-up">
+          <div class="card-header">
+            <div class="company-info">
+              <div class="company-logo">
+                <img [src]="getCompanyLogo(job.company)" [alt]="job.company" onerror="this.src='assets/default-company.png'">
+              </div>
+              <div class="company-details">
+                <h3 class="job-title">{{ job.title }}</h3>
+                <p class="company-name">{{ job.company }}</p>
+              </div>
+            </div>
+            <span *ngIf="job.featured" class="featured-badge">Featured</span>
+          </div>
+          
+          <div class="card-body">
+            <div class="job-meta">
+              <div class="meta-item">
+                <i class="bi bi-geo-alt"></i>
+                <span>{{ job.location }}</span>
+              </div>
+              <div class="meta-item">
+                <i class="bi bi-clock"></i>
+                <span>{{ formatDate(job.created_at) }}</span>
+              </div>
+            </div>
+            
+            <div class="skills-container">
+              <div class="skills-label">Skills Required:</div>
+              <div class="skills-list">
+                <span *ngFor="let skill of getSkillsArray(job.skills_required)" class="skill-tag">{{ skill }}</span>
+              </div>
+            </div>
+            
+            <p class="job-description">{{ job.description }}</p>
+          </div>
+          
+          <div class="card-footer">
+            <a [routerLink]="['/jobs', job.id]" class="btn-view-details">View Details</a>
+            <button class="btn-save" (click)="toggleSaveJob(job)">
+              <i class="bi" [class.bi-bookmark]="!isJobSaved(job)" [class.bi-bookmark-fill]="isJobSaved(job)"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div *ngIf="!isLoading && !error && filteredJobs.length === 0" class="no-results">
+        <i class="bi bi-search"></i>
+        <h4>No jobs found</h4>
+        <p>Try adjusting your search criteria or filters</p>
+      </div>
+
+      <!-- Load More Button (for pagination) -->
+      <div *ngIf="!isLoading && !error && filteredJobs.length > 0 && hasMoreJobs" class="load-more-container">
+        <button class="btn-load-more" (click)="loadMoreJobs()">
+          Load More Opportunities
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- Footer Section -->
+ <app-footer></app-footer>

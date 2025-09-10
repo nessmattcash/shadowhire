@@ -35,6 +35,8 @@
               "src/assets/strategy/vendor/swiper/swiper-bundle.min.css",
               "src/styles.scss",
               "src/assets/strategy/css/main.css",
+                "node_modules/swiper/swiper-bundle.min.css",
+
               "src/assets/admin/css/main.css"
             ],
             "scripts": [
@@ -115,7 +117,9 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+                "node_modules/swiper/swiper-bundle.min.css"
+
             ],
             "scripts": []
           }
