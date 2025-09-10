@@ -6,7 +6,8 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { JobsService } from '../../../services/jobs.service';
 import Swiper from 'swiper';
-import { Navigation, Autoplay, EffectCreative } from 'swiper/modules';
+import { Navigation, Autoplay, EffectFade } from 'swiper/modules';
+import AOS from 'aos';
 
 interface Job {
   id: number;
@@ -30,7 +31,8 @@ interface Job {
 export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('companySwiper') companySwiperRef!: ElementRef;
   private companySwiper!: Swiper;
-  
+  currentCompanyClass: string = '';
+
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   isLoading = true;
@@ -46,6 +48,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private jobsService: JobsService) {}
 
   ngOnInit(): void {
+    AOS.init({ duration: 1200, easing: 'ease-out-cubic' });
     this.loadSavedJobs();
     this.fetchJobs();
   }
@@ -62,37 +65,41 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private initSwiper(): void {
     this.companySwiper = new Swiper(this.companySwiperRef.nativeElement, {
-      modules: [Navigation, Autoplay, EffectCreative],
+      modules: [Navigation, Autoplay, EffectFade],
       loop: true,
-      speed: 1000,
+      speed: 1500,
       autoplay: {
-        delay: 7000,
+        delay: 10000,
         disableOnInteraction: false,
       },
-      effect: 'creative',
-      creativeEffect: {
-        prev: {
-          shadow: true,
-          translate: ['-120%', 0, -500],
-        },
-        next: {
-          shadow: true,
-          translate: ['120%', 0, -500],
-        },
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
       },
-      slidesPerView: 2,
+      slidesPerView: 1,
+      centeredSlides: true,
+      grabCursor: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
       breakpoints: {
-        320: {
-          slidesPerView: 1,
-        },
         768: {
-          slidesPerView: 2,
+          slidesPerView: 3,
+          spaceBetween: 20,
         },
         1024: {
-          slidesPerView: 3,
+          slidesPerView: 4,
+          spaceBetween: 30,
         },
       },
     });
+  }
+
+  onSwiperSlideChange(swiper: any): void {
+    const activeIndex = swiper.activeIndex % swiper.slides.length;
+    const companies = ['ey', 'capgemini', 'microsoft', 'actia', 'sopra', 'openai'];
+    this.currentCompanyClass = `${companies[activeIndex]}-bg`;
   }
 
   fetchJobs(): void {
@@ -101,10 +108,9 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     
     this.jobsService.getJobs().subscribe({
       next: (data: Job[]) => {
-        // Mark some jobs as featured for demonstration
         const processedData = data.map((job, index) => ({
           ...job,
-          featured: index % 5 === 0 // Every 5th job is featured
+          featured: index % 5 === 0
         }));
         
         if (this.currentPage === 1) {
@@ -114,7 +120,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         
         this.applyFilters();
-        this.hasMoreJobs = data.length === 10; // Assuming 10 items per page
+        this.hasMoreJobs = data.length === 10;
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -142,7 +148,6 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   applyFilters(): void {
     let results = [...this.jobs];
     
-    // Apply search term filter
     if (this.searchTerm) {
       const term = this.searchTerm.toLowerCase();
       results = results.filter(job => 
@@ -153,7 +158,6 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
       );
     }
     
-    // Apply skills filter
     if (this.skillsFilter) {
       const skills = this.skillsFilter.toLowerCase().split(',').map(s => s.trim());
       results = results.filter(job => 
@@ -161,14 +165,12 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
       );
     }
     
-    // Apply location filter
     if (this.locationFilter) {
       results = results.filter(job => 
         job.location.toLowerCase().includes(this.locationFilter.toLowerCase())
       );
     }
     
-    // Apply company filter
     if (this.companyFilter) {
       results = results.filter(job => 
         job.company.toLowerCase().includes(this.companyFilter.toLowerCase())
@@ -189,7 +191,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   onSortChange(event: any): void {
     const sortBy = event.target.value;
     
-    switch(sortBy) {
+    switch (sortBy) {
       case 'newest':
         this.filteredJobs.sort((a, b) => 
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
@@ -227,7 +229,26 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getCompanyLogo(companyName: string): string {
-    const logoMap: {[key: string]: string} = {
+    const logoMap: { [key: string]: string } = {
+      'Verse': 'assets/verse.jpg',
+      'Orange': 'assets/orange.jpg',
+      'Ooredoo': 'assets/ooredoo.jpg',
+      'InstaDeep': 'assets/instadeep.jpg',
+      'RFC': 'assets/rfc.jpg',
+      'Vermeg': 'assets/vermeg.jpg',
+      'Expensya': 'assets/expensya.jpg',
+      'Sofrecom': 'assets/sofrecom.jpg',
+      'Talan': 'assets/talan.jpg',
+      'NeoSoft': 'assets/neosoft.jpg',
+      'Amaris': 'assets/amaris.jpg',
+      'Business & Decision': 'assets/businessdecision.jpg',
+      'Telnet': 'assets/telnet.jpg',
+      'Focus': 'assets/focus.jpg',
+      'IBM': 'assets/ibm.jpg',
+      'Oradist': 'assets/oradist.jpg',
+      'Wattnow': 'assets/wattnow.jpg',
+      'Dabchy': 'assets/dabchy.jpg',
+      'Roamsmart': 'assets/roamsmart.jpg',
       'EY': 'assets/EY.jpg',
       'Capgemini': 'assets/cap.jpeg',
       'Microsoft': 'assets/micro.jpg',
