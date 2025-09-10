@@ -17,7 +17,13 @@ $border-color: #334155;
 }
 
 @mixin card-shadow {
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+@mixin dynamic-bg($color) {
+  background: linear-gradient(135deg, $color 0%, darken($color, 20%) 100%);
+  opacity: 0.2;
+  transition: all 0.5s ease;
 }
 
 // Global Styles
@@ -25,14 +31,23 @@ $border-color: #334155;
   min-height: 100vh;
   background: linear-gradient(180deg, $dark-blue 0%, #0f172a 100%);
   color: $text-light;
+  font-family: 'Inter', sans-serif;
 }
 
 // Hero Section
 .hero-section {
-  padding: 100px 0 80px;
+  padding: 120px 0 100px;
   position: relative;
   overflow: hidden;
-  
+  transition: background 0.5s ease;
+
+  &.ey-bg { @include dynamic-bg(#003087); }
+  &.capgemini-bg { @include dynamic-bg(#d00000); }
+  &.microsoft-bg { @include dynamic-bg(#f25022); }
+  &.actia-bg { @include dynamic-bg(#0066cc); }
+  &.sopra-bg { @include dynamic-bg(#1a2a44); }
+  &.openai-bg { @include dynamic-bg(#000000); }
+
   &::before {
     content: '';
     position: absolute;
@@ -40,23 +55,24 @@ $border-color: #334155;
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, $light-blue 0%, transparent 50%);
-    opacity: 0.1;
+    background: radial-gradient(circle at 50% 30%, $light-blue 0%, transparent 60%);
+    opacity: 0.15;
+    z-index: 1;
   }
   
   .hero-content {
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
   }
   
   .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, $text-light 0%, $accent-light 100%);
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, $text-light 0%, $accent-light 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     
@@ -68,32 +84,38 @@ $border-color: #334155;
   }
   
   .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: $text-gray;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 300;
   }
 }
 
 // Search Container
 .search-container {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 700px;
   
   .search-box {
     position: relative;
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50px;
-    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 60px;
+    padding: 0.75rem;
     border: 1px solid $border-color;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     @include card-shadow;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+    }
     
     i {
-      margin-left: 1rem;
+      margin-left: 1.5rem;
       color: $text-gray;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
     
     input {
@@ -101,11 +123,12 @@ $border-color: #334155;
       background: transparent;
       border: none;
       color: $text-light;
-      padding: 1rem;
-      font-size: 1rem;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
       
       &::placeholder {
         color: $text-gray;
+        opacity: 0.7;
       }
       
       &:focus {
@@ -116,16 +139,16 @@ $border-color: #334155;
     .search-btn {
       background: linear-gradient(135deg, $accent 0%, $accent-light 100%);
       border: none;
-      border-radius: 50px;
-      padding: 0.75rem 1.5rem;
+      border-radius: 60px;
+      padding: 0.9rem 2rem;
       color: white;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.5);
       }
     }
   }
@@ -133,44 +156,121 @@ $border-color: #334155;
 
 // Company Showcase
 .company-showcase {
-  margin-top: 4rem;
+  margin-top: 5rem;
+  position: relative;
   
   .swiper-container {
-    padding: 2rem 0;
+    padding: 4rem 0;
+    overflow: visible;
   }
   
   .swiper-slide {
     @include flex-center;
-    height: 150px;
+    height: 450px;
+    position: relative;
+    opacity: 0.6;
+    transform: scale(0.85);
+    transition: all 0.5s ease;
+    
+    &.swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    &.swiper-slide-prev,
+    &.swiper-slide-next {
+      opacity: 0.8;
+      transform: scale(0.9);
+    }
   }
   
-  .logo-3d {
-    perspective: 1000px;
+  .logo-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     @include flex-center;
+    z-index: 1;
+    display: none; // Hide static background image since dynamic background is used
+    
+    .logo-bg-image {
+      width: 400px;
+      height: 400px;
+      object-fit: contain;
+      opacity: 0.1;
+      filter: brightness(0.5) contrast(0.8) sepia(0.2) hue-rotate(200deg);
+      border-radius: 50%;
+      clip-path: circle(50% at 50% 50%);
+    }
+  }
+  
+  .logo-container {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    border: 4px solid $accent;
+    backdrop-filter: blur(12px);
+    @include flex-center;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 2;
     
     .company-logo {
-      max-width: 120px;
-      max-height: 80px;
+      width: 300px;
+      height: 300px;
       object-fit: contain;
-      filter: grayscale(1) brightness(2);
-      opacity: 0.8;
-      transition: all 0.5s ease;
-      transform-style: preserve-3d;
+      border-radius: 50%;
+      clip-path: circle(50% at 50% 50%);
+      transition: transform 0.5s ease;
+    }
+    
+    .swiper-slide-active & {
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(1.2);
       
-      &:hover {
-        filter: grayscale(0) brightness(1);
-        opacity: 1;
-        transform: translateZ(20px) rotateY(10deg);
+      .company-logo {
+        transform: scale(1.2);
       }
     }
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: $text-light;
+    background: rgba(59, 130, 246, 0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid $accent;
+    @include flex-center;
+    transition: all 0.3s ease;
+    
+    &:after {
+      font-size: 28px;
+    }
+    
+    &:hover {
+      background: $accent;
+      transform: scale(1.15);
+    }
+  }
+  
+  .swiper-button-prev {
+    left: -80px;
+  }
+  
+  .swiper-button-next {
+    right: -80px;
   }
 }
 
 // Filters Section
 .filters-section {
-  padding: 2rem 0;
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(10px);
+  padding: 3rem 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
   
@@ -178,59 +278,64 @@ $border-color: #334155;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     
     h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.8rem;
+      font-weight: 700;
     }
     
     .btn-clear {
       background: transparent;
-      border: 1px solid $border-color;
-      color: $text-gray;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
+      border: 2px solid $accent;
+      color: $accent;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
       cursor: pointer;
+      font-weight: 600;
       transition: all 0.3s ease;
       
       &:hover {
+        background: $accent;
         color: $text-light;
-        border-color: $accent;
+        transform: translateY(-2px);
       }
     }
   }
   
   .filters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     
     .filter-group {
       label {
         display: block;
-        margin-bottom: 0.5rem;
-        color: $text-gray;
+        margin-bottom: 0.75rem;
+        color: $text-light;
         font-weight: 500;
+        font-size: 1.1rem;
       }
       
       input {
         width: 100%;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid $border-color;
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
         color: $text-light;
+        font-size: 1rem;
         transition: all 0.3s ease;
         
         &:focus {
           outline: none;
           border-color: $accent;
-          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+          box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
         }
         
         &::placeholder {
           color: $text-gray;
+          opacity: 0.7;
         }
       }
     }
@@ -239,35 +344,36 @@ $border-color: #334155;
 
 // Jobs Section
 .jobs-section {
-  padding: 4rem 0;
+  padding: 5rem 0;
   
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
   }
 }
 
 // Loading and Error States
 .loading-container, .error-container, .no-results {
   text-align: center;
-  padding: 3rem;
+  padding: 4rem;
   
   i {
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: $accent;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   p {
     color: $text-gray;
-    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
   }
 }
 
 .loading-container {
   .spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgba(59, 130, 246, 0.3);
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(59, 130, 246, 0.3);
     border-radius: 50%;
     border-top-color: $accent;
     animation: spin 1s ease-in-out infinite;
@@ -279,15 +385,16 @@ $border-color: #334155;
   .btn-retry {
     background: $accent;
     border: none;
-    border-radius: 5px;
-    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    padding: 1rem 2rem;
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     
     &:hover {
       background: $accent-light;
+      transform: scale(1.05);
     }
   }
 }
@@ -297,40 +404,71 @@ $border-color: #334155;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid $border-color;
   
   h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 700;
     
     .count {
       color: $accent;
-      font-weight: 700;
+      font-weight: 800;
     }
   }
   
   .sort-options {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     
-    label {
-      color: $text-gray;
+    .sort-label {
+      color: $text-light;
+      font-weight: 600;
+      margin-right: 0.5rem;
     }
     
-    select {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid $border-color;
-      border-radius: 5px;
-      padding: 0.5rem;
+    .sort-select {
+      appearance: none;
+      background: linear-gradient(90deg, $card-bg, darken($card-bg, 10%));
+      border: 2px solid $accent;
+      border-radius: 8px;
+      padding: 0.75rem 2rem 0.75rem 1rem;
       color: $text-light;
+      font-size: 1rem;
+      font-weight: 500;
       cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
       
       &:focus {
         outline: none;
-        border-color: $accent;
+        border-color: $accent-light;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      }
+      
+      &:after {
+        content: '\25BC';
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $accent;
+        font-size: 0.9rem;
+        pointer-events: none;
+      }
+      
+      option {
+        background: $card-bg;
+        color: $text-light;
+        padding: 0.5rem;
+        font-weight: 500;
+        
+        &:hover {
+          background: $accent;
+          color: $text-light;
+        }
       }
     }
   }
@@ -339,23 +477,23 @@ $border-color: #334155;
 // Jobs Grid
 .jobs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 // Job Card
 .job-card {
   background: $card-bg;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   border: 1px solid $border-color;
   @include card-shadow;
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.5);
     border-color: $accent;
   }
   
@@ -369,13 +507,13 @@ $border-color: #334155;
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
+      height: 6px;
       background: linear-gradient(90deg, $accent 0%, $accent-light 100%);
     }
   }
   
   .card-header {
-    padding: 1.5rem;
+    padding: 2rem;
     border-bottom: 1px solid $border-color;
     display: flex;
     justify-content: space-between;
@@ -384,35 +522,39 @@ $border-color: #334155;
     .company-info {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
       
       .company-logo {
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
         overflow: hidden;
         flex-shrink: 0;
-        background: white;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        border: 2px solid $accent;
         @include flex-center;
         
-        img {
-          width: 80%;
-          height: 80%;
+        .job-logo {
+          width: 100px;
+          height: 100px;
           object-fit: contain;
+          border-radius: 50%;
+          clip-path: circle(50% at 50% 50%);
         }
       }
       
       .company-details {
         .job-title {
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-bottom: 0.25rem;
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
           color: $text-light;
         }
         
         .company-name {
-          color: $accent;
-          font-weight: 500;
+          color: $accent-light;
+          font-weight: 600;
+          font-size: 1.1rem;
         }
       }
     }
@@ -420,68 +562,80 @@ $border-color: #334155;
     .featured-badge {
       background: linear-gradient(135deg, $accent 0%, $accent-light 100%);
       color: white;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.25rem 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
       border-radius: 20px;
     }
   }
   
   .card-body {
-    padding: 1.5rem;
+    padding: 2rem;
     
     .job-meta {
       display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
       
       .meta-item {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
         color: $text-gray;
-        font-size: 0.9rem;
+        font-size: 1rem;
         
         i {
-          font-size: 1rem;
+          font-size: 1.2rem;
+          color: $accent;
         }
       }
     }
     
     .skills-container {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       
       .skills-label {
-        font-size: 0.9rem;
-        color: $text-gray;
-        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        color: $text-light;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
       }
       
       .skills-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.75rem;
         
         .skill-tag {
-          background: rgba(59, 130, 246, 0.1);
+          background: rgba(59, 130, 246, 0.15);
           color: $accent-light;
-          padding: 0.25rem 0.5rem;
-          border-radius: 4px;
-          font-size: 0.8rem;
-          font-weight: 500;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: $accent;
+            color: $text-light;
+          }
         }
       }
     }
     
     .job-description {
       color: $text-gray;
-      line-height: 1.5;
+      line-height: 1.6;
+      font-size: 1rem;
       margin-bottom: 0;
+      max-height: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   
   .card-footer {
-    padding: 1rem 1.5rem;
+    padding: 1.5rem 2rem;
     border-top: 1px solid $border-color;
     display: flex;
     justify-content: space-between;
@@ -491,13 +645,14 @@ $border-color: #334155;
       background: $accent;
       color: white;
       text-decoration: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 5px;
-      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
       transition: all 0.3s ease;
       
       &:hover {
         background: $accent-light;
+        transform: scale(1.05);
       }
     }
     
@@ -506,11 +661,12 @@ $border-color: #334155;
       border: none;
       color: $text-gray;
       cursor: pointer;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       transition: all 0.3s ease;
       
       &:hover {
         color: $accent;
+        transform: scale(1.2);
       }
       
       .bi-bookmark-fill {
@@ -523,35 +679,42 @@ $border-color: #334155;
 // No Results
 .no-results {
   i {
-    font-size: 4rem;
-    opacity: 0.5;
+    font-size: 5rem;
+    opacity: 0.6;
   }
   
   h4 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    color: $text-light;
+  }
+  
+  p {
+    font-size: 1.2rem;
   }
 }
 
 // Load More Button
 .load-more-container {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 3rem;
   
   .btn-load-more {
     background: transparent;
     border: 2px solid $accent;
     color: $accent;
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border-radius: 60px;
+    font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     
     &:hover {
       background: $accent;
-      color: white;
-      transform: translateY(-2px);
+      color: $text-light;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.5);
     }
   }
 }
@@ -562,24 +725,29 @@ $border-color: #334155;
   100% { transform: rotate(360deg); }
 }
 
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
 // Responsive Design
 @media (max-width: 768px) {
   .hero-section {
-    padding: 80px 0 60px;
+    padding: 100px 0 80px;
     
     .hero-title {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     
     .hero-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
   }
   
   .search-container .search-box {
     flex-direction: column;
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: 20px;
+    padding: 1.5rem;
     
     i {
       display: none;
@@ -587,24 +755,47 @@ $border-color: #334155;
     
     input {
       width: 100%;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       text-align: center;
+      font-size: 1rem;
     }
     
     .search-btn {
       width: 100%;
+      padding: 1rem;
+    }
+  }
+  
+  .company-showcase {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
+    
+    .swiper-slide {
+      height: 400px;
+      
+      .logo-container {
+        width: 280px;
+        height: 280px;
+        
+        .company-logo {
+          width: 240px;
+          height: 240px;
+        }
+      }
     }
   }
   
   .filters-section .filters-header {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: flex-start;
   }
   
   .results-header {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: flex-start;
   }
   
@@ -614,15 +805,20 @@ $border-color: #334155;
   
   .job-card .card-header {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     
     .company-info {
       width: 100%;
+      
+      .company-logo {
+        width: 100px;
+        height: 100px;
+        
+        .job-logo {
+          width: 80px;
+          height: 80px;
+        }
+      }
     }
   }
-}
-
-// Dark blue background utility
-.dark-blue-bg {
-  background: $dark-blue;
 }
