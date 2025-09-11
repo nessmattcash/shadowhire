@@ -21,23 +21,17 @@ $border-color: #334155;
 }
 
 @mixin dark-blue-shadow {
-  background: linear-gradient(135deg, darken($dark-blue, 10%) 0%, $dark-blue 100%);
   opacity: 0.1;
   filter: blur(5px);
-}
-
-@mixin reduce-size-10 {
-  transform: scale(0.9);
-  transform-origin: center;
 }
 
 // Global Styles
 .jobs-portal {
   min-height: 100vh;
-  background: linear-gradient(180deg, $dark-blue 0%, #0f172a 100%);
+  background: url('/assets/EY.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: $text-light;
   font-family: 'Inter', sans-serif;
-  @include reduce-size-10; // Reduce overall size by 10%
 }
 
 // Hero Section
@@ -45,6 +39,8 @@ $border-color: #334155;
   padding: 120px 0 100px;
   position: relative;
   overflow: hidden;
+  background: url('/assets/EY.jpg') no-repeat center center;
+  background-size: cover;
   
   &::before {
     content: '';
@@ -53,8 +49,7 @@ $border-color: #334155;
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 30%, $light-blue 0%, transparent 60%);
-    opacity: 0.15;
+    background: rgba(10, 25, 48, 0.7); // Dark overlay for readability
     z-index: 1;
   }
   
@@ -64,7 +59,6 @@ $border-color: #334155;
     margin: 0 auto;
     position: relative;
     z-index: 2;
-    @include reduce-size-10;
   }
   
   .hero-title {
@@ -106,10 +100,9 @@ $border-color: #334155;
     backdrop-filter: blur(12px);
     @include card-shadow;
     transition: transform 0.3s ease;
-    @include reduce-size-10;
     
     &:hover {
-      transform: translateY(-3px) scale(0.9);
+      transform: translateY(-3px);
     }
     
     i {
@@ -158,10 +151,12 @@ $border-color: #334155;
 .company-showcase {
   margin-top: 5rem;
   position: relative;
+  text-align: center;
   
   .swiper-container {
     padding: 4rem 0;
     overflow: visible;
+    display: inline-block;
   }
   
   .swiper-slide {
@@ -170,7 +165,7 @@ $border-color: #334155;
     position: relative;
     opacity: 0.6;
     transform: scale(0.85);
-    transition: opacity 0.5s ease; // Fade transition
+    transition: opacity 1s ease, transform 1s ease;
     
     &.swiper-slide-active {
       opacity: 1;
@@ -199,13 +194,14 @@ $border-color: #334155;
       object-fit: cover;
       opacity: 0.1;
       @include dark-blue-shadow;
+      transition: opacity 1s ease;
     }
   }
   
   .logo-container {
     width: 600px;
     height: 600px;
-    border-radius: 50%; // Perfect circle
+    border-radius: 50%;
     background: transparent;
     border: 4px solid $accent;
     @include flex-center;
@@ -216,7 +212,7 @@ $border-color: #334155;
       width: 600px;
       height: 600px;
       object-fit: cover;
-      border-radius: 50%; // Perfect circle
+      border-radius: 50%;
     }
   }
   
@@ -257,7 +253,6 @@ $border-color: #334155;
   backdrop-filter: blur(12px);
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
-  @include reduce-size-10;
   
   .filters-header {
     display: flex;
@@ -330,7 +325,6 @@ $border-color: #334155;
 // Jobs Section
 .jobs-section {
   padding: 5rem 0;
-  @include reduce-size-10;
   
   .container {
     max-width: 1400px;
@@ -341,7 +335,6 @@ $border-color: #334155;
 .loading-container, .error-container, .no-results {
   text-align: center;
   padding: 4rem;
-  @include reduce-size-10;
   
   i {
     font-size: 3.5rem;
@@ -394,7 +387,6 @@ $border-color: #334155;
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid $border-color;
-  @include reduce-size-10;
   
   h3 {
     font-size: 1.8rem;
@@ -437,7 +429,6 @@ $border-color: #334155;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
-  @include reduce-size-10;
 }
 
 // Job Card
@@ -449,7 +440,8 @@ $border-color: #334155;
   border: 1px solid $border-color;
   @include card-shadow;
   width: 100%;
-  max-width: 380px; // Adjusted for 6 per page
+  max-width: 380px;
+  height: 500px; // Fixed height to standardize size
   
   &:hover {
     transform: translateY(-8px);
@@ -497,7 +489,7 @@ $border-color: #334155;
         img {
           width: 64px;
           height: 64px;
-          object-fit: contain;
+          object-fit: cover;
         }
       }
       
@@ -529,7 +521,6 @@ $border-color: #334155;
   
   .card-body {
     padding: 2rem;
-    @include reduce-size-10;
     
     .job-meta {
       display: flex;
@@ -582,14 +573,16 @@ $border-color: #334155;
       }
     }
     
-    .job-description {
+    .job-description-teaser {
       color: $text-gray;
       line-height: 1.6;
       font-size: 1rem;
       margin-bottom: 0;
-      max-height: 120px;
+      max-height: 3.2rem; // Approximately 2 lines (1.6rem * 2)
       overflow: hidden;
-      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
   
@@ -599,7 +592,6 @@ $border-color: #334155;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @include reduce-size-10;
     
     .btn-view-details {
       background: $accent;
@@ -750,5 +742,6 @@ $border-color: #334155;
   
   .job-card {
     max-width: 100%;
+    height: 450px; // Adjusted for mobile
   }
 }
