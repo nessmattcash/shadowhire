@@ -31,8 +31,7 @@ interface Job {
 export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('companySwiper') companySwiperRef!: ElementRef;
   private companySwiper!: Swiper;
-  currentCompanyClass: string = '';
-
+  
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   isLoading = true;
@@ -42,13 +41,12 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   locationFilter = '';
   companyFilter = '';
   currentPage = 1;
-  hasMoreJobs = true;
   savedJobs: number[] = [];
 
   constructor(private jobsService: JobsService) {}
 
   ngOnInit(): void {
-    AOS.init({ duration: 1200, easing: 'ease-out-cubic' });
+    AOS.init({ duration: 800, easing: 'ease-out' });
     this.loadSavedJobs();
     this.fetchJobs();
   }
@@ -67,9 +65,9 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.companySwiper = new Swiper(this.companySwiperRef.nativeElement, {
       modules: [Navigation, Autoplay, EffectFade],
       loop: true,
-      speed: 1500,
+      speed: 1000,
       autoplay: {
-        delay: 10000,
+        delay: 7000,
         disableOnInteraction: false,
       },
       effect: 'fade',
@@ -96,31 +94,17 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  onSwiperSlideChange(swiper: any): void {
-    const activeIndex = swiper.activeIndex % swiper.slides.length;
-    const companies = ['ey', 'capgemini', 'microsoft', 'actia', 'sopra', 'openai'];
-    this.currentCompanyClass = `${companies[activeIndex]}-bg`;
-  }
-
   fetchJobs(): void {
     this.isLoading = true;
     this.error = null;
     
     this.jobsService.getJobs().subscribe({
       next: (data: Job[]) => {
-        const processedData = data.map((job, index) => ({
+        this.jobs = data.map((job, index) => ({
           ...job,
           featured: index % 5 === 0
         }));
-        
-        if (this.currentPage === 1) {
-          this.jobs = processedData;
-        } else {
-          this.jobs = [...this.jobs, ...processedData];
-        }
-        
         this.applyFilters();
-        this.hasMoreJobs = data.length === 10;
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -129,11 +113,6 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
         console.error('Error fetching jobs:', err);
       }
     });
-  }
-
-  loadMoreJobs(): void {
-    this.currentPage++;
-    this.fetchJobs();
   }
 
   onSearchChange(event: any): void {
@@ -230,25 +209,6 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getCompanyLogo(companyName: string): string {
     const logoMap: { [key: string]: string } = {
-      'Verse': 'assets/verse.jpg',
-      'Orange': 'assets/orange.jpg',
-      'Ooredoo': 'assets/ooredoo.jpg',
-      'InstaDeep': 'assets/instadeep.jpg',
-      'RFC': 'assets/rfc.jpg',
-      'Vermeg': 'assets/vermeg.jpg',
-      'Expensya': 'assets/expensya.jpg',
-      'Sofrecom': 'assets/sofrecom.jpg',
-      'Talan': 'assets/talan.jpg',
-      'NeoSoft': 'assets/neosoft.jpg',
-      'Amaris': 'assets/amaris.jpg',
-      'Business & Decision': 'assets/businessdecision.jpg',
-      'Telnet': 'assets/telnet.jpg',
-      'Focus': 'assets/focus.jpg',
-      'IBM': 'assets/ibm.jpg',
-      'Oradist': 'assets/oradist.jpg',
-      'Wattnow': 'assets/wattnow.jpg',
-      'Dabchy': 'assets/dabchy.jpg',
-      'Roamsmart': 'assets/roamsmart.jpg',
       'EY': 'assets/EY.jpg',
       'Capgemini': 'assets/cap.jpeg',
       'Microsoft': 'assets/micro.jpg',
@@ -281,5 +241,19 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isJobSaved(job: Job): boolean {
     return this.savedJobs.includes(job.id);
+  }
+
+  getPageNumbers(): number[] {
+    return Array.from({ length: Math.ceil(this.filteredJobs.length / 6) }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+  }
+
+  get paginatedJobs(): Job[] {
+    const start = (this.currentPage - 1) * 6;
+    const end = start + 6;
+    return this.filteredJobs.slice(start, end);
   }
 }

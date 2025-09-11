@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="jobs-portal">
   <!-- Hero Section with Company Showcase -->
-  <section class="hero-section dark-blue-bg" [class]="currentCompanyClass">
+  <section class="hero-section dark-blue-bg">
     <div class="container">
       <div class="hero-content">
         <h1 class="hero-title">Find Your Dream <span class="highlight">Job</span></h1>
@@ -20,7 +20,7 @@
       
       <!-- Company Logo Showcase -->
       <div class="company-showcase" data-aos="fade-up" data-aos-delay="400">
-        <div class="swiper-container" #companySwiper (swiper)="onSwiperSlideChange($event)">
+        <div class="swiper-container" #companySwiper>
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="logo-background">
@@ -32,7 +32,7 @@
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/cap.jpeg" alt="Capgemini Background" class="logo-bg-image">
+                <img src="assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
                 <img src="assets/cap.jpeg" alt="Capgemini" class="company-logo">
@@ -40,7 +40,7 @@
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/micro.jpg" alt="Microsoft Background" class="logo-bg-image">
+                <img src="assets/EY.jpg" alt="Microsoft Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
                 <img src="assets/micro.jpg" alt="Microsoft" class="company-logo">
@@ -48,7 +48,7 @@
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/ACTIA.jpg" alt="ACTIA Background" class="logo-bg-image">
+                <img src="assets/EY.jpg" alt="ACTIA Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
                 <img src="assets/ACTIA.jpg" alt="ACTIA" class="company-logo">
@@ -56,7 +56,7 @@
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/sopra.jpg" alt="Sopra Steria Background" class="logo-bg-image">
+                <img src="assets/EY.jpg" alt="Sopra Steria Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
                 <img src="assets/sopra.jpg" alt="Sopra Steria" class="company-logo">
@@ -64,7 +64,7 @@
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/OpenAI.jpg" alt="OpenAI Background" class="logo-bg-image">
+                <img src="assets/EY.jpg" alt="OpenAI Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
                 <img src="assets/OpenAI.jpg" alt="OpenAI" class="company-logo">
@@ -125,27 +125,24 @@
         <button class="btn-retry" (click)="fetchJobs()">Try Again</button>
       </div>
 
-      <!-- Results Count -->
+      <!-- Results Count and Navigation -->
       <div *ngIf="!isLoading && !error" class="results-header" data-aos="fade-up">
         <h3>Found <span class="count">{{ filteredJobs.length }}</span> job opportunities</h3>
-        <div class="sort-options">
-          <label for="sortSelect" class="sort-label">Sort by:</label>
-          <select id="sortSelect" (change)="onSortChange($event)" class="sort-select">
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="company">Company A-Z</option>
-          </select>
+        <div class="job-navigation">
+          <button *ngFor="let page of getPageNumbers()" 
+                  [class.active]="currentPage === page" 
+                  (click)="goToPage(page)">{{ page }}</button>
         </div>
       </div>
 
-      <!-- Job Cards Grid -->
+      <!-- Jobs Grid -->
       <div *ngIf="!isLoading && !error" class="jobs-grid">
-        <div *ngFor="let job of filteredJobs; let i = index" class="job-card" [class.featured]="job.featured" 
-             data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+        <div *ngFor="let job of paginatedJobs; let i = index" class="job-card" [class.featured]="job.featured" 
+             data-aos="fade-up" [attr.data-aos-delay]="i * 50">
           <div class="card-header">
             <div class="company-info">
               <div class="company-logo">
-                <img [src]="getCompanyLogo(job.company)" [alt]="job.company" class="job-logo">
+                <img [src]="getCompanyLogo(job.company)" [alt]="job.company">
               </div>
               <div class="company-details">
                 <h3 class="job-title">{{ job.title }}</h3>
@@ -191,13 +188,6 @@
         <i class="bi bi-search"></i>
         <h4>No jobs found</h4>
         <p>Try adjusting your search criteria or filters</p>
-      </div>
-
-      <!-- Load More Button -->
-      <div *ngIf="!isLoading && !error && filteredJobs.length > 0 && hasMoreJobs" class="load-more-container" data-aos="fade-up">
-        <button class="btn-load-more" (click)="loadMoreJobs()">
-          Load More Opportunities
-        </button>
       </div>
     </div>
   </section>

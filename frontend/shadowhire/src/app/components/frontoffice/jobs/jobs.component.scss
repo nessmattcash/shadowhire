@@ -20,10 +20,15 @@ $border-color: #334155;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
-@mixin dynamic-bg($color) {
-  background: linear-gradient(135deg, $color 0%, darken($color, 20%) 100%);
-  opacity: 0.2;
-  transition: all 0.5s ease;
+@mixin dark-blue-shadow {
+  background: linear-gradient(135deg, darken($dark-blue, 10%) 0%, $dark-blue 100%);
+  opacity: 0.1;
+  filter: blur(5px);
+}
+
+@mixin reduce-size-10 {
+  transform: scale(0.9);
+  transform-origin: center;
 }
 
 // Global Styles
@@ -32,6 +37,7 @@ $border-color: #334155;
   background: linear-gradient(180deg, $dark-blue 0%, #0f172a 100%);
   color: $text-light;
   font-family: 'Inter', sans-serif;
+  @include reduce-size-10; // Reduce overall size by 10%
 }
 
 // Hero Section
@@ -39,15 +45,7 @@ $border-color: #334155;
   padding: 120px 0 100px;
   position: relative;
   overflow: hidden;
-  transition: background 0.5s ease;
-
-  &.ey-bg { @include dynamic-bg(#003087); }
-  &.capgemini-bg { @include dynamic-bg(#d00000); }
-  &.microsoft-bg { @include dynamic-bg(#f25022); }
-  &.actia-bg { @include dynamic-bg(#0066cc); }
-  &.sopra-bg { @include dynamic-bg(#1a2a44); }
-  &.openai-bg { @include dynamic-bg(#000000); }
-
+  
   &::before {
     content: '';
     position: absolute;
@@ -66,6 +64,7 @@ $border-color: #334155;
     margin: 0 auto;
     position: relative;
     z-index: 2;
+    @include reduce-size-10;
   }
   
   .hero-title {
@@ -107,9 +106,10 @@ $border-color: #334155;
     backdrop-filter: blur(12px);
     @include card-shadow;
     transition: transform 0.3s ease;
+    @include reduce-size-10;
     
     &:hover {
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(0.9);
     }
     
     i {
@@ -166,11 +166,11 @@ $border-color: #334155;
   
   .swiper-slide {
     @include flex-center;
-    height: 450px;
+    height: 600px;
     position: relative;
     opacity: 0.6;
     transform: scale(0.85);
-    transition: all 0.5s ease;
+    transition: opacity 0.5s ease; // Fade transition
     
     &.swiper-slide-active {
       opacity: 1;
@@ -190,49 +190,33 @@ $border-color: #334155;
     left: 0;
     right: 0;
     bottom: 0;
-    @include flex-center;
     z-index: 1;
-    display: none; // Hide static background image since dynamic background is used
+    @include flex-center;
     
     .logo-bg-image {
-      width: 400px;
-      height: 400px;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       opacity: 0.1;
-      filter: brightness(0.5) contrast(0.8) sepia(0.2) hue-rotate(200deg);
-      border-radius: 50%;
-      clip-path: circle(50% at 50% 50%);
+      @include dark-blue-shadow;
     }
   }
   
   .logo-container {
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    width: 600px;
+    height: 600px;
+    border-radius: 50%; // Perfect circle
+    background: transparent;
     border: 4px solid $accent;
-    backdrop-filter: blur(12px);
     @include flex-center;
-    transition: all 0.5s ease;
     position: relative;
     z-index: 2;
     
     .company-logo {
-      width: 300px;
-      height: 300px;
-      object-fit: contain;
-      border-radius: 50%;
-      clip-path: circle(50% at 50% 50%);
-      transition: transform 0.5s ease;
-    }
-    
-    .swiper-slide-active & {
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-      transform: scale(1.2);
-      
-      .company-logo {
-        transform: scale(1.2);
-      }
+      width: 600px;
+      height: 600px;
+      object-fit: cover;
+      border-radius: 50%; // Perfect circle
     }
   }
   
@@ -273,6 +257,7 @@ $border-color: #334155;
   backdrop-filter: blur(12px);
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
+  @include reduce-size-10;
   
   .filters-header {
     display: flex;
@@ -345,6 +330,7 @@ $border-color: #334155;
 // Jobs Section
 .jobs-section {
   padding: 5rem 0;
+  @include reduce-size-10;
   
   .container {
     max-width: 1400px;
@@ -355,6 +341,7 @@ $border-color: #334155;
 .loading-container, .error-container, .no-results {
   text-align: center;
   padding: 4rem;
+  @include reduce-size-10;
   
   i {
     font-size: 3.5rem;
@@ -376,7 +363,7 @@ $border-color: #334155;
     border: 4px solid rgba(59, 130, 246, 0.3);
     border-radius: 50%;
     border-top-color: $accent;
-    animation: spin 1s ease-in-out infinite;
+    animation: spin 0.8s ease-in-out infinite;
     margin: 0 auto 1.5rem;
   }
 }
@@ -407,6 +394,7 @@ $border-color: #334155;
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid $border-color;
+  @include reduce-size-10;
   
   h3 {
     font-size: 1.8rem;
@@ -418,57 +406,26 @@ $border-color: #334155;
     }
   }
   
-  .sort-options {
+  .job-navigation {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     
-    .sort-label {
+    button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
       color: $text-light;
-      font-weight: 600;
-      margin-right: 0.5rem;
-    }
-    
-    .sort-select {
-      appearance: none;
-      background: linear-gradient(90deg, $card-bg, darken($card-bg, 10%));
-      border: 2px solid $accent;
-      border-radius: 8px;
-      padding: 0.75rem 2rem 0.75rem 1rem;
-      color: $text-light;
-      font-size: 1rem;
-      font-weight: 500;
       cursor: pointer;
-      position: relative;
       transition: all 0.3s ease;
       
-      &:focus {
-        outline: none;
-        border-color: $accent-light;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-      }
-      
-      &:after {
-        content: '\25BC';
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: $accent;
-        font-size: 0.9rem;
-        pointer-events: none;
-      }
-      
-      option {
-        background: $card-bg;
+      &.active {
+        background: $accent;
         color: $text-light;
-        padding: 0.5rem;
-        font-weight: 500;
-        
-        &:hover {
-          background: $accent;
-          color: $text-light;
-        }
+      }
+      
+      &:hover {
+        background: rgba(59, 130, 246, 0.2);
       }
     }
   }
@@ -480,6 +437,7 @@ $border-color: #334155;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
+  @include reduce-size-10;
 }
 
 // Job Card
@@ -487,9 +445,11 @@ $border-color: #334155;
   background: $card-bg;
   border-radius: 16px;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease-out;
   border: 1px solid $border-color;
   @include card-shadow;
+  width: 100%;
+  max-width: 380px; // Adjusted for 6 per page
   
   &:hover {
     transform: translateY(-8px);
@@ -525,21 +485,19 @@ $border-color: #334155;
       gap: 1.5rem;
       
       .company-logo {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         overflow: hidden;
         flex-shrink: 0;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-        border: 2px solid $accent;
+        border: 1px solid $accent;
         @include flex-center;
         
-        .job-logo {
-          width: 100px;
-          height: 100px;
+        img {
+          width: 64px;
+          height: 64px;
           object-fit: contain;
-          border-radius: 50%;
-          clip-path: circle(50% at 50% 50%);
         }
       }
       
@@ -571,6 +529,7 @@ $border-color: #334155;
   
   .card-body {
     padding: 2rem;
+    @include reduce-size-10;
     
     .job-meta {
       display: flex;
@@ -640,6 +599,7 @@ $border-color: #334155;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @include reduce-size-10;
     
     .btn-view-details {
       background: $accent;
@@ -694,31 +654,6 @@ $border-color: #334155;
   }
 }
 
-// Load More Button
-.load-more-container {
-  text-align: center;
-  margin-top: 3rem;
-  
-  .btn-load-more {
-    background: transparent;
-    border: 2px solid $accent;
-    color: $accent;
-    padding: 1rem 2.5rem;
-    border-radius: 60px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    &:hover {
-      background: $accent;
-      color: $text-light;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.5);
-    }
-  }
-}
-
 // Animations
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -726,7 +661,7 @@ $border-color: #334155;
 }
 
 @keyframes fadeInScale {
-  0% { opacity: 0; transform: scale(0.8); }
+  0% { opacity: 0; transform: scale(0.9); }
   100% { opacity: 1; transform: scale(1); }
 }
 
@@ -775,13 +710,23 @@ $border-color: #334155;
     .swiper-slide {
       height: 400px;
       
+      .logo-background {
+        width: 100%;
+        height: 100%;
+        
+        .logo-bg-image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      
       .logo-container {
-        width: 280px;
-        height: 280px;
+        width: 320px;
+        height: 320px;
         
         .company-logo {
-          width: 240px;
-          height: 240px;
+          width: 320px;
+          height: 320px;
         }
       }
     }
@@ -803,22 +748,7 @@ $border-color: #334155;
     grid-template-columns: 1fr;
   }
   
-  .job-card .card-header {
-    flex-direction: column;
-    gap: 1.5rem;
-    
-    .company-info {
-      width: 100%;
-      
-      .company-logo {
-        width: 100px;
-        height: 100px;
-        
-        .job-logo {
-          width: 80px;
-          height: 80px;
-        }
-      }
-    }
+  .job-card {
+    max-width: 100%;
   }
 }
