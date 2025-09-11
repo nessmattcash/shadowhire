@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -43,7 +43,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   currentPage = 1;
   savedJobs: number[] = [];
 
-  constructor(private jobsService: JobsService) {}
+  constructor(private jobsService: JobsService, private router: Router) {}
 
   ngOnInit(): void {
     AOS.init({ duration: 800, easing: 'ease-out' });
@@ -67,7 +67,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
       loop: true,
       speed: 1000,
       autoplay: {
-        delay: 7000,
+        delay: 10000,
         disableOnInteraction: false,
       },
       effect: 'fade',
@@ -157,6 +157,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     
     this.filteredJobs = results;
+    this.currentPage = 1; // Reset to first page on filter
   }
 
   clearFilters(): void {
@@ -187,6 +188,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
         );
         break;
     }
+    this.currentPage = 1; // Reset to first page on sort
   }
 
   getSkillsArray(skillsString: string): string[] {
@@ -209,15 +211,15 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getCompanyLogo(companyName: string): string {
     const logoMap: { [key: string]: string } = {
-      'EY': 'assets/EY.jpg',
-      'Capgemini': 'assets/cap.jpeg',
-      'Microsoft': 'assets/micro.jpg',
-      'ACTIA': 'assets/ACTIA.jpg',
-      'Sopra Steria': 'assets/sopra.jpg',
-      'OpenAI': 'assets/OpenAI.jpg'
+      'EY': '/assets/EY.jpg',
+      'Capgemini': '/assets/cap.jpeg',
+      'Microsoft': '/assets/micro.jpg',
+      'ACTIA': '/assets/ACTIA.jpg',
+      'Sopra Steria': '/assets/sopra.jpg',
+      'OpenAI': '/assets/OpenAI.jpg'
     };
     
-    return logoMap[companyName] || 'assets/default-company.png';
+    return logoMap[companyName] || '/assets/default-company.png';
   }
 
   loadSavedJobs(): void {
@@ -255,5 +257,14 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     const start = (this.currentPage - 1) * 6;
     const end = start + 6;
     return this.filteredJobs.slice(start, end);
+  }
+
+  getTwoLineDescription(description: string): string {
+    const lines = description.split('\n').slice(0, 2).join(' ');
+    return lines.length > 100 ? lines.substring(0, 100) + '...' : lines + '...';
+  }
+
+  navigateToJob(jobId: number): void {
+    this.router.navigate(['/job', jobId]);
   }
 }

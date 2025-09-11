@@ -5,7 +5,7 @@
     <div class="container">
       <div class="hero-content">
         <h1 class="hero-title">Find Your Dream <span class="highlight">Job</span></h1>
-        <p class="hero-subtitle">Discover opportunities from top companies around the world</p>
+        <p class="hero-subtitle">Discover opportunities from top companies</p>
         
         <!-- Search Bar -->
         <div class="search-container" data-aos="fade-up" data-aos-delay="200">
@@ -24,50 +24,50 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/EY.jpg" alt="EY Background" class="logo-bg-image">
+                <img src="/assets/EY.jpg" alt="EY Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
-                <img src="assets/EY.jpg" alt="EY" class="company-logo">
+                <img src="/assets/EY.jpg" alt="EY" class="company-logo">
               </div>
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
+                <img src="/assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
-                <img src="assets/cap.jpeg" alt="Capgemini" class="company-logo">
+                <img src="/assets/cap.jpeg" alt="Capgemini" class="company-logo">
               </div>
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/EY.jpg" alt="Microsoft Background" class="logo-bg-image">
+                <img src="/assets/EY.jpg" alt="Microsoft Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
-                <img src="assets/micro.jpg" alt="Microsoft" class="company-logo">
+                <img src="/assets/micro.jpg" alt="Microsoft" class="company-logo">
               </div>
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/EY.jpg" alt="ACTIA Background" class="logo-bg-image">
+                <img src="/assets/EY.jpg" alt="ACTIA Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
-                <img src="assets/ACTIA.jpg" alt="ACTIA" class="company-logo">
+                <img src="/assets/ACTIA.jpg" alt="ACTIA" class="company-logo">
               </div>
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/EY.jpg" alt="Sopra Steria Background" class="logo-bg-image">
+                <img src="/assets/EY.jpg" alt="Sopra Steria Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
-                <img src="assets/sopra.jpg" alt="Sopra Steria" class="company-logo">
+                <img src="/assets/sopra.jpg" alt="Sopra Steria" class="company-logo">
               </div>
             </div>
             <div class="swiper-slide">
               <div class="logo-background">
-                <img src="assets/EY.jpg" alt="OpenAI Background" class="logo-bg-image">
+                <img src="/assets/EY.jpg" alt="OpenAI Background" class="logo-bg-image">
               </div>
               <div class="logo-container">
-                <img src="assets/OpenAI.jpg" alt="OpenAI" class="company-logo">
+                <img src="/assets/OpenAI.jpg" alt="OpenAI" class="company-logo">
               </div>
             </div>
           </div>
@@ -171,11 +171,12 @@
               </div>
             </div>
             
-            <p class="job-description">{{ job.description }}</p>
+            <!-- Two lines of description -->
+            <p class="job-description-teaser" [innerHTML]="getTwoLineDescription(job.description)"></p>
           </div>
           
           <div class="card-footer">
-            <a [routerLink]="['/jobs', job.id]" class="btn-view-details">View Details</a>
+            <a [routerLink]="['/job', job.id]" class="btn-view-details" (click)="navigateToJob(job.id)">View Details</a>
             <button class="btn-save" (click)="toggleSaveJob(job)">
               <i class="bi" [class.bi-bookmark]="!isJobSaved(job)" [class.bi-bookmark-fill]="isJobSaved(job)"></i>
             </button>
