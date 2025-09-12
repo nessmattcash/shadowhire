@@ -42,6 +42,8 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   companyFilter = '';
   currentPage = 1;
   savedJobs: number[] = [];
+  selectedJob: Job | null = null;
+  progress = 0;
 
   constructor(private jobsService: JobsService, private router: Router) {}
 
@@ -49,15 +51,18 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     AOS.init({ duration: 800, easing: 'ease-out' });
     this.loadSavedJobs();
     this.fetchJobs();
+    this.simulateProgress();
   }
 
   ngAfterViewInit(): void {
-    this.initSwiper();
+    if (this.companySwiperRef) {
+      this.initSwiper();
+    }
   }
 
   ngOnDestroy(): void {
     if (this.companySwiper) {
-      this.companySwiper.destroy(true, true);
+      this.companySwiper.destroy();
     }
   }
 
@@ -67,7 +72,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
       loop: true,
       speed: 1000,
       autoplay: {
-        delay: 10000,
+        delay: 10000, // 10 seconds
         disableOnInteraction: false,
       },
       effect: 'fade',
@@ -94,8 +99,21 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  private simulateProgress(): void {
+    if (this.isLoading) {
+      const interval = setInterval(() => {
+        this.progress = Math.min(this.progress + 10, 90);
+        if (!this.isLoading) {
+          this.progress = 100;
+          clearInterval(interval);
+        }
+      }, 300);
+    }
+  }
+
   fetchJobs(): void {
     this.isLoading = true;
+    this.progress = 0;
     this.error = null;
     
     this.jobsService.getJobs().subscribe({
@@ -157,7 +175,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     
     this.filteredJobs = results;
-    this.currentPage = 1; // Reset to first page on filter
+    this.currentPage = 1;
   }
 
   clearFilters(): void {
@@ -168,27 +186,12 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.applyFilters();
   }
 
-  onSortChange(event: any): void {
-    const sortBy = event.target.value;
-    
-    switch (sortBy) {
-      case 'newest':
-        this.filteredJobs.sort((a, b) => 
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
-        break;
-      case 'oldest':
-        this.filteredJobs.sort((a, b) => 
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        );
-        break;
-      case 'company':
-        this.filteredJobs.sort((a, b) => 
-          a.company.localeCompare(b.company)
-        );
-        break;
-    }
-    this.currentPage = 1; // Reset to first page on sort
+  selectJob(job: Job): void {
+    this.selectedJob = this.selectedJob === job ? null : job;
+  }
+
+  isJobSelected(job: Job): boolean {
+    return this.selectedJob === job;
   }
 
   getSkillsArray(skillsString: string): string[] {
@@ -261,10 +264,12 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getTwoLineDescription(description: string): string {
     const lines = description.split('\n').slice(0, 2).join(' ');
-    return lines.length > 100 ? lines.substring(0, 100) + '...' : lines + '...';
+    const twoLines = lines.split('. ').slice(0, 2).join('. ');
+    return twoLines + (twoLines.length < description.length ? '… [Read More]' : '');
   }
 
   navigateToJob(jobId: number): void {
-    this.router.navigate(['/job', jobId]);
+    this.router.navigate(['/jobs-details', jobId]).then(() => {
+    }).catch(err => console.error('Navigation error:', err));
   }
 }
