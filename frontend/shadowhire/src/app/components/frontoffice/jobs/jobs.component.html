@@ -26,7 +26,7 @@
               <div class="logo-background">
                 <img src="/assets/EY.jpg" alt="EY Background" class="logo-bg-image">
               </div>
-              <div class="logo-container">
+              <div class="logo-content">
                 <img src="/assets/EY.jpg" alt="EY" class="company-logo">
               </div>
             </div>
@@ -34,7 +34,7 @@
               <div class="logo-background">
                 <img src="/assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
               </div>
-              <div class="logo-container">
+              <div class="logo-content">
                 <img src="/assets/cap.jpeg" alt="Capgemini" class="company-logo">
               </div>
             </div>
@@ -42,7 +42,7 @@
               <div class="logo-background">
                 <img src="/assets/EY.jpg" alt="Microsoft Background" class="logo-bg-image">
               </div>
-              <div class="logo-container">
+              <div class="logo-content">
                 <img src="/assets/micro.jpg" alt="Microsoft" class="company-logo">
               </div>
             </div>
@@ -50,7 +50,7 @@
               <div class="logo-background">
                 <img src="/assets/EY.jpg" alt="ACTIA Background" class="logo-bg-image">
               </div>
-              <div class="logo-container">
+              <div class="logo-content">
                 <img src="/assets/ACTIA.jpg" alt="ACTIA" class="company-logo">
               </div>
             </div>
@@ -58,7 +58,7 @@
               <div class="logo-background">
                 <img src="/assets/EY.jpg" alt="Sopra Steria Background" class="logo-bg-image">
               </div>
-              <div class="logo-container">
+              <div class="logo-content">
                 <img src="/assets/sopra.jpg" alt="Sopra Steria" class="company-logo">
               </div>
             </div>
@@ -66,8 +66,25 @@
               <div class="logo-background">
                 <img src="/assets/EY.jpg" alt="OpenAI Background" class="logo-bg-image">
               </div>
-              <div class="logo-container">
+              <div class="logo-content">
                 <img src="/assets/OpenAI.jpg" alt="OpenAI" class="company-logo">
+              </div>
+            </div>
+            <!-- Duplicates for loop compatibility -->
+            <div class="swiper-slide">
+              <div class="logo-background">
+                <img src="/assets/EY.jpg" alt="EY Background" class="logo-bg-image">
+              </div>
+              <div class="logo-content">
+                <img src="/assets/EY.jpg" alt="EY" class="company-logo">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="logo-background">
+                <img src="/assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
+              </div>
+              <div class="logo-content">
+                <img src="/assets/cap.jpeg" alt="Capgemini" class="company-logo">
               </div>
             </div>
           </div>
@@ -112,10 +129,11 @@
   <!-- Jobs Listing Section -->
   <section class="jobs-section">
     <div class="container">
-      <!-- Loading Spinner -->
+      <!-- Loading Spinner with Progress -->
       <div *ngIf="isLoading" class="loading-container" data-aos="fade-in">
         <div class="spinner"></div>
         <p>Loading opportunities...</p>
+        <div class="progress-bar" [style.width]="progress + '%'"></div>
       </div>
 
       <!-- Error Message -->
@@ -138,7 +156,7 @@
       <!-- Jobs Grid -->
       <div *ngIf="!isLoading && !error" class="jobs-grid">
         <div *ngFor="let job of paginatedJobs; let i = index" class="job-card" [class.featured]="job.featured" 
-             data-aos="fade-up" [attr.data-aos-delay]="i * 50">
+             data-aos="fade-up" [attr.data-aos-delay]="i * 50" (click)="selectJob(job)" [class.selected]="isJobSelected(job)">
           <div class="card-header">
             <div class="company-info">
               <div class="company-logo">
@@ -167,17 +185,18 @@
             <div class="skills-container">
               <div class="skills-label">Skills Required:</div>
               <div class="skills-list">
-                <span *ngFor="let skill of getSkillsArray(job.skills_required)" class="skill-tag">{{ skill }}</span>
+                <span *ngFor="let skill of getSkillsArray(job.skills_required)" class="skill-tag" 
+                      title="Click to filter by {{ skill }}">{{ skill }}</span>
               </div>
             </div>
             
-            <!-- Two lines of description -->
+            <!-- Two lines of description with professional ellipsis -->
             <p class="job-description-teaser" [innerHTML]="getTwoLineDescription(job.description)"></p>
           </div>
           
           <div class="card-footer">
-            <a [routerLink]="['/job', job.id]" class="btn-view-details" (click)="navigateToJob(job.id)">View Details</a>
-            <button class="btn-save" (click)="toggleSaveJob(job)">
+            <a [routerLink]="['/jobs-details', job.id]" class="btn-view-details" (click)="navigateToJob(job.id); $event.preventDefault()">View Details</a>
+            <button class="btn-save" (click)="toggleSaveJob(job); $event.stopPropagation()">
               <i class="bi" [class.bi-bookmark]="!isJobSaved(job)" [class.bi-bookmark-fill]="isJobSaved(job)"></i>
             </button>
           </div>
