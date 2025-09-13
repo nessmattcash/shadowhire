@@ -1,5 +1,7 @@
-<app-header></app-header>
+  <app-header></app-header>
+
 <div class="jobs-portal">
+  <app-header></app-header>
   <!-- Hero Section with Company Showcase -->
   <section class="hero-section dark-blue-bg">
     <div class="container">
@@ -22,75 +24,10 @@
       <div class="company-showcase" data-aos="fade-up" data-aos-delay="400">
         <div class="swiper-container" #companySwiper>
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="EY Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/EY.jpg" alt="EY" class="company-logo">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/cap.jpeg" alt="Capgemini" class="company-logo">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="Microsoft Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/micro.jpg" alt="Microsoft" class="company-logo">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="ACTIA Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/ACTIA.jpg" alt="ACTIA" class="company-logo">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="Sopra Steria Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/sopra.jpg" alt="Sopra Steria" class="company-logo">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="OpenAI Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/OpenAI.jpg" alt="OpenAI" class="company-logo">
-              </div>
-            </div>
-            <!-- Duplicates for loop compatibility -->
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="EY Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/EY.jpg" alt="EY" class="company-logo">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="logo-background">
-                <img src="/assets/EY.jpg" alt="Capgemini Background" class="logo-bg-image">
-              </div>
-              <div class="logo-content">
-                <img src="/assets/cap.jpeg" alt="Capgemini" class="company-logo">
-              </div>
-            </div>
+            <div class="swiper-slide" data-background="/assets/EY.jpg"></div>
+            <div class="swiper-slide" data-background="/assets/micro.jpg"></div>
+            <div class="swiper-slide" data-background="/assets/OpenAI.jpg"></div>
           </div>
-          <!-- Navigation buttons -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
         </div>
       </div>
     </div>
@@ -155,8 +92,8 @@
 
       <!-- Jobs Grid -->
       <div *ngIf="!isLoading && !error" class="jobs-grid">
-        <div *ngFor="let job of paginatedJobs; let i = index" class="job-card" [class.featured]="job.featured" 
-             data-aos="fade-up" [attr.data-aos-delay]="i * 50" (click)="selectJob(job)" [class.selected]="isJobSelected(job)">
+        <div *ngFor="let job of paginatedJobs; let i = index" class="job-card" 
+             data-aos="fade-up" [attr.data-aos-delay]="i * 50" (click)="openJobPopup(job)" [class.selected]="isJobSelected(job)">
           <div class="card-header">
             <div class="company-info">
               <div class="company-logo">
@@ -165,9 +102,9 @@
               <div class="company-details">
                 <h3 class="job-title">{{ job.title }}</h3>
                 <p class="company-name">{{ job.company }}</p>
+                <span class="featured-tag" *ngIf="job.isFeaturedShown">Featured</span>
               </div>
             </div>
-            <span *ngIf="job.featured" class="featured-badge">Featured</span>
           </div>
           
           <div class="card-body">
@@ -190,12 +127,11 @@
               </div>
             </div>
             
-            <!-- Two lines of description with professional ellipsis -->
-            <p class="job-description-teaser" [innerHTML]="getTwoLineDescription(job.description)"></p>
+            <div class="job-description-teaser">{{ getTwoLineDescription(job.description) }}</div>
           </div>
           
           <div class="card-footer">
-            <a [routerLink]="['/jobs-details', job.id]" class="btn-view-details" (click)="navigateToJob(job.id); $event.preventDefault()">View Details</a>
+            <button class="btn-view-details" (click)="navigateToJob(job.id); $event.stopPropagation()">View Details</button>
             <button class="btn-save" (click)="toggleSaveJob(job); $event.stopPropagation()">
               <i class="bi" [class.bi-bookmark]="!isJobSaved(job)" [class.bi-bookmark-fill]="isJobSaved(job)"></i>
             </button>
@@ -208,6 +144,52 @@
         <i class="bi bi-search"></i>
         <h4>No jobs found</h4>
         <p>Try adjusting your search criteria or filters</p>
+      </div>
+
+      <!-- Job Popup -->
+      <div class="job-popup" *ngIf="selectedJob" (click)="closeJobPopup($event)">
+        <div class="popup-content" (click)="stopPropagation($event)">
+          <button class="close-btn" (click)="closeJobPopup($event)">×</button>
+          <div class="popup-header">
+            <div class="company-logo">
+              <img [src]="getCompanyLogo(selectedJob.company)" [alt]="selectedJob.company">
+            </div>
+            <div class="company-details">
+              <h3 class="job-title">{{ selectedJob.title }}</h3>
+              <p class="company-name">{{ selectedJob.company }}</p>
+              <span class="featured-tag" *ngIf="selectedJob.isFeaturedShown">Featured</span>
+            </div>
+          </div>
+          <div class="popup-body">
+            <div class="job-meta">
+              <div class="meta-item">
+                <i class="bi bi-geo-alt"></i>
+                <span>{{ selectedJob.location }}</span>
+              </div>
+              <div class="meta-item">
+                <i class="bi bi-clock"></i>
+                <span>{{ formatDate(selectedJob.created_at) }}</span>
+              </div>
+            </div>
+            <div class="skills-container">
+              <div class="skills-label">Skills Required:</div>
+              <div class="skills-list">
+                <span *ngFor="let skill of getSkillsArray(selectedJob.skills_required)" class="skill-tag">
+                  {{ skill }}
+                </span>
+              </div>
+            </div>
+            <div class="job-description-full" [style.height]="getDescriptionHeight(selectedJob.description)">
+              {{ selectedJob.description || 'Embark on an exciting journey with this role! Dive into a dynamic environment where your skills will shine, offering opportunities to grow, innovate, and collaborate with top-tier professionals. Expect a competitive salary, flexible hours, and a chance to leave your mark on groundbreaking projects.' }}
+            </div>
+          </div>
+          <div class="popup-footer">
+            <button class="btn-view-details" (click)="navigateToJob(selectedJob.id); closeJobPopup($event)">View Details</button>
+            <button class="btn-save" (click)="toggleSaveJob(selectedJob); $event.stopPropagation()">
+              <i class="bi" [class.bi-bookmark]="!isJobSaved(selectedJob)" [class.bi-bookmark-fill]="isJobSaved(selectedJob)"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
