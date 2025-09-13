@@ -46,9 +46,12 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedJob: Job | null = null;
   progress = 0;
   backgroundImages = [
-    '/assets/EY.jpg',
     '/assets/micro.jpg',
+    
+    '/assets/EY.jpg',
+    
     '/assets/OpenAI.jpg'
+    
   ];
 
   constructor(private jobsService: JobsService, private router: Router) {}
@@ -78,10 +81,10 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
       loop: true,
       speed: 1500,
       autoplay: {
-        delay: 10000,
+        delay: 5000,
         disableOnInteraction: false,
       },
-      effect: 'slide',
+      effect: 'fade',
       slidesPerView: 1,
       centeredSlides: true,
       grabCursor: true,
@@ -239,7 +242,34 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getCompanyLogo(companyName: string): string {
-    return '/assets/default-logo.jpg'; // Default logo
+    const companyLogos: { [key: string]: string } = {
+      'EY': '/assets/EY.jpg',
+      'Actia': '/assets/ACTIA.jpg',
+      'Sagemcom': '/assets/sagemcom.jpg',
+      'Defensy': '/assets/def.png',
+      'Verse': '/assets/verse.jpg.png',
+      'Sopra Steria': '/assets/sopra.jpg',
+      'Orange': '/assets/orange.jpg',
+      'Ooredoo': '/assets/ooredoo.jpg',
+      'InstaDeep': '/assets/insta.png',
+      'RFC': '/assets/rfc.png',
+      'Vermeg': '/assets/vermeg.jpg',
+      'Expensya': '/assets/exp.jpg',
+      'Sofrecom': '/assets/sofrecom.jpg',
+      'Talan': '/assets/talan.jpg',
+      'NeoSoft': '/assets/neo.jpg',
+      'Amaris': '/assets/amaris.jpg',
+      'Business & Decision': '/assets/bd.png',
+      'Telnet': '/assets/telnet.jpg',
+      'Focus': '/assets/focus.jpg',
+      'IBM': '/assets/ibm.jpg',
+      'Oradist': '/assets/images.jpg',
+      'Wattnow': '/assets/wat.png',
+      'Dabchy': '/assets/dabchy.png',
+      'Roamsmart': '/assets/roam.jpg',
+      'Capgemini': '/assets/cap.jpeg'
+    };
+    return companyLogos[companyName] || '/assets/default-logo.jpg';
   }
 
   loadSavedJobs(): void {

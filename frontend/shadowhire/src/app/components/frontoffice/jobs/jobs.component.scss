@@ -8,6 +8,8 @@ $text-light: #f8fafc;
 $text-gray: #94a3b8;
 $card-bg: #1e293b;
 $border-color: #334155;
+$jobs-bg: #2a4066; // Adjusted to a medium-dark blue
+$jobs-bg-secondary: #2e4b80; // Secondary color for animation
 
 // Mixins
 @mixin flex-center {
@@ -36,7 +38,7 @@ $border-color: #334155;
 
 // Hero Section
 .hero-section {
-  padding: 120px 0 120px; // Lowered and enlarged
+  padding: 150px 0 150px; // Bigger and lower, centered in background
   position: relative;
   overflow: hidden;
   background: var(--background-image, url('/assets/EY.jpg')) no-repeat center center;
@@ -50,22 +52,22 @@ $border-color: #334155;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(26, 42, 68, 0.5);
+    background: rgba(26, 42, 68, 0.4); // Slightly less dark
     z-index: 1;
   }
 
   .hero-content {
     text-align: center;
-    max-width: 800px; // Slightly bigger
+    max-width: 900px; // Bigger
     margin: 0 auto;
     position: relative;
     z-index: 2;
   }
 
   .hero-title {
-    font-size: 3.2rem; // Slightly bigger
+    font-size: 3.5rem; // Bigger
     font-weight: 900;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     background: linear-gradient(135deg, $text-light 0%, $accent-light 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -78,9 +80,9 @@ $border-color: #334155;
   }
 
   .hero-subtitle {
-    font-size: 1.3rem; // Slightly bigger
+    font-size: 1.4rem; // Bigger
     color: $text-gray;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     font-weight: 300;
   }
 }
@@ -88,7 +90,7 @@ $border-color: #334155;
 // Search Container
 .search-container {
   margin: 0 auto;
-  max-width: 650px; // Slightly bigger
+  max-width: 700px; // Bigger
 
   .search-box {
     position: relative;
@@ -96,7 +98,7 @@ $border-color: #334155;
     align-items: center;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 50px;
-    padding: 0.6rem; // Slightly bigger
+    padding: 0.7rem; // Slightly bigger
     border: 1px solid $border-color;
     backdrop-filter: blur(12px);
     @include card-shadow;
@@ -107,9 +109,9 @@ $border-color: #334155;
     }
 
     i {
-      margin-left: 1.2rem; // Slightly bigger
+      margin-left: 1.3rem; // Slightly bigger
       color: $text-gray;
-      font-size: 1.3rem; // Slightly bigger
+      font-size: 1.4rem; // Slightly bigger
     }
 
     input {
@@ -117,8 +119,8 @@ $border-color: #334155;
       background: transparent;
       border: none;
       color: $text-light;
-      padding: 0.8rem 1.2rem; // Slightly bigger
-      font-size: 1.1rem; // Slightly bigger
+      padding: 0.9rem 1.3rem; // Slightly bigger
+      font-size: 1.2rem; // Slightly bigger
 
       &::placeholder {
         color: $text-gray;
@@ -134,7 +136,7 @@ $border-color: #334155;
       background: linear-gradient(135deg, $accent 0%, $accent-light 100%);
       border: none;
       border-radius: 50px;
-      padding: 0.8rem 1.7rem; // Slightly bigger
+      padding: 0.9rem 1.8rem; // Slightly bigger
       color: white;
       font-weight: 700;
       cursor: pointer;
@@ -269,11 +271,19 @@ $border-color: #334155;
 
 // Jobs Section
 .jobs-section {
-  padding: 4rem 0;
+  padding: 5rem 0; // Bigger and lower
+  background: linear-gradient(45deg, $jobs-bg, $jobs-bg-secondary); // Dynamic animated background with two colors
+  animation: gradientFlow 15s ease infinite;
 
   .container {
     max-width: 1400px;
   }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 // Loading and Error States
@@ -399,7 +409,7 @@ $border-color: #334155;
 
 // Job Card
 .job-card {
-  background: $card-bg; // Reverted to single color
+  background: $card-bg;
   border-radius: 14px;
   overflow: hidden;
   transition: all 0.3s ease-out;
@@ -441,7 +451,13 @@ $border-color: #334155;
       gap: 1rem;
 
       .company-logo {
-        display: none; // Removed logo display
+        .logo-circle {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid $accent-light;
+        }
       }
 
       .company-details {
@@ -477,7 +493,7 @@ $border-color: #334155;
 
   .card-body {
     padding: 1.5rem;
-    height: 55%; // Reduced height to make room for footer
+    height: 55%;
 
     .job-meta {
       display: flex;
@@ -533,10 +549,10 @@ $border-color: #334155;
 
     .job-description-teaser {
       color: $text-gray;
-      line-height: 1.4; // Adjusted for tighter layout
-      font-size: 0.85rem; // Slightly smaller
+      line-height: 1.4;
+      font-size: 0.85rem;
       margin: 0;
-      max-height: 2.5em; // Reduced to ensure footer visibility
+      max-height: 2.5em;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -556,7 +572,7 @@ $border-color: #334155;
       background: $accent;
       color: $text-light;
       text-decoration: none;
-      padding: 0.6rem 1.6rem; // Slightly bigger
+      padding: 0.6rem 1.6rem;
       border-radius: 6px;
       font-weight: 700;
       transition: all 0.3s ease;
@@ -574,7 +590,7 @@ $border-color: #334155;
       border: none;
       color: $text-gray;
       cursor: pointer;
-      font-size: 1.4rem; // Slightly bigger
+      font-size: 1.4rem;
       transition: all 0.3s ease;
 
       &:hover {
@@ -643,7 +659,13 @@ $border-color: #334155;
       margin-bottom: 1rem;
 
       .company-logo {
-        display: none; // Removed logo display
+        .logo-circle {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid $accent-light;
+        }
       }
 
       .company-details {
@@ -820,10 +842,18 @@ $border-color: #334155;
   100% { opacity: 1; transform: scale(1); }
 }
 
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 25% 75%; }
+  50% { background-position: 50% 50%; }
+  75% { background-position: 75% 25%; }
+  100% { background-position: 0% 50%; }
+}
+
 // Responsive Design
 @media (max-width: 768px) {
   .hero-section {
-    padding: 100px 0 100px;
+    padding: 120px 0 120px;
 
     .hero-title {
       font-size: 2.5rem;
