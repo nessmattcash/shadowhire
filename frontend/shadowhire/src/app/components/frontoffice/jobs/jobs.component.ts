@@ -6,7 +6,7 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { JobsService } from '../../../services/jobs.service';
 import Swiper from 'swiper';
-import { Navigation, Autoplay, EffectFade } from 'swiper/modules';
+import { Autoplay, EffectFade } from 'swiper/modules';
 import AOS from 'aos';
 
 interface Job {
@@ -19,6 +19,7 @@ interface Job {
   created_at: string;
   skills_required: string;
   featured?: boolean;
+  isFeaturedShown?: boolean;
 }
 
 @Component({
@@ -31,7 +32,7 @@ interface Job {
 export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('companySwiper') companySwiperRef!: ElementRef;
   private companySwiper!: Swiper;
-  
+
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   isLoading = true;
@@ -44,6 +45,11 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   savedJobs: number[] = [];
   selectedJob: Job | null = null;
   progress = 0;
+  backgroundImages = [
+    '/assets/EY.jpg',
+    '/assets/micro.jpg',
+    '/assets/OpenAI.jpg'
+  ];
 
   constructor(private jobsService: JobsService, private router: Router) {}
 
@@ -68,35 +74,33 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private initSwiper(): void {
     this.companySwiper = new Swiper(this.companySwiperRef.nativeElement, {
-      modules: [Navigation, Autoplay, EffectFade],
+      modules: [Autoplay, EffectFade],
       loop: true,
-      speed: 1000,
+      speed: 1500,
       autoplay: {
-        delay: 10000, // 10 seconds
+        delay: 10000,
         disableOnInteraction: false,
       },
-      effect: 'fade',
-      fadeEffect: {
-        crossFade: true,
-      },
+      effect: 'slide',
       slidesPerView: 1,
       centeredSlides: true,
       grabCursor: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 30,
+      on: {
+        slideChange: () => {
+          if (this.companySwiper) {
+            const activeIndex = this.companySwiper.realIndex % this.backgroundImages.length;
+            this.updateBackground(this.backgroundImages[activeIndex]);
+          }
         },
       },
     });
+    if (this.companySwiper) {
+      this.updateBackground(this.backgroundImages[0]);
+    }
+  }
+
+  private updateBackground(image: string): void {
+    document.documentElement.style.setProperty('--background-image', `url('${image}')`);
   }
 
   private simulateProgress(): void {
@@ -115,13 +119,10 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isLoading = true;
     this.progress = 0;
     this.error = null;
-    
+
     this.jobsService.getJobs().subscribe({
       next: (data: Job[]) => {
-        this.jobs = data.map((job, index) => ({
-          ...job,
-          featured: index % 5 === 0
-        }));
+        this.jobs = data.map(job => ({ ...job, featured: true, isFeaturedShown: false }));
         this.applyFilters();
         this.isLoading = false;
       },
@@ -144,36 +145,36 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   applyFilters(): void {
     let results = [...this.jobs];
-    
+
     if (this.searchTerm) {
       const term = this.searchTerm.toLowerCase();
-      results = results.filter(job => 
+      results = results.filter(job =>
         job.title.toLowerCase().includes(term) ||
         job.company.toLowerCase().includes(term) ||
         job.skills_required.toLowerCase().includes(term) ||
         job.description.toLowerCase().includes(term)
       );
     }
-    
+
     if (this.skillsFilter) {
       const skills = this.skillsFilter.toLowerCase().split(',').map(s => s.trim());
-      results = results.filter(job => 
+      results = results.filter(job =>
         skills.some(skill => job.skills_required.toLowerCase().includes(skill))
       );
     }
-    
+
     if (this.locationFilter) {
-      results = results.filter(job => 
+      results = results.filter(job =>
         job.location.toLowerCase().includes(this.locationFilter.toLowerCase())
       );
     }
-    
+
     if (this.companyFilter) {
-      results = results.filter(job => 
+      results = results.filter(job =>
         job.company.toLowerCase().includes(this.companyFilter.toLowerCase())
       );
     }
-    
+
     this.filteredJobs = results;
     this.currentPage = 1;
   }
@@ -184,6 +185,31 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.locationFilter = '';
     this.companyFilter = '';
     this.applyFilters();
+  }
+
+  openJobPopup(job: Job): void {
+    this.selectedJob = { ...job };
+    const header = document.querySelector('app-header');
+    if (header) header.classList.add('hidden');
+    setTimeout(() => {
+      const popup = document.querySelector('.popup-content');
+      if (popup) popup.classList.add('show');
+    }, 50);
+  }
+
+  closeJobPopup(event?: Event): void {
+    if (event) event.preventDefault();
+    const popup = document.querySelector('.popup-content');
+    if (popup) popup.classList.remove('show');
+    const header = document.querySelector('app-header');
+    if (header) header.classList.remove('hidden');
+    setTimeout(() => {
+      this.selectedJob = null;
+    }, 300);
+  }
+
+  stopPropagation(event: Event): void {
+    event.stopPropagation();
   }
 
   selectJob(job: Job): void {
@@ -203,26 +229,17 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     const now = new Date();
     const diffTime = Math.abs(now.getTime() - date.getTime());
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 0) return 'Today';
     if (diffDays === 1) return 'Yesterday';
     if (diffDays < 7) return `${diffDays} days ago`;
     if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-    
+
     return date.toLocaleDateString();
   }
 
   getCompanyLogo(companyName: string): string {
-    const logoMap: { [key: string]: string } = {
-      'EY': '/assets/EY.jpg',
-      'Capgemini': '/assets/cap.jpeg',
-      'Microsoft': '/assets/micro.jpg',
-      'ACTIA': '/assets/ACTIA.jpg',
-      'Sopra Steria': '/assets/sopra.jpg',
-      'OpenAI': '/assets/OpenAI.jpg'
-    };
-    
-    return logoMap[companyName] || '/assets/default-company.png';
+    return '/assets/default-logo.jpg'; // Default logo
   }
 
   loadSavedJobs(): void {
@@ -234,13 +251,13 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   toggleSaveJob(job: Job): void {
     const index = this.savedJobs.indexOf(job.id);
-    
     if (index === -1) {
       this.savedJobs.push(job.id);
+      job.isFeaturedShown = true;
     } else {
       this.savedJobs.splice(index, 1);
+      job.isFeaturedShown = false;
     }
-    
     localStorage.setItem('savedJobs', JSON.stringify(this.savedJobs));
   }
 
@@ -263,13 +280,17 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getTwoLineDescription(description: string): string {
-    const lines = description.split('\n').slice(0, 2).join(' ');
-    const twoLines = lines.split('. ').slice(0, 2).join('. ');
-    return twoLines + (twoLines.length < description.length ? '… [Read More]' : '');
+    const sentences = description.split('. ').slice(0, 2).join('. ');
+    return sentences + (sentences.length < description.length ? '…' : '');
   }
 
   navigateToJob(jobId: number): void {
     this.router.navigate(['/jobs-details', jobId]).then(() => {
     }).catch(err => console.error('Navigation error:', err));
+  }
+
+  getDescriptionHeight(description: string): string {
+    const lines = description.split('\n').length || 1;
+    return `${Math.min(lines * 1.6, 10)}em`;
   }
 }
