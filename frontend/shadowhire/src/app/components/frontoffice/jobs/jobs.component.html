@@ -22,33 +22,9 @@
       <div class="company-showcase" data-aos="fade-up" data-aos-delay="400">
         <div class="swiper-container" #companySwiper>
           <div class="swiper-wrapper">
-            <div class="swiper-slide" data-background="/assets/ACTIA.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/amaris.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/bd.png"></div>
-            <div class="swiper-slide" data-background="/assets/cap.jpeg"></div>
-            <div class="swiper-slide" data-background="/assets/dabchy.png"></div>
-            <div class="swiper-slide" data-background="/assets/def.png"></div>
-            <div class="swiper-slide" data-background="/assets/exp.jpg"></div>
             <div class="swiper-slide" data-background="/assets/EY.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/focus.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/ibm.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/images.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/insta.png"></div>
             <div class="swiper-slide" data-background="/assets/micro.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/neo.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/ooredoo.jpg"></div>
             <div class="swiper-slide" data-background="/assets/OpenAI.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/orange.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/rfc.png"></div>
-            <div class="swiper-slide" data-background="/assets/roam.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/sagemcom.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/sofrecom.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/sopra.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/talan.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/telnet.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/vermeg.jpg"></div>
-            <div class="swiper-slide" data-background="/assets/verse.jpg.png"></div>
-            <div class="swiper-slide" data-background="/assets/wat.png"></div>
           </div>
         </div>
       </div>
@@ -119,7 +95,7 @@
           <div class="card-header">
             <div class="company-info">
               <div class="company-logo">
-                <img [src]="getCompanyLogo(job.company)" [alt]="job.company" class="logo-circle">
+                <img [src]="getCompanyLogo(job.company)" [alt]="job.company" class="logo-circle" [class.long-title]="job.title.split(' ').length > 3">
               </div>
               <div class="company-details">
                 <h3 class="job-title">{{ job.title }}</h3>
@@ -149,7 +125,7 @@
               </div>
             </div>
             
-            <div class="job-description-teaser">{{ getTwoLineDescription(job.description) }}</div>
+            <div class="job-description-teaser" [style.max-height]="(job.title.split(' ').length > 3 || job.skills_required.split(',').length > 3) ? (job.description.split('. ').length * 1.2 + 'em') : (job.description.split('. ').length * 0.8 + 'em')">{{ getTwoLineDescription(job.description) }}</div>
           </div>
           
           <div class="card-footer">
