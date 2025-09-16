@@ -253,3 +253,406 @@ def process_pdfs(folder_path, output_file="cv_structured.json"):
 
 if __name__ == "__main__":
     process_pdfs("/content/")
+
+
+
+#2nd approch 
+import fitz  # Keep for compatibility if needed, but primary is pdfminer
+from pdfminer.high_level import extract_text
+import re
+import os
+import json
+import logging
+from collections import defaultdict
+from typing import Dict, List, Any, Tuple
+from unicodedata import normalize
+import difflib  # For deduping
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler()]
+)
+
+# Expanded regex patterns
+NAME_PATTERN = r'^[A-Za-zÀ-ÿ\s\'-]{2,}(?:\s[A-Za-zÀ-ÿ\s\'-]{2,})+$'
+EMAIL_PATTERN = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+PHONE_PATTERN = r'\+?\d{1,4}[\s.-]?\d{2,3}[\s.-]?\d{2,3}[\s.-]?\d{2,4}\b'
+LOCATION_PATTERN = r'(?i)(?:[A-Za-zÀ-ÿ\s]+,\s*[A-Za-zÀ-ÿ\s]+|Tunisia|Tunis|Ariana|Bizerte|Kairouan)'
+URL_PATTERN = r'(?i)(?:https?://)?(?:www\.)?(?:linkedin|github|netlify|portfolio)\.[a-zA-Z0-9./-]+'
+DATE_PATTERN = r'(?i)(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}|\d{4}\s*[-–—]\s*(?:\d{4}|present|current|ongoing)|\d{2}/\d{4}\s*[-–—]\s*(?:\d{2}/\d{4}|present|current|ongoing)|\d{4})'
+BULLET_PATTERN = r'^[-•* ]'  # New for bullets
+
+# Expanded section patterns with stricter matching (e.g., short lines, caps)
+SECTION_PATTERNS = {
+    "Summary": [r"(?i)^(?:summary|profile|about\s*me|profil|objectif|résumé|career\s*objective|professional\s*summary|core\s*competencies)$"],
+    "Skills": [r"(?i)^(?:skills|technical\s*skills|compétences|competences|expertise|langages\s*et\s*frameworks|technologies|core\s*skills|technical\s*proficiencies)$"],
+    "Education": [r"(?i)^(?:education|formation|parcours\s*académique|études|academic\s*background|qualifications|academic\s*record|degree)$"],
+    "Experience": [r"(?i)^(?:experience|expérience|work\s*experience|expérience\s*professionnelle|professional\s*experience|stage|internship|employment\s*history|work\s*history|intern|professional\s*experience)$"],
+    "Projects": [r"(?i)^(?:projects|projets|portfolio|projets\s*personnels|notable\s*projects|projet\s*de\s*fin\s*d’étude|pfa|pidev|pi|projets\s*académiques)$"],
+    "Certifications": [r"(?i)^(?:certifications|certificats|badges|certificates\s*and\s*badges|achievements|awards|professional\s*certifications)$"],
+    "Languages": [r"(?i)^(?:languages|langues|compétences\s*linguistiques|language\s*skills|linguistic\s*proficiency)$"],
+    "Volunteering": [r"(?i)^(?:volunteering|activités\s*extracurriculaires|clubs|vie\s*associative|extracurricular|community\s*service|associations)$"],
+    "Interests": [r"(?i)^(?:interests|hobbies|intérêts|loisirs|personal\s*interests)$"]
+}
+
+# Expanded stop words + common noise
+STOP_WORDS = [
+    "contact", "taches realisees", "profil", "summary", "resume", "present", "current",
+    "ongoing", "github", "linkedin", "badge", "keywords", "mots", "cles", "via", "tasks",
+    "achievements", "conception", "developpement", "gestion", "projet", "technologies",
+    "application", "platform", "system", "email", "phone", "url", "tunis", "ariana",
+    "french", "english", "arabic", "professional", "native", "fluent", "b2", "beginner",
+    "pfa", "pidev", "pi", "stage", "intern", "member", "club", "experience", "education",
+    "skills", "competences", "projects", "projets", "certified", "fundamentals", "award",
+    "taches", "realisees", "keywords:", "mots-cles:", "technologies:", "link", "workshop",
+    "|"  # For special designs with bars
+]
+
+# Expanded technical terms for skills
+TECHNICAL_TERMS = [
+    "python", "java", "javascript", "typescript", "c", "c++", "c#", "sql", "r", "matlab",
+    "html", "css", "react", "angular", "vue", "node.js", "express.js", "django", "flask",
+    "spring boot", "fastapi", "mongodb", "mysql", "postgresql", "oracle", "sqlite",
+    "tensorflow", "pytorch", "keras", "scikit-learn", "numpy", "pandas", "matplotlib",
+    "seaborn", "docker", "kubernetes", "jenkins", "ansible", "terraform", "aws", "azure",
+    "gcp", "openstack", "git", "github", "gitlab", "bitbucket", "sonarqube", "phpstan",
+    "phpunit", "karma", "jest", "kivy", "kivymd", "java3d", "three.js", "firebase",
+    "prometheus", "grafana", "mlflow", "next.js", "bootstrap", "materialui", "figma",
+    "linux", "ubuntu", "windows", "bash", "spark", "airflow", "snowflake", "dbt",
+    "power bi", "superset", "cassandra", "kafka", "tensorrt", "llama", "minilm",
+    "symfony", "asp.net", "mern", "web scraping", "computer vision", "nlp", "generative ai",
+    "deep learning", "machine learning", "regression", "decision trees", "random forest",
+    "svm", "gradient boosting", "time series", "image processing", "iac", "ci/cd",
+    "microservices", "rest apis", "uml", "mikroc", "proteus", "cisco packet tracer",
+    "nmap", "openvas", "nessus", "gobuster", "metasploit", "burp suite", "hydra",
+    "sqlmap", "john the ripper", "wireshark", "windump", "snort", "autopsy", "ftk imager",
+    "volatility", "dumpit", "azure devops", "devsecops", "penetration testing",
+    "ethical hacking", "cloud security", "splunk", "javafx", "codename one", "php",
+    "ionic", "pug.js", "flink", "superset", "power bi", "t5-small", "faiss", "helsinki mt",
+    "bert", "tf-idf", "sentence-bert", "yolo", "maven", "junit", "mockito", "kvm", "iaas",
+    "solid", "material", "adsl", "sdh", "pic16f877", "gtk", "net"
+]
+
+def clean_line(line: str) -> str:
+    if not line or not isinstance(line, str):
+        return ""
+    line = normalize('NFKD', line).encode('ASCII', 'ignore').decode('ASCII')
+    line = re.sub(r'[\uf0b7\uf076\uf09f•●◦▪\t●•▪○∙\u00a0\U0001F000-\U0001FFFF]', ' ', line)
+    line = re.sub(r'\s+', ' ', line).strip()
+    line = re.sub(r'[()[\]{}|]', '', line).strip()  # Remove bars for special designs
+    return line
+
+def extract_contact_info(raw_text: str) -> Dict[str, str]:
+    emails = list(set(re.findall(EMAIL_PATTERN, raw_text)))
+    phones = list(set(re.findall(PHONE_PATTERN, raw_text)))
+    locations = list(set(re.findall(LOCATION_PATTERN, raw_text)))
+    urls = list(set(re.findall(URL_PATTERN, raw_text)))
+    
+    valid_location = next((loc.strip() for loc in locations if loc.strip() and len(loc) > 4 and len(loc.split(',')) >= 1 and not any(kw in loc.lower() for kw in STOP_WORDS + TECHNICAL_TERMS)), "")
+    
+    valid_phone = next((phone for phone in phones if len(phone.replace(" ", "").replace("-", "").replace(".", "")) >= 8 and not re.match(r'^\d{4}$', phone)), "")
+    
+    return {
+        "email": emails[0] if emails else "",
+        "phone": valid_phone,
+        "location": valid_location,
+        "url": urls[0] if urls else ""
+    }
+
+def extract_name(lines: List[str], raw_text: str, contact_info: Dict[str, str]) -> str:
+    email = contact_info.get("email", "")
+    url = contact_info.get("url", "")
+    phone = contact_info.get("phone", "")
+    email_hint = email.split("@")[0].replace(".", " ").replace("-", " ").lower() if email else ""
+    url_hint = url.split("/")[-1].replace("-", " ").replace(".", " ").lower() if url else ""
+    phone_hint = phone.replace("+216", "").strip() if phone else ""
+
+    # Priority: First 10 lines, match pattern + hint, skip if technical
+    for line in lines[:10]:
+        clean = clean_line(line)
+        if re.match(NAME_PATTERN, clean) and len(clean.split()) >= 2 and not any(kw in clean.lower() for kw in STOP_WORDS + ["tunisia", "tunis", "esprit", "ensit"]):
+            if any(hint in clean.lower() for hint in [email_hint, url_hint, phone_hint] if hint):
+                return clean.title()
+
+    # Fallback: Near contact info in raw
+    raw_lines = raw_text.split('\n')
+    contact_indices = [i for i, l in enumerate(raw_lines) if email in l or url in l or phone in l]
+    if contact_indices:
+        start = max(0, min(contact_indices) - 5)
+        for line in raw_lines[start : min(contact_indices) + 1]:
+            clean = clean_line(line)
+            if re.match(NAME_PATTERN, clean) and len(clean.split()) >= 2 and not any(t in clean.lower() for t in TECHNICAL_TERMS):
+                return clean.title()
+
+    # Ultimate fallback: Capitalize email_hint properly (split on numbers)
+    if email_hint:
+        hint_parts = re.split(r'\d+', email_hint)
+        return ' '.join(word.capitalize() for word in hint_parts[0].split() if word)
+    return (email_hint or url_hint).title() or ""
+
+def detect_section_header(line: str, current_section: str) -> Tuple[str, bool]:
+    clean = clean_line(line).lower().strip()
+    if not clean or len(clean) > 30:  # Avoid long lines as headers
+        return current_section, False
+    for section, patterns in SECTION_PATTERNS.items():
+        for pat in patterns:
+            if re.match(pat, clean):
+                logging.debug(f"Detected section: {section} from line: {line}")
+                return section, True
+    return current_section, False
+
+def parse_education(lines: List[str]) -> List[Dict[str, str]]:
+    entries = []
+    current = {"degree": "", "institution": "", "duration": ""}
+    collecting = False
+    for line in lines:
+        clean = clean_line(line)
+        if not clean:
+            continue
+        date_match = re.search(DATE_PATTERN, clean)
+        degree_keywords = ["diplome", "degree", "bachelor", "master", "licence", "ingenieur", "bac", "cycle", "preparatoire"]
+        if any(kw in clean.lower() for kw in degree_keywords):
+            if collecting and any(current.values()):
+                entries.append(current)
+            remaining = re.sub(DATE_PATTERN, '', clean).strip()
+            current = {"degree": remaining, "institution": "", "duration": date_match.group(0) if date_match else ""}
+            collecting = True
+            continue
+        if date_match and collecting:
+            current["duration"] = date_match.group(0)
+        elif collecting and not current["institution"] and not any(kw in clean.lower() for kw in STOP_WORDS):
+            current["institution"] = clean
+        elif collecting and current["institution"] and len(clean.split()) < 10 and not date_match:  # Limit aggregation
+            current["institution"] += " " + clean
+    if any(current.values()):
+        entries.append(current)
+    if len(entries) > 5:
+        entries = entries[:5]  # Limit max
+    return [{"degree": e["degree"].strip().title(), "institution": e["institution"].strip().title(), "duration": e["duration"].strip()} for e in entries if e["degree"] or e["institution"]]
+
+def parse_experience(lines: List[str]) -> List[Dict[str, str]]:
+    experiences = []
+    current = {"role": "", "company": "", "duration": "", "description": "", "type": "work", "location": ""}
+    collecting = False
+    role_keywords = ["intern", "stage", "stag", "engineer", "developer", "analyst", "manager", "internship", "pfe"]
+    for i, line in enumerate(lines):
+        clean = clean_line(line)
+        if not clean:
+            continue
+        date_match = re.search(DATE_PATTERN, clean)
+        if date_match or any(kw in clean.lower() for kw in role_keywords) or re.match(BULLET_PATTERN, clean):
+            if collecting and any(current.values()):
+                experiences.append(current)
+            remaining = re.sub(DATE_PATTERN, '', clean).strip()
+            current = {"role": remaining if not re.match(BULLET_PATTERN, remaining) else clean, "company": "", "duration": date_match.group(0) if date_match else "", "description": "", "type": "work", "location": ""}
+            if any(kw in clean.lower() for kw in ["intern", "stage", "stag", "internship", "pfe"]):
+                current["type"] = "intern"
+            collecting = True
+            # Aggregate next lines
+            for j in range(i + 1, min(i + 20, len(lines))):
+                next_clean = clean_line(lines[j])
+                if not next_clean or detect_section_header(next_clean, "")[1] or re.search(DATE_PATTERN, next_clean) or any(trig in next_clean.lower() for trig in role_keywords):
+                    break
+                if re.match(BULLET_PATTERN, next_clean):
+                    current["description"] += "\n" + next_clean
+                elif re.match(LOCATION_PATTERN, next_clean):
+                    current["location"] = next_clean
+                elif not current["company"] and len(next_clean.split()) > 1 and not any(kw in next_clean.lower() for kw in STOP_WORDS):
+                    current["company"] = next_clean
+                else:
+                    current["description"] += " " + next_clean
+    if any(current.values()):
+        experiences.append(current)
+    # Dedupe stricter
+    unique = []
+    for e in experiences:
+        if not any(difflib.SequenceMatcher(None, e['role'].lower(), u['role'].lower()).ratio() > 0.6 for u in unique):
+            unique.append(e)
+    return [{"role": e["role"].strip().title(), "company": e["company"].strip().title(), 
+             "duration": e["duration"].strip(), "description": e["description"].strip(), 
+             "type": e["type"], "location": e["location"].strip().title()} 
+            for e in unique if e["role"] or e["company"]]
+
+def parse_skills(lines: List[str], project_keywords: List[str], summary: str, raw_text: str) -> List[str]:
+    skills = set()
+    all_text = ' '.join(lines + project_keywords + [summary, raw_text]).lower()
+    for term in TECHNICAL_TERMS:
+        if re.search(r'\b' + re.escape(term) + r'\b', all_text, re.IGNORECASE):
+            skills.add(term.title())
+    return sorted(list(skills))
+
+def parse_projects(lines: List[str]) -> Tuple[List[Dict[str, str]], List[str]]:
+    projects = []
+    keywords = []
+    current = {"name": "", "description": "", "type": "personal"}
+    collecting = False
+    project_triggers = ["pfa", "pidev", "pi", "project", "projet", "application", "platform", "system"]
+    for i, line in enumerate(lines):
+        clean = clean_line(line)
+        if not clean:
+            continue
+        keyword_match = re.search(r'(?i)(?:mots-clés|keywords|technologies)\s*[:]', clean)
+        if keyword_match:
+            kw_str = re.sub(r'(?i)(?:mots-clés|keywords|technologies)\s*[:]', '', clean).strip()
+            if kw_str:
+                keywords.append(kw_str)
+            continue
+        date_match = re.search(DATE_PATTERN, clean)
+        is_bullet = re.match(BULLET_PATTERN, clean)
+        if date_match or any(trig in clean.lower() for trig in project_triggers) or is_bullet:
+            if collecting and any(current.values()) and current["name"]:
+                projects.append(current)
+            remaining = re.sub(DATE_PATTERN, '', clean).strip()
+            if is_bullet:
+                remaining = re.sub(BULLET_PATTERN, '', remaining).strip()
+            current = {"name": remaining, "description": "", "type": "personal"}
+            if any(kw in clean.lower() for kw in ["pfa", "pidev", "academic", "academique", "etude"]):
+                current["type"] = "academic"
+            collecting = True
+            # Aggregate next lines
+            for j in range(i + 1, min(i + 20, len(lines))):
+                next_clean = clean_line(lines[j])
+                if not next_clean or detect_section_header(next_clean, "")[1] or re.search(DATE_PATTERN, next_clean) or any(trig in next_clean.lower() for trig in project_triggers):
+                    break
+                if keyword_match:
+                    kw_str = re.sub(r'(?i)(?:mots-clés|keywords|technologies)\s*[:]', '', next_clean).strip()
+                    if kw_str:
+                        keywords.append(kw_str)
+                    continue
+                current["description"] += " " + next_clean
+    if any(current.values()) and current["name"]:
+        projects.append(current)
+    # Dedupe stricter
+    unique_projects = []
+    for p in projects:
+        if p["name"] and not any(difflib.SequenceMatcher(None, p['name'].lower(), u['name'].lower()).ratio() > 0.6 for u in unique_projects):
+            unique_projects.append(p)
+    if len(unique_projects) > 10:
+        unique_projects = unique_projects[:10]  # Limit max
+    return (unique_projects, keywords)
+
+def parse_generic_list(lines: List[str], section_name: str) -> List[str]:
+    items = []
+    for line in lines:
+        clean = clean_line(line)
+        if clean and not any(pat.match(clean) for pat in [re.compile(EMAIL_PATTERN), re.compile(PHONE_PATTERN), re.compile(URL_PATTERN), re.compile(DATE_PATTERN)]) and not any(kw in clean.lower() for kw in STOP_WORDS):
+            items.append(clean.title())
+    return sorted(set(items))
+
+def extract_text_with_layout(path: str) -> Tuple[str, str]:
+    try:
+        text = extract_text(path)
+        return text, text
+    except Exception as e:
+        logging.error(f"Error extracting text from {path}: {e}")
+        return "", ""
+
+def parse_cv(text: str, raw_text: str, filename: str = "") -> Dict[str, Any]:
+    sections = {
+        "Name": "", 
+        "Contact": {"email": "", "phone": "", "location": "", "url": ""},
+        "Summary": "", 
+        "Skills": [], 
+        "Education": [], 
+        "Projects": [], 
+        "Experience": [], 
+        "Certifications": [], 
+        "Languages": [], 
+        "Volunteering": [], 
+        "Interests": []
+    }
+    
+    if not text or not raw_text:
+        return {"raw": raw_text, **sections}
+
+    text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
+    raw_text = normalize('NFKD', raw_text).encode('ASCII', 'ignore').decode('ASCII')
+    
+    lines = [line.strip() for line in text.split('\n') if line.strip()]
+    sections["Contact"] = extract_contact_info(raw_text)
+    sections["Name"] = extract_name(lines, raw_text, sections["Contact"])
+
+    current_section = None
+    section_lines = defaultdict(list)
+    summary_lines = []
+    for line in lines:
+        clean = clean_line(line)
+        if not clean:
+            continue
+        new_section, is_header = detect_section_header(clean, current_section)
+        if is_header:
+            current_section = new_section
+            continue  # Skip header line itself
+        if current_section:
+            section_lines[current_section].append(clean)
+        else:
+            if len(clean) > 20 and not any(kw in clean.lower() for kw in STOP_WORDS + [sections["Name"].lower()]) and not re.match(EMAIL_PATTERN, clean) and not re.match(PHONE_PATTERN, clean) and not re.match(URL_PATTERN, clean):  # Longer for summary
+                summary_lines.append(clean)
+
+    # Parse focused sections with fallbacks from entire lines if section empty
+    edu_lines = section_lines["Education"] or [l for l in lines if any(kw in l.lower() for kw in ["diplome", "degree", "bac", "licence", "ingenieur", "cycle", "preparatoire", "esprit", "ensit", "university"])]
+    sections["Education"] = parse_education(edu_lines)
+    
+    exp_lines = section_lines["Experience"] or [l for l in lines if any(kw in l.lower() for kw in ["stage", "intern", "pfe", "emploi", "job", "professional", "experience", "internship"])]
+    sections["Experience"] = parse_experience(exp_lines)
+    
+    proj_lines = section_lines["Projects"] or [l for l in lines if any(kw in l.lower() for kw in ["pfa", "pidev", "pi", "project", "projet", "application", "platform"])]
+    projects, project_keywords = parse_projects(proj_lines)
+    sections["Projects"] = projects
+    
+    skill_lines = section_lines["Skills"] or []
+    sections["Skills"] = parse_skills(skill_lines, project_keywords, '\n'.join(summary_lines), raw_text)  # Join with \n for multi-line summary
+    
+    sections["Summary"] = '\n'.join(summary_lines).strip()
+    sections["Certifications"] = parse_generic_list(section_lines["Certifications"] or [l for l in lines if any(kw in l.lower() for kw in ["certificat", "badge", "award", "certified", "workshop"])], "Certifications")
+    sections["Languages"] = [lang.strip().title() for lang in re.split(r'[,|]', ' '.join(section_lines["Languages"]).replace('(', '').replace(')', '')) if lang.strip() and not any(kw in lang.lower() for kw in ["native", "b2", "fluent", "professional", "beginner", "proficiency"])]
+    sections["Volunteering"] = parse_generic_list(section_lines["Volunteering"] or [l for l in lines if any(kw in l.lower() for kw in ["club", "association", "volunteering", "vie associative", "extracurricular", "member"])], "Volunteering")
+    sections["Interests"] = parse_generic_list(section_lines["Interests"], "Interests")
+
+    return {"raw": raw_text, **sections}
+
+def process_pdfs(folder_path: str, output_file: str = "cv_structured_unstructured3.json") -> List[Dict[str, Any]]:
+    results = []
+    processed_keys = set()
+    if not os.path.exists(folder_path):
+        logging.error(f"Folder path {folder_path} does not exist")
+        return results
+
+    pdf_files = [f for f in os.listdir(folder_path) if f.lower().endswith(".pdf")]
+    if not pdf_files:
+        logging.warning(f"No PDF files found in {folder_path}")
+        return results
+
+    for filename in pdf_files:
+        path = os.path.join(folder_path, filename)
+        logging.info(f"Processing {filename}")
+        text, raw_text = extract_text_with_layout(path)
+        if not text or not raw_text:
+            logging.error(f"No text extracted from {filename}")
+            continue
+        cv_data = parse_cv(text, raw_text, filename)
+        email = cv_data["Contact"]["email"]
+        name = cv_data["Name"]
+        key = (email, name)
+        if key in processed_keys:
+            logging.warning(f"Skipping duplicate CV for email: {email}, name: {name}")
+            continue
+        processed_keys.add(key)
+        results.append(cv_data)
+        logging.info(f"Processed {filename} → Name: {cv_data['Name']}")
+
+    try:
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(results, f, ensure_ascii=False, indent=4)
+        logging.info(f"Saved results to {output_file}")
+    except Exception as e:
+        logging.error(f"Error saving JSON: {e}")
+
+    return results
+
+if __name__ == "__main__":
+    folder_path = "/content/"
+    results = process_pdfs(folder_path)
+    print("\nExtraction completed!")    
