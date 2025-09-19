@@ -25,4 +25,7 @@ export class JobsService {
   getJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(`${this.baseUrl}/jobs/`);
   }
+getJobById(id: number): Observable<Job> {
+  return this.http.get<Job>(`${this.baseUrl}/jobs/${id}/`);
+}
 }

@@ -8,9 +8,9 @@ $text-light: #f8fafc;
 $text-gray: #94a3b8;
 $card-bg: #1e293b;
 $border-color: #334155;
-$jobs-bg: #cec6d6; // Dark purple
-$jobs-bg-secondary: #020814; // Dark blue
-$jobs-bg-tertiary: #080555; // Another shade for movement
+$jobs-bg: #0a1a3f; // Darker blue for animated background
+$jobs-bg-secondary: #020814; // Secondary dark blue
+$jobs-bg-tertiary: #1e3a8a; // Tertiary blue for gradient
 
 // Mixins
 @mixin flex-center {
@@ -156,7 +156,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
   margin-top: 3rem;
   position: relative;
   text-align: center;
-  height: 200px;
+  height: 40px;
 
   .swiper-container {
     height: 100%;
@@ -273,10 +273,18 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
 // Jobs Section
 .jobs-section {
   padding: 5rem 0;
-  background: linear-gradient(45deg, $jobs-bg, $jobs-bg-secondary, $jobs-bg-tertiary);
-  animation: gradientFlow 10s ease infinite;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, $jobs-bg 0%, $jobs-bg-secondary 50%, $jobs-bg-tertiary 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 20s ease infinite;
+  will-change: background-position;
+
+  .container {
+    max-width: 1400px;
+    position: relative;
+    z-index: 2;
+  }
 
   &::before {
     content: '';
@@ -285,29 +293,118 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(74, 42, 106, 0.5); // Dark blur overlay
-    backdrop-filter: blur(5px);
-    z-index: 1;
-  }
-
-  .container {
-    max-width: 1400px;
-    position: relative;
-    z-index: 2;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(26, 42, 68, 0.5) 70%);
+    z-index: -1;
+    opacity: 0.7;
   }
 }
 
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  33% { background-position: 100% 50%; }
-  66% { background-position: 50% 0%; }
-  100% { background-position: 0% 50%; }
+// Jobs Grid
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+  padding: 2rem;
+  background: linear-gradient(135deg, $jobs-bg 0%, $jobs-bg-secondary 50%, $jobs-bg-tertiary 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 20s ease infinite;
+  border-radius: 14px;
+  overflow: hidden;
+  will-change: background-position;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(26, 42, 68, 0.5) 70%);
+    z-index: -1;
+    opacity: 0.7;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+    animation: lightParticles 25s linear infinite;
+    z-index: -1;
+    opacity: 0.4;
+  }
+}
+
+// No Results
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  position: relative;
+  background: linear-gradient(135deg, $jobs-bg 0%, $jobs-bg-secondary 50%, $jobs-bg-tertiary 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 20s ease infinite;
+  border-radius: 14px;
+  overflow: hidden;
+  will-change: background-position;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(26, 42, 68, 0.5) 70%);
+    z-index: -1;
+    opacity: 0.7;
+  }
+
+  i {
+    font-size: 4.5rem;
+    opacity: 0.6;
+    color: $accent-light;
+  }
+
+  h4 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    color: $text-light;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: $text-gray;
+  }
 }
 
 // Loading and Error States
-.loading-container, .error-container, .no-results {
+.loading-container, .error-container {
   text-align: center;
   padding: 3rem;
+  position: relative;
+  background: linear-gradient(135deg, $jobs-bg 0%, $jobs-bg-secondary 50%, $jobs-bg-tertiary 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 20s ease infinite;
+  border-radius: 14px;
+  overflow: hidden;
+  will-change: background-position;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(26, 42, 68, 0.5) 70%);
+    z-index: -1;
+    opacity: 0.7;
+  }
 
   i {
     font-size: 3rem;
@@ -365,6 +462,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 3;
 
     &:hover {
       background: $accent-light;
@@ -379,12 +477,31 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2.5rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
   border-bottom: 1px solid $border-color;
+  position: relative;
+  background: linear-gradient(135deg, rgba($jobs-bg, 0.9) 0%, rgba($jobs-bg-secondary, 0.9) 50%, rgba($jobs-bg-tertiary, 0.9) 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 20s ease infinite;
+  border-radius: 10px;
+  will-change: background-position;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(26, 42, 68, 0.5) 70%);
+    z-index: -1;
+    opacity: 0.7;
+  }
 
   h3 {
     font-size: 1.6rem;
     font-weight: 700;
+    z-index: 3;
 
     .count {
       color: $accent;
@@ -404,6 +521,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
       color: $text-light;
       cursor: pointer;
       transition: all 0.3s ease;
+      z-index: 3;
 
       &.active {
         background: $accent;
@@ -417,14 +535,6 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
   }
 }
 
-// Jobs Grid
-.jobs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
 // Job Card
 .job-card {
   background: $card-bg;
@@ -435,9 +545,9 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
   @include card-shadow;
   width: 100%;
   max-width: 350px;
-  min-height: 400px; // Minimum height
+  min-height: 400px;
   cursor: pointer;
-  user-select: none;
+  z-index: 2;
 
   &:hover {
     transform: translateY(-6px);
@@ -460,7 +570,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
     border-bottom: 1px solid $border-color;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; // Align items to top
+    align-items: flex-start;
     background: rgba(30, 41, 59, 0.8);
 
     .company-info {
@@ -478,7 +588,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
 
           &.long-title {
             width: 40px;
-            height: 40px; // Adjust size for long titles
+            height: 40px;
           }
         }
       }
@@ -491,7 +601,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
           font-weight: 700;
           margin: 0 0 0.3rem;
           color: $text-light;
-          white-space: normal; // Allow wrapping for long titles
+          white-space: normal;
           line-height: 1.2;
           max-width: 200px;
         }
@@ -522,7 +632,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
 
   .card-body {
     padding: 1rem;
-    flex-grow: 1; // Allow body to grow with description
+    flex-grow: 1;
 
     .job-meta {
       display: flex;
@@ -605,6 +715,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
       transition: all 0.3s ease;
       white-space: nowrap;
       opacity: 1;
+      z-index: 3;
 
       &:hover {
         background: $accent-light;
@@ -619,6 +730,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
       cursor: pointer;
       font-size: 1.2rem;
       transition: all 0.3s ease;
+      z-index: 3;
 
       &:hover {
         color: $accent;
@@ -673,6 +785,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
       font-size: 1.5rem;
       cursor: pointer;
       transition: color 0.3s ease;
+      z-index: 3;
 
       &:hover {
         color: $accent;
@@ -806,6 +919,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
         border-radius: 6px;
         font-weight: 700;
         transition: all 0.3s ease;
+        z-index: 3;
 
         &:hover {
           background: $accent-light;
@@ -820,6 +934,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
         cursor: pointer;
         font-size: 1.2rem;
         transition: all 0.3s ease;
+        z-index: 3;
 
         &:hover {
           color: $accent;
@@ -834,25 +949,18 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
   }
 }
 
-// No Results
-.no-results {
-  i {
-    font-size: 4.5rem;
-    opacity: 0.6;
-  }
-
-  h4 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    color: $text-light;
-  }
-
-  p {
-    font-size: 1.1rem;
-  }
+// Animations
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-// Animations
+@keyframes lightParticles {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 100%); }
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -923,6 +1031,7 @@ $jobs-bg-tertiary: #080555; // Another shade for movement
 
   .jobs-grid {
     grid-template-columns: 1fr;
+    padding: 1rem;
   }
 
   .job-card {

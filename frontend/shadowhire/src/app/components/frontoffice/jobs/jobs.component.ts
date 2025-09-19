@@ -314,10 +314,26 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     return sentences + (sentences.length < description.length ? '…' : '');
   }
 
-  navigateToJob(jobId: number): void {
-    this.router.navigate(['/jobs-details', jobId]).then(() => {
-    }).catch(err => console.error('Navigation error:', err));
+navigateToJob(jobId: number): void {
+  if (!jobId || jobId <= 0) {
+    alert('Invalid job selected. Please try again.');
+    console.error('Invalid jobId:', jobId);
+    return;
   }
+
+  this.jobsService.getJobById(jobId).subscribe({
+    next: () => {
+      this.router.navigate(['/job-details', jobId]).catch(err => {
+        alert('Unable to view job details. Please try again.');
+        console.error('Navigation error:', err);
+      });
+    },
+    error: () => {
+      alert('Job not found. Please select a different job.');
+      console.error('Job not found for ID:', jobId);
+    }
+  });
+}
 
   getDescriptionHeight(description: string): string {
     const lines = description.split('\n').length || 1;

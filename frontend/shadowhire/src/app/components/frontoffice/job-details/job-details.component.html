@@ -1,1 +1,164 @@
-<p>job-details works!</p>
+<div class="job-details-portal">
+  <app-header></app-header>
+
+  <!-- Hero Section with Job Overview -->
+  <section class="hero-section dark-blue-bg" *ngIf="job">
+    <div class="container">
+      <div class="hero-content">
+        <div class="job-hero-info">
+          <div class="company-logo-large">
+            <img [src]="getCompanyLogo(job.company)" [alt]="job.company" class="logo-large">
+          </div>
+          <div class="job-hero-text">
+            <h1 class="hero-title">{{ job.title }}</h1>
+            <p class="company-name-large">{{ job.company }}</p>
+            <div class="job-meta-hero">
+              <div class="meta-item">
+                <i class="bi bi-geo-alt"></i>
+                <span>{{ job.location }}</span>
+              </div>
+              <div class="meta-item">
+                <i class="bi bi-clock"></i>
+                <span>{{ formatDate(job.created_at) }}</span>
+              </div>
+              <span class="featured-tag" *ngIf="job.featured">Featured Opportunity</span>
+            </div>
+            <div class="hero-actions">
+              <button class="btn-apply" (click)="applyForJob()">Apply Now</button>
+              <button class="btn-save" (click)="toggleSaveJob(job)">
+                <i class="bi" [class.bi-bookmark]="!isJobSaved(job)" [class.bi-bookmark-fill]="isJobSaved(job)"></i>
+                Save Job
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Skills Preview -->
+      <div class="skills-preview" data-aos="fade-up" data-aos-delay="200">
+        <h3>Key Skills</h3>
+        <div class="skills-list-preview">
+          <span *ngFor="let skill of getSkillsArray(job.skills_required)" class="skill-tag-preview">
+            {{ skill }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Sections -->
+  <section class="main-content" *ngIf="job">
+    <div class="container">
+      <div class="content-grid">
+        <!-- Left Column: Job Details -->
+        <div class="details-column" data-aos="fade-right">
+          <!-- Overview -->
+          <div class="section overview-section">
+            <h2>Job Overview</h2>
+            <p class="overview-text">{{ job.description }}</p>
+          </div>
+
+          <!-- Responsibilities -->
+          <div class="section responsibilities-section">
+            <h2>Responsibilities</h2>
+            <ul class="responsibilities-list">
+              <li *ngFor="let resp of getResponsibilities(job.description)">
+                {{ resp }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Requirements -->
+          <div class="section requirements-section">
+            <h2>Requirements</h2>
+            <div class="skills-full">
+              <div class="skills-label">Skills Required:</div>
+              <div class="skills-list-full">
+                <span *ngFor="let skill of getSkillsArray(job.skills_required)" class="skill-tag-full" 
+                      [class.active]="isSkillMatched(skill)">
+                  {{ skill }}
+                </span>
+              </div>
+            </div>
+            <div class="requirements-text">
+              <p>Experience level: Mid-Senior | Full-time | {{ job.location }}</p>
+            </div>
+          </div>
+
+          <!-- Benefits -->
+          <div class="section benefits-section">
+            <h2>Benefits</h2>
+            <ul class="benefits-list">
+              <li>Competitive salary and performance bonuses</li>
+              <li>Flexible working hours and remote options</li>
+              <li>Professional development opportunities</li>
+              <li>Health insurance and wellness programs</li>
+              <li>Collaborative and innovative team environment</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Column: Company & Related -->
+        <div class="sidebar-column" data-aos="fade-left">
+          <!-- Company Info -->
+          <div class="section company-info-section">
+            <h3>About {{ job.company }}</h3>
+            <div class="company-description">
+              <p>Leading innovator in technology solutions, committed to excellence and growth. Join a team that's shaping the future.</p>
+            </div>
+            <div class="company-actions">
+              <button class="btn-company" (click)="visitCompanyWebsite()">Visit Website</button>
+            </div>
+          </div>
+
+          <!-- Related Jobs Teaser -->
+          <div class="section related-jobs-section">
+            <h3>Related Opportunities</h3>
+            <div class="related-jobs-list">
+              <div *ngFor="let relatedJob of relatedJobs" class="related-job-item" (click)="navigateToRelatedJob(relatedJob.id)">
+                <div class="related-job-title">{{ relatedJob.title }}</div>
+                <div class="related-job-meta">
+                  <span>{{ relatedJob.company }}</span> • <span>{{ relatedJob.location }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="!job" class="loading-container" data-aos="fade-in">
+    <div class="spinner"></div>
+    <p>Loading job details...</p>
+  </div>
+
+  <!-- Apply Modal -->
+  <div class="apply-modal" *ngIf="showApplyModal" (click)="closeApplyModal($event)">
+    <div class="modal-content" (click)="stopPropagation($event)">
+      <button class="close-modal-btn" (click)="closeApplyModal()">×</button>
+      <h3>Apply for {{ job?.title }}</h3>
+      <form (ngSubmit)="submitApplication(applyForm)" #applyForm="ngForm">
+        <div class="form-group">
+          <label for="applicantName">Full Name</label>
+          <input type="text" id="applicantName" name="name" [(ngModel)]="application.name" required>
+        </div>
+        <div class="form-group">
+          <label for="applicantEmail">Email</label>
+          <input type="email" id="applicantEmail" name="email" [(ngModel)]="application.email" required>
+        </div>
+        <div class="form-group">
+          <label for="applicantResume">Resume (Upload)</label>
+          <input type="file" id="applicantResume" name="resume" accept=".pdf,.doc,.docx" (change)="onFileChange($event)" required>
+        </div>
+        <div class="form-group">
+          <label for="applicantCoverLetter">Cover Letter</label>
+          <textarea id="applicantCoverLetter" name="coverLetter" [(ngModel)]="application.coverLetter" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn-submit-apply" [disabled]="!applyForm.valid">Submit Application</button>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
