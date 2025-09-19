@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path
-from core.views import RegisterView , JobListView, JobCreateView
+from core.views import RegisterView , JobListView, JobCreateView , JobDetailView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from core.views import ResumeUploadView
 from django.conf import settings
@@ -34,6 +34,7 @@ urlpatterns = [
         
         path('api/resume/upload/', ResumeUploadView.as_view(), name='resume_upload'),
         path('api/jobs/', JobListView.as_view(), name='job_list'),
+        path('api/jobs/<int:pk>/', JobDetailView.as_view(), name='job_detail'),
         path('api/jobs/create/', JobCreateView.as_view(), name='job_create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

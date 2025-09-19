@@ -1,0 +1,607 @@
+$dark-blue: #1a2a44;
+$medium-blue: #162b4d;
+$light-blue: #1e3a8a;
+$accent: #3b82f6;
+$accent-light: #60a5fa;
+$text-light: #f8fafc;
+$text-gray: #94a3b8;
+$card-bg: #1e293b;
+$border-color: #334155;
+$jobs-bg: #cec6d6;
+$jobs-bg-secondary: #020814;
+$jobs-bg-tertiary: #080555;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $dark-blue 0%, $medium-blue 50%, $light-blue 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// Global Styles
+.job-details-portal {
+  min-height: 100vh;
+  color: $text-light;
+  font-family: 'Inter', sans-serif;
+  background: $jobs-bg-secondary;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/assets/EY.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.08;
+    z-index: -1;
+    animation: subtleFloat 25s ease-in-out infinite;
+  }
+
+  @keyframes subtleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+}
+
+// Hero Section
+.hero-section {
+  padding: 100px 0 60px;
+  @include gradient-bg;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 42, 68, 0.7);
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content {
+    padding: 0 20px;
+  }
+
+  .job-hero-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .company-logo-large {
+      .logo-large {
+        width: 100px;
+        height: 100px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 2px solid $accent;
+        @include card-shadow;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .job-hero-text {
+      flex: 1;
+
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 0 0 0.5rem;
+        color: $text-light;
+        line-height: 1.3;
+      }
+
+      .company-name-large {
+        font-size: 1.5rem;
+        color: $accent-light;
+        font-weight: 600;
+        margin: 0 0 1rem;
+      }
+
+      .job-meta-hero {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        .meta-item {
+          @include flex-center;
+          gap: 0.5rem;
+          color: $text-gray;
+          font-size: 1rem;
+
+          i {
+            color: $accent;
+            font-size: 1.1rem;
+          }
+        }
+
+        .featured-tag {
+          background: $accent;
+          color: $text-light;
+          padding: 0.4rem 1rem;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 0.85rem;
+          @include card-shadow;
+        }
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        .btn-apply {
+          background: $accent;
+          border: none;
+          padding: 0.8rem 2rem;
+          color: $text-light;
+          font-weight: 700;
+          border-radius: 30px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          @include card-shadow;
+
+          &:hover {
+            background: $accent-light;
+            transform: translateY(-2px);
+          }
+        }
+
+        .btn-save {
+          background: transparent;
+          border: 2px solid $accent;
+          padding: 0.8rem 1.5rem;
+          color: $accent;
+          font-weight: 600;
+          border-radius: 30px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          &:hover {
+            background: $accent;
+            color: $text-light;
+            border-color: $accent-light;
+          }
+
+          i {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .skills-preview {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: $text-light;
+    }
+
+    .skills-list-preview {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.7rem;
+
+      .skill-tag-preview {
+        background: rgba(59, 130, 246, 0.15);
+        color: $accent-light;
+        padding: 0.4rem 1rem;
+        border-radius: 15px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: $accent;
+          color: $text-light;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+// Main Content
+.main-content {
+  padding: 3rem 0;
+  background: rgba(26, 42, 68, 0.2);
+  backdrop-filter: blur(8px);
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Sections
+.section {
+  background: $card-bg;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  @include card-shadow;
+  border: 1px solid $border-color;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: $accent-light;
+  }
+
+  h2, h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $text-light;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.3rem;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: $accent;
+    }
+  }
+}
+
+.overview-section {
+  .overview-text {
+    color: $text-gray;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+}
+
+.responsibilities-section, .benefits-section {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      color: $text-gray;
+      margin-bottom: 0.8rem;
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.5;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: $accent;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+.requirements-section {
+  .skills-full {
+    margin-bottom: 1rem;
+
+    .skills-label {
+      font-size: 0.95rem;
+      color: $text-light;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .skills-list-full {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+
+      .skill-tag-full {
+        background: rgba(59, 130, 246, 0.1);
+        color: $accent-light;
+        padding: 0.3rem 0.8rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+
+        &.active {
+          background: $accent;
+          color: $text-light;
+        }
+
+        &:hover {
+          background: $accent-light;
+          color: $text-light;
+        }
+      }
+    }
+  }
+
+  .requirements-text {
+    p {
+      color: $text-gray;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+  }
+}
+
+.company-info-section {
+  .company-description {
+    p {
+      color: $text-gray;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+  }
+
+  .company-actions {
+    .btn-company {
+      width: 100%;
+      background: transparent;
+      border: 2px solid $accent;
+      color: $accent;
+      padding: 0.7rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: $accent;
+        color: $text-light;
+      }
+    }
+  }
+}
+
+.related-jobs-section {
+  .related-jobs-list {
+    .related-job-item {
+      padding: 0.8rem;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.05);
+        border-color: $accent;
+        transform: translateX(3px);
+      }
+
+      .related-job-title {
+        color: $text-light;
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .related-job-meta {
+        color: $text-gray;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+// Apply Modal
+.apply-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 42, 68, 0.85);
+  z-index: 1000;
+  @include flex-center;
+  backdrop-filter: blur(5px);
+
+  .modal-content {
+    background: $card-bg;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 450px;
+    border: 1px solid $border-color;
+    @include card-shadow;
+    animation: modalSlideIn 0.3s ease-out;
+
+    h3 {
+      color: $text-light;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      color: $text-gray;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $accent;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+
+      label {
+        display: block;
+        color: $text-light;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      input, textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 0.7rem;
+        color: $text-light;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: $accent;
+          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        &::placeholder {
+          color: $text-gray;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+    }
+
+    .btn-submit-apply {
+      width: 100%;
+      background: $accent;
+      border: none;
+      padding: 0.8rem;
+      color: $text-light;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $accent-light;
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        background: $text-gray;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@keyframes modalSlideIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 80px 0 40px;
+
+    .job-hero-info {
+      flex-direction: column;
+      text-align: center;
+
+      .company-logo-large {
+        margin-bottom: 1rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+    }
+  }
+
+  .main-content .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    .job-hero-text {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .company-name-large {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .section {
+    padding: 1.2rem;
+
+    h2, h3 {
+      font-size: 1.4rem;
+    }
+  }
+
+  .apply-modal .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+}
