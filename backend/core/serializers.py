@@ -114,7 +114,7 @@ class JobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Job
-        fields = ['id', 'title', 'description', 'company', 'location', 'created_by', 'created_at', 'skills_required']
+        fields = ['id', 'title', 'description', 'company', 'location', 'created_by', 'created_at', 'skills_required', 'job_overview', 'responsibilities', 'benefits', 'job_type', 'qualification_level']
         read_only_fields = ['created_by', 'created_at', 'company']  # company is set in validate
 
     def validate(self, attrs):
