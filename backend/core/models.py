@@ -25,6 +25,15 @@ class Job(models.Model):
     description = models.TextField()
     company = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    job_overview = models.TextField(blank=True, null=True)
+    responsibilities = models.TextField(blank=True, null=True)
+    benefits = models.TextField(blank=True, null=True)
+    job_type = models.CharField(max_length=50, choices=[('remote', 'Remote'), ('onsite', 'Onsite'), ('hybrid', 'Hybrid')], default='onsite')
+    qualification_level = models.CharField(
+        max_length=50,
+        choices=[('junior', 'Junior'), ('mid', 'Mid-level'), ('senior', 'Senior')],
+        default='mid'
+    )
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='jobs')
     created_at = models.DateTimeField(auto_now_add=True)
     skills_required = models.TextField(blank=True, null=True)  # For job matching
