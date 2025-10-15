@@ -7,11 +7,18 @@ interface Job {
   id: number;
   title: string;
   description: string;
+  job_overview: string;
+  responsibilities: string;
   company: string;
   location: string;
   created_by: string;
   created_at: string;
   skills_required: string;
+  benefits: string;
+  job_type: string;
+  qualification_level: string;
+  featured?: boolean;
+  isFeaturedShown?: boolean;
 }
 
 @Injectable({

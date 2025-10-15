@@ -13,11 +13,16 @@ interface Job {
   id: number;
   title: string;
   description: string;
+  job_overview: string;
+  responsibilities: string;
   company: string;
   location: string;
   created_by: string;
   created_at: string;
   skills_required: string;
+  benefits: string;
+  job_type: string;
+  qualification_level: string;
   featured?: boolean;
   isFeaturedShown?: boolean;
 }
@@ -47,11 +52,8 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
   progress = 0;
   backgroundImages = [
     '/assets/micro.jpg',
-    
     '/assets/EY.jpg',
-    
     '/assets/OpenAI.jpg'
-    
   ];
 
   constructor(private jobsService: JobsService, private router: Router) {}
@@ -155,7 +157,7 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
         job.title.toLowerCase().includes(term) ||
         job.company.toLowerCase().includes(term) ||
         job.skills_required.toLowerCase().includes(term) ||
-        job.description.toLowerCase().includes(term)
+        job.job_overview.toLowerCase().includes(term)
       );
     }
 
@@ -241,6 +243,14 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     return date.toLocaleDateString();
   }
 
+  formatJobType(type: string): string {
+    return type.charAt(0).toUpperCase() + type.slice(1);
+  }
+
+  formatQualification(level: string): string {
+    return level.charAt(0).toUpperCase() + level.slice(1) + ' Level';
+  }
+
   getCompanyLogo(companyName: string): string {
     const companyLogos: { [key: string]: string } = {
       'EY': '/assets/EY.jpg',
@@ -309,31 +319,31 @@ export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.filteredJobs.slice(start, end);
   }
 
-  getTwoLineDescription(description: string): string {
-    const sentences = description.split('. ').slice(0, 2).join('. ');
-    return sentences + (sentences.length < description.length ? '…' : '');
+  getTeaser(text: string): string {
+    const words = text.split(' ').slice(0, 20).join(' ');
+    return words + (words.length < text.length ? '…' : '');
   }
 
-navigateToJob(jobId: number): void {
-  if (!jobId || jobId <= 0) {
-    alert('Invalid job selected. Please try again.');
-    console.error('Invalid jobId:', jobId);
-    return;
-  }
-
-  this.jobsService.getJobById(jobId).subscribe({
-    next: () => {
-      this.router.navigate(['/job-details', jobId]).catch(err => {
-        alert('Unable to view job details. Please try again.');
-        console.error('Navigation error:', err);
-      });
-    },
-    error: () => {
-      alert('Job not found. Please select a different job.');
-      console.error('Job not found for ID:', jobId);
+  navigateToJob(jobId: number): void {
+    if (!jobId || jobId <= 0) {
+      alert('Invalid job selected. Please try again.');
+      console.error('Invalid jobId:', jobId);
+      return;
     }
-  });
-}
+
+    this.jobsService.getJobById(jobId).subscribe({
+      next: () => {
+        this.router.navigate(['/job-details', jobId]).catch(err => {
+          alert('Unable to view job details. Please try again.');
+          console.error('Navigation error:', err);
+        });
+      },
+      error: () => {
+        alert('Job not found. Please select a different job.');
+        console.error('Job not found for ID:', jobId);
+      }
+    });
+  }
 
   getDescriptionHeight(description: string): string {
     const lines = description.split('\n').length || 1;
