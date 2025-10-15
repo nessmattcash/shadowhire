@@ -1,4 +1,4 @@
-  <app-header></app-header>
+<app-header></app-header>
 <div class="jobs-portal">
   <app-header></app-header>
   <!-- Hero Section with Company Showcase -->
@@ -116,6 +116,10 @@
                 <i class="bi bi-clock"></i>
                 <span>{{ formatDate(job.created_at) }}</span>
               </div>
+              <div class="meta-item">
+                <i class="bi bi-briefcase"></i>
+                <span>{{ formatJobType(job.job_type) }}</span>
+              </div>
             </div>
             
             <div class="skills-container">
@@ -126,7 +130,7 @@
               </div>
             </div>
             
-            <div class="job-description-teaser" [style.max-height]="(job.title.split(' ').length > 3 || job.skills_required.split(',').length > 3) ? (job.description.split('. ').length * 1.2 + 'em') : (job.description.split('. ').length * 0.8 + 'em')">{{ getTwoLineDescription(job.description) }}</div>
+            <div class="job-overview-teaser" [style.max-height]="(job.title.split(' ').length > 3 || job.skills_required.split(',').length > 3) ? '4em' : '3em'">{{ getTeaser(job.job_overview) }}</div>
           </div>
           
           <div class="card-footer">
@@ -157,6 +161,7 @@
               <h3 class="job-title">{{ selectedJob.title }}</h3>
               <p class="company-name">{{ selectedJob.company }}</p>
               <span class="featured-tag" *ngIf="selectedJob.isFeaturedShown">Featured</span>
+              <span class="qualification-tag">{{ formatQualification(selectedJob.qualification_level) }}</span>
             </div>
           </div>
           <div class="popup-body">
@@ -169,6 +174,10 @@
                 <i class="bi bi-clock"></i>
                 <span>{{ formatDate(selectedJob.created_at) }}</span>
               </div>
+              <div class="meta-item">
+                <i class="bi bi-briefcase"></i>
+                <span>{{ formatJobType(selectedJob.job_type) }}</span>
+              </div>
             </div>
             <div class="skills-container">
               <div class="skills-label">Skills Required:</div>
@@ -178,8 +187,8 @@
                 </span>
               </div>
             </div>
-            <div class="job-description-full" [style.height]="getDescriptionHeight(selectedJob.description)">
-              {{ selectedJob.description || 'Embark on an exciting journey with this role! Dive into a dynamic environment where your skills will shine, offering opportunities to grow, innovate, and collaborate with top-tier professionals. Expect a competitive salary, flexible hours, and a chance to leave your mark on groundbreaking projects.' }}
+            <div class="job-overview-full">
+              <p>{{ selectedJob.job_overview }}</p>
             </div>
           </div>
           <div class="popup-footer">
@@ -193,4 +202,4 @@
     </div>
   </section>
 </div>
-<app-footer></app-footer> 
+<app-footer></app-footer>

@@ -635,9 +635,11 @@ $jobs-bg-tertiary: #1e3a8a; // Tertiary blue for gradient
     flex-grow: 1;
 
     .job-meta {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+
 
       .meta-item {
         display: flex;
@@ -696,7 +698,17 @@ $jobs-bg-tertiary: #1e3a8a; // Tertiary blue for gradient
       -webkit-box-orient: vertical;
     }
   }
-
+   .job-overview-teaser {
+  color: $text-gray;
+  line-height: 1.3;
+  font-size: 0.8rem;
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 2.6em; // Fixed height for equality
+}
   .card-footer {
     padding: 0.8rem 1rem;
     border-top: 1px solid $border-color;
@@ -806,6 +818,34 @@ $jobs-bg-tertiary: #1e3a8a; // Tertiary blue for gradient
           object-fit: cover;
           border: 2px solid $accent-light;
         }
+        .job-overview-full {
+  margin-top: 1rem;
+  h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: $text-light;
+  }
+  p {
+    color: $text-gray;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+}
+.qualification-tag {
+  background: rgba(59, 130, 246, 0.15);
+  color: $accent-light;
+  padding: 0.2rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+// Ensure card min-height for equality
+.job-card {
+  min-height: 320px; // Adjusted for consistent size
+}
       }
 
       .company-details {

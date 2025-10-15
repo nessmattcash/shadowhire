@@ -21,6 +21,11 @@
                 <i class="bi bi-clock"></i>
                 <span>{{ formatDate(job.created_at) }}</span>
               </div>
+              <div class="meta-item">
+                <i class="bi bi-briefcase"></i>
+                <span>{{ formatJobType(job.job_type) }}</span>
+              </div>
+              <span class="qualification-tag">{{ formatQualification(job.qualification_level) }}</span>
               <span class="featured-tag" *ngIf="job.featured">Featured Opportunity</span>
             </div>
             <div class="hero-actions">
@@ -55,14 +60,14 @@
           <!-- Overview -->
           <div class="section overview-section">
             <h2>Job Overview</h2>
-            <p class="overview-text">{{ job.description }}</p>
+            <p class="overview-text">{{ job.job_overview }}</p>
           </div>
 
           <!-- Responsibilities -->
           <div class="section responsibilities-section">
             <h2>Responsibilities</h2>
             <ul class="responsibilities-list">
-              <li *ngFor="let resp of getResponsibilities(job.description)">
+              <li *ngFor="let resp of getResponsibilities(job.responsibilities)">
                 {{ resp }}
               </li>
             </ul>
@@ -81,7 +86,7 @@
               </div>
             </div>
             <div class="requirements-text">
-              <p>Experience level: Mid-Senior | Full-time | {{ job.location }}</p>
+              <p>Experience level: {{ formatQualification(job.qualification_level) }} | {{ formatJobType(job.job_type) }} | {{ job.location }}</p>
             </div>
           </div>
 
@@ -89,11 +94,9 @@
           <div class="section benefits-section">
             <h2>Benefits</h2>
             <ul class="benefits-list">
-              <li>Competitive salary and performance bonuses</li>
-              <li>Flexible working hours and remote options</li>
-              <li>Professional development opportunities</li>
-              <li>Health insurance and wellness programs</li>
-              <li>Collaborative and innovative team environment</li>
+              <li *ngFor="let benefit of getBenefits(job.benefits)">
+                {{ benefit }}
+              </li>
             </ul>
           </div>
         </div>
@@ -104,7 +107,7 @@
           <div class="section company-info-section">
             <h3>About {{ job.company }}</h3>
             <div class="company-description">
-              <p>Leading innovator in technology solutions, committed to excellence and growth. Join a team that's shaping the future.</p>
+              <p>{{ job.description || 'Leading innovator in technology solutions, committed to excellence and growth. Join a team that\'s shaping the future.' }}</p>
             </div>
             <div class="company-actions">
               <button class="btn-company" (click)="visitCompanyWebsite()">Visit Website</button>
