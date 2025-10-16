@@ -8,12 +8,30 @@ class User(AbstractUser):
     is_recruiter = models.BooleanField(default=False)  
     is_admin = models.BooleanField(default=False)
     company_name = models.CharField(max_length=100, blank=True, null=True) 
+    profile_photo = models.ImageField(upload_to='media/users/', blank=True, null=True)
+    specialties = models.TextField(blank=True, null=True)  # For job matching
+    role_in_company = models.CharField(
+        max_length=100,
+        choices=[
+            ('hr_manager', 'HR Manager'),
+            ('talent_acquisition_specialist', 'Talent Acquisition Specialist'),
+            ('recruiter', 'Recruiter'),
+            ('hiring_manager', 'Hiring Manager'),
+            ('other', 'Other')
+        ],
+        blank=True, null=True
+    )
+    company_website = models.URLField(blank=True, null=True)
+    company_logo = models.ImageField(upload_to='media/company/', blank=True, null=True)  # To media/company/
+    company_location = models.CharField(max_length=100, blank=True, null=True)
+    verification_document = models.FileField(upload_to='media/verification/', blank=True, null=True)  # To media/verification/
+    is_approved = models.BooleanField(default=False)  # For recruiters, pending admin approval
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.email})"
 
 class Resume(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='resumes')
-    file = models.FileField(upload_to='resumes/')
+    file = models.FileField(upload_to='media/resumes/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     parsed_text = models.TextField(blank=True, null=True)  # For storing extracted resume text
 

@@ -13,6 +13,7 @@ import os
 from .models import Resume
 from .models import Job
 from .models import Application
+from rest_framework.permissions import IsAdminUser
 
 User = get_user_model()
     
@@ -72,3 +73,15 @@ class JobDetailView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Job.DoesNotExist:
             return Response({'error': 'Job not found'}, status=status.HTTP_404_NOT_FOUND)   
+
+class RecruiterApprovalView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def post(self, request, user_id):
+        try:
+            user = User.objects.get(id=user_id, is_recruiter=True, is_approved=False)
+            user.is_approved = True
+            user.save()
+            return Response({'message': f'Recruiter {user.email} approved.'}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'error': 'Recruiter not found or already approved.'}, status=status.HTTP_404_NOT_FOUND)        
