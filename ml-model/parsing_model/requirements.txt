@@ -1,0 +1,15 @@
+datasets
+pdfplumber
+pdfminer.six
+fuzzywuzzy
+python-Levenshtein
+torch
+accelerate
+transformers
+spacy
+nltk
+seqeval
+evaluate
+flask
+gunicorn
+unicodedata2

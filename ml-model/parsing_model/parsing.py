@@ -1,898 +1,1851 @@
-#1 unziping the dataset
-import zipfile
-#!unzip -q /content/archive.zip -d /content/
-BASE = "/content/Resume"
+#how i create a parsing model
+#1 installations
+#!pip install  datasets pdfplumber pdfminer.six fuzzywuzzy python-Levenshtein torch accelerate -U -q
+#!pip install spacy -q  # For data prep (optional, but helpful)
+#!python -m spacy download en_core_web_sm -q  # English model
+#!python -m spacy download fr_core_news_sm -q  # French model (since CVs have French)
+#import nltk
+#nltk.download('punkt', quiet=True)  # For sentence tokenization
+#!pip install evaluate seqeval -q
+
+
+#2 unzip dataset (on google colab)
+#!unzip -q /content/aziz.zip -d /content/
+#BASE = "/content"
 #!ls -R "$BASE"
 
-
-#2 install the dependecies
-# Core ML & parsing libs
-#!pip install -q pdfminer.six python-docx transformers datasets seqeval holmes
-#!pip install -q sentencepiece sacremoses
-#!pip install -q torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-#!pip install -q scikit-learn tqdm
-#!pip install pdfminer.six --quiet
-
-
-#3imports
-import os, re, json, math, random
-import pandas as pd
-from tqdm import tqdm
-import numpy as np
-from pathlib import Path
-from pdfminer.high_level import extract_text
-
-
-#4 testing the imports 
-import numpy as np
-import pandas as pd
-import tensorflow as tf
-
-print(np.__version__)
-print(pd.__version__)
-print(tf.__version__)
+#3 imports and regex patterns
+import json
+import os
+import re
+import logging
+from collections import defaultdict
+from unicodedata import normalize
+from typing import Dict, List, Any, Tuple
+from fuzzywuzzy import fuzz
+import pdfplumber
+from pdfminer.high_level import extract_text as pdfminer_extract
+from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline, TrainingArguments, Trainer
+from datasets import Dataset
+import torch
+import spacy  # For annotation processing
+from seqeval.metrics import classification_report  # NEW: For NER evaluation
 
 
-#5 read the annotatited file
-
-CSV_PATH = "/content/Resume/Resume.csv"  
-df = pd.read_csv(CSV_PATH, encoding='utf-8', dtype=str, low_memory=False)
-df = df.fillna('')  # replace NaN
-print("rows:", len(df))
-display(df.head(2).T)
-#result 
-#rows: 2484
-#0	1
-#ID	16852973	22323967
-#Resume_str	HR ADMINISTRATOR/MARKETING ASSOCIATE\...	HR SPECIALIST, US HR OPERATIONS ...
-#Resume_html	<div class="fontsize fontface vmargins hmargin...	<div class="fontsize fontface vmargins hmargin...
-#Category	HR	HR
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-#6 cleanning function 
-def clean_text(s):
-    s = s.replace('\r',' ').replace('\n',' ').replace('\t',' ')
-    s = re.sub(r'\s+', ' ', s)
-    s = s.strip()
-    return s
 
-df['resume_text'] = df['Resume_str'].astype(str).apply(clean_text)
-
-#7 BUILD SKILL DICTIONARY
-# ==================== CORE TECHNICAL SKILLS ====================
-
-# --- Programming Languages ---
-PROGRAMMING_LANGUAGES = [
+# Skills lists (expanded with more terms for accuracy, e.g., AI/ML, devops variants, cloud)
+IT_SKILLS = set([
     "python", "java", "c++", "c", "c#", "javascript", "typescript", "php", "ruby", "swift",
     "kotlin", "go", "golang", "rust", "scala", "r", "dart", "perl", "haskell", "elixir",
     "clojure", "lua", "matlab", "objective-c", "bash", "shell", "powershell", "groovy",
-    "julia", "cobol", "fortran", "lisp", "scheme", "erlang", "f#", "assembly", "vb.net", "vba"
-]
-
-# --- Web Development (Frontend) ---
-WEB_FRONTEND = [
+    "julia", "cobol", "fortran", "lisp", "scheme", "erlang", "f#", "assembly", "vb.net", "vba",
     "html", "html5", "css", "css3", "sass", "scss", "less", "bootstrap", "tailwind css",
     "react", "angular", "vue", "vue.js", "svelte", "next.js", "nuxt.js", "gatsby", "remix",
     "redux", "context api", "vuex", "rxjs", "webpack", "vite", "parcel", "babel", "npm", "yarn",
     "pnpm", "jquery", "web components", "stencil", "three.js", "d3.js", "chart.js", "jest", "cypress",
-    "storybook", "material ui", "ant design", "chakra ui", "figma", "sketch", "xd", "webgl"
-]
-
-# --- Web Development (Backend) & Frameworks ---
-WEB_BACKEND_FRAMEWORKS = [
+    "storybook", "material ui", "ant design", "chakra ui", "figma", "sketch", "xd", "webgl",
     "node.js", "express.js", "nest.js", "koa", "django", "flask", "fastapi", "ruby on rails",
-    "spring", "spring boot", "micronaut", "quarkus", "laravel", "symfony", "codeigniter",
-    "asp.net", "asp.net core", "blazor", "phoenix", "gin", "echo", "fiber", "actix", "rocket"
-]
-
-# --- Mobile Development ---
-MOBILE_DEVELOPMENT = [
-    "android", "ios", "react native", "flutter", "xamarin", "ionic", "kotlin multiplatform",
-    "swiftui", "jetpack compose", "objective-c", "android sdk", "xcode", "appium"
-]
-
-# --- Database Technologies ---
-DATABASES = [
-    "sql", "mysql", "postgresql", "postgres", "sqlite", "oracle", "microsoft sql server", "sql server",
-    "mongodb", "cassandra", "redis", "elasticsearch", "dynamodb", "cosmos db", "firebase firestore",
-    "realm", "couchbase", "couchdb", "neo4j", "arangodb", "influxdb", "snowflake", "bigquery",
-    "redshift", "table design", "database normalization", "indexing", "query optimization", "etl", "elt"
-]
-
-# --- Cloud & DevOps Platforms ---
-CLOUD_PLATFORMS = [
-    "aws", "amazon web services", "azure", "microsoft azure", "gcp", "google cloud platform",
-    "oracle cloud", "oci", "ibm cloud", "digitalocean", "linode", "akamai", "cloudflare",
-    "heroku", "netlify", "vercel", "firebase", "openshift", "vmware", "openstack"
-]
-
-# --- DevOps & Infrastructure Tools ---
-DEVOPS_TOOLS = [
-    "docker", "kubernetes", "k8s", "terraform", "ansible", "puppet", "chef", "jenkins",
-    "github actions", "gitlab ci", "circleci", "travis ci", "argo cd", "flux", "helm",
+    "spring", "spring boot", "micronaut", "quarkus", "laravel", "symfony", "codeigniter", "asp.net",
+    "asp.net core", "blazor", "phoenix", "gin", "echo", "fiber", "actix", "rocket", "android", "ios",
+    "react native", "flutter", "xamarin", "ionic", "kotlin multiplatform", "swiftui", "jetpack compose",
+    "objective-c", "android sdk", "xcode", "appium", "sql", "mysql", "postgresql", "postgres", "sqlite",
+    "oracle", "microsoft sql server", "sql server", "mongodb", "cassandra", "redis", "elasticsearch",
+    "dynamodb", "cosmos db", "firebase firestore", "realm", "couchbase", "couchdb", "neo4j", "arangodb",
+    "influxdb", "snowflake", "bigquery", "redshift", "table design", "database normalization", "indexing",
+    "query optimization", "etl", "elt", "aws", "amazon web services", "azure", "microsoft azure",
+    "gcp", "google cloud platform", "oracle cloud", "oci", "ibm cloud", "digitalocean", "linode",
+    "akamai", "cloudflare", "heroku", "netlify", "vercel", "firebase", "openshift", "vmware",
+    "openstack", "docker", "kubernetes", "k8s", "terraform", "ansible", "puppet", "chef",
+    "jenkins", "github actions", "gitlab ci", "circleci", "travis ci", "argo cd", "flux", "helm",
     "prometheus", "grafana", "datadog", "splunk", "new relic", "elk stack", "elastic stack",
-    "istio", "linkerd", "envoy", "vagrant", "packer", "consul", "vault", "nomad",
-    "nginx", "apache", "iis", "linux", "ubuntu", "debian", "centos", "red hat", "rhel", "suse",
-    "bash scripting", "shell scripting", "powershell scripting"
-]
-
-# --- Specific AWS Services ---
-AWS_SERVICES = [
-    "ec2", "s3", "lambda", "rds", "dynamodb", "iam", "vpc", "route 53", "cloudfront",
-    "sns", "sqs", "eventbridge", "api gateway", "elastic beanstalk", "ecs", "eks", "fargate",
-    "cloudformation", "cloudwatch", "codebuild", "codepipeline", "codedeploy", "systems manager",
-    "secrets manager", "kms", "cognito", "amplify", "appsync", "glue", "athena", "quickSight"
-]
-
-# --- Specific Azure Services ---
-AZURE_SERVICES = [
-    "azure vm", "azure app service", "azure functions", "azure sql database", "cosmos db",
-    "azure active directory", "aad", "azure devops", "arm templates", "azure resource manager",
-    "azure kubernetes service", "aks", "azure container instances", "azure storage", "blob storage",
-    "azure monitor", "application insights", "azure pipeline", "key vault", "azure CDN",
-    "azure event grid", "service bus", "azure data factory", "synapse analytics", "power bi"
-]
-
-# --- Specific GCP Services ---
-GCP_SERVICES = [
-    "compute engine", "app engine", "cloud functions", "cloud run", "bigquery", "bigtable",
-    "cloud spanner", "cloud sql", "firestore", "cloud storage", "gcs", "vertex ai",
-    "google kubernetes engine", "gke", "cloud build", "cloud deployment manager",
-    "iam", "cloud identity", "vpc", "cloud load balancing", "stackdriver", "operations",
-    "pub/sub", "dataflow", "dataproc", "looker", "looker studio"
-]
-
-# --- AI/ML/Data Science ---
-AI_ML_DATA_SCIENCE = [
-    "machine learning", "ml", "deep learning", "neural networks", "natural language processing", "nlp",
-    "computer vision", "cv", "generative ai", "llm", "large language models", "tensorflow", "pytorch",
-    "keras", "scikit-learn", "opencv", "hugging face", "transformers", "langchain", "llama index",
-    "apache spark", "pyspark", "hadoop", "hdfs", "mapreduce", "hive", "pig", "kafka", "kafka streams",
-    "airflow", "prefect", "dagster", "dbt", "data analysis", "data visualization", "tableau", "power bi",
-    "qlik", "matplotlib", "seaborn", "plotly", "pandas", "numpy", "jupyter", "rstudio", "mlops"
-]
-
-# --- Networking & Security ---
-NETWORKING_SECURITY = [
-    "tcp/ip", "dns", "dhcp", "http", "https", "ssl", "tls", "vpn", "ipsec", "ssh",
-    "network security", "cybersecurity", "application security", "appsec", "devsecops",
-    "owasp", "penetration testing", "pentesting", "vulnerability assessment", "siem",
-    "soc", "firewalls", "waf", "ids", "ips", "zero trust", "pki", "cryptography", "encryption",
-    "iso 27001", "soc 2", "pci dss", "gdpr", "compliance", "risk management", "incident response"
-]
-
-# --- Software Development Practices ---
-SOFTWARE_PRACTICES = [
-    "agile", "scrum", "kanban", "devops", "devsecops", "gitops", "ci/cd", "continuous integration",
-    "continuous delivery", "continuous deployment", "test driven development", "tdd", "bdd",
-    "pair programming", "code review", "refactoring", "clean code", "design patterns",
-    "solid principles", "microservices", "monolith", "serverless", "rest", "restful api",
-    "graphql", "grpc", "soap", "api design", "event driven architecture", "eda", "domain driven design", "ddd",
-    "twelve factor app", "object oriented programming", "oop", "functional programming", "fp"
-]
-
-# --- QA & Testing ---
-QA_TESTING = [
-    "unit testing", "integration testing", "end-to-end testing", "e2e testing", "ui testing",
-    "regression testing", "performance testing", "load testing", "stress testing", "security testing",
-    "accessibility testing", "a11y", "manual testing", "automated testing", "selenium",
-    "cypress", "playwright", "puppeteer", "jest", "mocha", "jasmine", "karma", "phpunit",
-    "junit", "testng", "cucumber", "specflow", "soapui", "postman", "jmeter", "gatling"
-]
-
-# --- Enterprise & Other Tech ---
-ENTERPRISE_TECH = [
-    "salesforce", "servicenow", "sap", "oracle ebs", "microsoft dynamics", "sharepoint",
-    "sitecore", "adobe experience manager", "aem", "workday", "mainframe", "cobol",
+    "istio", "linkerd", "envoy", "vagrant", "packer", "consul", "vault", "nomad", "nginx",
+    "apache", "iis", "linux", "ubuntu", "bash scripting", "shell scripting", "powershell scripting",
+    "ec2", "s3", "lambda", "rds", "dynamodb", "iam", "vpc", "route 53", "cloudfront", "sns",
+    "sqs", "eventbridge", "api gateway", "elastic beanstalk", "ecs", "eks", "fargate", "cloudformation",
+    "cloudwatch", "codebuild", "codepipeline", "codedeploy", "systems manager", "secrets manager",
+    "kms", "cognito", "amplify", "appsync", "glue", "athena", "quicksight", "azure vm",
+    "azure app service", "azure functions", "azure sql database", "cosmos db", "azure active directory",
+    "aad", "azure devops", "arm templates", "azure resource manager", "azure kubernetes service",
+    "aks", "azure container instances", "azure storage", "blob storage", "azure monitor",
+    "application insights", "azure pipeline", "key vault", "azure cdn", "azure event grid",
+    "service bus", "azure data factory", "synapse analytics", "power bi", "compute engine",
+    "app engine", "cloud functions", "cloud run", "bigquery", "bigtable", "cloud spanner",
+    "cloud sql", "firestore", "cloud storage", "gcs", "vertex ai", "google kubernetes engine",
+    "gke", "cloud build", "cloud deployment manager", "iam", "cloud identity", "vpc",
+    "cloud load balancing", "stackdriver", "operations", "pub/sub", "dataflow", "dataproc",
+    "looker", "looker studio", "machine learning", "ml", "deep learning", "neural networks",
+    "natural language processing", "nlp", "computer vision", "cv", "generative ai", "llm",
+    "large language models", "tensorflow", "pytorch", "keras", "scikit-learn", "opencv",
+    "hugging face", "transformers", "langchain", "llama index", "apache spark", "pyspark",
+    "hadoop", "hdfs", "mapreduce", "hive", "pig", "kafka", "kafka streams", "airflow",
+    "prefect", "dagster", "dbt", "data analysis", "data visualization", "tableau", "power bi",
+    "qlik", "matplotlib", "seaborn", "plotly", "pandas", "numpy", "jupyter", "rstudio", "mlops",
+    "tcp/ip", "dns", "dhcp", "http", "https", "ssl", "tls", "vpn", "ipsec", "ssh", "network security",
+    "cybersecurity", "application security", "appsec", "devsecops", "owasp", "penetration testing",
+    "pentesting", "vulnerability assessment", "siem", "soc", "firewalls", "waf", "ids", "ips",
+    "zero trust", "pki", "cryptography", "encryption", "iso 27001", "soc 2", "pci dss", "gdpr",
+    "compliance", "risk management", "incident response", "agile", "scrum", "kanban", "devops",
+    "devsecops", "gitops", "ci/cd", "continuous integration", "continuous delivery", "continuous deployment",
+    "test driven development", "tdd", "bdd", "pair programming", "code review", "refactoring",
+    "clean code", "design patterns", "solid principles", "microservices", "monolith", "serverless",
+    "rest", "restful api", "graphql", "grpc", "soap", "api design", "event driven architecture",
+    "eda", "domain driven design", "ddd", "twelve factor app", "object oriented programming",
+    "oop", "functional programming", "fp", "unit testing", "integration testing", "end-to-end testing",
+    "e2e testing", "ui testing", "regression testing", "performance testing", "load testing",
+    "stress testing", "security testing", "accessibility testing", "a11y", "manual testing",
+    "automated testing", "selenium", "cypress", "playwright", "puppeteer", "jest", "mocha",
+    "jasmine", "karma", "phpunit", "junit", "testng", "cucumber", "specflow", "soapui",
+    "postman", "jmeter", "gatling", "salesforce", "servicenow", "sap", "oracle ebs", "microsoft dynamics",
+    "sharepoint", "sitecore", "adobe experience manager", "aem", "workday", "mainframe", "cobol",
     "soa", "esb", "tibco", "webmethods", "mulesoft", "ibm mq", "active directory", "ldap",
-    "windows server", "exchange server", "vmware vsphere", "citrix", "san", "nas", "raid"
-]
-
-# --- IT Support & Administration ---
-IT_SUPPORT = [
+    "windows server", "exchange server", "vmware vsphere", "citrix", "san", "nas", "raid",
     "itil", "ticketing systems", "service desk", "help desk", "technical support", "troubleshooting",
     "hardware", "software installation", "network administration", "system administration",
     "windows", "macos", "active directory", "group policy", "mdm", "intune", "jamf", "sccm",
-    "backup", "disaster recovery", "bcdr", "patch management", "remote support", "voip"
-]
+    "backup", "disaster recovery", "bcdr", "patch management", "remote support", "voip",
+    "embedded systems", "arduino", "raspberry pi", "iot", "internet of things", "fpga", "verilog",
+    "vhdl", "rtos", "real-time operating system", "device drivers", "kernel development",
+    "assembly", "cpp", "unity", "unreal engine", "cryengine", "godot", "directx", "opengl",
+    "vulkan", "shaders", "hlsl", "glsl", "game design", "3d modeling", "blender", "maya",
+    "3ds max", "physics engine", "vr", "ar", "virtual reality", "augmented reality", "blockchain",
+    "smart contracts", "solidity", "web3", "ethereum", "bitcoin", "hyperledger", "fabric",
+    "cryptocurrency", "nft", "defi", "distributed ledger", "consensus algorithms", "ai", "artificial intelligence",
+    "devsecops", "react native", "llm", "genai", "prompt engineering", "fine-tuning"  # NEW additions
+])
 
-# --- Low-Level & Embedded ---
-LOW_LEVEL_EMBEDDED = [
-    "embedded systems", "arduino", "raspberry pi", "iot", "internet of things", "fpga", "verilog", "vhdl",
-    "rtos", "real-time operating system", "device drivers", "kernel development", "assembly", "cpp"
-]
-
-# --- Game Development ---
-GAME_DEVELOPMENT = [
-    "unity", "unreal engine", "cryengine", "godot", "directx", "opengl", "vulkan", "shaders", "hlsl", "glsl",
-    "game design", "3d modeling", "blender", "maya", "3ds max", "physics engine", "vr", "ar", "virtual reality", "augmented reality"
-]
-
-# --- Blockchain ---
-BLOCKCHAIN = [
-    "blockchain", "smart contracts", "solidity", "web3", "ethereum", "bitcoin", "hyperledger", "fabric",
-    "cryptocurrency", "nft", "defi", "distributed ledger", "consensus algorithms"
-]
-
-# ==================== GENERAL & SOFT SKILLS ====================
-# Categorized for better analysis
-
-# --- Communication & Collaboration ---
-SOFT_SKILLS_COMMUNICATION = [
+GENERAL_SKILLS = set([
+    *IT_SKILLS,
     "communication", "written communication", "verbal communication", "presentation", "public speaking",
     "active listening", "storytelling", "negotiation", "influencing", "collaboration", "teamwork",
     "conflict resolution", "mediation", "customer service", "client facing", "stakeholder management",
-    "relationship building", "networking"
-]
-
-# --- Leadership & Management ---
-SOFT_SKILLS_LEADERSHIP = [
-    "leadership", "team leadership", "technical leadership", "mentoring", "coaching", "people management",
-    "project management", "program management", "product management", "agile coaching", "scrum mastery",
-    "decision making", "strategic thinking", "vision", "delegation", "change management", "risk management",
-    "resource allocation", "budgeting", "forecasting", "kanban", "prioritization", "time management"
-]
-
-# --- Cognitive & Analytical ---
-SOFT_SKILLS_ANALYTICAL = [
-    "problem solving", "critical thinking", "analytical skills", "data analysis", "research", "troubleshooting",
-    "root cause analysis", "debugging", "log analysis", "business analysis", "requirements gathering",
-    "systems thinking", "innovation", "creativity", "design thinking", "curiosity", "attention to detail",
-    "quality assurance", "process improvement", "lean", "six sigma"
-]
-
-# --- Business & Domain Knowledge ---
-BUSINESS_DOMAIN_KNOWLEDGE = [
-    "business acumen", "domain knowledge", "finance", "accounting", "marketing", "digital marketing", "seo",
-    "sem", "social media", "content marketing", "ecommerce", "retail", "healthcare", "healthtech", "fintech",
-    "edtech", "supply chain", "logistics", "manufacturing", "hr", "human resources", "recruiting", "sales",
-    "business development", "partner management", "go-to-market", "gtm", "product marketing"
-]
-
-# --- Tools & Productivity ---
-PRODUCTIVITY_TOOLS = [
-    "microsoft office", "excel", "word", "powerpoint", "outlook", "google workspace", "gsuite", "sheets",
-    "docs", "slides", "jira", "confluence", "trello", "asana", "monday.com", "notion", "slack",
-    "microsoft teams", "zoom", "sharepoint", "salesforce", "sap", "quickbooks", "xero", "hubspot", "zendesk"
-]
-
-# --- Personal Attributes ---
-PERSONAL_ATTRIBUTES = [
+    "relationship building", "networking", "leadership", "team leadership", "technical leadership",
+    "mentoring", "coaching", "people management", "project management", "program management",
+    "product management", "agile coaching", "scrum mastery", "decision making", "strategic thinking",
+    "vision", "delegation", "change management", "risk management", "resource allocation", "budgeting",
+    "forecasting", "kanban", "prioritization", "time management", "problem solving", "critical thinking",
+    "analytical skills", "data analysis", "research", "troubleshooting", "root cause analysis", "debugging",
+    "log analysis", "business analysis", "requirements gathering", "systems thinking", "innovation",
+    "creativity", "design thinking", "curiosity", "attention to detail", "quality assurance",
+    "process improvement", "lean", "six sigma", "business acumen", "domain knowledge", "finance",
+    "accounting", "marketing", "digital marketing", "seo", "sem", "social media", "content marketing",
+    "ecommerce", "retail", "healthcare", "healthtech", "fintech", "edtech", "supply chain", "logistics",
+    "manufacturing", "hr", "human resources", "recruiting", "sales", "business development",
+    "partner management", "go-to-market", "gtm", "product marketing", "microsoft office", "excel",
+    "word", "powerpoint", "outlook", "google workspace", "gsuite", "sheets", "docs", "slides",
+    "jira", "confluence", "trello", "asana", "monday.com", "notion", "slack", "microsoft teams",
+    "zoom", "sharepoint", "salesforce", "sap", "quickbooks", "xero", "hubspot", "zendesk",
     "adaptability", "flexibility", "resilience", "persistence", "self motivation", "initiative",
     "proactive", "work ethic", "reliability", "accountability", "ownership", "independence",
-    "autonomy", "stress management", "patience", "empathy", "cultural fit", "growth mindset"
+    "autonomy", "stress management", "patience", "empathy", "cultural fit", "growth mindset",
+    "team player", "remote work", "hybrid work"  # NEW for general CVs
+])
+# Refined Regex patterns (stricter for accuracy)
+NAME_PATTERN = r'^[A-Za-zÀ-ÿ\s\'-]{2,}(?:\s[A-Za-zÀ-ÿ\s\'-]{2,})+$'  # Unchanged
+EMAIL_PATTERN = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'  # Unchanged
+PHONE_PATTERN = r'(?<!\d)(\+?\d{1,4}[\s.-]?)(\(?\d{2,3}\)?[\s.-]?)\d{2,3}[\s.-]?\d{2,4}(?!\d)'  # Changed: Removed optional for separators, require at least one separator or + to avoid dates
+LOCATION_PATTERN = r'(?i)(?:[A-Za-zÀ-ÿ\s]{5,},\s*[A-Za-zÀ-ÿ\s]{5,}|tunisia|tunis|ariana|béja|ben arous|bizerte|gabès|gafsa|jendouba|kairouan|kasserine|kebili|kef|mahdia|manouba|medenine|monastir|nabeul|sfax|sidi bouzid|siliana|sousse|tataouine|tozeur|zaghouan)'  # Changed: Min length 5 for better filter
+URL_PATTERN = r'(?i)(?:https?://)?(?:www\.)?(?:linkedin|github|netlify|portfolio)\.[a-zA-Z0-9./-]+(?:\b|$)'  # Unchanged
+DATE_PATTERN = r'(?i)(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}|\d{4}\s*[-–—]\s*(?:\d{4}|present|current|ongoing)|\d{2}/\d{4}\s*[-–—]\s*(?:\d{2}/\d{4}|present|current|ongoing)|\d{4})'  # Unchanged
+BULLET_PATTERN = r'^[-•*››◦▪\u2022\u25CF\s]{1,3}'  # Unchanged
+LINK_PATTERN = r'(?i)(\\s?)?(?:github|link|website|portfolio|\)'  # Unchanged
+
+# Expanded Section patterns (added more variations, e.g., "executive summary", "work history", "certifs")
+SECTION_PATTERNS = {
+    "Summary": ["summary", "profile", "about me", "profil", "objectif", "résumé", "career objective", "professional summary", "core competencies", "overview", "bio", "introduction", "personal statement", "executive summary", "career profile"],  # Expanded
+    "Skills": ["skills", "technical skills", "compétences", "competences", "expertise", "langages et frameworks", "technologies", "core skills", "technical proficiencies", "abilities", "key skills", "proficiencies", "competences techniques", "hard skills", "soft skills"],  # Expanded
+    "Education": ["education", "formation", "parcours académique", "études", "academic background", "qualifications", "academic record", "degree", "degrees", "schooling", "academic qualifications", "studies", "diploma", "baccalaureate", "certifications académiques"],  # Expanded
+    "Experience": ["experience", "expérience", "work experience", "expérience professionnelle", "professional experience", "stage", "internship", "employment history", "work history", "intern", "professional background", "career history", "achievements", "tasks", "taches realisees", "responsibilities", "professional history", "stages", "job history"],  # Expanded
+    "Projects": ["projects", "projets", "portfolio", "projets personnels", "notable projects", "projet de fin d’étude", "pfa", "pidev", "pi", "projets académiques", "personal projects", "academic projects", "key projects", "pfe", "case studies"],  # Expanded
+    "Certifications": ["certifications", "certificats", "badges", "certificates and badges", "achievements", "awards", "professional certifications", "certificates", "badges and certifications", "honors", "certificats et badges", "certifs", "accreditations"],  # Expanded
+    "Interests": ["interests", "hobbies", "intérêts", "loisirs", "personal interests", "extracurricular", "activites extracurriculaires", "volunteer work"]  # Expanded
+}
+
+# Expanded STOP_WORDS (added more noise like "tel", "addr", "www", dates, common fragments)
+STOP_WORDS = [
+    "contact", "taches realisees", "profil", "summary", "resume", "present", "current",
+    "ongoing", "github", "linkedin", "badge", "keywords", "mots", "cles", "via", "tasks",
+    "achievements", "conception", "developpement", "gestion", "projet", "technologies",
+    "application", "platform", "system", "email", "phone", "url", "tunis", "ariana",
+    "french", "english", "arabic", "professional", "native", "fluent", "b2", "beginner",
+    "pfa", "pidev", "pi", "stage", "intern", "member", "club", "experience", "education",
+    "skills", "competences", "projects", "projets", "certified", "fundamentals", "award",
+    "taches", "realisees", "keywords:", "mots-cles:", "technologies:", "link", "workshop",
+    "proficiency", "native", "b2", "a1", "c1", "2020", "2021", "2022", "2023", "2024", "2025",
+    "tel", "addr", "www", "http", "https", "com", "tn", "fr", "expected", "mention"  # NEW: More noise for better filtering
 ]
 
-# ==================== COMBINED & NORMALIZED LISTS ====================
-
-# Combine all IT skills into one massive list
-IT_SKILLS = (
-    PROGRAMMING_LANGUAGES +
-    WEB_FRONTEND +
-    WEB_BACKEND_FRAMEWORKS +
-    MOBILE_DEVELOPMENT +
-    DATABASES +
-    CLOUD_PLATFORMS +
-    DEVOPS_TOOLS +
-    AWS_SERVICES +
-    AZURE_SERVICES +
-    GCP_SERVICES +
-    AI_ML_DATA_SCIENCE +
-    NETWORKING_SECURITY +
-    SOFTWARE_PRACTICES +
-    QA_TESTING +
-    ENTERPRISE_TECH +
-    IT_SUPPORT +
-    LOW_LEVEL_EMBEDDED +
-    GAME_DEVELOPMENT +
-    BLOCKCHAIN
-)
-
-# Combine all General/Soft skills into one massive list
-GENERAL_SKILLS = (
-    IT_SKILLS +  # Includes all technical skills
-    SOFT_SKILLS_COMMUNICATION +
-    SOFT_SKILLS_LEADERSHIP +
-    SOFT_SKILLS_ANALYTICAL +
-    BUSINESS_DOMAIN_KNOWLEDGE +
-    PRODUCTIVITY_TOOLS +
-    PERSONAL_ATTRIBUTES
-)
-
-# Normalize all to lowercase and remove duplicates by converting to a set and back to a list
-IT_SKILLS = list(set([s.lower().strip() for s in IT_SKILLS]))
-GENERAL_SKILLS = list(set([s.lower().strip() for s in GENERAL_SKILLS]))
-
-# Optional: Sort the lists for readability if needed
-# IT_SKILLS.sort()
-# GENERAL_SKILLS.sort()
-
-# Print the count to see how massive the list is
-print(f"Number of unique IT skills: {len(IT_SKILLS)}")
-print(f"Number of unique general skills: {len(GENERAL_SKILLS)}")
-
-#8 Weak labeling functions (regex + sections)
-EMAIL_RE = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b')
-PHONE_RE = re.compile(r'(\+?\d[\d\-\s]{6,}\d)')  # rough
-YEAR_RE = re.compile(r'\b(19|20)\d{2}\b')
-
-SECTION_HEADERS = ['summary','experience','work experience','education','skills','projects','certifications','achievements','highlights','professional summary','profile']
-SECTION_HEADERS = [h.lower() for h in SECTION_HEADERS]
-
-def weak_label_text(text):
-    text_lower = text.lower()
-    # naive split into sentences/tokens
-    tokens = re.split(r'(\s+)', text)  # keep whitespace tokens so we can join later
-    labels = ['O'] * len(tokens)
-    
-    # label emails
-    for m in EMAIL_RE.finditer(text):
-        start, end = m.span()
-        # mark overlapping tokens
-        i = 0
-        pos = 0
-        while i < len(tokens):
-            pos_next = pos + len(tokens[i])
-            if pos_next > start and pos < end:
-                labels[i] = 'B-EMAIL' if labels[i]=='O' else labels[i]
-                # don't overcomplicate I- tags for whitespace tokens
-            pos = pos_next
-            i += 1
-    
-    # label phones
-    for m in PHONE_RE.finditer(text):
-        start, end = m.span()
-        i = 0; pos = 0
-        while i < len(tokens):
-            pos_next = pos + len(tokens[i])
-            if pos_next > start and pos < end:
-                labels[i] = 'B-PHONE' if labels[i]=='O' else labels[i]
-            pos = pos_next; i += 1
-
-    # label skills by substring matching (best-effort)
-    low = text_lower
-    for skill in GENERAL_SKILLS:
-        for m in re.finditer(re.escape(skill), low):
-            start, end = m.span()
-            i=0; pos=0
-            while i < len(tokens):
-                pos_next = pos + len(tokens[i])
-                if pos_next > start and pos < end:
-                    labels[i] = 'B-SKILL' if labels[i]=='O' else labels[i]
-                pos = pos_next; i += 1
-
-    # label sections by headers - mark subsequent sentences until next header as that section
-    # simple approach: find header keywords positions
-    for header in SECTION_HEADERS:
-        for m in re.finditer(header, text_lower):
-            start = m.start()
-            # find next 500 chars as section content (heuristic)
-            sec_end = min(len(text), m.end() + 800)
-            i=0; pos=0
-            while i < len(tokens):
-                pos_next = pos + len(tokens[i])
-                if pos_next > m.start() and pos < sec_end:
-                    # mark as SECTION (helper) - we will later map into EDU/EXP/PROJECT by header
-                    if header in ('education','educations','education:'):
-                        labels[i] = 'B-EDU' if labels[i]=='O' else labels[i]
-                    elif header in ('experience','work experience'):
-                        labels[i] = 'B-EXP' if labels[i]=='O' else labels[i]
-                    elif header in ('projects','personal projects'):
-                        labels[i] = 'B-PROJECT' if labels[i]=='O' else labels[i]
-                    elif header in ('skills',):
-                        labels[i] = 'B-SKILL' if labels[i]=='O' else labels[i]
-                    elif header in ('certifications','achievements'):
-                        labels[i] = 'B-CERT' if labels[i]=='O' else labels[i]
-                pos = pos_next; i += 1
-
-    # name detection heuristic: often first non-empty line up to first newline
-    first_line = text.splitlines()
-    if first_line:
-        candidate = first_line[0].strip()
-        if len(candidate.split()) <= 5 and len(candidate) > 2 and len(candidate) < 80 and '@' not in candidate and any(c.isalpha() for c in candidate):
-            # mark first candidate tokens as name
-            start = 0
-            end = len(candidate)
-            i=0; pos=0
-            # attempt to match in tokens
-            while i < len(tokens):
-                pos_next = pos + len(tokens[i])
-                if pos_next > start and pos < end:
-                    labels[i] = 'B-NAME' if labels[i]=='O' else labels[i]
-                pos = pos_next; i += 1
-
-    return tokens, labels
 
 
 
-#9 genrate weak labels for all resumes
-MAX_SAMPLES = len(df)
-examples = []
-for idx, row in tqdm(df.head(MAX_SAMPLES).iterrows(), total=min(MAX_SAMPLES,len(df))):
-    text = row['resume_text']
-    tokens, labels = weak_label_text(text)
-    # collapse whitespace tokens (we kept them earlier) to obtain word tokens
-    word_tokens = []
-    word_labels = []
-    for tok, lab in zip(tokens, labels):
-        if tok.strip()=='':
-            continue
-        word_tokens.append(tok)
-        word_labels.append(lab)
-    examples.append({'id': str(row['ID']), 'tokens': word_tokens, 'labels': word_labels, 'raw_text': text})
-print("examples:", len(examples))
+#4 functions of extraction cleaning ect 
+def camel_case_split(name: str) -> str:
+    if not name:
+        return ""
+    name = re.sub(r'([a-z])([A-Z])', r'\1 \2', name)
+    name = re.sub(r'([A-Z])([A-Z][a-z])', r'\1 \2', name)
+    return name.title()
 
-#10 inspect some examples
-for ex in examples[:3]:
-    print("ID:", ex['id'])
-    for t,l in list(zip(ex['tokens'][:120], ex['labels'][:120]))[:80]:
-        print(f"{t} -> {l}")
-    print("-----\n")
+def clean_line(line: str) -> str:
+    if not line or not isinstance(line, str):
+        return ""
+    line = normalize('NFKD', line).encode('ASCII', 'ignore').decode('ASCII')
+    line = re.sub(r'[\uf0b7\uf076\uf09f•●◦▪\t●•▪○∙\u00a0\U0001F000-\U0001FFFF]', ' ', line)  # Unchanged
+    line = re.sub(r'\s+', ' ', line).strip()
+    line = re.sub(r'[()[\]{}|]', '', line).strip()
+    if re.match(BULLET_PATTERN, line):
+        line = re.sub(BULLET_PATTERN, '- ', line)
+    if re.match(LINK_PATTERN, line.strip()):
+        return ""
+    line = camel_case_split(line)
+    words = line.split()
+    deduped = []
+    for word in words:
+        if not deduped or fuzz.ratio(word.lower(), deduped[-1].lower()) < 90:  # Changed: Stricter threshold 90 for less dupes
+            deduped.append(word)
+    return ' '.join(deduped)
 
-#result
-#ID: 16852973
-#HR -> B-SKILL
-#ADMINISTRATOR/MARKETING -> B-SKILL
-#ASSOCIATE -> B-SKILL
-#HR -> B-SKILL
-#ADMINISTRATOR -> B-SKILL
-#Summary -> B-SKILL
-#Dedicated -> B-SKILL
-#Customer -> B-SKILL
-#Service -> B-SKILL
-#Manager -> B-SKILL
-#with -> O
-#15+ -> O
-#years -> B-SKILL
-#of -> O
-#experience -> B-SKILL
-#in -> B-EXP
-#Hospitality -> B-EXP
-#and -> B-EXP
-#Customer -> B-SKILL
-#Service -> B-SKILL
-#Management. -> B-EXP
-#Respected -> B-SKILL
-#builder -> B-SKILL
-#and -> B-EXP
-#leader -> B-SKILL
-#of -> B-EXP
-#customer-focused -> B-SKILL
-#teams; -> B-EXP
-#strives -> B-SKILL
-#to -> B-EXP
-#instill -> B-EXP
-#a -> B-EXP
-#shared, -> B-SKILL
-#enthusiastic -> B-SKILL
-#commitment -> B-SKILL
-#to -> B-EXP
-#customer -> B-SKILL
-#service. -> B-SKILL
-#Highlights -> B-EXP
-#Focused -> B-SKILL
-#on -> B-EXP
-#customer -> B-SKILL
-#satisfaction -> B-SKILL
-#Team -> B-EXP
-#management -> B-EXP
-#Marketing -> B-SKILL
-#savvy -> B-EXP
-#Conflict -> B-SKILL
-#resolution -> B-SKILL
-#techniques -> B-SKILL
-#Training -> B-SKILL
-#and -> B-EXP
-#development -> B-EXP
-#Skilled -> B-EXP
-#multi-tasker -> B-SKILL
-#Client -> B-SKILL
-#relations -> B-SKILL
-#specialist -> B-SKILL
-#Accomplishments -> B-SKILL
-#Missouri -> B-SKILL
-#DOT -> B-EXP
-#Supervisor -> B-SKILL
-#Training -> B-SKILL
-#Certification -> B-SKILL
-#Certified -> B-SKILL
-#by -> B-EXP
-#IHG -> B-EXP
-#in -> B-EXP
-#Customer -> B-SKILL
-#Loyalty -> B-EXP
-#and -> B-EXP
-#Marketing -> B-SKILL
-#by -> B-EXP
-#Segment -> B-EXP
-#Hilton -> B-EXP
-#Worldwide -> B-SKILL
-#General -> B-SKILL
-#Manager -> B-SKILL
-#Training -> B-SKILL
-#Certification -> B-SKILL
+def dedup_text(text: str) -> str:
+    if not text:
+        return ""
+    # Improved language detection (more French words)
+    is_french = any(word in text.lower() for word in ["et", "de", "le", "la", "un", "une", "pour", "avec", "dans", "du", "des", "sur", "par", "chez", "au"])
+    nlp_model = "fr_core_news_sm" if is_french else "en_core_web_sm"
+    try:
+        nlp = spacy.load(nlp_model, disable=['ner', 'parser', 'lemmatizer'])
+        nlp.add_pipe('sentencizer')
+        doc = nlp(text)
+        sentences = [s.text.strip() for s in doc.sents if len(s.text.strip()) > 20]  # Changed: Min length 20 to avoid fragments
+    except:
+        sentences = nltk.sent_tokenize(text)
+        sentences = [s.strip() for s in sentences if len(s.strip()) > 20]
+    unique = []
+    seen = set()
+    for s in sentences:
+        s_norm = clean_line(s).lower()
+        if s_norm not in seen and all(fuzz.ratio(s_norm, prev) < 85 for prev in seen):  # Changed: Stricter threshold 85
+            seen.add(s_norm)
+            unique.append(s)
+    return ' '.join(unique).strip()
 
+def extract_text_from_pdf(path: str) -> str:
+    try:
+        with pdfplumber.open(path) as pdf:
+            text = ""
+            for page in pdf.pages:
+                page_text = page.extract_text(layout=True, x_tolerance=2, y_tolerance=2)  # Preserve layout better
+                if page_text:
+                    text += page_text + "\n"
+                # NEW: Extract tables as text for better handling of education/experience
+                tables = page.extract_tables()
+                for table in tables:
+                    for row in table:
+                        text += ' | '.join([str(cell) for cell in row if cell]) + "\n"
+            if not text:
+                text = pdfminer_extract(path)
+            return text
+    except Exception as e:
+        logging.error(f"Extraction failed for {path}: {e}")
+        return pdfminer_extract(path)
 
+#5 load and preprocessing functions
+import json
+import os
+import re
+import logging
+from unicodedata import normalize
+from datasets import Dataset, concatenate_datasets
+import spacy
+from fuzzywuzzy import fuzz
+import nltk
 
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(levelname)s:%(message)s')
 
-#11 convert to huggingface dataset
-from transformers import AutoTokenizer, AutoModelForTokenClassification
+# Cleaning function
+def clean_text_for_spacy(text: str) -> str:
+    if not text or not isinstance(text, str):
+        return ""
+    text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
+    text = re.sub(r'[\ud800-\udfff]', '', text)
+    text = re.sub(r'[\u2022\u25CF\uf0b7\uf076\uf09f•●◦▪\t○∙\u00a0\U0001F000-\U0001FFFF]', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'[()[\]{}|]', '', text).strip()
+    return text
 
-MODEL_NAME = "bert-base-multilingual-cased"
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+# Generate synthetic text for master.json entries without "text" field
+def generate_synthetic_text(entry: dict) -> str:
+    parts = []
+    if entry.get("personal_info", {}).get("name") and entry["personal_info"]["name"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Name: {entry['personal_info']['name']}")
+    if entry.get("personal_info", {}).get("email") and entry["personal_info"]["email"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Email: {entry['personal_info']['email']}")
+    if entry.get("personal_info", {}).get("phone") and entry["personal_info"]["phone"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Phone: {entry['personal_info']['phone']}")
+    if entry.get("personal_info", {}).get("location", {}).get("city") and entry["personal_info"]["location"]["city"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Location: {entry['personal_info']['location']['city']}")
+    if entry.get("personal_info", {}).get("summary") and entry["personal_info"]["summary"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Summary: {entry['personal_info']['summary']}")
+    for exp in entry.get("experience", []):
+        if exp.get("title") and exp["title"] != "Unknown":
+            parts.append(f"Role: {exp['title']}")
+        if exp.get("company") and exp["company"] != "Unknown":
+            parts.append(f"Company: {exp['company']}")
+        duration = ' '.join([exp.get("dates", {}).get(k, "") for k in ["start", "end", "duration"] if exp.get("dates", {}).get(k, "") != "Unknown"]).strip()
+        if duration:
+            parts.append(f"Duration: {duration}")
+        if exp.get("responsibilities"):
+            desc = ' '.join([r for r in exp.get("responsibilities", []) if r != "Unknown"])
+            if desc:
+                parts.append(f"Responsibilities: {desc}")
+    for edu in entry.get("education", []):
+        degree = ' '.join([edu.get("degree", {}).get(k, "") for k in ["level", "field", "major"] if edu.get("degree", {}).get(k, "") != "Unknown"]).strip()
+        if degree:
+            parts.append(f"Degree: {degree}")
+        if edu.get("institution", {}).get("name") and edu["institution"]["name"] != "Unknown":
+            parts.append(f"Institution: {edu['institution']['name']}")
+        duration = ' '.join([edu.get("dates", {}).get(k, "") for k in ["start", "expected_graduation"] if edu.get("dates", {}).get(k, "") != "Unknown"]).strip()
+        if duration:
+            parts.append(f"Education Duration: {duration}")
+    skills = []
+    for skill_type in ["programming_languages", "frameworks", "databases", "cloud", "project_management", "automation", "software_tools"]:
+        for skill in entry.get("skills", {}).get("technical", {}).get(skill_type, []):
+            skill_name = skill.get("name", "") if isinstance(skill, dict) else skill
+            if skill_name and skill_name not in ["Unknown", "Not Provided"]:
+                skills.append(skill_name)
+    if skills:
+        parts.append(f"Skills: {', '.join(skills)}")
+    for proj in entry.get("projects", []):
+        if proj.get("name") and proj["name"] != "Unknown":
+            parts.append(f"Project: {proj['name']}")
+        if proj.get("description") and proj["description"] != "Unknown":
+            parts.append(f"Project Description: {proj['description']}")
+    for cert in entry.get("certifications", []):
+        cert_name = cert if isinstance(cert, str) else cert.get("name", "")
+        if cert_name and cert_name != "Unknown":
+            parts.append(f"Certification: {cert_name}")
+    return ' '.join(parts).strip()
 
-# build labels list
-unique_labels = set(l for ex in examples for l in ex['labels'])
-label_list = sorted(list(unique_labels))
-label_list
-from datasets import Dataset
+# Initialize spaCy for tokenization
+nlp_en = spacy.load("en_core_web_sm", disable=['ner', 'lemmatizer'])
+nlp_fr = spacy.load("fr_core_news_sm", disable=['ner', 'lemmatizer'])
 
-def encode_example(ex):
-    tokens = ex['tokens']
-    labels = ex['labels']
-    encoding = tokenizer(tokens, is_split_into_words=True, truncation=True, padding='max_length', max_length=512)
-    word_ids = encoding.word_ids()
-    label_ids = []
-    for idx, word_id in enumerate(word_ids):
-        if word_id is None:
-            label_ids.append(-100)  # special tokens keep -100
+# Collect new data to append
+annotated_data = []
+
+# Function to find span in text
+def find_span(text: str, target: str, label: str) -> tuple:
+    if not target or len(target) < 4:  # Early check for short targets
+        logging.warning(f"Skipping target '{target}' (label: {label}) due to length < 4")
+        return None
+    match_start = text.find(target)
+    if match_start != -1:
+        return [match_start, match_start + len(target), label]
+    words = text.split()
+    for i in range(len(words)):
+        for j in range(i + 1, len(words) + 1):
+            candidate = ' '.join(words[i:j])
+            if fuzz.ratio(candidate.lower(), target.lower()) > 85 and len(candidate) >= 4:
+                start = text.find(candidate)
+                return [start, start + len(candidate), label]
+    logging.warning(f"Could not find span for '{target}' (label: {label})")
+    return None
+
+# Load and process CVS.json
+cvs_path = "/content/CVS.json"
+if os.path.exists(cvs_path):
+    with open(cvs_path, 'r', encoding='utf-8') as f:
+        new_data = []
+        for line_number, line in enumerate(f, 1):
+            if line.strip():
+                try:
+                    new_data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    logging.error(f"Error parsing line {line_number} in CVS.json: {line[:100]}... Error: {e}")
+                    continue
+        for d in new_data:
+            text = clean_text_for_spacy(d.get("content", ""))
+            if not text:
+                logging.warning(f"No valid content in CVS.json entry at line {line_number}, skipping.")
+                continue
+            annotations = []
+            for ann in d.get("annotation", []):
+                try:
+                    label = ann["label"][0].upper() if isinstance(ann.get("label"), list) and ann["label"] else "UNKNOWN"
+                    for p in ann.get("points", []):
+                        start = p.get("start", 0)
+                        end = p.get("end", len(text))
+                        min_span_length = 4
+                        if (start < len(text) and end <= len(text) and
+                            start < end and (end - start) >= min_span_length):
+                            annotations.append([start, end, label])
+                        else:
+                            logging.warning(f"Skipping invalid CVS.json annotation at line {line_number}: "
+                                          f"[{start}, {end}, {label}] (text length: {len(text)}, span: {end - start})")
+                except Exception as e:
+                    logging.error(f"Error processing annotation in CVS.json at line {line_number}: {ann}, Error: {e}")
+            if text and annotations:
+                annotated_data.append({"text": text, "annotations": annotations})
+else:
+    logging.error(f"CVS.json not found at {cvs_path}")
+
+# Load and process master.json
+master_path = "/content/master.json"
+if os.path.exists(master_path):
+    master_data = []
+    with open(master_path, 'r', encoding='utf-8') as f:
+        for line_number, line in enumerate(f, 1):
+            if line.strip():
+                try:
+                    master_data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    logging.error(f"Failed to parse line {line_number} in master.json: {line[:100]}... Error: {e}")
+                    continue
+    for d in master_data:
+        text = clean_text_for_spacy(d.get("text", ""))
+        if not text:
+            text = generate_synthetic_text(d)
+            if not text:
+                logging.warning(f"No valid text after synthesis in master.json entry at line {line_number}, skipping.")
+                continue
+        annotations = []
+        name = d.get("personal_info", {}).get("name", "")
+        if name and name not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, name, "NAME")
+            if span:
+                annotations.append(span)
+        email = d.get("personal_info", {}).get("email", "")
+        if email and email not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, email, "EMAIL")
+            if span:
+                annotations.append(span)
+        phone = d.get("personal_info", {}).get("phone", "")
+        if phone and phone not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, phone, "PHONE")
+            if span:
+                annotations.append(span)
+        location = d.get("personal_info", {}).get("location", {}).get("city", "")
+        if location and location not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, location, "LOCATION")
+            if span:
+                annotations.append(span)
+        summary = d.get("personal_info", {}).get("summary", "")
+        if summary and summary != "Unknown" and len(summary) > 20:
+            span = find_span(text, summary, "SUMMARY_TEXT")
+            if span:
+                annotations.append(span)
+        for exp in d.get("experience", []):
+            role = exp.get("title", "")
+            if role and role != "Unknown":
+                span = find_span(text, role, "ROLE")
+                if span:
+                    annotations.append(span)
+            company = exp.get("company", "")
+            if company and company != "Unknown":
+                span = find_span(text, company, "COMPANY")
+                if span:
+                    annotations.append(span)
+            duration = ' '.join([exp.get("dates", {}).get(k, "") for k in ["start", "end", "duration"] if exp.get("dates", {}).get(k, "") != "Unknown"]).strip()
+            if duration:
+                span = find_span(text, duration, "DURATION")
+                if span:
+                    annotations.append(span)
+            desc = ' '.join([r for r in exp.get("responsibilities", []) if r != "Unknown"])
+            if desc and len(desc) > 20:
+                span = find_span(text, desc, "DESCRIPTION")
+                if span:
+                    annotations.append(span)
+        for edu in d.get("education", []):
+            degree = ' '.join([edu.get("degree", {}).get(k, "") for k in ["level", "field", "major"] if edu.get("degree", {}).get(k, "") != "Unknown"]).strip()
+            if degree:
+                span = find_span(text, degree, "DEGREE")
+                if span:
+                    annotations.append(span)
+            institution = edu.get("institution", {}).get("name", "")
+            if institution and institution != "Unknown":
+                span = find_span(text, institution, "INSTITUTION")
+                if span:
+                    annotations.append(span)
+            duration = ' '.join([edu.get("dates", {}).get(k, "") for k in ["start", "expected_graduation"] if edu.get("dates", {}).get(k, "") != "Unknown"]).strip()
+            if duration:
+                span = find_span(text, duration, "DURATION")
+                if span:
+                    annotations.append(span)
+        skills = []
+        for skill_type in ["programming_languages", "frameworks", "databases", "cloud", "project_management", "automation", "software_tools"]:
+            for skill in d.get("skills", {}).get("technical", {}).get(skill_type, []):
+                skill_name = skill.get("name", "") if isinstance(skill, dict) else skill
+                if skill_name and skill_name not in ["Unknown", "Not Provided"]:
+                    skills.append(skill_name)
+        for skill_name in skills:
+            span = find_span(text, skill_name, "SKILL")
+            if span:
+                annotations.append(span)
+        for proj in d.get("projects", []):
+            name = proj.get("name", "")
+            if name and name != "Unknown":
+                span = find_span(text, name, "PROJECT_NAME")
+                if span:
+                    annotations.append(span)
+            desc = proj.get("description", "")
+            if desc and desc != "Unknown" and len(desc) > 20:
+                span = find_span(text, desc, "DESCRIPTION")
+                if span:
+                    annotations.append(span)
+        for cert in d.get("certifications", []):
+            cert_name = cert if isinstance(cert, str) else cert.get("name", "")
+            if cert_name and cert_name != "Unknown":
+                span = find_span(text, cert_name, "CERT")
+                if span:
+                    annotations.append(span)
+        if annotations:
+            annotated_data.append({"text": text, "annotations": annotations})
         else:
-            label = labels[word_id]
-            label_ids.append(label_list.index(label))
-    encoding['labels'] = label_ids
-    encoding['id'] = ex['id']
-    return encoding
+            logging.warning(f"No valid annotations for master.json entry at line {line_number}, skipping.")
+else:
+    logging.error(f"master.json not found at {master_path}")
 
-hf_dataset = Dataset.from_list(examples)
-hf_dataset_enc = hf_dataset.map(lambda x: encode_example(x), batched=False, remove_columns=hf_dataset.column_names)
-hf_dataset_enc = hf_dataset_enc.train_test_split(test_size=0.1)
-train_ds = hf_dataset_enc['train']
-eval_ds = hf_dataset_enc['test']
+# Fix and process test.json
+test_path = "/content/test.json"
+if os.path.exists(test_path):
+    test_data = []
+    with open(test_path, 'r', encoding='utf-8') as f:
+        for line_number, line in enumerate(f, 1):
+            if line.strip():
+                try:
+                    test_data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    logging.error(f"Failed to parse line {line_number} in test.json: {line[:100]}... Error: {e}")
+                    continue
+    for d in test_data:
+        text = clean_text_for_spacy(d.get("text", ""))
+        if not text:
+            logging.warning(f"No valid text in test.json entry at line {line_number}, skipping.")
+            continue
+        annotations = []
+        for ent in d.get("entities", []):
+            label = ent["label"].upper()
+            start, end = ent["start"], ent["end"]
+            min_span_length = 4
+            if (start < len(text) and end <= len(text) and
+                start < end and (end - start) >= min_span_length):
+                annotations.append([start, end, label])
+            else:
+                logging.warning(f"Skipping invalid test.json annotation at line {line_number}: "
+                              f"[{start}, {end}, {label}] (text length: {len(text)}, span: {end - start})")
+        if annotations:
+            annotated_data.append({"text": text, "annotations": annotations})
+else:
+    logging.error(f"test.json not found at {test_path}")
 
-print(train_ds[0].keys())
+# Collect unique labels
+all_labels = set(["SKILL", "NAME", "DEGREE", "INSTITUTION", "ROLE", "COMPANY", "DURATION", "PROJECT_NAME", "CERT", "LOCATION", "PHONE", "EMAIL", "DESCRIPTION", "SUMMARY_TEXT", "YEARS_OF_EXPERIENCE", "LANGUAGE", "ADDRESS", "PROJECT", "EXPERIENCE", "EDUCATION"])
+for item in annotated_data:
+    for ann in item["annotations"]:
+        all_labels.add(ann[2])
+label_list = ["O"] + sorted([f"B-{l}" for l in all_labels] + [f"I-{l}" for l in all_labels])
+
+# Convert to NER format with improved validation
+def convert_to_ner_format(data_list):
+    ner_data = {"tokens": [], "ner_tags": []}
+    for item in data_list:
+        text = item["text"]
+        is_french = any(word in text.lower() for word in ["et", "de", "le", "la", "un", "une", "pour"])
+        try:
+            doc = nlp_fr(text) if is_french else nlp_en(text)
+            tokens = [token.text for token in doc]
+            tags = ["O"] * len(tokens)
+            valid_annotations = []
+            for start, end, label in item["annotations"]:
+                if start < len(text) and end <= len(text) and start < end and (end - start) >= 4:
+                    span = doc.char_span(start, end, alignment_mode="expand")
+                    if span:
+                        token_start = span.start
+                        token_end = span.end
+                        if token_start < len(tokens) and token_end <= len(tokens):
+                            tags[token_start] = f"B-{label}"
+                            for i in range(token_start + 1, token_end):
+                                tags[i] = f"I-{label}"
+                            valid_annotations.append([start, end, label])
+                        else:
+                            logging.warning(f"Failed to align span [{start}, {end}, {label}] in text: {text[:50]}...")
+                    else:
+                        logging.warning(f"Failed to align span [{start}, {end}, {label}] in text: {text[:50]}...")
+                else:
+                    logging.warning(f"Skipping invalid span [{start}, {end}, {label}] in text: {text[:50]}... (text length: {len(text)}, span: {end - start})")
+            ner_data["tokens"].append(tokens)
+            ner_data["ner_tags"].append(tags)
+        except Exception as e:
+            logging.error(f"Tokenization failed for text: {text[:100]}... Error: {e}")
+            tokens = nltk.word_tokenize(text)
+            tags = ["O"] * len(tokens)
+            ner_data["tokens"].append(tokens)
+            ner_data["ner_tags"].append(tags)
+    return Dataset.from_dict(ner_data)
+
+# Try loading existing datasets
+try:
+    train_dataset_path = "/content/train_dataset.json"
+    eval_dataset_path = "/content/eval_dataset.json"
+    if os.path.exists(train_dataset_path) and os.path.exists(eval_dataset_path):
+        train_dataset = Dataset.from_json(train_dataset_path)
+        eval_dataset = Dataset.from_json(eval_dataset_path)
+        logging.info(f"Loaded existing datasets: Train size: {len(train_dataset)}, Eval size: {len(eval_dataset)}")
+    else:
+        # Fallback: Recreate from test.json
+        logging.warning("Existing dataset files not found. Recreating from test.json...")
+        annotated_data_test = []
+        if os.path.exists(test_path):
+            test_data = []
+            with open(test_path, 'r', encoding='utf-8') as f:
+                for line_number, line in enumerate(f, 1):
+                    if line.strip():
+                        try:
+                            test_data.append(json.loads(line))
+                        except json.JSONDecodeError as e:
+                            logging.error(f"Failed to parse line {line_number} in test.json: {line[:100]}... Error: {e}")
+                            continue
+            for d in test_data:
+                text = clean_text_for_spacy(d.get("text", ""))
+                if not text:
+                    logging.warning(f"No valid text in test.json entry at line {line_number}, skipping.")
+                    continue
+                annotations = []
+                for ent in d.get("entities", []):
+                    label = ent["label"].upper()
+                    start, end = ent["start"], ent["end"]
+                    min_span_length = 4
+                    if (start < len(text) and end <= len(text) and
+                        start < end and (end - start) >= min_span_length):
+                        annotations.append([start, end, label])
+                    else:
+                        logging.warning(f"Skipping invalid test.json annotation at line {line_number}: "
+                                      f"[{start}, {end}, {label}] (text length: {len(text)}, span: {end - start})")
+                if annotations:
+                    annotated_data_test.append({"text": text, "annotations": annotations})
+            total_data = len(annotated_data_test)
+            train_size = int(total_data * 0.8)
+            train_dataset = convert_to_ner_format(annotated_data_test[:train_size])
+            eval_dataset = convert_to_ner_format(annotated_data_test[train_size:])
+            logging.info(f"Recreated datasets from test.json: Train size: {len(train_dataset)}, Eval size: {len(eval_dataset)}")
+        else:
+            logging.error(f"test.json not found at {test_path}. Cannot proceed without existing datasets.")
+            exit(1)
+except NameError:
+    # Fallback: Recreate from test.json if datasets are not in memory
+    logging.warning("Existing datasets not in memory. Recreating from test.json...")
+    annotated_data_test = []
+    if os.path.exists(test_path):
+        test_data = []
+        with open(test_path, 'r', encoding='utf-8') as f:
+            for line_number, line in enumerate(f, 1):
+                if line.strip():
+                    try:
+                        test_data.append(json.loads(line))
+                    except json.JSONDecodeError as e:
+                        logging.error(f"Failed to parse line {line_number} in test.json: {line[:100]}... Error: {e}")
+                        continue
+        for d in test_data:
+            text = clean_text_for_spacy(d.get("text", ""))
+            if not text:
+                logging.warning(f"No valid text in test.json entry at line {line_number}, skipping.")
+                continue
+            annotations = []
+            for ent in d.get("entities", []):
+                label = ent["label"].upper()
+                start, end = ent["start"], ent["end"]
+                min_span_length = 4
+                if (start < len(text) and end <= len(text) and
+                    start < end and (end - start) >= min_span_length):
+                    annotations.append([start, end, label])
+                else:
+                    logging.warning(f"Skipping invalid test.json annotation at line {line_number}: "
+                                  f"[{start}, {end}, {label}] (text length: {len(text)}, span: {end - start})")
+            if annotations:
+                annotated_data_test.append({"text": text, "annotations": annotations})
+        total_data = len(annotated_data_test)
+        train_size = int(total_data * 0.8)
+        train_dataset = convert_to_ner_format(annotated_data_test[:train_size])
+        eval_dataset = convert_to_ner_format(annotated_data_test[train_size:])
+        logging.info(f"Recreated datasets from test.json: Train size: {len(train_dataset)}, Eval size: {len(eval_dataset)}")
+    else:
+        logging.error(f"test.json not found at {test_path}. Cannot proceed without existing datasets.")
+        exit(1)
+
+# Convert new data and append to existing datasets
+new_dataset = convert_to_ner_format(annotated_data)
+train_size = int(len(new_dataset) * 0.8)
+new_train_dataset = new_dataset.select(range(train_size))
+new_eval_dataset = new_dataset.select(range(train_size, len(new_dataset)))
+
+# Merge datasets using concatenate_datasets
+combined_train_dataset = concatenate_datasets([train_dataset, new_train_dataset])
+combined_eval_dataset = concatenate_datasets([eval_dataset, new_eval_dataset])
+
+# Save updated datasets
+combined_train_dataset.to_json("/content/train_dataset_updated.json")
+combined_eval_dataset.to_json("/content/eval_dataset_updated.json")
+logging.info(f"Updated datasets saved: Train size: {len(combined_train_dataset)}, Eval size: {len(combined_eval_dataset)}")
+
+
+import json
+import os
+import re
+import logging
+from unicodedata import normalize
+from datasets import Dataset
+import spacy
+from fuzzywuzzy import fuzz
+import nltk
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(levelname)s:%(message)s')
+
+# Enhanced cleaning function (unchanged)
+def clean_text_for_spacy(text: str) -> str:
+    if not text or not isinstance(text, str):
+        return ""
+    text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
+    text = re.sub(r'[\ud800-\udfff]', '', text)
+    text = re.sub(r'[\u2022\u25CF\uf0b7\uf076\uf09f•●◦▪\t○∙\u00a0\U0001F000-\U0001FFFF]', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'[()[\]{}|]', '', text).strip()
+    return text
+
+# Generate synthetic text for master.json entries without "text" field
+def generate_synthetic_text(entry: dict) -> str:
+    parts = []
+    # Personal Info
+    if entry.get("personal_info", {}).get("name") and entry["personal_info"]["name"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Name: {entry['personal_info']['name']}")
+    if entry.get("personal_info", {}).get("email") and entry["personal_info"]["email"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Email: {entry['personal_info']['email']}")
+    if entry.get("personal_info", {}).get("phone") and entry["personal_info"]["phone"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Phone: {entry['personal_info']['phone']}")
+    if entry.get("personal_info", {}).get("location", {}).get("city") and entry["personal_info"]["location"]["city"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Location: {entry['personal_info']['location']['city']}")
+    if entry.get("personal_info", {}).get("summary") and entry["personal_info"]["summary"] not in ["Unknown", "Not Provided", ""]:
+        parts.append(f"Summary: {entry['personal_info']['summary']}")
+
+    # Experience
+    for exp in entry.get("experience", []):
+        if exp.get("title") and exp["title"] != "Unknown":
+            parts.append(f"Role: {exp['title']}")
+        if exp.get("company") and exp["company"] != "Unknown":
+            parts.append(f"Company: {exp['company']}")
+        duration = ' '.join([exp.get("dates", {}).get(k, "") for k in ["start", "end", "duration"] if exp.get("dates", {}).get(k, "") != "Unknown"]).strip()
+        if duration:
+            parts.append(f"Duration: {duration}")
+        if exp.get("responsibilities"):
+            desc = ' '.join([r for r in exp.get("responsibilities", []) if r != "Unknown"])
+            if desc:
+                parts.append(f"Responsibilities: {desc}")
+
+    # Education
+    for edu in entry.get("education", []):
+        degree = ' '.join([edu.get("degree", {}).get(k, "") for k in ["level", "field", "major"] if edu.get("degree", {}).get(k, "") != "Unknown"]).strip()
+        if degree:
+            parts.append(f"Degree: {degree}")
+        if edu.get("institution", {}).get("name") and edu["institution"]["name"] != "Unknown":
+            parts.append(f"Institution: {edu['institution']['name']}")
+        duration = ' '.join([edu.get("dates", {}).get(k, "") for k in ["start", "expected_graduation"] if edu.get("dates", {}).get(k, "") != "Unknown"]).strip()
+        if duration:
+            parts.append(f"Education Duration: {duration}")
+
+    # Skills
+    skills = []
+    for skill_type in ["programming_languages", "frameworks", "databases", "cloud", "project_management", "automation", "software_tools"]:
+        for skill in entry.get("skills", {}).get("technical", {}).get(skill_type, []):
+            skill_name = skill.get("name", "") if isinstance(skill, dict) else skill
+            if skill_name and skill_name not in ["Unknown", "Not Provided"]:
+                skills.append(skill_name)
+    if skills:
+        parts.append(f"Skills: {', '.join(skills)}")
+
+    # Projects
+    for proj in entry.get("projects", []):
+        if proj.get("name") and proj["name"] != "Unknown":
+            parts.append(f"Project: {proj['name']}")
+        if proj.get("description") and proj["description"] != "Unknown":
+            parts.append(f"Project Description: {proj['description']}")
+
+    # Certifications
+    for cert in entry.get("certifications", []):
+        cert_name = cert if isinstance(cert, str) else cert.get("name", "")
+        if cert_name and cert_name != "Unknown":
+            parts.append(f"Certification: {cert_name}")
+
+    return ' '.join(parts).strip()
+
+# Load annotated folder
+annotated_folder = "/content/aziz/ResumesJsonAnnotated/ResumesJsonAnnotated/"
+annotated_data = []
+for filename in os.listdir(annotated_folder):
+    if filename.endswith(".json"):
+        try:
+            with open(os.path.join(annotated_folder, filename), 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                cleaned_text = clean_text_for_spacy(data.get("text", ""))
+                if not cleaned_text:
+                    logging.warning(f"No valid text in {filename}, skipping.")
+                    continue
+                normalized_annotations = []
+                for ann in data.get("annotations", []):
+                    label = ann[2].split(":")[0].strip().upper() if ":" in ann[2] else ann[2].upper()
+                    start, end = ann[0], ann[1]
+                    min_span_length = 4  # Changed: Stricter min 4 for all labels to reduce noise
+                    if (start < len(cleaned_text) and end <= len(cleaned_text) and
+                        start < end and (end - start) >= min_span_length):
+                        normalized_annotations.append([start, end, label])
+                    else:
+                        logging.warning(f"Skipping invalid annotation in {filename}: {ann} "
+                                      f"(text length: {len(cleaned_text)}, span: {end - start})")
+                if normalized_annotations:
+                    annotated_data.append({
+                        "text": cleaned_text,
+                        "annotations": normalized_annotations
+                    })
+        except json.JSONDecodeError as e:
+            logging.error(f"Failed to parse {filename}: {e}")
+            continue
+
+# Load CVS.json
+cvs_path = "/content/CVS.json"
+if os.path.exists(cvs_path):
+    with open(cvs_path, 'r', encoding='utf-8') as f:
+        new_data = []
+        for line_number, line in enumerate(f, 1):
+            if line.strip():
+                try:
+                    new_data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    logging.error(f"Error parsing line {line_number} in CVS.json: {line[:100]}... Error: {e}")
+                    continue
+        for d in new_data:
+            text = clean_text_for_spacy(d.get("content", ""))
+            if not text:
+                logging.warning(f"No valid content in CVS.json entry at line {line_number}, skipping.")
+                continue
+            annotations = []
+            for ann in d.get("annotation", []):
+                try:
+                    label = ann["label"][0].upper() if isinstance(ann.get("label"), list) and ann["label"] else "UNKNOWN"
+                    for p in ann.get("points", []):
+                        start = p.get("start", 0)
+                        end = p.get("end", len(text))
+                        min_span_length = 4  # Changed: Stricter min 4
+                        if (start < len(text) and end <= len(text) and
+                            start < end and (end - start) >= min_span_length):
+                            annotations.append([start, end, label])
+                        else:
+                            logging.warning(f"Skipping invalid CVS.json annotation at line {line_number}: "
+                                          f"[{start}, {end}, {label}] (text length: {len(text)}, span: {end - start})")
+                except Exception as e:
+                    logging.error(f"Error processing annotation in CVS.json at line {line_number}: {ann}, Error: {e}")
+            if text and annotations:
+                annotated_data.append({"text": text, "annotations": annotations})
+else:
+    logging.error(f"CVS.json not found at {cvs_path}")
+
+# Load master.json as JSONL
+master_path = "/content/master.json"
+if os.path.exists(master_path):
+    master_data = []
+    with open(master_path, 'r', encoding='utf-8') as f:
+        for line_number, line in enumerate(f, 1):
+            if line.strip():
+                try:
+                    master_data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    logging.error(f"Failed to parse line {line_number} in master.json: {line[:100]}... Error: {e}")
+                    continue
+    for d in master_data:
+        text = clean_text_for_spacy(d.get("text", ""))
+        if not text:
+            text = generate_synthetic_text(d)
+            if not text:
+                logging.warning(f"No valid text after synthesis in master.json entry at line {line_number}, skipping.")
+                continue
+        annotations = []
+
+        def find_span(text: str, target: str, label: str) -> tuple:
+            if not target:
+                return None
+            match_start = text.find(target)
+            if match_start != -1:
+                return [match_start, match_start + len(target), label]
+            words = text.split()
+            for i in range(len(words)):
+                for j in range(i + 1, len(words) + 1):
+                    candidate = ' '.join(words[i:j])
+                    if fuzz.ratio(candidate.lower(), target.lower()) > 85:
+                        start = text.find(candidate)
+                        return [start, start + len(candidate), label]
+            logging.warning(f"Could not find span for '{target}' (label: {label}) in master.json entry")
+            return None
+
+        # Personal Info
+        name = d.get("personal_info", {}).get("name", "")
+        if name and name not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, name, "NAME")
+            if span:
+                annotations.append(span)
+        email = d.get("personal_info", {}).get("email", "")
+        if email and email not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, email, "EMAIL")
+            if span:
+                annotations.append(span)
+        phone = d.get("personal_info", {}).get("phone", "")
+        if phone and phone not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, phone, "PHONE")
+            if span:
+                annotations.append(span)
+        location = d.get("personal_info", {}).get("location", {}).get("city", "")
+        if location and location not in ["Unknown", "Not Provided", ""]:
+            span = find_span(text, location, "LOCATION")
+            if span:
+                annotations.append(span)
+        summary = d.get("personal_info", {}).get("summary", "")
+        if summary and summary != "Unknown" and len(summary) > 20:
+            span = find_span(text, summary, "SUMMARY_TEXT")
+            if span:
+                annotations.append(span)
+
+        # Experience
+        for exp in d.get("experience", []):
+            role = exp.get("title", "")
+            if role and role != "Unknown":
+                span = find_span(text, role, "ROLE")
+                if span:
+                    annotations.append(span)
+            company = exp.get("company", "")
+            if company and company != "Unknown":
+                span = find_span(text, company, "COMPANY")
+                if span:
+                    annotations.append(span)
+            duration = ' '.join([exp.get("dates", {}).get(k, "") for k in ["start", "end", "duration"] if exp.get("dates", {}).get(k, "") != "Unknown"]).strip()
+            if duration:
+                span = find_span(text, duration, "DURATION")
+                if span:
+                    annotations.append(span)
+            desc = ' '.join([r for r in exp.get("responsibilities", []) if r != "Unknown"])
+            if desc and len(desc) > 20:
+                span = find_span(text, desc, "DESCRIPTION")
+                if span:
+                    annotations.append(span)
+
+        # Education
+        for edu in d.get("education", []):
+            degree = ' '.join([edu.get("degree", {}).get(k, "") for k in ["level", "field", "major"] if edu.get("degree", {}).get(k, "") != "Unknown"]).strip()
+            if degree:
+                span = find_span(text, degree, "DEGREE")
+                if span:
+                    annotations.append(span)
+            institution = edu.get("institution", {}).get("name", "")
+            if institution and institution != "Unknown":
+                span = find_span(text, institution, "INSTITUTION")
+                if span:
+                    annotations.append(span)
+            duration = ' '.join([edu.get("dates", {}).get(k, "") for k in ["start", "expected_graduation"] if edu.get("dates", {}).get(k, "") != "Unknown"]).strip()
+            if duration:
+                span = find_span(text, duration, "DURATION")
+                if span:
+                    annotations.append(span)
+
+        # Skills
+        skills = []
+        for skill_type in ["programming_languages", "frameworks", "databases", "cloud", "project_management", "automation", "software_tools"]:
+            for skill in d.get("skills", {}).get("technical", {}).get(skill_type, []):
+                skill_name = skill.get("name", "") if isinstance(skill, dict) else skill
+                if skill_name and skill_name not in ["Unknown", "Not Provided"]:
+                    skills.append(skill_name)
+        for skill_name in skills:
+            span = find_span(text, skill_name, "SKILL")
+            if span:
+                annotations.append(span)
+
+        # Projects
+        for proj in d.get("projects", []):
+            name = proj.get("name", "")
+            if name and name != "Unknown":
+                span = find_span(text, name, "PROJECT_NAME")
+                if span:
+                    annotations.append(span)
+            desc = proj.get("description", "")
+            if desc and desc != "Unknown" and len(desc) > 20:
+                span = find_span(text, desc, "DESCRIPTION")
+                if span:
+                    annotations.append(span)
+
+        # Certifications
+        for cert in d.get("certifications", []):
+            cert_name = cert if isinstance(cert, str) else cert.get("name", "")
+            if cert_name and cert_name != "Unknown":
+                span = find_span(text, cert_name, "CERT")
+                if span:
+                    annotations.append(span)
+
+        if annotations:
+            annotated_data.append({"text": text, "annotations": annotations})
+        else:
+            logging.warning(f"No valid annotations for master.json entry at line {line_number}, skipping.")
+
+# NEW: Load test.json (your +50 new CVs) as additional training data
+test_path = "/content/test.json"  # Assume path in Colab
+if os.path.exists(test_path):
+    test_data = []
+    with open(test_path, 'r', encoding='utf-8') as f:
+        for line_number, line in enumerate(f, 1):
+            if line.strip():
+                try:
+                    test_data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    logging.error(f"Failed to parse line {line_number} in test.json: {line[:100]}... Error: {e}")
+                    continue
+    for d in test_data:
+        text = clean_text_for_spacy(d.get("text", ""))
+        if not text:
+            logging.warning(f"No valid text in test.json entry at line {line_number}, skipping.")
+            continue
+        annotations = []
+        for ent in d.get("entities", []):
+            label = ent["label"].upper()
+            start, end = ent["start"], ent["end"]
+            min_span_length = 4  # Stricter
+            if (start < len(text) and end <= len(text) and
+                start < end and (end - start) >= min_span_length):
+                annotations.append([start, end, label])
+            else:
+                logging.warning(f"Skipping invalid test.json annotation at line {line_number}: "
+                              f"[{start}, {end}, {label}] (text length: {len(text)}, span: {end - start})")
+        if annotations:
+            annotated_data.append({"text": text, "annotations": annotations})
+else:
+    logging.error(f"test.json not found at {test_path}")
+
+# Collect unique labels
+all_labels = set(["SKILL", "NAME", "DEGREE", "INSTITUTION", "ROLE", "COMPANY", "DURATION", "PROJECT_NAME", "CERT", "LOCATION", "PHONE", "EMAIL", "DESCRIPTION", "SUMMARY_TEXT", "YEARS_OF_EXPERIENCE"])
+for item in annotated_data:
+    for ann in item["annotations"]:
+        all_labels.add(ann[2])
+label_list = ["O"] + sorted([f"B-{l}" for l in all_labels] + [f"I-{l}" for l in all_labels])
+
+# Convert to NER format
+def convert_to_ner_format(data_list):
+    ner_data = {"tokens": [], "ner_tags": []}
+    nlp_en = spacy.load("en_core_web_sm", disable=['ner', 'lemmatizer'])
+    nlp_fr = spacy.load("fr_core_news_sm", disable=['ner', 'lemmatizer'])
+    for item in data_list:
+        text = item["text"]
+        is_french = any(word in text.lower() for word in ["et", "de", "le", "la", "un", "une", "pour"])
+        try:
+            doc = nlp_fr(text) if is_french else nlp_en(text)
+            tokens = [token.text for token in doc]
+            tags = ["O"] * len(tokens)
+            for start, end, label in item["annotations"]:
+                span = doc.char_span(start, end, alignment_mode="expand")
+                if span:
+                    token_start = span.start
+                    token_end = span.end
+                    if token_start < len(tokens) and token_end <= len(tokens):
+                        tags[token_start] = f"B-{label}"
+                        for i in range(token_start + 1, token_end):
+                            tags[i] = f"I-{label}"
+                else:
+                    logging.warning(f"Failed to align span [{start}, {end}, {label}] in text")
+            ner_data["tokens"].append(tokens)
+            ner_data["ner_tags"].append(tags)
+        except Exception as e:
+            logging.error(f"Tokenization failed for text: {text[:100]}... Error: {e}")
+            tokens = nltk.word_tokenize(text)
+            tags = ["O"] * len(tokens)
+            ner_data["tokens"].append(tokens)
+            ner_data["ner_tags"].append(tags)
+    return Dataset.from_dict(ner_data)
+
+# Process datasets
+print("Creating training dataset...")
+total_data = len(annotated_data)
+train_size = int(total_data * 0.8)
+train_dataset = convert_to_ner_format(annotated_data[:train_size])
+eval_dataset = convert_to_ner_format(annotated_data[train_size:])
+print(f"Datasets created successfully! Train size: {len(train_dataset)}, Eval size: {len(eval_dataset)}")
 
 
 
-
-#12 define the model and training arguments
-from transformers import AutoModelForTokenClassification, TrainingArguments, Trainer
-model = AutoModelForTokenClassification.from_pretrained(MODEL_NAME, num_labels=len(label_list))
-training_args = TrainingArguments(
-    output_dir="/content/models/resume-ner",
-    num_train_epochs=3,
-    per_device_train_batch_size=4,
-    per_device_eval_batch_size=4,
-    do_eval=True,
-    save_strategy="epoch",
-    learning_rate=3e-5,
-    weight_decay=0.01,
-    logging_steps=50,
-    push_to_hub=False,
-    report_to="none"   # 🚀 disables wandb/logging
-
-)
-
-
-#13 metrics function
-#!pip install -U --force-reinstall datasets evaluate seqeval
+#6 train 
+import os
+import logging
+from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline, TrainingArguments, Trainer, EarlyStoppingCallback
+from datasets import Dataset, concatenate_datasets
+import torch
 import numpy as np
-from datasets import load_metric
-metric = load_metric("seqeval")
+from seqeval.metrics import f1_score, precision_score, recall_score, classification_report
+from transformers import get_scheduler
 
-def align_predictions(predictions, label_ids):
-    preds = np.argmax(predictions, axis=2)
-    batch_size, seq_len = preds.shape
-    out_label_list = []
-    out_pred_list = []
-    for i in range(batch_size):
-        example_labels = []
-        example_preds = []
-        for j in range(seq_len):
-            if label_ids[i,j] != -100:
-                example_labels.append(label_list[label_ids[i,j]])
-                example_preds.append(label_list[preds[i,j]])
-        out_label_list.append(example_labels)
-        out_pred_list.append(example_preds)
-    return out_pred_list, out_label_list
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(levelname)s:%(message)s')
+
+# Disable Weights & Biases
+os.environ["WANDB_MODE"] = "disabled"
+
+# Model and tokenizer
+model_name = "bert-base-multilingual-cased"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Load updated datasets
+train_dataset_path = "/content/train_dataset_updated.json"
+eval_dataset_path = "/content/eval_dataset_updated.json"
+try:
+    train_dataset_updated = Dataset.from_json(train_dataset_path)
+    eval_dataset_updated = Dataset.from_json(eval_dataset_path)
+    logging.info(f"Loaded updated datasets: Train size: {len(train_dataset_updated)}, Eval size: {len(eval_dataset_updated)}")
+except Exception as e:
+    logging.error(f"Failed to load updated datasets: {e}")
+    raise
+
+# Collect unique labels from the dataset
+all_labels = set()
+for dataset in [train_dataset_updated, eval_dataset_updated]:
+    for ner_tags in dataset["ner_tags"]:
+        all_labels.update(ner_tags)
+label_list = ["O"] + sorted([label for label in all_labels if label != "O"])
+label_to_id = {l: i for i, l in enumerate(label_list)}
+id_to_label = {i: l for l, i in label_to_id.items()}
+logging.info(f"Label list: {label_list}")
+
+def tokenize_and_align_labels(examples):
+    try:
+        tokenized_inputs = tokenizer(
+            examples["tokens"],
+            truncation=True,
+            is_split_into_words=True,
+            padding='max_length',
+            max_length=512,
+            return_tensors="np"
+        )
+        labels = []
+        for i, label in enumerate(examples["ner_tags"]):
+            word_ids = tokenized_inputs.word_ids(batch_index=i)
+            previous_word_idx = None
+            label_ids = []
+            for word_idx in word_ids:
+                if word_idx is None:
+                    label_ids.append(-100)
+                elif word_idx != previous_word_idx:
+                    # Default to "O" if label is not in label_to_id
+                    label_ids.append(label_to_id.get(label[word_idx], label_to_id["O"]))
+                else:
+                    # Convert B- to I- for subsequent subwords
+                    if label[word_idx].startswith("B-"):
+                        i_label = label[word_idx].replace("B-", "I-")
+                        label_ids.append(label_to_id.get(i_label, label_to_id["O"]))
+                    else:
+                        label_ids.append(label_to_id.get(label[word_idx], label_to_id["O"]))
+                previous_word_idx = word_idx
+            # Pad or truncate labels to match max_length
+            label_ids = label_ids[:512] + [-100] * (512 - len(label_ids)) if len(label_ids) < 512 else label_ids[:512]
+            labels.append(label_ids)
+        tokenized_inputs["labels"] = labels
+        return tokenized_inputs
+    except Exception as e:
+        logging.error(f"Error in tokenization: {e}")
+        raise
+
+print("Tokenizing datasets...")
+try:
+    tokenized_train = train_dataset_updated.map(
+        tokenize_and_align_labels,
+        batched=True,
+        remove_columns=["tokens", "ner_tags"],
+        desc="Tokenizing train dataset"
+    )
+    tokenized_eval = eval_dataset_updated.map(
+        tokenize_and_align_labels,
+        batched=True,
+        remove_columns=["tokens", "ner_tags"],
+        desc="Tokenizing eval dataset"
+    )
+    print(f"Dataset sizes: Train = {len(tokenized_train)}, Eval = {len(tokenized_eval)}")
+except Exception as e:
+    logging.error(f"Failed to tokenize datasets: {e}")
+    raise
+
+# Initialize model
+try:
+    model = AutoModelForTokenClassification.from_pretrained(
+        model_name,
+        num_labels=len(label_list),
+        id2label=id_to_label,
+        label2id=label_to_id
+    )
+except Exception as e:
+    logging.error(f"Failed to initialize model: {e}")
+    raise
 
 def compute_metrics(p):
-    preds, labels = p
-    preds_list, labels_list = align_predictions(preds, labels)
-    results = metric.compute(predictions=preds_list, references=labels_list)
-    # return basic f1
-    return {"overall_f1": results.get("overall_f1",0)}
+    try:
+        predictions, labels = p
+        predictions = np.argmax(predictions, axis=2)
+        true_labels = [[id_to_label[l] for l in label if l != -100] for label in labels]
+        true_predictions = [[id_to_label[p] for (p, l) in zip(pred, label) if l != -100] for pred, label in zip(predictions, labels)]
 
+        # Remove empty sequences to avoid seqeval errors
+        true_labels = [lbl for lbl in true_labels if lbl]
+        true_predictions = [pred for pred in true_predictions if pred]
 
-#14 define the trainer
-import os
-os.environ["WANDB_DISABLED"] = "true"
-trainer = Trainer(
+        report = classification_report(true_labels, true_predictions)
+        print("Per-label classification report:\n", report)
+        metrics = {
+            "precision": precision_score(true_labels, true_predictions),
+            "recall": recall_score(true_labels, true_predictions),
+            "f1": f1_score(true_labels, true_predictions),
+        }
+        return metrics
+    except Exception as e:
+        logging.error(f"Error in compute_metrics: {e}")
+        return {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+
+# Training arguments
+training_args = TrainingArguments(
+    output_dir="./results",
+    eval_strategy="epoch",
+    save_strategy="epoch",
+    learning_rate=2e-5,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
+    num_train_epochs=7,
+    weight_decay=0.01,
+    save_steps=500,
+    logging_steps=100,
+    load_best_model_at_end=True,
+    metric_for_best_model="f1",
+    report_to="none",
+    gradient_accumulation_steps=4,
+    save_total_limit=2,  # Keep only the last 2 checkpoints
+    resume_from_checkpoint=True,  # Enable resuming from latest checkpoint
+)
+
+# Custom Trainer with cosine scheduler
+class CustomTrainer(Trainer):
+    def create_optimizer_and_scheduler(self, num_training_steps: int):
+        self.optimizer = self.create_optimizer()
+        self.lr_scheduler = get_scheduler(
+            name="cosine",
+            optimizer=self.optimizer,
+            num_warmup_steps=int(0.1 * num_training_steps),
+            num_training_steps=num_training_steps
+        )
+
+# Initialize trainer
+trainer = CustomTrainer(
     model=model,
     args=training_args,
-    train_dataset=train_ds,
-    eval_dataset=eval_ds,
+    train_dataset=tokenized_train,
+    eval_dataset=tokenized_eval,
     tokenizer=tokenizer,
-    compute_metrics=compute_metrics
+    compute_metrics=compute_metrics,
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
 )
-trainer.train()
-trainer.save_model("/content/models/resume-ner")
-tokenizer.save_pretrained("/content/models/resume-ner")
-#result
-# Training Loss
-# 50	1.026000
-# 100	0.802400
-# 150	0.632100
-# 200	0.581800
-# 250	0.443000
-# 300	0.331700
-# 350	0.253500
-# 400	0.250100
-# 450	0.217800
-# 500	0.187500
-# 550	0.161200
-# 600	0.146900
-# 650	0.144100
-# 700	0.132700
-# 750	0.126700
-# 800	0.121400
-# 850	0.120100
-# 900	0.116100
-# 950	0.102300
-# 1000	0.105800
-# 1050	0.099000
-# 1100	0.099700
-# 1150	0.092600
-# 1200	0.081900
-# 1250	0.091200
-# 1300	0.088600
-# 1350	0.080300
-# 1400	0.075500
-# 1450	0.067200
-# 1500	0.076000
-# 1550	0.081200
-# 1600	0.071600
-# 1650	0.061600
-# Saved model and tokenizer to (('/content/models/resume-ner/tokenizer_config.json', 
-# '/content/models/resume-ner/special_tokens_map.json', 
-# '/content/models/resume-ner/vocab.txt', 
-# '/content/models/resume-ner/added_tokens.json', 
-# '/content/models/resume-ner/tokenizer.json'))
+
+# Start training
+print("Starting training...")
+try:
+    trainer.train(resume_from_checkpoint=True)  # Attempt to resume if checkpoint exists
+except Exception as e:
+    logging.warning(f"Failed to resume training from checkpoint: {e}. Starting fresh training...")
+    trainer.train()
+
+# Save model
+try:
+    trainer.save_model("./fine_tuned_resume_ner")
+    logging.info("Model saved successfully!")
+except Exception as e:
+    logging.error(f"Failed to save model: {e}")
+
+# Initialize pipeline
+try:
+    nlp = pipeline(
+        "ner",
+        model="./fine_tuned_resume_ner",
+        tokenizer=tokenizer,
+        aggregation_strategy="simple",
+        device=0 if torch.cuda.is_available() else -1
+    )
+    print("Model saved and pipeline initialized!")
+except Exception as e:
+    logging.error(f"Failed to initialize pipeline: {e}")
+
+# Evaluate and print metrics
+try:
+    metrics = trainer.evaluate()
+    print(f"Evaluation Metrics: {metrics}")
+except Exception as e:
+    logging.error(f"Failed to evaluate model: {e}")
 
 
-#15 inference function
-from collections import defaultdict
-import torch
+
+#parsing functions and main test script
+import json
+import os
 import re
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
-model.eval()
-
-def infer_resume(text):
-    # Tokenize words first
-    words = [w for w in re.split(r'\s+', text) if w]
-    
-    # Keep the batch encoding to access word_ids
-    enc = tokenizer(words, is_split_into_words=True, truncation=True, max_length=512, return_tensors='pt')
-    
-    # Save word_ids before moving to tensors
-    word_ids = enc.word_ids(batch_index=0)
-    
-    # Move tensors to device
-    enc = {k: v.to(device) for k, v in enc.items()}
-    
-    with torch.no_grad():
-        out = model(**enc)
-    
-    preds = torch.argmax(out.logits, dim=2).squeeze().tolist()
-    
-    result = defaultdict(list)
-    current = None
-    for idx, wid in enumerate(word_ids):
-        if wid is None:
-            continue
-        label = label_list[preds[idx]]
-        token = words[wid]
-        
-        if label == 'O':
-            current = None
-            continue
-        
-        if label.startswith('B-'):
-            ent = label.split('-',1)[1]
-            result[ent].append(token)
-            current = ent
-        elif label.startswith('I-') and current is not None:
-            result[current].append(token)
-        else:
-            current = None
-    
-    out_json = {}
-    for ent, toks in result.items():
-        joined = " ".join(toks)
-        if ent == 'SKILL':
-            found = []
-            low = joined.lower()
-            for sk in GENERAL_SKILLS:
-                if sk in low:
-                    found.append(sk)
-            out_json['skills'] = list(set(found)) if found else [joined]
-        else:
-            out_json[ent.lower()] = joined
-
-    return out_json
-
-# Example
-sample_text = df['resume_text'].iloc[0]
-print(infer_resume(sample_text))
-
-# Example output
-{'skills': ['hr', 'c', 'conflict resolution', 'customer service', 'go', 'rds', 'lua', 'sem', 'leadership', 'ar', 'marketing', 'r', 'oci', 'time management', 'san', 'sales', 'soc'], 'exp': 'in Hospitality Hospitality and Management. Management. and of teams; teams; to instill instill instill a to Highlights Highlights on Team management savvy savvy savvy and development Skilled Skilled Skilled DOT DOT by IHG IHG IHG in Loyalty Loyalty Loyalty and by Segment Segment Hilton hospitality hospitality systems as Hilton OnQ OnQ , PMS PMS , Fidelio Fidelio System Holidex Holidex Holidex and in 2013 to Name － , State Helps Helps to develop and as employment, employment, benefits, benefits, and employee employee and Keeps Keeps of benefits plans as and pension plan, plan, as and and employee Advises Advises Advises management in of employee issues. issues. benefits as life, life, health, health, dental, dental, pension plans, plans, leave, leave, leave of and employee Designed Designed and meetings, meetings,'}
-
-#16 inference with traduction 
+import logging
 from collections import defaultdict
-from langdetect import detect
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForTokenClassification
+from unicodedata import normalize
+from typing import Dict, List, Any, Tuple
+from fuzzywuzzy import fuzz
+import pdfplumber
+from pdfminer.high_level import extract_text as pdfminer_extract
 import torch
-import pandas as pd
-import re
+import spacy
+import nltk
+from transformers import pipeline
 
-# Device setup
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Load translation model
-mt_model_name = "Helsinki-NLP/opus-mt-fr-en"
-mt_tokenizer = AutoTokenizer.from_pretrained(mt_model_name, use_fast=True)
-mt_model = AutoModelForSeq2SeqLM.from_pretrained(mt_model_name).to(device)
-
-# Load NER model and tokenizer
-ner_model_name = "dslim/bert-base-NER"  # Replace with your specific NER model
-ner_tokenizer = AutoTokenizer.from_pretrained(ner_model_name, use_fast=True)
-ner_model = AutoModelForTokenClassification.from_pretrained(ner_model_name).to(device)
-ner_model.eval()
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
+def clean_line(line: str) -> str:
+    """Clean and normalize a line of text"""
+    if not line or not isinstance(line, str):
+        return ""
 
-def translate_fr_to_en(text):
+    # Normalize unicode
+    line = normalize('NFKD', line).encode('ASCII', 'ignore').decode('ASCII')
+
+    # Remove special characters and excessive whitespace
+    line = re.sub(r'[\uf0b7\uf076\uf09f•●◦▪\t●•▪○∙\u00a0]', ' ', line)
+    line = re.sub(r'\s+', ' ', line).strip()
+
+    return line
+
+def extract_text_from_pdf(path: str) -> str:
+    """Extract text from PDF with focus on content"""
     try:
-        if detect(text) == 'fr':
-            inputs = mt_tokenizer([text], return_tensors="pt", padding=True).to(device)
-            translated_tokens = mt_model.generate(**inputs, max_length=512)
-            return mt_tokenizer.batch_decode(translated_tokens, skip_special_tokens=True)[0]
-        return text
-    except:
-        return text
+        with pdfplumber.open(path) as pdf:
+            text = ""
+            for page in pdf.pages:
+                page_text = page.extract_text(layout=True)
+                if page_text:
+                    text += page_text + "\n"
 
-def infer_resume(text, ner_tokenizer=ner_tokenizer, ner_model=ner_model, label_list=label_list, general_skills=GENERAL_SKILLS):
-    # Tokenize words first
-    words = [w for w in re.split(r'\s+', text) if w]
-    
-    # Keep the batch encoding to access word_ids
-    enc = ner_tokenizer(words, is_split_into_words=True, truncation=True, max_length=512, return_tensors='pt')
-    
-    # Save word_ids before moving to tensors
-    word_ids = enc.word_ids(batch_index=0)
-    
-    # Move tensors to device
-    enc = {k: v.to(device) for k, v in enc.items()}
-    
-    with torch.no_grad():
-        out = ner_model(**enc)
-    
-    preds = torch.argmax(out.logits, dim=2).squeeze().tolist()
-    
-    result = defaultdict(list)
-    current = None
-    for idx, wid in enumerate(word_ids):
-        if wid is None:
+            if not text.strip():
+                text = pdfminer_extract(path)
+
+            return text.strip()
+    except Exception as e:
+        logging.error(f"PDF extraction failed for {path}: {e}")
+        return pdfminer_extract(path)
+
+def extract_contact_info(raw_text: str) -> Dict[str, str]:
+    """Extract contact information"""
+    # Extract emails
+    emails = list(set(re.findall(EMAIL_PATTERN, raw_text)))
+
+    # Extract phones
+    phones = []
+    phone_matches = re.finditer(PHONE_PATTERN, raw_text)
+    for match in phone_matches:
+        phone = match.group().strip()
+        digits = re.sub(r'\D', '', phone)
+        if 8 <= len(digits) <= 15:
+            phones.append(phone)
+
+    # Extract locations
+    locations = list(set(re.findall(LOCATION_PATTERN, raw_text)))
+
+    # Extract URLs
+    urls = list(set(re.findall(URL_PATTERN, raw_text)))
+
+    return {
+        "email": emails[0] if emails else "",
+        "phone": phones[0] if phones else "",
+        "location": locations[0] if locations else "",
+        "url": urls[0] if urls else ""
+    }
+
+def extract_name(lines: List[str], raw_text: str, contact_info: Dict[str, str]) -> str:
+    """Extract name using multiple strategies"""
+    # Strategy 1: Look for name patterns in first 5 lines
+    for i, line in enumerate(lines[:5]):
+        clean = clean_line(line)
+        if (len(clean) > 5 and len(clean) < 50 and
+            re.match(NAME_PATTERN, clean) and
+            2 <= len(clean.split()) <= 4 and
+            not any(kw in clean.lower() for kw in STOP_WORDS) and
+            not re.match(EMAIL_PATTERN, clean) and
+            not re.match(PHONE_PATTERN, clean)):
+            return clean.title()
+
+    # Strategy 2: Extract from email
+    email = contact_info.get("email", "")
+    if email and "@" in email:
+        username = email.split('@')[0]
+        name_parts = re.split(r'[\._\-\d+]', username)
+        valid_parts = [part for part in name_parts if len(part) > 2 and not re.search(r'\d', part)]
+        if len(valid_parts) >= 2:
+            return ' '.join(valid_parts[:2]).title()
+
+    return "Unknown Name"
+
+def detect_section_header(line: str, current_section: str) -> Tuple[str, bool]:
+    """Detect section headers"""
+    clean = clean_line(line).lower().strip()
+    if not clean or len(clean) > 50:
+        return current_section, False
+
+    for section, patterns in SECTION_PATTERNS.items():
+        for pat in patterns:
+            if pat in clean and len(clean.split()) <= 4:
+                return section, True
+
+    return current_section, False
+
+def parse_education(lines: List[str]) -> List[Dict[str, str]]:
+    """Parse education information"""
+    entries = []
+
+    education_keywords = ["bachelor", "master", "phd", "diploma", "degree", "licence", "engineering", "esprit", "ensit", "university", "college", "institute", "school"]
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        clean = clean_line(line)
+
+        if len(clean) < 8:
+            i += 1
             continue
-        label = label_list[preds[idx]]
-        token = words[wid]
-        
-        if label == 'O':
-            current = None
+
+        # Look for education indicators
+        has_edu_kw = any(kw in clean.lower() for kw in education_keywords)
+        date_match = re.search(DATE_PATTERN, clean)
+
+        if has_edu_kw or date_match:
+            entry = {"degree": "", "institution": "", "duration": ""}
+
+            # Extract date if present
+            if date_match:
+                entry["duration"] = date_match.group()
+                clean = re.sub(DATE_PATTERN, '', clean).strip()
+
+            # Try to extract institution
+            if " at " in clean.lower():
+                parts = clean.split(" at ", 1)
+                entry["degree"] = parts[0].strip().title()
+                entry["institution"] = parts[1].strip().title()
+            elif " in " in clean.lower():
+                parts = clean.split(" in ", 1)
+                entry["degree"] = parts[0].strip().title()
+                entry["institution"] = parts[1].strip().title()
+            elif " - " in clean:
+                parts = clean.split(" - ", 1)
+                entry["degree"] = parts[0].strip().title()
+                entry["institution"] = parts[1].strip().title()
+            else:
+                entry["degree"] = clean.title()
+
+            # Validate and add entry
+            if entry["degree"] and len(entry["degree"]) > 3:
+                entries.append(entry)
+
+        i += 1
+
+    return entries[:3]
+
+def parse_experience(lines: List[str]) -> List[Dict[str, str]]:
+    """PERFECT experience parsing - CLEAN AND SEPARATE from projects"""
+    experiences = []
+
+    # Clear experience indicators
+    experience_keywords = [
+        "engineer", "developer", "analyst", "manager", "specialist", "consultant",
+        "architect", "director", "lead", "intern", "stage", "stagiare", "employment",
+        "work experience", "professional experience", "expérience professionnelle"
+    ]
+
+    current_exp = None
+    description_lines = []
+    in_experience_section = False
+
+    for i, line in enumerate(lines):
+        clean = clean_line(line)
+        if not clean:
             continue
-        
-        if label.startswith('B-'):
-            ent = label.split('-', 1)[1]
-            result[ent].append(token)
-            current = ent
-        elif label.startswith('I-') and current is not None:
-            result[current].append(token)
-        else:
-            current = None
-    
-    out_json = {}
-    for ent, toks in result.items():
-        joined = " ".join(toks)
-        if ent == 'SKILL':
-            found = []
-            low = joined.lower()
-            for sk in general_skills:
-                if sk in low:
-                    found.append(sk)
-            out_json['skills'] = list(set(found)) if found else [joined]
-        else:
-            out_json[ent.lower()] = joined
 
-    return out_json
+        # Check if we're in experience section
+        section, is_header = detect_section_header(clean, "")
+        if is_header:
+            if section == "Experience":
+                in_experience_section = True
+            elif section in ["Projects", "Education", "Skills"]:
+                in_experience_section = False
 
-# Example usage
-sample_text = df['resume_text'].iloc[0]  # Assuming df is defined
-translated_text = translate_fr_to_en(sample_text)
-resume_json = infer_resume(translated_text)
-print(resume_json)
+        # Look for experience entries - ONLY in experience section or with clear markers
+        date_match = re.search(DATE_PATTERN, clean)
+        has_exp_keyword = any(kw in clean.lower() for kw in experience_keywords)
+        is_short_line = len(clean) < 120
 
-#safe inference function
-def infer_resume_safe(text, chunk_size=200, ner_tokenizer=ner_tokenizer, ner_model=ner_model, label_list=label_list, general_skills=GENERAL_SKILLS):
-    lines = re.split(r'[\n\.]', text)  # split by line or sentence
-    all_results = defaultdict(list)
+        # Start new experience when we have date + experience keywords, OR clear role pattern
+        if (date_match and (has_exp_keyword or in_experience_section)) or (has_exp_keyword and is_short_line):
+            # Save previous experience if valid
+            if current_exp and current_exp["role"] and len(current_exp["role"]) > 3:
+                current_exp["description"] = ' '.join(description_lines).strip()[:400]
+                if len(current_exp["description"]) > 10:
+                    experiences.append(current_exp)
+
+            # Start new experience
+            duration = date_match.group() if date_match else ""
+            remaining = re.sub(DATE_PATTERN, '', clean).strip()
+
+            # Extract role and company using multiple patterns
+            role = remaining
+            company = ""
+
+            # Pattern 1: "Role at Company"
+            if " at " in remaining.lower():
+                parts = remaining.split(" at ", 1)
+                role = parts[0].strip()
+                company = parts[1].strip()
+            # Pattern 2: "Role - Company"
+            elif " - " in remaining:
+                parts = remaining.split(" - ", 1)
+                role = parts[0].strip()
+                company = parts[1].strip()
+            # Pattern 3: "Role, Company"
+            elif ", " in remaining and len(remaining.split(", ")) == 2:
+                parts = remaining.split(", ", 1)
+                role = parts[0].strip()
+                company = parts[1].strip()
+
+            current_exp = {
+                "role": role.title(),
+                "company": company.title(),
+                "duration": duration,
+                "description": ""
+            }
+            description_lines = []
+
+            # Look ahead 1-2 lines for initial description
+            for j in range(i+1, min(i+3, len(lines))):
+                next_line = clean_line(lines[j])
+                if (len(next_line) > 15 and
+                    not re.search(DATE_PATTERN, next_line) and
+                    not detect_section_header(next_line, "")[1] and
+                    len(description_lines) < 2):
+                    description_lines.append(next_line)
+
+            continue
+
+        # Collect description for current experience
+        elif current_exp and len(clean) > 10:
+            # Skip if it's clearly a new section or another experience
+            is_new_exp = (re.search(DATE_PATTERN, clean) and
+                         any(kw in clean.lower() for kw in experience_keywords))
+
+            if not is_new_exp and len(description_lines) < 6:
+                description_lines.append(clean)
+
+    # Add final experience
+    if current_exp and current_exp["role"] and len(current_exp["role"]) > 3:
+        current_exp["description"] = ' '.join(description_lines).strip()[:400]
+        if len(current_exp["description"]) > 10:
+            experiences.append(current_exp)
+
+    # Final validation - remove experiences that are actually projects
+    valid_experiences = []
+    for exp in experiences:
+        # Filter out project-like entries
+        is_actual_experience = (
+            not any(proj_kw in exp["role"].lower() for proj_kw in ["project", "projet", "pfa", "pfe"]) and
+            not exp["role"].lower().startswith("projet") and
+            len(exp["role"]) > 5 and
+            exp["duration"]  # Should have dates for real experience
+        )
+
+        if is_actual_experience:
+            valid_experiences.append(exp)
+
+    return valid_experiences[:4]
+
+def parse_projects(lines: List[str]) -> List[Dict[str, str]]:
+    """PERFECT project parsing - CLEARLY SEPARATE from experience"""
+    projects = []
+
+    # Clear project indicators
+    project_keywords = [
+        "project", "projet", "application", "platform", "system", "development",
+        "implementation", "built", "created", "developed", "designed", "pfa",
+        "pfe", "pidev", "projet de fin", "case study", "prototype"
+    ]
+
+    current_project = None
+    description_lines = []
+    in_project_section = False
+
+    for i, line in enumerate(lines):
+        clean = clean_line(line)
+        if not clean:
+            continue
+
+        # Check if we're in projects section
+        section, is_header = detect_section_header(clean, "")
+        if is_header:
+            if section == "Projects":
+                in_project_section = True
+            elif section in ["Experience", "Education", "Skills"]:
+                in_project_section = False
+
+        # Look for project indicators
+        is_bullet = re.match(r'^[•\-*]\s', line)
+        has_project_kw = any(kw in clean.lower() for kw in project_keywords)
+        has_colon = ':' in clean and len(clean.split(':')) > 1
+        is_short_name = len(clean) < 80
+
+        # Start new project when we have clear project indicators
+        if ((has_project_kw and is_short_name) or
+            (is_bullet and is_short_name) or
+            (has_colon and is_short_name) or
+            (in_project_section and is_short_name)):
+
+            # Save previous project if valid
+            if current_project and current_project["name"] and len(current_project["name"]) > 3:
+                current_project["description"] = ' '.join(description_lines).strip()[:300]
+                projects.append(current_project)
+
+            # Extract project name
+            project_name = clean
+            if is_bullet:
+                project_name = re.sub(r'^[•\-*]\s*', '', project_name)
+            if ':' in project_name:
+                project_name = project_name.split(':', 1)[0].strip()
+
+            # Clean project name from common prefixes
+            project_name = re.sub(
+                r'^(?:project|projet|application|platform|system)\s*:\s*',
+                '', project_name, flags=re.IGNORECASE
+            ).strip()
+
+            current_project = {
+                "name": project_name.title(),
+                "description": ""
+            }
+            description_lines = []
+
+            # Extract initial description if available
+            if ':' in clean and len(clean.split(':')) > 1:
+                desc_part = clean.split(':', 1)[1].strip()
+                if len(desc_part) > 8:
+                    description_lines.append(desc_part)
+
+            # Look ahead for description (2-4 lines)
+            for j in range(i+1, min(i+5, len(lines))):
+                next_line = clean_line(lines[j])
+                if (len(next_line) > 8 and
+                    not re.match(r'^[•\-*]\s', lines[j]) and  # Not another bullet
+                    not detect_section_header(next_line, "")[1] and
+                    not re.search(DATE_PATTERN, next_line) and  # Not dates (that's experience)
+                    len(description_lines) < 3):
+                    description_lines.append(next_line)
+                else:
+                    break
+
+            continue
+
+        # Collect additional description for current project
+        elif current_project and len(clean) > 8:
+            # Skip if it's clearly a new project or section
+            is_new_project = (
+                re.match(r'^[•\-*]\s', line) or
+                any(kw in clean.lower() for kw in project_keywords) or
+                detect_section_header(clean, "")[1]
+            )
+
+            if not is_new_project and len(description_lines) < 4:
+                description_lines.append(clean)
+
+    # Add final project
+    if current_project and current_project["name"] and len(current_project["name"]) > 3:
+        current_project["description"] = ' '.join(description_lines).strip()[:300]
+        projects.append(current_project)
+
+    # Final validation - remove projects that are actually experiences
+    valid_projects = []
+    for proj in projects:
+        # Filter out experience-like entries
+        is_actual_project = (
+            not any(exp_kw in proj["name"].lower() for exp_kw in ["engineer", "developer", "intern", "stage"]) and
+            not re.search(DATE_PATTERN, proj["name"]) and  # No dates in project names
+            len(proj["name"]) > 5 and
+            proj["name"].lower() not in ["project", "projet", "projects", "projets"]
+        )
+
+        if is_actual_project:
+            valid_projects.append(proj)
+
+    return valid_projects[:5]
+
+def parse_skills(raw_text: str) -> List[str]:
+    """Parse skills from text"""
+    skills_found = set()
+    lower_text = raw_text.lower()
+
+    # Exact matching for skills
+    for skill in IT_SKILLS.union(GENERAL_SKILLS):
+        if re.search(r'\b' + re.escape(skill) + r'\b', lower_text):
+            skills_found.add(skill.title())
+
+    # Filter out common false positives
+    filtered_skills = []
+    for skill in sorted(skills_found):
+        skill_lower = skill.lower()
+        if (skill_lower not in STOP_WORDS and
+            len(skill) > 3 and
+            not any(kw in skill_lower for kw in ["years", "year", "level"])):
+            filtered_skills.append(skill)
+
+    return filtered_skills[:25]
+
+def parse_certifications(lines: List[str]) -> List[str]:
+    """Parse certifications"""
+    certs = set()
+
+    cert_keywords = ["certified", "certificate", "certification", "badge", "workshop", "fundamentals"]
 
     for line in lines:
-        words = [w for w in re.split(r'\s+', line) if w]
-        if not words:
+        clean = clean_line(line)
+        clean_lower = clean.lower()
+
+        if any(kw in clean_lower for kw in cert_keywords) and len(clean) > 8:
+            # Clean certification text
+            cert_text = re.sub(r'(?i)certificat|badge|workshop|certified|certification[:]?\s*', '', clean).strip()
+            if len(cert_text) > 5:
+                certs.add(cert_text.title())
+
+    return sorted(list(certs))[:5]
+
+def parse_cv(text: str, filename: str = "") -> Dict[str, Any]:
+    """PERFECT CV parsing with CLEAR SEPARATION between experience and projects"""
+    sections = {
+        "Name": "",
+        "Contact": {"email": "", "phone": "", "location": "", "url": ""},
+        "Summary": "",
+        "Skills": [],
+        "Education": [],
+        "Projects": [],
+        "Experience": [],
+        "Certifications": [],
+        "Interests": []
+    }
+
+    if not text:
+        return sections
+
+    # Basic text preprocessing
+    text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
+    lines = [clean_line(l) for l in text.split('\n') if clean_line(l)]
+
+    # Extract basic information
+    sections["Contact"] = extract_contact_info(text)
+    sections["Name"] = extract_name(lines, text, sections["Contact"])
+
+    # Section-based parsing
+    current_section = None
+    section_lines = defaultdict(list)
+
+    # Parse sections
+    for line in lines:
+        clean = clean_line(line)
+        if not clean:
             continue
 
-        enc = ner_tokenizer(words, is_split_into_words=True, truncation=True, max_length=chunk_size, return_tensors='pt')
-        word_ids = enc.word_ids(batch_index=0)
-        enc = {k: v.to(device) for k, v in enc.items()}
+        # Detect section headers
+        new_section, is_header = detect_section_header(clean, current_section)
+        if is_header:
+            current_section = new_section
+            continue
 
-        with torch.no_grad():
-            out = ner_model(**enc)
-        preds = torch.argmax(out.logits, dim=2).squeeze().tolist()
+        # Assign lines to sections
+        if current_section:
+            section_lines[current_section].append(clean)
 
-        current = None
-        for idx, wid in enumerate(word_ids):
-            if wid is None:
+    # Extract summary from first few non-contact lines
+    summary_lines = []
+    for i, line in enumerate(lines[:8]):
+        clean = clean_line(line)
+        if (len(clean) > 20 and
+            not re.match(EMAIL_PATTERN, clean) and
+            not re.match(PHONE_PATTERN, clean) and
+            clean != sections["Name"] and
+            not any(section in clean.lower() for section in ["skills", "education", "experience", "projects"])):
+            summary_lines.append(clean)
+
+    if summary_lines:
+        sections["Summary"] = ' '.join(summary_lines[:3]).strip()[:300]
+
+    # Parse all sections with PERFECT separation
+    sections["Skills"] = parse_skills(text)
+    sections["Education"] = parse_education(section_lines["Education"])
+
+    # CRITICAL: Parse experience and projects SEPARATELY with clear boundaries
+    sections["Experience"] = parse_experience(section_lines["Experience"])
+    sections["Projects"] = parse_projects(section_lines["Projects"])
+
+    sections["Certifications"] = parse_certifications(section_lines["Certifications"])
+
+    # Simple interests parsing
+    interests = []
+    for line in section_lines["Interests"]:
+        clean = clean_line(line)
+        if len(clean) > 3 and len(clean) < 50 and not re.search(DATE_PATTERN, clean):
+            interests.append(clean.title())
+    sections["Interests"] = list(set(interests))[:5]
+
+    return sections
+
+def process_pdfs(folder_path: str, output_file: str = "cv_structured_perfect.json", num_to_process: int = 20) -> List[Dict[str, Any]]:
+    """Process multiple PDFs and save perfect structured data"""
+    results = []
+    processed_emails = set()
+
+    pdf_files = [f for f in os.listdir(folder_path) if f.lower().endswith(".pdf")][:num_to_process]
+
+    for filename in pdf_files:
+        path = os.path.join(folder_path, filename)
+        logging.info(f"Processing {filename}")
+
+        try:
+            text = extract_text_from_pdf(path)
+            if not text:
+                logging.warning(f"No text extracted from {filename}")
                 continue
-            label = label_list[preds[idx]]
-            token = words[wid]
 
-            if label == 'O':
-                current = None
+            cv_data = parse_cv(text, filename)
+
+            # Deduplicate based on email
+            email = cv_data["Contact"]["email"]
+            if email and email in processed_emails:
                 continue
-            if label.startswith('B-'):
-                ent = label.split('-',1)[1]
-                all_results[ent].append(token)
-                current = ent
-            elif label.startswith('I-') and current is not None:
-                all_results[current].append(token)
-            else:
-                current = None
 
-    # Postprocess results
-    out_json = {}
-    for ent, toks in all_results.items():
-        joined = " ".join(toks)
-        if ent == 'SKILL':
-            found = [sk for sk in general_skills if sk.lower() in joined.lower()]
-            out_json['skills'] = list(set(found)) if found else [joined]
-        else:
-            out_json[ent.lower()] = joined
+            if email:
+                processed_emails.add(email)
+            results.append(cv_data)
 
-    return out_json
+        except Exception as e:
+            logging.error(f"Error processing {filename}: {e}")
+            continue
 
+    # Save results
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
 
-#testing with my cv 
-#!pip install PyPDF2 -q
+    logging.info(f"Successfully processed {len(results)} CVs")
+    return results
 
-import PyPDF2
-
-# Open your PDF file
-pdf_path = "/content/aziz.pdf"
-pdf_file = open(pdf_path, "rb")
-reader = PyPDF2.PdfReader(pdf_file)
-
-# Extract text from all pages
-pdf_text = ""
-for page in reader.pages:
-    pdf_text += page.extract_text() + "\n"
-
-pdf_file.close()
-
-print("First 500 chars of extracted text:\n", pdf_text[:500], "...\n")
-
-# Then you can feed this to your existing pipeline
-resume_json = infer_resume_safe(pdf_text)
-
-print("Extracted resume info:\n", resume_json)
+# Main execution
+if __name__ == "__main__":
+    folder_path = "/content/"
+    results = process_pdfs(folder_path)
+    print(json.dumps(results, indent=2, ensure_ascii=False))
