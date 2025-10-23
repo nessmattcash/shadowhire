@@ -42,7 +42,7 @@ def test_model():
         print("NER Results on sample text:", json.dumps(ner_results, indent=2, default=numpy_to_python))
 
         # Test on PDF
-        pdf_path = "./cvs_test/sana.pdf"
+        pdf_path = "./cvs_test/tam.pdf"
         print(f"Processing PDF: {pdf_path}")
         if os.path.exists(pdf_path):
             text = extract_text_from_pdf(pdf_path)

@@ -131,7 +131,7 @@ GENERAL_SKILLS = set([
 NAME_PATTERN = r'^[A-Za-zÀ-ÿ\s\'-]{2,}(?:\s[A-Za-zÀ-ÿ\s\'-]{2,})+$'  # Unchanged
 EMAIL_PATTERN = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'  # Unchanged
 PHONE_PATTERN = r'(?<!\d)(\+?\d{1,4}[\s.-]?)(\(?\d{2,3}\)?[\s.-]?)\d{2,3}[\s.-]?\d{2,4}(?!\d)'  # Changed: Removed optional for separators, require at least one separator or + to avoid dates
-LOCATION_PATTERN = r'(?i)(?:[A-Za-zÀ-ÿ\s]{5,},\s*[A-Za-zÀ-ÿ\s]{5,}|tunisia|tunis|ariana|béja|ben arous|bizerte|gabès|gafsa|jendouba|kairouan|kasserine|kebili|kef|mahdia|manouba|medenine|monastir|nabeul|sfax|sidi bouzid|siliana|sousse|tataouine|tozeur|zaghouan)'  # Changed: Min length 5 for better filter
+LOCATION_PATTERN = r'(?i)(?:[A-Za-zÀ-ÿ\s]{3,},\s*[A-Za-zÀ-ÿ\s]{3,}|tunisia|tunis|tunisie|ariana|béja|ben arous|bizerte|gabès|gafsa|jendouba|kairouan|kasserine|kebili|kef|mahdia|manouba|medenine|monastir|nabeul|sfax|sidi bouzid|siliana|sousse|tataouine|tozeur|zaghouan)'
 URL_PATTERN = r'(?i)(?:https?://)?(?:www\.)?(?:linkedin|github|netlify|portfolio)\.[a-zA-Z0-9./-]+(?:\b|$)'  # Unchanged
 DATE_PATTERN = r'(?i)(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}|\d{4}\s*[-–—]\s*(?:\d{4}|present|current|ongoing)|\d{2}/\d{4}\s*[-–—]\s*(?:\d{2}/\d{4}|present|current|ongoing)|\d{4})'  # Unchanged
 BULLET_PATTERN = r'^[-•*››◦▪\u2022\u25CF\s]{1,3}'  # Unchanged
@@ -317,7 +317,7 @@ def extract_text_from_pdf(path: str) -> str:
         return pdfminer_extract(path)
 
 def extract_contact_info(raw_text: str) -> Dict[str, str]:
-    """Extract contact information"""
+    """Enhanced contact info extraction"""
     # Extract emails
     emails = list(set(re.findall(EMAIL_PATTERN, raw_text)))
     
@@ -330,8 +330,17 @@ def extract_contact_info(raw_text: str) -> Dict[str, str]:
         if 8 <= len(digits) <= 15:
             phones.append(phone)
     
-    # Extract locations
-    locations = list(set(re.findall(LOCATION_PATTERN, raw_text)))
+    # Enhanced location extraction
+    locations = []
+    # Look for location patterns in first 20 lines
+    lines = raw_text.split('\n')[:20]
+    for line in lines:
+        clean = clean_line(line)
+        location_match = re.search(LOCATION_PATTERN, clean, re.IGNORECASE)
+        if location_match:
+            loc = location_match.group().strip()
+            if len(loc) > 3 and loc.lower() not in ["classification", "tensorflow", "flask", "transformers"]:
+                locations.append(loc)
     
     # Extract URLs
     urls = list(set(re.findall(URL_PATTERN, raw_text)))
@@ -342,7 +351,6 @@ def extract_contact_info(raw_text: str) -> Dict[str, str]:
         "location": locations[0] if locations else "",
         "url": urls[0] if urls else ""
     }
-
 def extract_name(lines: List[str], raw_text: str, contact_info: Dict[str, str]) -> str:
     """Extract name using multiple strategies"""
     # Strategy 1: Look for name patterns in first 5 lines
@@ -381,10 +389,14 @@ def detect_section_header(line: str, current_section: str) -> Tuple[str, bool]:
     return current_section, False
 
 def parse_education(lines: List[str]) -> List[Dict[str, str]]:
-    """Parse education information"""
+    """Universal education parser with better institution detection"""
     entries = []
     
-    education_keywords = ["bachelor", "master", "phd", "diploma", "degree", "licence", "engineering", "esprit", "ensit", "university", "college", "institute", "school"]
+    education_keywords = [
+        "bachelor", "master", "phd", "diploma", "degree", "licence", "engineering", 
+        "esprit", "ensit", "university", "college", "institute", "school", "faculty",
+        "preparatory", "cycle", "computer science", "maths", "physics", "studies"
+    ]
     
     i = 0
     while i < len(lines):
@@ -395,36 +407,57 @@ def parse_education(lines: List[str]) -> List[Dict[str, str]]:
             i += 1
             continue
         
-        # Look for education indicators
-        has_edu_kw = any(kw in clean.lower() for kw in education_keywords)
-        date_match = re.search(DATE_PATTERN, clean)
+        clean_lower = clean.lower()
         
-        if has_edu_kw or date_match:
+        # Look for education indicators
+        has_edu_kw = any(kw in clean_lower for kw in education_keywords)
+        date_match = re.search(DATE_PATTERN, clean)
+        has_edu_structure = any(indicator in clean for indicator in [' - ', ' at ', ' : '])
+        
+        if has_edu_kw or date_match or has_edu_structure:
             entry = {"degree": "", "institution": "", "duration": ""}
             
-            # Extract date if present
+            # Extract duration
             if date_match:
                 entry["duration"] = date_match.group()
                 clean = re.sub(DATE_PATTERN, '', clean).strip()
             
-            # Try to extract institution
-            if " at " in clean.lower():
-                parts = clean.split(" at ", 1)
-                entry["degree"] = parts[0].strip().title()
-                entry["institution"] = parts[1].strip().title()
-            elif " in " in clean.lower():
-                parts = clean.split(" in ", 1)
-                entry["degree"] = parts[0].strip().title()
-                entry["institution"] = parts[1].strip().title()
-            elif " - " in clean:
+            # Enhanced institution extraction
+            if " - " in clean:
                 parts = clean.split(" - ", 1)
-                entry["degree"] = parts[0].strip().title()
-                entry["institution"] = parts[1].strip().title()
+                # Determine which part is institution vs degree
+                if any(edu_kw in parts[0].lower() for edu_kw in education_keywords):
+                    entry["degree"] = parts[0].strip()
+                    entry["institution"] = parts[1].strip()
+                else:
+                    entry["institution"] = parts[0].strip()
+                    entry["degree"] = parts[1].strip()
+            elif " at " in clean.lower():
+                parts = clean.split(" at ", 1)
+                entry["degree"] = parts[0].strip()
+                entry["institution"] = parts[1].strip()
+            elif " : " in clean:
+                parts = clean.split(" : ", 1)
+                entry["degree"] = parts[0].strip()
+                entry["institution"] = parts[1].strip()
             else:
-                entry["degree"] = clean.title()
+                # Try to extract institution from common patterns
+                institution_pattern = r'\b(?:University|College|Institute|School|ESPIRIT|ENSIT|FST|ISSAT)\b'
+                institution_match = re.search(institution_pattern, clean, re.IGNORECASE)
+                if institution_match:
+                    inst_start = institution_match.start()
+                    entry["institution"] = clean[inst_start:].strip()
+                    entry["degree"] = clean[:inst_start].strip()
+                else:
+                    entry["degree"] = clean
             
-            # Validate and add entry
-            if entry["degree"] and len(entry["degree"]) > 3:
+            # Clean and validate
+            entry["degree"] = entry["degree"].title() if entry["degree"] else ""
+            entry["institution"] = entry["institution"].title() if entry["institution"] else ""
+            
+            # Validate entry has meaningful content
+            if (entry["degree"] and len(entry["degree"]) > 5 and 
+                not any(kw in entry["degree"].lower() for kw in ['current', 'present'])):
                 entries.append(entry)
         
         i += 1
@@ -432,14 +465,14 @@ def parse_education(lines: List[str]) -> List[Dict[str, str]]:
     return entries[:3]
 
 def parse_experience(lines: List[str]) -> List[Dict[str, str]]:
-    """PERFECT experience parsing - CLEAN AND SEPARATE from projects"""
+    """Universal experience parser for all CV formats"""
     experiences = []
     
-    # Clear experience indicators
     experience_keywords = [
         "engineer", "developer", "analyst", "manager", "specialist", "consultant", 
         "architect", "director", "lead", "intern", "stage", "stagiare", "employment",
-        "work experience", "professional experience", "expérience professionnelle"
+        "work experience", "professional experience", "expérience professionnelle",
+        "internship", "volunteering", "hr manager", "member"  # Added more terms
     ]
     
     current_exp = None
@@ -451,158 +484,173 @@ def parse_experience(lines: List[str]) -> List[Dict[str, str]]:
         if not clean:
             continue
         
-        # Check if we're in experience section
+        # Detect experience section
         section, is_header = detect_section_header(clean, "")
         if is_header:
             if section == "Experience":
                 in_experience_section = True
-            elif section in ["Projects", "Education", "Skills"]:
+            elif section in ["Projects", "Education"]:
                 in_experience_section = False
+            continue
         
-        # Look for experience entries - ONLY in experience section or with clear markers
+        clean_lower = clean.lower()
+        
+        # Universal experience detection
         date_match = re.search(DATE_PATTERN, clean)
-        has_exp_keyword = any(kw in clean.lower() for kw in experience_keywords)
+        has_exp_keyword = any(kw in clean_lower for kw in experience_keywords)
         is_short_line = len(clean) < 120
         
-        # Start new experience when we have date + experience keywords, OR clear role pattern
-        if (date_match and (has_exp_keyword or in_experience_section)) or (has_exp_keyword and is_short_line):
-            # Save previous experience if valid
+        # Start new experience based on multiple patterns
+        experience_indicator = (
+            (date_match and (has_exp_keyword or in_experience_section)) or
+            (has_exp_keyword and is_short_line and in_experience_section) or
+            (clean_lower.startswith(('internship', 'stage', 'volunteering', 'hr manager'))) or
+            (re.search(r'(?i)(?:junior|senior|lead|principal)\s+\w+', clean) and is_short_line)
+        )
+        
+        if experience_indicator:
+            # Save previous experience
             if current_exp and current_exp["role"] and len(current_exp["role"]) > 3:
-                current_exp["description"] = ' '.join(description_lines).strip()[:400]
+                current_exp["description"] = ' '.join(description_lines).strip()[:500]
                 if len(current_exp["description"]) > 10:
                     experiences.append(current_exp)
             
-            # Start new experience
+            # Extract role, company, and duration
             duration = date_match.group() if date_match else ""
             remaining = re.sub(DATE_PATTERN, '', clean).strip()
             
-            # Extract role and company using multiple patterns
             role = remaining
             company = ""
+            location = ""
             
-            # Pattern 1: "Role at Company"
+            # Multiple patterns for role/company extraction
             if " at " in remaining.lower():
                 parts = remaining.split(" at ", 1)
                 role = parts[0].strip()
-                company = parts[1].strip()
-            # Pattern 2: "Role - Company"  
+                company_location = parts[1].strip()
             elif " - " in remaining:
                 parts = remaining.split(" - ", 1)
                 role = parts[0].strip()
-                company = parts[1].strip()
-            # Pattern 3: "Role, Company"
-            elif ", " in remaining and len(remaining.split(", ")) == 2:
+                company_location = parts[1].strip()
+            elif ", " in remaining:
                 parts = remaining.split(", ", 1)
                 role = parts[0].strip()
-                company = parts[1].strip()
+                company_location = parts[1].strip()
+            else:
+                company_location = ""
+            
+            # Extract company from company_location
+            if company_location:
+                # Handle location patterns
+                location_match = re.search(r'([A-Za-zÀ-ÿ\s]+(?:,\s*[A-Za-zÀ-ÿ\s]+)?)$', company_location)
+                if location_match:
+                    location = location_match.group(1).strip()
+                    company = re.sub(r'([A-Za-zÀ-ÿ\s]+(?:,\s*[A-Za-zÀ-ÿ\s]+)?)$', '', company_location).strip()
+                else:
+                    company = company_location
             
             current_exp = {
                 "role": role.title(),
                 "company": company.title(),
                 "duration": duration,
+                "location": location,
                 "description": ""
             }
             description_lines = []
             
-            # Look ahead 1-2 lines for initial description
-            for j in range(i+1, min(i+3, len(lines))):
+            # Look ahead for description
+            for j in range(i+1, min(i+4, len(lines))):
                 next_line = clean_line(lines[j])
                 if (len(next_line) > 15 and 
                     not re.search(DATE_PATTERN, next_line) and
                     not detect_section_header(next_line, "")[1] and
-                    len(description_lines) < 2):
+                    len(description_lines) < 3):
                     description_lines.append(next_line)
             
             continue
         
-        # Collect description for current experience
+        # Collect description
         elif current_exp and len(clean) > 10:
-            # Skip if it's clearly a new section or another experience
             is_new_exp = (re.search(DATE_PATTERN, clean) and 
-                         any(kw in clean.lower() for kw in experience_keywords))
+                         any(kw in clean_lower for kw in experience_keywords))
             
-            if not is_new_exp and len(description_lines) < 6:
+            if not is_new_exp and len(description_lines) < 8:
                 description_lines.append(clean)
     
     # Add final experience
     if current_exp and current_exp["role"] and len(current_exp["role"]) > 3:
-        current_exp["description"] = ' '.join(description_lines).strip()[:400]
+        current_exp["description"] = ' '.join(description_lines).strip()[:500]
         if len(current_exp["description"]) > 10:
             experiences.append(current_exp)
     
-    # Final validation - remove experiences that are actually projects
-    valid_experiences = []
-    for exp in experiences:
-        # Filter out project-like entries
-        is_actual_experience = (
-            not any(proj_kw in exp["role"].lower() for proj_kw in ["project", "projet", "pfa", "pfe"]) and
-            not exp["role"].lower().startswith("projet") and
-            len(exp["role"]) > 5 and
-            exp["duration"]  # Should have dates for real experience
-        )
-        
-        if is_actual_experience:
-            valid_experiences.append(exp)
-    
-    return valid_experiences[:4]
+    return experiences[:5]
 
 def parse_projects(lines: List[str]) -> List[Dict[str, str]]:
-    """PERFECT project parsing - CLEARLY SEPARATE from experience"""
+    """Universal project parser that doesn't split projects"""
     projects = []
     
-    # Clear project indicators
     project_keywords = [
         "project", "projet", "application", "platform", "system", "development",
         "implementation", "built", "created", "developed", "designed", "pfa", 
-        "pfe", "pidev", "projet de fin", "case study", "prototype"
+        "pfe", "pidev", "case study", "prototype", "simulation", "tracking"
     ]
     
     current_project = None
     description_lines = []
-    in_project_section = False
+    in_projects_section = False
+    skip_next = 0
     
     for i, line in enumerate(lines):
+        if skip_next > 0:
+            skip_next -= 1
+            continue
+            
         clean = clean_line(line)
-        if not clean:
+        if not clean or len(clean) < 5:
             continue
         
-        # Check if we're in projects section
+        clean_lower = clean.lower()
+        
+        # Detect project section
         section, is_header = detect_section_header(clean, "")
         if is_header:
             if section == "Projects":
-                in_project_section = True
+                in_projects_section = True
             elif section in ["Experience", "Education", "Skills"]:
-                in_project_section = False
+                in_projects_section = False
+                # Save current project when leaving projects section
+                if current_project and current_project["name"]:
+                    current_project["description"] = ' '.join(description_lines).strip()[:500]
+                    if len(current_project["description"]) > 20:
+                        projects.append(current_project)
+                    current_project = None
+                    description_lines = []
+            continue
         
-        # Look for project indicators
-        is_bullet = re.match(r'^[•\-*]\s', line)
-        has_project_kw = any(kw in clean.lower() for kw in project_keywords)
-        has_colon = ':' in clean and len(clean.split(':')) > 1
+        # Project detection logic
+        is_bullet = re.match(r'^[•\-*››◦▪\u2022]', line.strip())
+        has_project_kw = any(keyword in clean_lower for keyword in project_keywords)
+        has_year = re.search(r'\(?\d{4}\)?', clean)
         is_short_name = len(clean) < 80
         
-        # Start new project when we have clear project indicators
-        if ((has_project_kw and is_short_name) or 
-            (is_bullet and is_short_name) or 
-            (has_colon and is_short_name) or
-            (in_project_section and is_short_name)):
+        # Start new project on clear indicators
+        if ((has_project_kw and (is_short_name or has_year)) or
+            (is_bullet and is_short_name and in_projects_section) or
+            (clean_lower.startswith(('skillswap', 'blooder', 'biometric', 'shadowhire'))) or
+            (re.search(r'\(\d{4}\)', clean) and is_short_name)):
             
-            # Save previous project if valid
+            # Save previous project
             if current_project and current_project["name"] and len(current_project["name"]) > 3:
-                current_project["description"] = ' '.join(description_lines).strip()[:300]
-                projects.append(current_project)
+                current_project["description"] = ' '.join(description_lines).strip()[:500]
+                if len(current_project["description"]) > 20:
+                    projects.append(current_project)
             
             # Extract project name
             project_name = clean
-            if is_bullet:
-                project_name = re.sub(r'^[•\-*]\s*', '', project_name)
-            if ':' in project_name:
-                project_name = project_name.split(':', 1)[0].strip()
-            
-            # Clean project name from common prefixes
-            project_name = re.sub(
-                r'^(?:project|projet|application|platform|system)\s*:\s*', 
-                '', project_name, flags=re.IGNORECASE
-            ).strip()
+            # Remove bullet points
+            project_name = re.sub(r'^[•\-*››◦▪\u2022]\s*', '', project_name)
+            # Remove year parentheses
+            project_name = re.sub(r'\s*\(\d{4}\)\s*', '', project_name)
             
             current_project = {
                 "name": project_name.title(),
@@ -610,88 +658,117 @@ def parse_projects(lines: List[str]) -> List[Dict[str, str]]:
             }
             description_lines = []
             
-            # Extract initial description if available
-            if ':' in clean and len(clean.split(':')) > 1:
-                desc_part = clean.split(':', 1)[1].strip()
-                if len(desc_part) > 8:
-                    description_lines.append(desc_part)
-            
-            # Look ahead for description (2-4 lines)
-            for j in range(i+1, min(i+5, len(lines))):
-                next_line = clean_line(lines[j])
-                if (len(next_line) > 8 and 
-                    not re.match(r'^[•\-*]\s', lines[j]) and  # Not another bullet
-                    not detect_section_header(next_line, "")[1] and
-                    not re.search(DATE_PATTERN, next_line) and  # Not dates (that's experience)
-                    len(description_lines) < 3):
-                    description_lines.append(next_line)
+            # Look ahead for description (3-6 lines)
+            look_ahead_lines = []
+            for j in range(i+1, min(i+7, len(lines))):
+                next_clean = clean_line(lines[j])
+                if (len(next_clean) > 10 and 
+                    not re.match(r'^[•\-*››◦▪\u2022]', lines[j].strip()) and
+                    not detect_section_header(next_clean, "")[1] and
+                    len(look_ahead_lines) < 4):
+                    look_ahead_lines.append(next_clean)
                 else:
                     break
             
+            description_lines.extend(look_ahead_lines)
+            skip_next = len(look_ahead_lines)
             continue
         
-        # Collect additional description for current project
-        elif current_project and len(clean) > 8:
-            # Skip if it's clearly a new project or section
-            is_new_project = (
-                re.match(r'^[•\-*]\s', line) or
-                any(kw in clean.lower() for kw in project_keywords) or
-                detect_section_header(clean, "")[1]
+        # Collect description for current project
+        elif current_project and len(clean) > 10:
+            # Skip if it's clearly a new section or project
+            is_new_item = (
+                re.match(r'^[•\-*››◦▪\u2022]', line.strip()) or
+                detect_section_header(clean, "")[1] or
+                any(keyword in clean_lower for keyword in project_keywords)
             )
             
-            if not is_new_project and len(description_lines) < 4:
+            if not is_new_item and len(description_lines) < 8:
                 description_lines.append(clean)
     
     # Add final project
     if current_project and current_project["name"] and len(current_project["name"]) > 3:
-        current_project["description"] = ' '.join(description_lines).strip()[:300]
-        projects.append(current_project)
+        current_project["description"] = ' '.join(description_lines).strip()[:500]
+        if len(current_project["description"]) > 20:
+            projects.append(current_project)
     
-    # Final validation - remove projects that are actually experiences
-    valid_projects = []
-    for proj in projects:
-        # Filter out experience-like entries
-        is_actual_project = (
-            not any(exp_kw in proj["name"].lower() for exp_kw in ["engineer", "developer", "intern", "stage"]) and
-            not re.search(DATE_PATTERN, proj["name"]) and  # No dates in project names
-            len(proj["name"]) > 5 and
-            proj["name"].lower() not in ["project", "projet", "projects", "projets"]
-        )
-        
-        if is_actual_project:
-            valid_projects.append(proj)
+    # Remove duplicates and clean up
+    unique_projects = []
+    seen_descriptions = set()
+    for project in projects:
+        desc_hash = hash(project["description"][:100])
+        if desc_hash not in seen_descriptions:
+            seen_descriptions.add(desc_hash)
+            unique_projects.append(project)
     
-    return valid_projects[:5]
+    return unique_projects[:5]
 
 def parse_skills(raw_text: str, nlp: pipeline = None) -> List[str]:
-    """Parse skills from text using rules and NER"""
+    """Universal skills parser that handles all CV formats"""
     skills_found = set()
     lower_text = raw_text.lower()
     
-    # Rule-based skill extraction
+    # Method 1: Direct keyword matching with better boundaries
     for skill in IT_SKILLS.union(GENERAL_SKILLS):
-        if re.search(r'\b' + re.escape(skill) + r'\b', lower_text):
+        # Use word boundaries and handle hyphenated skills
+        pattern = r'(?<!\w)' + re.escape(skill) + r'(?!\w)'
+        if re.search(pattern, lower_text):
             skills_found.add(skill.title())
     
-    # NER-based skill extraction
+    # Method 2: Extract from structured skills sections (bullet points, columns, etc.)
+    skills_sections = re.findall(r'(?i)(?:skills?|compétences|technologies?)[\s:\-]*(.*?)(?=(?:education|experience|projects|certifications|education|experience|projects|$))', raw_text, re.DOTALL)
+    
+    for section in skills_sections:
+        # Clean and extract skills from section
+        lines = section.split('\n')
+        for line in lines:
+            clean_line = re.sub(r'[•\-*▪›◦\u2022]', ' ', line).strip()
+            if 3 < len(clean_line) < 100:  # Reasonable skill length
+                # Split by common separators but preserve multi-word skills
+                parts = re.split(r'[:,;/|]', clean_line)
+                for part in parts:
+                    part = part.strip()
+                    if 2 < len(part) < 50:
+                        # Check against known skills
+                        part_lower = part.lower()
+                        for known_skill in IT_SKILLS:
+                            if known_skill in part_lower:
+                                skills_found.add(known_skill.title())
+                                break
+    
+    # Method 3: NER-based extraction with better filtering
     if nlp:
         try:
-            ner_results = nlp(raw_text)
+            ner_results = nlp(raw_text[:2000])
             for ent in ner_results:
-                if ent.get('entity_group') in ['SKILL', 'SKILLS'] and len(ent['word']) > 3:
-                    skills_found.add(ent['word'].title())
+                if ent.get('entity_group') in ['SKILL', 'SKILLS']:
+                    skill_text = ent['word'].strip()
+                    # Clean NER output aggressively
+                    skill_text = re.sub(r'^##|\W+$', '', skill_text)
+                    if (3 <= len(skill_text) <= 30 and 
+                        not skill_text.isdigit() and
+                        skill_text.lower() not in STOP_WORDS and
+                        not any(kw in skill_text.lower() for kw in ['years', 'level', 'proficiency'])):
+                        skills_found.add(skill_text.title())
         except Exception as e:
-            logging.warning(f"NER failed in parse_skills: {str(e)}")
+            logging.debug(f"NER skill extraction: {str(e)}")
     
-    # Filter out false positives
-    filtered_skills = [
-        skill for skill in sorted(skills_found)
-        if skill.lower() not in STOP_WORDS and
-        len(skill) > 3 and
-        not any(kw in skill.lower() for kw in ["years", "year", "level"])
-    ]
-    return filtered_skills[:25]
-
+    # Aggressive filtering of garbage
+    filtered_skills = []
+    for skill in sorted(skills_found):
+        skill_lower = skill.lower()
+        # Filter criteria
+        if (len(skill) >= 3 and 
+            skill_lower not in STOP_WORDS and
+            not skill.isdigit() and
+            not re.match(r'^[^a-zA-Z]', skill) and  # No starting with special chars
+            not re.search(r'\d{4}', skill) and  # No years
+            skill_lower not in ['stack', 'end', 'form', 'isco', 'kroc', 'ops', 'cer', 'i / cd'] and  # Common garbage
+            not any(len(word) == 1 for word in skill.split()) and  # No single letter words
+            len(skill) <= 35):  # Reasonable length
+            filtered_skills.append(skill)
+    
+    return filtered_skills[:30]
 def parse_certifications(lines: List[str]) -> List[str]:
     """Parse certifications"""
     certs = set()

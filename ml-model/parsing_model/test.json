@@ -1,0 +1,90 @@
+ {
+  "Name": "Sana Riahi",
+  "Contact": {
+    "email": "sanariahi30@gmail.com",
+    "phone": "+21658263085",
+    "location": " Firebase,Spring Boot\n ",
+    "url": "www.linkedin.com/in/sanariahi3011"
+  },
+  "Summary": "Eleve ingenieure en mathematiques appliquees et modelisation Diplome dingenieur en Mathematiques Appliquees et Modelisation : Ecole Nationale Superieure dIngenieurs de Tunis 2023 - 2026 Cycle preparatoire aux etudes dingenieur en Mathematiques et Physique : Institut Preparatoire aux Etudes dIngenieu",
+  "Skills": [
+    "Angular",
+    "Azure",
+    "Computer Vision",
+    "Css",
+    "Data Visualization",
+    "Deep Learning",
+    "Express.Js",
+    "Firebase",
+    "Generative Ai",
+    "Healthcare",
+    "Html",
+    "Java",
+    "Javascript",
+    "Jira",
+    "Keras",
+    "Llm",
+    "Machine Learning",
+    "Matlab",
+    "Matplotlib",
+    "Mongodb",
+    "Mysql",
+    "Neural Networks",
+    "Nlp",
+    "Node.Js",
+    "Numpy",
+    "Oracle",
+    "Pandas",
+    "Python",
+    "Pytorch",
+    "React"
+  ],
+  "Education": [
+    {
+      "degree": "Diplome Dingenieur En Mathematiques Appliquees Et Modelisation : Ecole Nationale Superieure Dingenieurs De Tunis",
+      "institution": "",
+      "duration": "2023 - 2026"
+    },
+    {
+      "degree": "Cycle Preparatoire Aux Etudes Dingenieur En Mathematiques Et Physique : Institut Preparatoire Aux Etudes Dingenieur De",
+      "institution": "",
+      "duration": "2022- 2023"
+    }
+  ],
+  "Projects": [
+    {
+      "name": "-Pfa2: Agent Ia Pour Lautomatisation Des Taches Web : Automatisation Intelligente De Lenvoi De-Mails, De La Creation De",
+      "description": "rapports, de la planification de reunions et de lenvoi de messages WhatsApp a laide dun agent autonome base sur lintelligence artificielle. Mots-cles : Web Automation, Intelligence Artificielle, NLP, LLM, Python."
+    },
+    {
+      "name": "1:Anemia Tracking And Detection Application : Detection De Lanemie, Suivi De La Maladie Et Chatbot Avec Deep Learning",
+      "description": "Mots-cles : Classification, TensorFlow, Keras, Scikit-learn, NumPy, Pandas, Matplotlib, Seaborn, Neural Networks, Kivy, KivyMD"    
+    },
+    {
+      "name": "-Predicting Length Of Stay In Healthcare Facilities : Prediction De La Duree Dhospitalisation",
+      "description": "Mots-cles : ML, Regression, Time Series Analysis, Python, Scikit-learn, Pandas, Data Visualization -Detection of Personal Protective Equipment on Construction Sites : Reconnaissance dequipements de securite Mots-cles :CNN, Computer Vision, Image Processing -Application Java de Gestion des Notes et des Etudiants : Espace administrateur et enseignant, gestion complete des"
+    },
+    {
+      "name": "Enseignants, Eleves, Authentification (Sign In/Sign Up) Et Gestion Des Notes, Calcul Des Moyennes",
+      "description": "Mots-cles :Java, SQL, Spring Boot, MySQL -Plateforme Educative de Mathematiques : Plateforme, un chatbot, e-learning et exercices interactifs Mots-cles : HTML, CSS, JavaScript, React.js, Node.js, SQL, NLP - Simulation Web du Systeme Solaire :visualisation interactive en 3D, modelisation des orbites et des mouvements planetaires Mots-cles : Java3D, HTML, CSS, Three.js -Prediction du Taux de Chomage : Prediction des tendances economiques en utilisant des modeles de machine learning Mots-cles :Regr"
+    }
+  ],
+  "Experience": [
+    {
+      "role": "Stage En Web Et Analyse De Donnees Actia Engineering Services (15 Juillet",
+      "company": "15 Aout )",
+      "duration": "2024",
+      "description": "Developpement dune application de gestion des conges : Creation d'une interface interactive pour la soumission des demandes de conges par les employes via un calendrier en Angular. Developpement dune application de gestion des conges : Creation d'une interface interactive pour la soumission des demandes de conges par les employes via un calendrier en Angular. Outil de gestion d'indicateurs de perf"
+    }
+  ],
+  "Certifications": [
+    "Microsoft : Azure Ai Fundamentals",
+    "Microsoft : Azure Data Fundamentals",
+    "Nvidia Deep Learning Fundamentals"
+  ],
+  "Interests": [
+    "Member Of Ensit Geeks Club",
+    "Member Of Nerdata Ensit Club",
+    "Member Of Ensit Ieee Club"
+  ]
+}
