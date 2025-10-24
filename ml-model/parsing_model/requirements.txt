@@ -5,7 +5,7 @@ fuzzywuzzy
 python-Levenshtein
 torch
 accelerate
-transformers
+transformers=4.57.1
 spacy
 nltk
 seqeval
