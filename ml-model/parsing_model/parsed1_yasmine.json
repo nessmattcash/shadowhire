@@ -1,0 +1,73 @@
+{
+  "Name": "Yasmine Dhaouadi",
+  "Contact": {
+    "email": "yasmine.dhaouadi@esprit.tn",
+    "phone": "+216 94098442",
+    "location": "NET, Java",
+    "url": ""
+  },
+  "Summary": "LinkedIn | +216 94098442 | yasmine.dhaouadi@esprit.tn domaine. Je suis actuellement a la recherche dun stage de 2 mois pour renforcer et approfondir mes competences. Programming & Frameworks: C, C#, .NET, Java, Spring Boot, JavaScript, TypeScript, Angular, SQL",
+  "Skills": [
+    "Angular",
+    "Ansible",
+    "Azure",
+    "Ci/Cd",
+    "Docker",
+    "Java",
+    "Javascript",
+    "Kubernetes",
+    "Linux",
+    "Microservices",
+    "Networking",
+    "Openstack",
+    "Rest",
+    "Spring",
+    "Spring Boot",
+    "Sql",
+    "Terraform",
+    "Typescript",
+    "Ubuntu"
+  ],
+  "Education": [
+    {
+      "degree": "Engineering Degree (Expected ) Esprit University",
+      "institution": "Engineering Degree (Expected ) Esprit University",
+      "duration": "2025"
+    },
+    {
+      "degree": "Preparatory Cycle For Engineering Studies Institut Preparatoire Aux Etudes",
+      "institution": "",
+      "duration": "2021 - 2023"
+    }
+  ],
+  "Projects": [
+    {
+      "name": "Skillswap",
+      "description": "Developed a full-stack web application for skill-sharing and online learning, deployed on a private cloud. Back-end built with Spring Boot, front-end developed using Angular, with integrated AI features. Set up a private cloud infrastructure using OpenStack on Ubuntu. Installed Kubernetes and Docker to containerize and deploy the application. deployed on a private cloud. features."
+    },
+    {
+      "name": "Installed Kubernetes And Docker To Containerize And Deploy The Application.",
+      "description": "Blooder (2024): Created a desktop application in C for managing blood donations. Features include donor registration, appointment scheduling, and real-time inventory tracking for doctors and nurses. Biometric Security System (2024): Simulated a biometric security system using the PIC16F877 microcontroller."
+    },
+    {
+      "name": "Blooder",
+      "description": "Created a desktop application in C for managing blood donations. Features include donor registration, appointment scheduling, and real-time inventory tracking for doctors and nurses. Biometric Security System (2024): Simulated a biometric security system using the PIC16F877 microcontroller. for doctors and nurses."
+    },
+    {
+      "name": "Biometric Security System",
+      "description": "Simulated a biometric security system using the PIC16F877 microcontroller. microcontroller."
+    }
+  ],
+  "Experience": [
+    {
+      "role": "Network Engineering Intern",
+      "company": "Tunisie Telecom",
+      "duration": "2024",
+      "location": "",
+      "description": "Diagnosed and resolved issues in fixed-line telephone networks, including installation of new lines. Handled SDH fiber optics, coaxial cables, and microwave transmission technologies. Diagnosed and resolved issues in fixed-line telephone networks, including installation of new lines. Handled SDH fiber optics, coaxial cables, and microwave transmission technologies. Used test desks to identify network faults and manage ADSL upgrade procedures."
+    }
+  ],
+  "Certifications": [],
+  "languages": [],
+  "Interests": []
+}

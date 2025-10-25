@@ -1,0 +1,80 @@
+{
+  "Name": "Tamim Hmizi",
+  "Contact": {
+    "email": "hmizitamim@hotmail.com",
+    "phone": "+21621611816",
+    "location": "Ariana,Tunisia",
+    "url": "linkedin.com/in/tamimhmizi"
+  },
+  "Summary": "Ariana,Tunisia | hmizitamim@hotmail.com | +21621611816 | linkedin.com/in/tamimhmizi | github.com/tamim-hmizi FullStackSoftwareEngineerwithafocusonCloud,DevOps,andWeb. Idesignscalableandsecuresystems,",
+  "Skills": [
+    "Angular",
+    "Ansible",
+    "Aws",
+    "Azure",
+    "Ci/Cd",
+    "Cloudwatch",
+    "Django",
+    "Docker",
+    "Dynamodb",
+    "Eks",
+    "Express.Js",
+    "Fastapi",
+    "Gcp",
+    "Grafana",
+    "Iam",
+    "Java",
+    "Javascript",
+    "Jenkins",
+    "Junit",
+    "Kubernetes",
+    "Linux",
+    "Mongodb",
+    "Next.Js",
+    "Openstack",
+    "Prometheus"
+  ],
+  "Education": [
+    {
+      "degree": "Softwareengineeringdegree,Espritariana,Tunisia Sepaug",
+      "institution": "Softwareengineeringdegree,Espritariana,Tunisia Sepaug",
+      "duration": "2020"
+    }
+  ],
+  "Projects": [],
+  "Experience": [
+    {
+      "role": "Pfeinterndevopsplatformengineerrfcarianatunisia Febaug",
+      "company": "",
+      "duration": "2025",
+      "location": "",
+      "description": "Builtanauto-provisioningplatform(React,Express.js,MongoDB,FastAPI)integratingGitHubAPIanalysisand Builtanauto-provisioningplatform(React,Express.js,MongoDB,FastAPI)integratingGitHubAPIanalysisand ImplementedanintelligentK8s/VMrecommendationengine;automatedprovisioningwithJenkins,Terraform, Ansible,Docker,Nexus. Establishedquality&securitygateswithSonarQubeandTrivy;addedmonitoring/alertingwithPrometheus&"
+    },
+    {
+      "role": "Fullstackengineerclouddevopswebrfcarianatunisia Julaug",
+      "company": "",
+      "duration": "2024",
+      "location": "",
+      "description": "Developedcloud-nativeapplicationswithNext.jsonAWS(IAM,EKS,ECR,DynamoDB,CloudWatch). AutomatedCI/CDwithJenkins,Terraform,Docker,andGitHubActions. Developedcloud-nativeapplicationswithNext.jsonAWS(IAM,EKS,ECR,DynamoDB,CloudWatch). AutomatedCI/CDwithJenkins,Terraform,Docker,andGitHubActions."
+    },
+    {
+      "role": "Webdeveloperespritarianatunisia Julaug",
+      "company": "",
+      "duration": "2023",
+      "location": "",
+      "description": "Builtasearch-enginestylewebappusingtheMERNstack. ImplementedPython-basedwebscrapingforautomateddataingestion. Builtasearch-enginestylewebappusingtheMERNstack. ImplementedPython-basedwebscrapingforautomateddataingestion."
+    },
+    {
+      "role": "Networkengineerc-Noctunisietelecomtunistunisia Augsep",
+      "company": "",
+      "duration": "2021",
+      "location": "",
+      "description": "ProvidedB2Bnetworksupportandmaintenance;monitoredlinksandresolvedconnectivityincidents. ProvidedB2Bnetworksupportandmaintenance;monitoredlinksandresolvedconnectivityincidents."
+    }
+  ],
+  "Certifications": [
+    "Microsoftazurefundamentals(Az-900)Microsoft/Coursera"
+  ],
+  "languages": [],
+  "Interests": []
+}

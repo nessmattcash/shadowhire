@@ -1,0 +1,60 @@
+{
+  "Name": "Jaouani Walid",
+  "Contact": {
+    "email": "Achraf.Chabchoub@defensy.io",
+    "phone": "+216 55 996 528",
+    "location": "Enthusiastic and passionate about cybersecurity and software, regularly tackling CTFs and HTB challenges",
+    "url": "github.com/Tazarkour"
+  },
+  "Summary": "InfoSec Enthusiast | Ethical Hacker | CTF/HTB Player Enthusiastic and passionate about cybersecurity and software, regularly tackling CTFs and HTB challenges. Eager to contribute and constantly push my limits in these fields. Seeking a dynamic position in Cybersecurity.",
+  "Skills": [
+    "Asp.Net",
+    "Azure",
+    "Azure Devops",
+    "C++",
+    "Cybersecurity",
+    "Devsecops",
+    "Django",
+    "Encryption",
+    "Java",
+    "Netlify",
+    "Network Security",
+    "Penetration Testing",
+    "Persistence",
+    "Php",
+    "Soc",
+    "Splunk",
+    "Spring",
+    "Spring Boot",
+    "Symfony",
+    "Windows"
+  ],
+  "Education": [
+    {
+      "degree": "Computer Science And Cybersecurity Engineering Degree",
+      "institution": "Esprit School Of Engineering",
+      "duration": ""
+    }
+  ],
+  "Projects": [
+    {
+      "name": "Pi Security (01/2023",
+      "description": "English (B2) Building and configuring a next generation SOC Architecture for a health administration by following HIPPA. Full Professional Proficiency Implement Monitoring, Defense in Depth, Endpoint and Network detection and Orchestration and automation of IR."
+    },
+    {
+      "name": "English (B2)",
+      "description": "Building and configuring a next generation SOC Architecture for a health administration by following HIPPA. Full Professional Proficiency Implement Monitoring, Defense in Depth, Endpoint and Network detection and Orchestration and automation of IR. Splunk Mini SOC Project (10/2022 - 12/2022) Full Professional Proficiency"
+    },
+    {
+      "name": "Splunk Mini Soc Project (10/2022",
+      "description": "INTERESTS Create a small SOC using Splunk to detect attacks on a windows machine, simulate a malware attack and interpret INTERESTS Create a small SOC using Splunk to detect attacks on a windows machine, simulate a malware attack and interpret"
+    },
+    {
+      "name": "Pidev Project (01/2022",
+      "description": "Guitar Playing / Music Create A platform project that contains a website (Symfony PHP), a mobile application (Codename one Java) and a Desktop application (JavaFx). Guitar Playing / Music"
+    }
+  ],
+  "Experience": [],
+  "Certifications": [],
+  "Interests": []
+}

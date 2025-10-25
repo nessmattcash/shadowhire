@@ -137,17 +137,16 @@ DATE_PATTERN = r'(?i)(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]
 BULLET_PATTERN = r'^[-•*››◦▪\u2022\u25CF\s]{1,3}'  # Unchanged
 LINK_PATTERN = r'(?i)(\\s?)?(?:github|link|website|portfolio|\)'  # Unchanged
 
-# Expanded Section patterns (added more variations, e.g., "executive summary", "work history", "certifs")
+# EXPANDED Section patterns for better coverage
 SECTION_PATTERNS = {
-    "Summary": ["summary", "profile", "about me", "profil", "objectif", "résumé", "career objective", "professional summary", "core competencies", "overview", "bio", "introduction", "personal statement", "executive summary", "career profile"],  # Expanded
-    "Skills": ["skills", "technical skills", "compétences", "competences", "expertise", "langages et frameworks", "technologies", "core skills", "technical proficiencies", "abilities", "key skills", "proficiencies", "competences techniques", "hard skills", "soft skills"],  # Expanded
-    "Education": ["education", "formation", "parcours académique", "études", "academic background", "qualifications", "academic record", "degree", "degrees", "schooling", "academic qualifications", "studies", "diploma", "baccalaureate", "certifications académiques"],  # Expanded
-    "Experience": ["experience", "expérience", "work experience", "expérience professionnelle", "professional experience", "stage", "internship", "employment history", "work history", "intern", "professional background", "career history", "achievements", "tasks", "taches realisees", "responsibilities", "professional history", "stages", "job history"],  # Expanded
-    "Projects": ["projects", "projets", "portfolio", "projets personnels", "notable projects", "projet de fin d’étude", "pfa", "pidev", "pi", "projets académiques", "personal projects", "academic projects", "key projects", "pfe", "case studies"],  # Expanded
-    "Certifications": ["certifications", "certificats", "badges", "certificates and badges", "achievements", "awards", "professional certifications", "certificates", "badges and certifications", "honors", "certificats et badges", "certifs", "accreditations"],  # Expanded
-    "Interests": ["interests", "hobbies", "intérêts", "loisirs", "personal interests", "extracurricular", "activites extracurriculaires", "volunteer work"]  # Expanded
+    "Summary": ["summary", "profile", "about me", "profil", "objectif", "résumé", "career objective", "professional summary", "core competencies", "overview", "bio", "introduction", "personal statement", "executive summary", "career profile", "profil personnel"],
+    "Skills": ["skills", "technical skills", "compétences", "competences", "expertise", "langages et frameworks", "technologies", "core skills", "technical proficiencies", "abilities", "key skills", "proficiencies", "competences techniques", "hard skills", "soft skills", "compétences techniques", "langages de programmation"],
+    "Education": ["education", "formation", "parcours académique", "études", "academic background", "qualifications", "academic record", "degree", "degrees", "schooling", "academic qualifications", "studies", "diploma", "baccalaureate", "certifications académiques", "formation académique", "parcours scolaire"],
+    "Experience": ["experience", "expérience", "work experience", "expérience professionnelle", "professional experience", "stage", "internship", "employment history", "work history", "intern", "professional background", "career history", "achievements", "tasks", "taches realisees", "responsibilities", "professional history", "stages", "job history", "expériences professionnelles"],
+    "Projects": ["projects", "projets", "portfolio", "projets personnels", "notable projects", "projet de fin d'étude", "pfa", "pidev", "pi", "projets académiques", "personal projects", "academic projects", "key projects", "pfe", "case studies", "projet académique"],
+    "Certifications": ["certifications", "certificats", "badges", "certificates and badges", "achievements", "awards", "professional certifications", "certificates", "badges and certifications", "honors", "certificats et badges", "certifs", "accreditations", "certificats de réussite"],
+    "Interests": ["interests", "hobbies", "intérêts", "loisirs", "personal interests", "extracurricular", "activites extracurriculaires", "volunteer work", "centres d'intérêt", "activités"]
 }
-
 # Expanded STOP_WORDS (added more noise like "tel", "addr", "www", dates, common fragments)
 STOP_WORDS = [
     "contact", "taches realisees", "profil", "summary", "resume", "present", "current",
@@ -215,14 +214,15 @@ def dedup_text(text: str) -> str:
 
 
 def extract_text_from_pdf(path: str) -> str:
-    """ULTIMATE PDF extraction with enhanced space insertion"""
+    """ULTIMATE PDF extraction with aggressive space insertion for concatenated text"""
     try:
         with pdfplumber.open(path) as pdf:
             text = ""
             for page in pdf.pages:
-                page_text = page.extract_text(layout=True, x_tolerance=3, y_tolerance=3)
+                # Enhanced text extraction with better layout preservation
+                page_text = page.extract_text(layout=True, x_tolerance=2, y_tolerance=2)
                 if page_text:
-                    # ENHANCED space insertion for concatenated text
+                    # AGGRESSIVE space insertion for common concatenation patterns
                     # Fix: wordWORD -> word WORD
                     page_text = re.sub(r'([a-z])([A-Z][a-z])', r'\1 \2', page_text)
                     # Fix: WORDWord -> WORD Word  
@@ -233,21 +233,32 @@ def extract_text_from_pdf(path: str) -> str:
                     page_text = re.sub(r'([0-9])([A-Za-z])', r'\1 \2', page_text)
                     # Fix: Special character concatenation
                     page_text = re.sub(r'([.!?])([A-Za-z])', r'\1 \2', page_text)
+                    # Fix: Common CV concatenations
+                    page_text = re.sub(r'(Summary|Experience|Education|Skills|Projects)([A-Z])', r'\1 \2', page_text)
                     
                     text += page_text + "\n"
                 
-                # Enhanced table extraction
+                # Enhanced table extraction with better cell handling
                 tables = page.extract_tables()
                 for table in tables:
                     for row in table:
-                        row_text = ' | '.join([str(cell).strip() for cell in row if cell and str(cell).strip()])
-                        if row_text:
-                            text += row_text + "\n"
+                        clean_cells = []
+                        for cell in row:
+                            if cell and str(cell).strip():
+                                cell_text = str(cell).strip()
+                                # Apply same space fixes to table cells
+                                cell_text = re.sub(r'([a-z])([A-Z][a-z])', r'\1 \2', cell_text)
+                                clean_cells.append(cell_text)
+                        if clean_cells:
+                            text += ' | '.join(clean_cells) + "\n"
             
+            # Fallback to pdfminer if pdfplumber fails
             if not text.strip():
                 text = pdfminer_extract(path)
+                # Apply same fixes to pdfminer text
+                text = re.sub(r'([a-z])([A-Z][a-z])', r'\1 \2', text)
             
-            # Apply final fixes
+            # Final cleanup
             text = re.sub(r'\s+', ' ', text)
             return text.strip()
     except Exception as e:
@@ -361,33 +372,49 @@ def extract_text_from_pdf(path: str) -> str:
         return pdfminer_extract(path)
 
 def extract_contact_info(raw_text: str) -> Dict[str, str]:
-    """Enhanced contact info extraction"""
+    """ULTIMATE contact info extraction with better filtering"""
     # Extract emails
     emails = list(set(re.findall(EMAIL_PATTERN, raw_text)))
     
-    # Extract phones
+    # Enhanced phone extraction - exclude dates and numbers that look like years
     phones = []
     phone_matches = re.finditer(PHONE_PATTERN, raw_text)
     for match in phone_matches:
         phone = match.group().strip()
         digits = re.sub(r'\D', '', phone)
-        if 8 <= len(digits) <= 15:
+        # Better validation - exclude years and invalid lengths
+        if (8 <= len(digits) <= 15 and 
+            not re.search(r'(19|20)\d{2}', phone) and  # Exclude years like 2023, 2024
+            not re.search(r'\b\d{4}\b', phone)):       # Exclude standalone 4-digit numbers
             phones.append(phone)
     
-    # Enhanced location extraction
+    # ENHANCED location extraction - look in first 15 lines with better filtering
     locations = []
-    # Look for location patterns in first 20 lines
-    lines = raw_text.split('\n')[:20]
+    lines = raw_text.split('\n')[:15]
+    location_blacklist = ["classification", "tensorflow", "flask", "transformers", "engineer", "developer", "summary"]
+    
     for line in lines:
         clean = clean_line(line)
-        location_match = re.search(LOCATION_PATTERN, clean, re.IGNORECASE)
-        if location_match:
-            loc = location_match.group().strip()
-            if len(loc) > 3 and loc.lower() not in ["classification", "tensorflow", "flask", "transformers"]:
-                locations.append(loc)
+        if len(clean) > 5 and len(clean) < 100:  # Reasonable location length
+            location_match = re.search(LOCATION_PATTERN, clean, re.IGNORECASE)
+            if location_match:
+                loc = location_match.group().strip()
+                loc_lower = loc.lower()
+                # Stronger filtering
+                if (len(loc) > 3 and 
+                    not any(bad in loc_lower for bad in location_blacklist) and
+                    not re.match(EMAIL_PATTERN, loc) and
+                    not re.match(PHONE_PATTERN, loc) and
+                    not any(word in loc_lower for word in ['stage', 'intern', 'engineer', 'developer'])):
+                    locations.append(loc)
     
-    # Extract URLs
-    urls = list(set(re.findall(URL_PATTERN, raw_text)))
+    # Extract URLs with better filtering
+    urls = []
+    url_matches = re.finditer(URL_PATTERN, raw_text)
+    for match in url_matches:
+        url = match.group().strip()
+        if len(url) > 10 and not any(keyword in url.lower() for keyword in ['example', 'template']):
+            urls.append(url)
     
     return {
         "email": emails[0] if emails else "",
@@ -395,39 +422,70 @@ def extract_contact_info(raw_text: str) -> Dict[str, str]:
         "location": locations[0] if locations else "",
         "url": urls[0] if urls else ""
     }
-def extract_name(lines: List[str], raw_text: str, contact_info: Dict[str, str]) -> str:
-    """Enhanced name extraction with better filtering"""
-    # Strategy 1: Look for name patterns in first 3-5 lines
+def extract_name(lines: List[str], raw_text: str, contact_info: Dict[str, str], nlp: pipeline = None) -> str:
+    """ULTIMATE name extraction with multiple strategies including proper NER"""
+    name_blacklist = STOP_WORDS + ["summary", "profile", "contact", "curriculum", "vitae", "resume", "cv"]
+    
+    # Strategy 1: Look for name patterns in first 3-5 lines (MOST RELIABLE)
     for i, line in enumerate(lines[:5]):
         clean = clean_line(line)
-        if (len(clean) > 5 and len(clean) < 50 and
+        clean_lower = clean.lower()
+        
+        # Strong name validation
+        is_name_candidate = (
+            len(clean) > 5 and len(clean) < 50 and
             re.match(NAME_PATTERN, clean) and 
             2 <= len(clean.split()) <= 4 and
-            not any(kw in clean.lower() for kw in STOP_WORDS + ["summary", "profile", "contact"]) and
+            not any(kw in clean_lower for kw in name_blacklist) and
             not re.match(EMAIL_PATTERN, clean) and 
             not re.match(PHONE_PATTERN, clean) and
-            not re.match(LOCATION_PATTERN, clean)):
+            not re.match(LOCATION_PATTERN, clean) and
+            not any(word in clean_lower for word in ['linkedin', 'github', 'http', 'www']) and
+            not clean[0].islower()  # Names usually start with capital
+        )
+        
+        if is_name_candidate:
             return clean.title()
     
-    # Strategy 2: Extract from email (more intelligent)
+    # Strategy 2: Extract from email (intelligent parsing)
     email = contact_info.get("email", "")
     if email and "@" in email:
         username = email.split('@')[0]
         # Remove numbers and special characters, keep only name parts
         name_parts = re.split(r'[\._\-\d+]', username)
         valid_parts = [part for part in name_parts if len(part) > 2 and part.isalpha()]
-        if len(valid_parts) >= 2:
-            return ' '.join(valid_parts[:2]).title()
+        if 2 <= len(valid_parts) <= 3:
+            potential_name = ' '.join(valid_parts).title()
+            # Validate it looks like a real name
+            if re.match(NAME_PATTERN, potential_name):
+                return potential_name
     
-    # Strategy 3: Use NER if available
-    if "ner" in globals() or "ner" in locals():
+    # Strategy 3: Use NER with proper integration
+    if nlp:
         try:
-            ner_results = ner(raw_text[:1000])  # Check first 1000 chars for name
+            # Use first 1000 characters for name detection
+            ner_results = nlp(raw_text[:1000])
+            name_candidates = []
+            
             for ent in ner_results:
-                if ent.get('entity_group') == 'NAME' and ent['score'] > 0.8:
-                    return ent['word'].title()
-        except:
-            pass
+                if ent.get('entity_group') == 'NAME' and ent['score'] > 0.7:  # Reasonable threshold
+                    name_text = ent['word'].strip()
+                    # Clean and validate the NER result
+                    name_text = re.sub(r'[^a-zA-ZÀ-ÿ\s\-]', '', name_text).strip()
+                    
+                    if (re.match(NAME_PATTERN, name_text) and
+                        2 <= len(name_text.split()) <= 4 and
+                        len(name_text) > 5 and
+                        not any(kw in name_text.lower() for kw in name_blacklist)):
+                        name_candidates.append((name_text, ent['score']))
+            
+            # Return the highest confidence valid name
+            if name_candidates:
+                name_candidates.sort(key=lambda x: x[1], reverse=True)
+                return name_candidates[0][0].title()
+                
+        except Exception as e:
+            logging.debug(f"NER name extraction failed: {e}")
     
     return "Unknown Name"
 
@@ -546,7 +604,7 @@ def parse_education(lines: List[str]) -> List[Dict[str, str]]:
     return entries[:3]  # Return max 3 most recent education entries
 
 def parse_experience(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str]]:
-    """IMPROVED experience parser - better role/company separation"""
+    """IMPROVED experience parser with NER integration for role/company detection"""
     experiences = []
     
     experience_keywords = [
@@ -590,17 +648,28 @@ def parse_experience(lines: List[str], nlp: pipeline = None) -> List[Dict[str, s
         
         clean_lower = clean.lower()
         
-        # IMPROVED EXPERIENCE DETECTION
+        # IMPROVED EXPERIENCE DETECTION WITH NER SUPPORT
         date_match = re.search(DATE_PATTERN, clean)
         has_role_keyword = any(kw in clean_lower for kw in experience_keywords)
-        is_short_line = len(clean) < 150  # Increased from 120
+        is_short_line = len(clean) < 150
+        
+        # NER-BASED EXPERIENCE DETECTION
+        has_ner_experience = False
+        if nlp and is_short_line and (date_match or in_experience_section):
+            try:
+                ner_results = nlp(clean)
+                for ent in ner_results:
+                    if ent.get('entity_group') in ['ROLE', 'ORGANIZATION'] and ent['score'] > 0.5:
+                        has_ner_experience = True
+                        break
+            except:
+                pass
         
         # Start new experience on clear indicators
         experience_indicator = (
-            date_match and 
-            has_role_keyword and 
-            is_short_line and
-            (in_experience_section or any(kw in clean_lower for kw in ["intern", "stage", "engineer", "developer", "manager"]))
+            (date_match and has_role_keyword and is_short_line) or
+            (has_ner_experience and is_short_line) or
+            (date_match and in_experience_section and is_short_line)
         )
         
         if experience_indicator:
@@ -610,20 +679,48 @@ def parse_experience(lines: List[str], nlp: pipeline = None) -> List[Dict[str, s
                 if len(current_exp["description"]) > 15:
                     experiences.append(current_exp)
             
-            # Extract role, company, duration
+            # Extract role, company, duration with NER enhancement
             duration = date_match.group() if date_match else ""
             remaining = re.sub(DATE_PATTERN, '', clean).strip()
             
-            # IMPROVED role/company extraction
+            # Use NER to help with role/company extraction
             role = remaining
             company = ""
             location = ""
             
-            # Multiple separation strategies
+            if nlp:
+                try:
+                    ner_results = nlp(remaining)
+                    role_parts = []
+                    company_parts = []
+                    
+                    for ent in ner_results:
+                        if ent.get('entity_group') == 'ROLE' and ent['score'] > 0.4:
+                            role_parts.append(ent['word'])
+                        elif ent.get('entity_group') == 'ORGANIZATION' and ent['score'] > 0.4:
+                            company_parts.append(ent['word'])
+                    
+                    if role_parts:
+                        role = ' '.join(role_parts)
+                        # Remove role from remaining to extract company
+                        for role_part in role_parts:
+                            remaining = remaining.replace(role_part, '').strip()
+                    
+                    if company_parts:
+                        company = ' '.join(company_parts)
+                        
+                except Exception as e:
+                    logging.debug(f"NER experience parsing failed: {e}")
+            
+            # Fallback to traditional separation if NER didn't help enough
+            if not role or len(role) < 3:
+                role = remaining
+                company = ""
+                
             separators = [" at ", " - ", " : ", ", ", " | ", " – "]
             for sep in separators:
-                if sep in remaining:
-                    parts = remaining.split(sep, 1)
+                if sep in role:
+                    parts = role.split(sep, 1)
                     role = parts[0].strip()
                     company_location = parts[1].strip()
                     
@@ -643,7 +740,8 @@ def parse_experience(lines: List[str], nlp: pipeline = None) -> List[Dict[str, s
             # Validate it's actually a role (not a description)
             is_valid_role = (
                 len(role) > 5 and
-                any(role_indicator in role.lower() for role_indicator in experience_keywords) and
+                (any(role_indicator in role.lower() for role_indicator in experience_keywords) or
+                 any(word in role.lower() for word in ['intern', 'stage', 'volunteer'])) and
                 not role.lower().startswith(('built', 'created', 'developed', 'managed', 'led'))
             )
             
@@ -692,7 +790,7 @@ def parse_experience(lines: List[str], nlp: pipeline = None) -> List[Dict[str, s
     return experiences[:4]
 
 def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str]]:
-    """ENHANCED project parser - finds ALL projects with better names"""
+    """ULTIMATE project parser with NER integration for better project name detection"""
     projects = []
     
     project_keywords = [
@@ -702,14 +800,16 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
         "detection", "prediction", "gestion", "plateforme", "agent", "recruitment",
         "donation", "management", "skillswap", "blooder", "biometric", "shadowhire",
         "cloud-naturelink", "picocloud", "splunk", "soc", "anemia", "healthcare",
-        "security", "web", "mobile", "desktop", "automation", "hackathon"
+        "security", "web", "mobile", "desktop", "automation", "hackathon", "eventmatch",
+        "parky", "psychwell", "zedney", "9antra", "lambda", "super store"
     ]
     
-    # BAD PROJECT NAMES to exclude
+    # EXPANDED BAD PROJECT NAMES to exclude
     bad_names = {
         "artificielle", "mots-cles", "keywords", "features", "include", "description",
         "technologies", "tools", "built", "created", "developed", "implementation",
-        "achievements", "tasks", "responsibilities", "duties"
+        "achievements", "tasks", "responsibilities", "duties", "english", "french",
+        "arabic", "professional", "proficiency", "contact", "summary", "github", "link"
     }
     
     current_project = None
@@ -746,11 +846,25 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
                     description_lines = []
             continue
         
-        # ENHANCED PROJECT DETECTION
+        # ULTIMATE PROJECT DETECTION WITH NER
         is_bullet = re.match(r'^[•\-*››◦▪\u2022]', line.strip())
         has_project_kw = any(keyword in clean_lower for keyword in project_keywords)
         has_year = re.search(r'\(\d{4}\)', clean) or re.search(r'\d{4}\s*[-–—]', clean)
-        is_short_line = len(clean) < 120
+        is_short_line = len(clean) < 150
+        
+        # NER-BASED PROJECT DETECTION
+        has_ner_project = False
+        project_name_ner = ""
+        if nlp and is_short_line and (has_project_kw or in_projects_section or is_bullet):
+            try:
+                ner_results = nlp(clean)
+                for ent in ner_results:
+                    if ent.get('entity_group') == 'PROJECT' and ent['score'] > 0.4:
+                        has_ner_project = True
+                        project_name_ner = ent['word'].strip()
+                        break
+            except Exception as e:
+                logging.debug(f"NER project detection failed: {e}")
         
         # STRONG PROJECT INDICATORS
         project_indicator = (
@@ -758,8 +872,9 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
             (is_bullet and is_short_line and in_projects_section) or
             (has_year and is_short_line and in_projects_section) or
             (re.search(r'^[•\-*]?\s*[A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*\s*[\(\:\-]', clean)) or
-            (clean_lower.startswith(('pfa', 'pfe', 'pidev', 'skillswap', 'blooder', 'biometric', 
-                                   'shadowhire', 'splunk', 'anemia', 'healthcare', 'lambda', 'super store')))
+            (clean_lower.startswith(tuple(project_keywords))) or
+            (re.search(r'^(pfa|pfe|pidev|skillswap|blooder|biometric|shadowhire|splunk|anemia|healthcare|lambda|super store|eventmatch|parky|psychwell|zedney|9antra)', clean_lower)) or
+            has_ner_project
         )
         
         if project_indicator:
@@ -769,40 +884,47 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
                 if len(current_project["description"]) > 20:
                     projects.append(current_project)
             
-            # EXTRACT AND VALIDATE PROJECT NAME
-            project_name = clean
+            # ULTIMATE PROJECT NAME EXTRACTION WITH NER PRIORITY
+            if has_ner_project and project_name_ner:
+                project_name = project_name_ner
+            else:
+                project_name = clean
             
-            # Remove bullet points
+            # Remove bullet points and numbering
             project_name = re.sub(r'^[•\-*››◦▪\u2022]\s*', '', project_name)
+            project_name = re.sub(r'^\d+[\.\)]\s*', '', project_name)
             
-            # Extract name before colon/dash if present
-            if ':' in project_name:
-                project_name = project_name.split(':', 1)[0].strip()
-            elif ' - ' in project_name:
-                project_name = project_name.split(' - ', 1)[0].strip()
+            # Extract name before colon/dash/parenthesis if present
+            separators = [':', ' - ', ' – ', ' — ', ' (', ' | ']
+            for sep in separators:
+                if sep in project_name:
+                    project_name = project_name.split(sep, 1)[0].strip()
+                    break
             
             # Remove year parentheses but keep the text
             project_name = re.sub(r'\s*\(\d{4}\)\s*', ' ', project_name)
             project_name = re.sub(r'\s*\d{4}\s*[-–—]\s*\d{4}\s*', ' ', project_name)
             project_name = re.sub(r'\s*\d{4}\s*[-–—]\s*(?:present|current)\s*', ' ', project_name)
             
-            # Remove common prefixes
-            project_name = re.sub(r'^(?:project|projet|application|platform|system|development)[\s:\-]*', '', 
+            # Remove common prefixes but preserve actual project names
+            project_name = re.sub(r'^(?:project|projet|application|platform|system|development|stage|internship)[\s:\-]*', '', 
                                 project_name, flags=re.IGNORECASE)
             
-            # Clean up
+            # Clean up extra spaces
             project_name = re.sub(r'\s+', ' ', project_name).strip()
             
-            # STRONG VALIDATION - reject bad names
+            # ULTIMATE VALIDATION
             is_valid_name = (
                 len(project_name) > 5 and
-                len(project_name) < 80 and
+                len(project_name) < 100 and
                 not any(bad_name in project_name.lower() for bad_name in bad_names) and
-                not project_name.lower().startswith(('built', 'created', 'developed', 'features')) and
-                not re.search(r'^(?:mots-cles|keywords|technologies|tools|achievements)', project_name.lower()) and
-                len(project_name.split()) <= 10 and  # Reasonable project name length
+                not project_name.lower().startswith(('built', 'created', 'developed', 'features', 'technologies', 'tools')) and
+                not re.search(r'^(?:mots-cles|keywords|technologies|tools|achievements|responsibilities)', project_name.lower()) and
+                len(project_name.split()) <= 12 and
                 not re.match(PHONE_PATTERN, project_name) and
-                not re.match(EMAIL_PATTERN, project_name)
+                not re.match(EMAIL_PATTERN, project_name) and
+                not project_name.isdigit() and
+                not all(len(word) == 1 for word in project_name.split())  # Not all single letters
             )
             
             if is_valid_name:
@@ -813,23 +935,23 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
                 description_lines = []
                 
                 # Extract initial description from current line
-                if ':' in clean and len(clean.split(':')) > 1:
-                    desc_part = clean.split(':', 1)[1].strip()
-                    if len(desc_part) > 10:
-                        description_lines.append(desc_part)
-                elif ' - ' in clean and len(clean.split(' - ')) > 1:
-                    desc_part = clean.split(' - ', 1)[1].strip()
-                    if len(desc_part) > 10:
-                        description_lines.append(desc_part)
+                for sep in separators:
+                    if sep in clean:
+                        desc_part = clean.split(sep, 1)[1].strip()
+                        if len(desc_part) > 10:
+                            # Clean description part
+                            desc_part = re.sub(r'^(mots-cles|keywords|technologies)[\s:\-]*', '', desc_part, flags=re.IGNORECASE)
+                            description_lines.append(desc_part)
+                        break
                 
-                # Look ahead for description (3-5 lines)
+                # Look ahead for description (3-6 lines)
                 look_ahead = []
-                for j in range(i+1, min(i+6, len(lines))):
+                for j in range(i+1, min(i+7, len(lines))):
                     next_clean = clean_line(lines[j])
                     if (len(next_clean) > 8 and 
                         not re.match(r'^[•\-*››◦▪\u2022]', lines[j].strip()) and
                         not detect_section_header(next_clean, "")[1] and
-                        len(look_ahead) < 4):
+                        len(look_ahead) < 5):
                         look_ahead.append(next_clean)
                     else:
                         break
@@ -839,14 +961,14 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
         
         # Collect description for current project
         elif current_project and len(clean) > 8:
-            # Skip if it's clearly a new project
+            # Skip if it's clearly a new project or section
             is_new_project = (
                 re.match(r'^[•\-*››◦▪\u2022]', line.strip()) or
                 detect_section_header(clean, "")[1] or
-                (any(keyword in clean_lower for keyword in project_keywords) and len(clean) < 100)
+                (any(keyword in clean_lower for keyword in project_keywords) and len(clean) < 120)
             )
             
-            if not is_new_project and len(description_lines) < 6:
+            if not is_new_project and len(description_lines) < 8:
                 description_lines.append(clean)
     
     # Add final project
@@ -855,7 +977,7 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
         if len(current_project["description"]) > 20:
             projects.append(current_project)
     
-    # REMOVE DUPLICATES AND FINAL VALIDATION
+    # ULTIMATE DEDUPLICATION AND VALIDATION
     unique_projects = []
     seen_names = set()
     
@@ -867,14 +989,16 @@ def parse_projects(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str
             not any(bad_name in name_lower for bad_name in bad_names) and
             len(project["name"]) > 5 and
             len(project["description"]) > 25 and
-            not re.match(r'^[0-9\s\-–—]+$', project["name"])  # Not just numbers/dashes
+            not re.match(r'^[0-9\s\-–—]+$', project["name"]) and
+            not project["name"].lower().startswith(('http', 'www', 'github'))
         )
         
         if is_real_project:
             seen_names.add(name_lower)
             unique_projects.append(project)
-    
-    return unique_projects[:6]
+
+    return unique_projects[:8]
+
 def parse_skills(raw_text: str, nlp: pipeline = None) -> List[str]:
     """Perfect skills parser with ZERO garbage using dual NER + logic validation"""
     skills_found = set()
@@ -979,6 +1103,37 @@ def parse_certifications(lines: List[str]) -> List[str]:
                 certs.add(cert_text.title())
     
     return sorted(list(certs))[:5]
+def parse_languages(raw_text: str) -> List[str]:
+    """Extract languages from CV text"""
+    languages_found = set()
+    
+    # Common language patterns
+    language_patterns = [
+        r'(?i)(?:english|anglais)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
+        r'(?i)(?:french|français|francais)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
+        r'(?i)(?:arabic|arabe)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
+        r'(?i)(?:spanish|espagnol)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
+        r'(?i)(?:german|allemand)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
+    ]
+    
+    # Look for language sections
+    for pattern in language_patterns:
+        matches = re.finditer(pattern, raw_text)
+        for match in matches:
+            lang_section = match.group()
+            # Extract the language name
+            if 'english' in lang_section.lower() or 'anglais' in lang_section.lower():
+                languages_found.add('English')
+            elif 'french' in lang_section.lower() or 'français' in lang_section.lower() or 'francais' in lang_section.lower():
+                languages_found.add('French')
+            elif 'arabic' in lang_section.lower() or 'arabe' in lang_section.lower():
+                languages_found.add('Arabic')
+            elif 'spanish' in lang_section.lower() or 'espagnol' in lang_section.lower():
+                languages_found.add('Spanish')
+            elif 'german' in lang_section.lower() or 'allemand' in lang_section.lower():
+                languages_found.add('German')
+    
+    return list(languages_found)
 
 def parse_cv(text: str, filename: str = "", nlp: pipeline = None) -> Dict[str, Any]:
     """Enhanced CV parsing with NLP support across all functions"""
@@ -991,7 +1146,8 @@ def parse_cv(text: str, filename: str = "", nlp: pipeline = None) -> Dict[str, A
         "Projects": [],
         "Experience": [],
         "Certifications": [],
-        "Interests": []
+        "languages": [],
+        "Interests": []       
     }
     
     if not text:
@@ -1045,6 +1201,7 @@ def parse_cv(text: str, filename: str = "", nlp: pipeline = None) -> Dict[str, A
     sections["Experience"] = parse_experience(section_lines["Experience"], nlp=nlp)  # Pass nlp
     sections["Projects"] = parse_projects(section_lines["Projects"], nlp=nlp)  # Pass nlp
     sections["Certifications"] = parse_certifications(section_lines["Certifications"])
+    sections["languages"] = parse_languages(text)
     
     # Simple interests parsing
     interests = []

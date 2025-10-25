@@ -43,10 +43,9 @@ def test_model():
 
         # Test on PDF
         pdf_path =  [
-            "./cvs_test/tam.pdf", 
-            "./cvs_test/Aziz-Mehdi.pdf", 
-            "./cvs_test/Sana.pdf",
-            "./cvs_test/walid.pdf"
+            
+            "./cvs_test/yasmine.pdf" 
+            
         ]
         for pdf in pdf_path:
             print(f"Processing PDF: {pdf}")
@@ -55,7 +54,7 @@ def test_model():
                 print("Extracted text from PDF (first 100 chars):", text[:100])
                 parsed = parse_cv(text, pdf, nlp=nlp)
                 print("Parsed CV:", json.dumps(parsed, indent=2, default=numpy_to_python))
-                output_file = f"parsed_{os.path.basename(pdf).replace('.pdf', '.json')}"
+                output_file = f"parsed1_{os.path.basename(pdf).replace('.pdf', '.json')}"
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(parsed, f, ensure_ascii=False, indent=2, default=numpy_to_python)    
             else:

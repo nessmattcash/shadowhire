@@ -1,0 +1,90 @@
+{
+  "Name": "Sana Riahi",
+  "Contact": {
+    "email": "sanariahi30@gmail.com",
+    "phone": "+21658263085",
+    "location": "Tunis , Tunisia",
+    "url": "www.linkedin.com/in/sanariahi3011"
+  },
+  "Summary": "Eleve ingenieure en mathematiques appliquees et modelisation Diplome dingenieur en Mathematiques Appliquees et Modelisation : Ecole Nationale Superieure dIngenieurs de Tunis 2023 - 2026 Cycle preparatoire aux etudes dingenieur en Mathematiques et Physique : Institut Preparatoire aux Etudes dIngenieu",
+  "Skills": [
+    "Angular",
+    "Azure",
+    "C++",
+    "Computer Vision",
+    "Css",
+    "Data Visualization",
+    "Deep Learning",
+    "Eks",
+    "Express.Js",
+    "Firebase",
+    "Generative Ai",
+    "Healthcare",
+    "Html",
+    "Java",
+    "Javascript",
+    "Jira",
+    "Keras",
+    "Llm",
+    "Machine Learning",
+    "Matlab",
+    "Matplotlib",
+    "Mongodb",
+    "Mysql",
+    "Neural Networks",
+    "Nlp"
+  ],
+  "Education": [
+    {
+      "degree": "Diplome Dingenieur En Mathematiques Appliquees Et Modelisation",
+      "institution": "Ecole Nationale Superieure Dingenieurs De Tunis",
+      "duration": "2023 - 2026"
+    },
+    {
+      "degree": "Cycle Preparatoire Aux Etudes Dingenieur En Mathematiques Et Physique",
+      "institution": "Institut Preparatoire Aux Etudes Dingenieur De",
+      "duration": "2022- 2023"
+    }
+  ],
+  "Projects": [
+    {
+      "name": "Predicting Length Of Stay In Healthcare Facilities",
+      "description": "Prediction de la duree dhospitalisation Mots-cles : ML, Regression, Time Series Analysis, Python, Scikit-learn, Pandas, Data Visualization"
+    },
+    {
+      "name": "Detection Of Personal Protective Equipment On Construction Sites",
+      "description": "Reconnaissance dequipements de securite Mots-cles :CNN, Computer Vision, Image Processing"
+    },
+    {
+      "name": "Java De Gestion Des Notes Et Des Etudiants",
+      "description": "Espace administrateur et enseignant, gestion complete des enseignants, eleves, authentification (Sign In/Sign Up) et gestion des notes, calcul des moyennes Mots-cles :Java, SQL, Spring Boot, MySQL"
+    },
+    {
+      "name": "Plateforme Educative De Mathematiques",
+      "description": "Plateforme, un chatbot, e-learning et exercices interactifs Mots-cles : HTML, CSS, JavaScript, React.js, Node.js, SQL, NLP"
+    },
+    {
+      "name": "Prediction Du Taux De Chomage",
+      "description": "Prediction des tendances economiques en utilisant des modeles de machine learning Mots-cles :Regression, Decision Trees, Random Forest, Support Vector Machines (SVM), Gradient Boosting"
+    }
+  ],
+  "Experience": [
+    {
+      "role": "Stage En Web Et Analyse De Donnees Actia Engineering Services 15 Juillet",
+      "company": "15 Aout",
+      "duration": "2024",
+      "location": "",
+      "description": "Developpement dune application de gestion des conges : Creation d'une interface interactive pour la soumission des demandes de conges par les employes via un calendrier en Angular. Developpement dune application de gestion des conges : Creation d'une interface interactive pour la soumission des demandes de conges par les employes via un calendrier en Angular. Outil de gestion d'indicateurs de performance : Developpement dun outil pour suivre et analyser les performances des"
+    }
+  ],
+  "Certifications": [
+    "Microsoft : Azure Ai Fundamentals",
+    "Microsoft : Azure Data Fundamentals",
+    "Nvidia Deep Learning Fundamentals"
+  ],
+  "Interests": [
+    "Member Of Ensit Geeks Club",
+    "Member Of Nerdata Ensit Club",
+    "Member Of Ensit Ieee Club"
+  ]
+}

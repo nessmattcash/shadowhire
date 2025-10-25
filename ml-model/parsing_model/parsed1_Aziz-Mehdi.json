@@ -1,0 +1,64 @@
+{
+  "Name": "Aziz Mehdi",
+  "Contact": {
+    "email": "azizmehdii21@gmail.com",
+    "phone": "+216 28 285 576",
+    "location": "DevOps practices, and AI",
+    "url": ""
+  },
+  "Summary": "Cloud Engineer, DevOps & AI enthousiast at Esprit, passionate about cloud computing, DevOps practices, and AI. Skilled in building scalable solutions, solving complex problems, and innovating with modern cloud and AI technologies.",
+  "Skills": [
+    "Angular",
+    "Ansible",
+    "Aws",
+    "Azure",
+    "Bootstrap",
+    "Ci/Cd",
+    "Data Visualization",
+    "Deep Learning",
+    "Django",
+    "Docker",
+    "Ec2",
+    "Eks",
+    "Flask",
+    "Flutter",
+    "Grafana",
+    "Java",
+    "Javascript",
+    "Jenkins",
+    "Kubernetes",
+    "Linux",
+    "Microservices",
+    "Mongodb",
+    "Mysql",
+    "Next.Js",
+    "Nginx"
+  ],
+  "Education": [
+    {
+      "degree": "Cloud And Computer Science Student",
+      "institution": "Ai",
+      "duration": ""
+    },
+    {
+      "degree": "Computer Science Computer Sciences Engineering",
+      "institution": "Faculty Of Science Manar (Fst) September 2022 - June 2023",
+      "duration": ""
+    },
+    {
+      "degree": "Higher Institute Of Applied Sciences And Technology Mahdia  -",
+      "institution": "Higher Institute Of Applied Sciences And Technology Mahdia  -",
+      "duration": "September 2020"
+    }
+  ],
+  "Projects": [],
+  "Experience": [],
+  "Certifications": [
+    "Fundamentals Of Deep Learning"
+  ],
+  "languages": [
+    "French",
+    "Spanish"
+  ],
+  "Interests": []
+}
