@@ -602,7 +602,6 @@ def parse_education(lines: List[str]) -> List[Dict[str, str]]:
         i += 1
     
     return entries[:3]  # Return max 3 most recent education entries
-
 def parse_experience(lines: List[str], nlp: pipeline = None) -> List[Dict[str, str]]:
     """IMPROVED experience parser with NER integration for role/company detection"""
     experiences = []
@@ -1086,55 +1085,368 @@ def parse_skills(raw_text: str, nlp: pipeline = None) -> List[str]:
             filtered_skills.append(skill)
     
     return filtered_skills[:25]
-def parse_certifications(lines: List[str]) -> List[str]:
-    """Parse certifications"""
+def parse_certifications(lines: List[str], nlp: pipeline = None, raw_text: str = "") -> List[str]:
+    """ULTIMATE certification parser with NER integration and intelligent filtering"""
     certs = set()
     
-    cert_keywords = ["certified", "certificate", "certification", "badge", "workshop", "fundamentals"]
-    
-    for line in lines:
-        clean = clean_line(line)
-        clean_lower = clean.lower()
-        
-        if any(kw in clean_lower for kw in cert_keywords) and len(clean) > 8:
-            # Clean certification text
-            cert_text = re.sub(r'(?i)certificat|badge|workshop|certified|certification[:]?\s*', '', clean).strip()
-            if len(cert_text) > 5:
-                certs.add(cert_text.title())
-    
-    return sorted(list(certs))[:5]
-def parse_languages(raw_text: str) -> List[str]:
-    """Extract languages from CV text"""
-    languages_found = set()
-    
-    # Common language patterns
-    language_patterns = [
-        r'(?i)(?:english|anglais)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
-        r'(?i)(?:french|français|francais)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
-        r'(?i)(?:arabic|arabe)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
-        r'(?i)(?:spanish|espagnol)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
-        r'(?i)(?:german|allemand)[\s:\-]*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1)',
+    # Expanded certification keywords
+    cert_keywords = [
+        "certified", "certificate", "certification", "badge", "workshop", "fundamentals",
+        "accredited", "accreditation", "credential", "qualification", "diploma", "license",
+        "licensed", "professional", "specialist", "expert", "associate", "master", "foundation",
+        "essentials", "practitioner", "architect", "developer", "engineer", "analyst",
+        "security", "cloud", "data", "ai", "machine learning", "azure", "aws", "google",
+        "microsoft", "oracle", "cisco", "comptia", "pmi", "scrum", "agile", "itil", "iso"
     ]
     
-    # Look for language sections
+    # Common certification providers
+    providers = [
+        "microsoft", "aws", "amazon", "google", "oracle", "cisco", "comptia", "pmi",
+        "ibm", "salesforce", "servicenow", "sap", "red hat", "linux", "kubernetes",
+        "docker", "terraform", "ansible", "atlassian", "scrum", "agile", "itil",
+        "axelos", "ec council", "isc2", "sans", "offensive security", "python institute",
+        "java", "mongodb", "snowflake", "databricks", "tableau", "power bi", "nvidia",
+        "deeplearning.ai", "coursera", "udemy", "linkedin learning", "edx"
+    ]
+    
+    # Bad patterns to exclude
+    bad_patterns = [
+        "years", "experience", "proficiency", "native", "fluent", "intermediate",
+        "beginner", "excellent", "good", "basic", "advanced", "expert", "professional",
+        "contact", "email", "phone", "location", "summary", "skills", "education"
+    ]
+    
+    # Strategy 1: NER-based extraction (Primary)
+    if nlp and raw_text:
+        try:
+            # Process first 3000 characters for certifications
+            ner_results = nlp(raw_text[:3000])
+            for ent in ner_results:
+                if ent.get('entity_group') in ['CERTIFICATION', 'EDUCATION'] and ent['score'] > 0.6:
+                    cert_text = ent['word'].strip()
+                    cert_lower = cert_text.lower()
+                    
+                    # Validate certification with multiple criteria
+                    is_valid_cert = (
+                        len(cert_text) > 5 and
+                        len(cert_text) < 100 and
+                        not any(bad in cert_lower for bad in bad_patterns) and
+                        not re.match(r'^\d', cert_text) and  # Doesn't start with number
+                        not re.search(r'\d{4}', cert_text) and  # No years
+                        (any(kw in cert_lower for kw in cert_keywords) or
+                         any(provider in cert_lower for provider in providers)) and
+                        not cert_text.isupper() and  # Not all caps (usually headings)
+                        len(cert_text.split()) <= 8  # Reasonable length
+                    )
+                    
+                    if is_valid_cert:
+                        # Clean and format the certification
+                        cleaned_cert = clean_certification_text(cert_text)
+                        if cleaned_cert and len(cleaned_cert) > 5:
+                            certs.add(cleaned_cert)
+        except Exception as e:
+            logging.debug(f"NER certification extraction failed: {e}")
+    
+    # Strategy 2: Line-based extraction with enhanced logic
+    for line in lines:
+        clean = clean_line(line)
+        if not clean or len(clean) < 8:
+            continue
+            
+        clean_lower = clean.lower()
+        
+        # Enhanced certification detection
+        has_cert_keyword = any(kw in clean_lower for kw in cert_keywords)
+        has_provider = any(provider in clean_lower for provider in providers)
+        is_short_line = len(clean) < 120
+        has_cert_like_structure = bool(re.search(r'[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+(?:Certified|Certification|Associate|Professional|Specialist)', clean))
+        
+        # Strong certification indicators
+        cert_indicator = (
+            (has_cert_keyword and is_short_line) or
+            (has_provider and is_short_line) or
+            has_cert_like_structure or
+            re.search(r'(?i)(AZ-\d+|AWS-\w+|Google\s+\w+\s+Certified|Microsoft\s+Certified)', clean)
+        )
+        
+        if cert_indicator:
+            # Enhanced cleaning and validation
+            cert_text = clean
+            
+            # Remove common prefixes but preserve certification names
+            cert_text = re.sub(r'^(?:Certified|Certification|Certificate|Badge|Workshop)[\s:\-]*', '', 
+                             cert_text, flags=re.IGNORECASE)
+            
+            # Remove dates and years
+            cert_text = re.sub(r'\s*\d{4}\s*', ' ', cert_text)
+            cert_text = re.sub(r'\(\d{4}\)', '', cert_text)
+            
+            # Clean up extra spaces
+            cert_text = re.sub(r'\s+', ' ', cert_text).strip()
+            
+            # Final validation
+            is_valid = (
+                len(cert_text) > 5 and
+                len(cert_text) < 100 and
+                not any(bad in cert_text.lower() for bad in bad_patterns) and
+                not re.match(r'^[0-9\s\-]+$', cert_text) and
+                len(cert_text.split()) <= 8 and
+                not cert_text.lower().startswith(('contact', 'email', 'phone', 'summary'))
+            )
+            
+            if is_valid:
+                cleaned_cert = clean_certification_text(cert_text)
+                if cleaned_cert:
+                    certs.add(cleaned_cert)
+    
+    # Strategy 3: Look for certification sections
+    cert_section_pattern = r'(?i)(?:certifications?|certificats?|badges?|qualifications?)[\s:\-]*(.*?)(?=(?:\n[A-Z]|\n\s*\n|$))'
+    cert_sections = re.findall(cert_section_pattern, raw_text, re.DOTALL | re.IGNORECASE)
+    
+    for section in cert_sections:
+        # Extract certifications from section content
+        section_certs = extract_certs_from_section(section)
+        certs.update(section_certs)
+    
+    # Strategy 4: Extract from bullet points and lists
+    bullet_certs = extract_certs_from_bullets(lines)
+    certs.update(bullet_certs)
+    
+    # Final cleaning and deduplication
+    final_certs = []
+    seen_certs = set()
+    
+    for cert in sorted(certs):
+        cert_lower = cert.lower()
+        
+        # Final aggressive filtering
+        is_final_valid = (
+            len(cert) > 5 and
+            cert_lower not in seen_certs and
+            not any(bad in cert_lower for bad in bad_patterns) and
+            not re.match(r'^[^a-zA-Z]', cert) and
+            not cert.isdigit() and
+            len(cert) <= 80 and
+            (any(kw in cert_lower for kw in cert_keywords) or
+             any(provider in cert_lower for provider in providers) or
+             re.search(r'(?i)(certified|certification|associate|professional)', cert_lower))
+        )
+        
+        if is_final_valid:
+            # Smart deduplication using fuzzy matching
+            is_duplicate = False
+            for seen_cert in seen_certs:
+                if fuzz.ratio(cert_lower, seen_cert) > 85:
+                    is_duplicate = True
+                    break
+            
+            if not is_duplicate:
+                final_certs.append(cert)
+                seen_certs.add(cert_lower)
+    
+    return final_certs[:8]  # Return max 8 most relevant certifications
+
+def clean_certification_text(cert_text: str) -> str:
+    """Clean and standardize certification text"""
+    if not cert_text:
+        return ""
+    
+    # Remove common unwanted prefixes and suffixes
+    cert_text = re.sub(r'^(?:##|•|\-|\*|\d+\.)\s*', '', cert_text)
+    cert_text = re.sub(r'\s*[:\-]\s*$', '', cert_text)
+    
+    # Standardize certification names
+    cert_text = re.sub(r'(?i)microsoft certified:', 'Microsoft', cert_text)
+    cert_text = re.sub(r'(?i)aws certified', 'AWS', cert_text)
+    cert_text = re.sub(r'(?i)google cloud certified', 'Google Cloud', cert_text)
+    cert_text = re.sub(r'(?i)azure', 'Azure', cert_text)
+    
+    # Remove extra spaces and title case
+    cert_text = re.sub(r'\s+', ' ', cert_text).strip()
+    
+    # Smart title casing - preserve acronyms
+    words = cert_text.split()
+    cleaned_words = []
+    
+    for word in words:
+        if word.upper() in ['AWS', 'AZ', 'AI', 'ML', 'IT', 'CCNA', 'CCNP', 'CISSP', 'PMP', 'CEH', 'OSCP', 'CISA', 'CRISC']:
+            cleaned_words.append(word.upper())
+        elif len(word) > 3 or word.lower() in ['ai', 'ml', 'it']:
+            cleaned_words.append(word.title())
+        else:
+            cleaned_words.append(word)
+    
+    return ' '.join(cleaned_words)
+
+def extract_certs_from_section(section_text: str) -> List[str]:
+    """Extract certifications from a certification section"""
+    certs = set()
+    
+    # Split by common separators
+    lines = section_text.split('\n')
+    
+    for line in lines:
+        line = line.strip()
+        if not line or len(line) < 5:
+            continue
+        
+        # Clean the line
+        clean_line = re.sub(r'^[•\-*]\s*', '', line)
+        clean_line = re.sub(r'\s*\(.*?\)', '', clean_line)  # Remove parentheses content
+        
+        # Look for certification-like patterns
+        if (len(clean_line) > 5 and len(clean_line) < 100 and
+            re.search(r'(?i)(certified|certification|associate|professional|fundamentals)', clean_line) and
+            not re.search(r'\d{4}', clean_line)):
+            
+            cleaned_cert = clean_certification_text(clean_line)
+            if cleaned_cert:
+                certs.add(cleaned_cert)
+    
+    return list(certs)
+
+def extract_certs_from_bullets(lines: List[str]) -> List[str]:
+    """Extract certifications from bullet point lists"""
+    certs = set()
+    
+    for i, line in enumerate(lines):
+        clean = clean_line(line)
+        if not clean or len(clean) < 8:
+            continue
+        
+        # Check if it's a bullet point
+        is_bullet = re.match(r'^[•\-*››◦▪\u2022]\s*', line.strip())
+        
+        if is_bullet or (len(clean) < 100 and any(kw in clean.lower() for kw in ["certified", "certification", "aws", "azure", "google"])):
+            # Enhanced validation for bullet points
+            has_cert_indicators = (
+                re.search(r'(?i)(AZ-\d+|AWS-\w+|Certified|Certification|Associate|Professional)', clean) and
+                not re.search(r'(?i)(experience|years|proficient|skills?|education)', clean) and
+                len(clean.split()) <= 10
+            )
+            
+            if has_cert_indicators:
+                cleaned_cert = clean_certification_text(clean)
+                if cleaned_cert and len(cleaned_cert) > 5:
+                    certs.add(cleaned_cert)
+    
+    return list(certs)
+def parse_languages(raw_text: str) -> List[str]:
+    """Enhanced language extraction with multiple strategies"""
+    languages_found = set()
+    
+    # Strategy 1: Look for language sections with common patterns
+    language_section_patterns = [
+        r'(?i)(?:languages?|langues?)[\s:\-]*(.*?)(?=(?:\n[A-Z]|\n\s*\n|$))',
+        r'(?i)(?:linguistic skills|compétences linguistiques)[\s:\-]*(.*?)(?=(?:\n[A-Z]|\n\s*\n|$))'
+    ]
+    
+    for pattern in language_section_patterns:
+        section_matches = re.findall(pattern, raw_text, re.DOTALL | re.IGNORECASE)
+        for section in section_matches:
+            # Extract languages from the section
+            languages_found.update(extract_languages_from_section(section))
+    
+    # Strategy 2: Look for language lists with proficiency levels
+    language_patterns = [
+        # Pattern for: English (Professional), French (Native), etc.
+        r'(?i)\b(english|anglais|french|français|francais|arabic|arabe|spanish|espagnol|german|allemand|italian|italien|chinese|chinois|japanese|japonais|russian|russe|portuguese|portugais)\s*[:\-\(]?\s*(?:professional|proficiency|fluent|intermediate|beginner|native|bilingual|b2|c1|a1|a2|b1|c2|maternelle|courant|current|moyen)',
+        # Pattern for: Arabic (Native), French (B2), etc.
+        r'(?i)\b(english|anglais|french|français|francais|arabic|arabe|spanish|espagnol|german|allemand)\s*[:\-\(]?\s*(?:native|b2|c1|a1|a2|b1|c2|maternelle|courant)',
+        # Simple language mentions in context
+        r'(?i)(?:\b(?:language|langue)s?[\s:\-]+)(.*?)(?=\n|$)',
+    ]
+    
     for pattern in language_patterns:
         matches = re.finditer(pattern, raw_text)
         for match in matches:
-            lang_section = match.group()
-            # Extract the language name
-            if 'english' in lang_section.lower() or 'anglais' in lang_section.lower():
-                languages_found.add('English')
-            elif 'french' in lang_section.lower() or 'français' in lang_section.lower() or 'francais' in lang_section.lower():
-                languages_found.add('French')
-            elif 'arabic' in lang_section.lower() or 'arabe' in lang_section.lower():
-                languages_found.add('Arabic')
-            elif 'spanish' in lang_section.lower() or 'espagnol' in lang_section.lower():
-                languages_found.add('Spanish')
-            elif 'german' in lang_section.lower() or 'allemand' in lang_section.lower():
-                languages_found.add('German')
+            lang_text = match.group(1) if match.groups() else match.group()
+            normalized_lang = normalize_language_name(lang_text)
+            if normalized_lang:
+                languages_found.add(normalized_lang)
     
-    return list(languages_found)
+    # Strategy 3: Look for common language phrases in the text
+    common_language_phrases = [
+        r'(?i)\b(?:arabic|arabe)\s*(?:native|maternelle)',
+        r'(?i)\b(?:french|français|francais)\s*(?:courant|fluent|professional)',
+        r'(?i)\b(?:english|anglais)\s*(?:professional|fluent|courant|b2|c1)',
+        r'(?i)\b(?:spanish|espagnol|german|allemand)\s*(?:intermediate|beginner|moyen)'
+    ]
+    
+    for phrase in common_language_phrases:
+        if re.search(phrase, raw_text, re.IGNORECASE):
+            lang_match = re.search(r'(english|anglais|french|français|francais|arabic|arabe|spanish|espagnol|german|allemand)', phrase, re.IGNORECASE)
+            if lang_match:
+                normalized_lang = normalize_language_name(lang_match.group(1))
+                if normalized_lang:
+                    languages_found.add(normalized_lang)
+    
+    # Strategy 4: Extract from structured language lists (bullet points, etc.)
+    lines = raw_text.split('\n')
+    for i, line in enumerate(lines):
+        clean_line = line.strip()
+        if len(clean_line) < 50:  # Language lines are usually short
+            # Look for language patterns in short lines
+            lang_match = re.search(r'(?i)^\s*[•\-*]?\s*(english|anglais|french|français|francais|arabic|arabe|spanish|espagnol|german|allemand)', clean_line)
+            if lang_match:
+                normalized_lang = normalize_language_name(lang_match.group(1))
+                if normalized_lang:
+                    languages_found.add(normalized_lang)
+    
+    return sorted(list(languages_found))
 
+def extract_languages_from_section(section_text: str) -> List[str]:
+    """Extract languages from a dedicated language section"""
+    languages = set()
+    
+    # Split by common separators
+    parts = re.split(r'[,\|\-\n•]', section_text)
+    
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+            
+        # Look for language-proficiency patterns
+        lang_match = re.search(r'(?i)(english|anglais|french|français|francais|arabic|arabe|spanish|espagnol|german|allemand)', part)
+        if lang_match:
+            normalized_lang = normalize_language_name(lang_match.group(1))
+            if normalized_lang:
+                languages.add(normalized_lang)
+    
+    return list(languages)
+
+def normalize_language_name(lang_text: str) -> str:
+    """Normalize language names to standard English"""
+    lang_text = lang_text.strip().lower()
+    
+    language_map = {
+        'english': 'English',
+        'anglais': 'English',
+        'french': 'French',
+        'français': 'French',
+        'francais': 'French',
+        'arabic': 'Arabic',
+        'arabe': 'Arabic',
+        'spanish': 'Spanish',
+        'espagnol': 'Spanish',
+        'german': 'German',
+        'allemand': 'German',
+        'italian': 'Italian',
+        'italien': 'Italian',
+        'chinese': 'Chinese',
+        'chinois': 'Chinese',
+        'japanese': 'Japanese',
+        'japonais': 'Japanese',
+        'russian': 'Russian',
+        'russe': 'Russian',
+        'portuguese': 'Portuguese',
+        'portugais': 'Portuguese'
+    }
+    
+    return language_map.get(lang_text, '')
+
+# Also update the parse_cv function to better handle language extraction
 def parse_cv(text: str, filename: str = "", nlp: pipeline = None) -> Dict[str, Any]:
     """Enhanced CV parsing with NLP support across all functions"""
     sections = {
@@ -1198,10 +1510,18 @@ def parse_cv(text: str, filename: str = "", nlp: pipeline = None) -> Dict[str, A
     # Parse all sections WITH NLP SUPPORT
     sections["Skills"] = parse_skills(text, nlp=nlp)
     sections["Education"] = parse_education(section_lines["Education"])
-    sections["Experience"] = parse_experience(section_lines["Experience"], nlp=nlp)  # Pass nlp
-    sections["Projects"] = parse_projects(section_lines["Projects"], nlp=nlp)  # Pass nlp
-    sections["Certifications"] = parse_certifications(section_lines["Certifications"])
-    sections["languages"] = parse_languages(text)
+    sections["Experience"] = parse_experience(section_lines["Experience"], nlp=nlp)
+    sections["Projects"] = parse_projects(section_lines["Projects"], nlp=nlp)
+    sections["Certifications"] = parse_certifications(section_lines["Certifications"], nlp=nlp, raw_text=text)    
+    # Enhanced language extraction - try multiple sources
+    languages_from_section = parse_languages_from_section_lines(section_lines.get("Languages", []))
+    languages_from_text = parse_languages(text)
+    
+    # Combine both sources, prioritizing section-based extraction
+    if languages_from_section:
+        sections["languages"] = languages_from_section
+    else:
+        sections["languages"] = languages_from_text
     
     # Simple interests parsing
     interests = []
@@ -1213,6 +1533,25 @@ def parse_cv(text: str, filename: str = "", nlp: pipeline = None) -> Dict[str, A
     
     return sections
 
+def parse_languages_from_section_lines(section_lines: List[str]) -> List[str]:
+    """Parse languages specifically from language section lines"""
+    languages_found = set()
+    
+    for line in section_lines:
+        clean_line_text = clean_line(line)
+        if not clean_line_text:
+            continue
+            
+        # Look for language patterns in section lines
+        lang_match = re.search(r'(?i)(english|anglais|french|français|francais|arabic|arabe|spanish|espagnol|german|allemand)', clean_line_text)
+        if lang_match:
+            normalized_lang = normalize_language_name(lang_match.group(1))
+            if normalized_lang:
+                languages_found.add(normalized_lang)
+    
+    return sorted(list(languages_found))
+    
+    return sections
 def process_pdfs(folder_path: str, output_file: str = "cv_structured_perfect.json", num_to_process: int = 20) -> List[Dict[str, Any]]:
     """Process multiple PDFs and save perfect structured data"""
     results = []

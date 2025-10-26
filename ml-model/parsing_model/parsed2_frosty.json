@@ -1,0 +1,62 @@
+{
+  "Name": "Amir Ben Ameur",
+  "Contact": {
+    "email": "benameur.amir7@gmail.com",
+    "phone": "+216 21 614 119",
+    "location": "Ariana,Tunisia",
+    "url": ""
+  },
+  "Summary": "Big Data Intern at CRM Amir Ben Ameur Amir2402 Amir Ben Ameur Ariana,Tunisia +216 21 614 119",
+  "Skills": [
+    "Airflow",
+    "Apache",
+    "Apache Spark",
+    "Azure",
+    "Bash",
+    "Cassandra",
+    "Dbt",
+    "Deep Learning",
+    "Docker",
+    "Elt",
+    "Kafka",
+    "Lambda",
+    "Postgres",
+    "Power Bi",
+    "Python",
+    "Research",
+    "Retail",
+    "Snowflake",
+    "Sql"
+  ],
+  "Education": [
+    {
+      "degree": "Higher Institute Of Compter Science -",
+      "institution": "Higher Institute Of Compter Science -",
+      "duration": "September 2022"
+    },
+    {
+      "degree": "Bachelor'S In Computer Science",
+      "institution": "",
+      "duration": ""
+    }
+  ],
+  "Projects": [
+    {
+      "name": "Lambda Logs February 2025",
+      "description": "Implemented a data processing architecture that enables simultaneous analysis of logs in batch and real-time modes. Consolidated and transformed raw data from multiple sources into clear, actionable information for better decisions."
+    },
+    {
+      "name": "Super Store Data Pipeline September 2024",
+      "description": "Utilized Snowflake as the Data warehouse, with dbt for Data transformations and Apache Airflow for orchestration."
+    }
+  ],
+  "Experience": [],
+  "Certifications": [
+    "Azure Data Fundamentals Ibm Data Analyst Professional E"
+  ],
+  "languages": [
+    "Arabic",
+    "English"
+  ],
+  "Interests": []
+}

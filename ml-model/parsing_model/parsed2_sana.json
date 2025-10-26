@@ -15,7 +15,6 @@
     "Css",
     "Data Visualization",
     "Deep Learning",
-    "Eks",
     "Express.Js",
     "Firebase",
     "Generative Ai",
@@ -32,7 +31,8 @@
     "Mongodb",
     "Mysql",
     "Neural Networks",
-    "Nlp"
+    "Nlp",
+    "Node.Js"
   ],
   "Education": [
     {
@@ -60,8 +60,16 @@
       "description": "Espace administrateur et enseignant, gestion complete des enseignants, eleves, authentification (Sign In/Sign Up) et gestion des notes, calcul des moyennes Mots-cles :Java, SQL, Spring Boot, MySQL"
     },
     {
+      "name": "Enseignants, Eleves, Authentification",
+      "description": "Sign In/Sign Up) et gestion des notes, calcul des moyennes Mots-cles :Java, SQL, Spring Boot, MySQL"
+    },
+    {
       "name": "Plateforme Educative De Mathematiques",
       "description": "Plateforme, un chatbot, e-learning et exercices interactifs Mots-cles : HTML, CSS, JavaScript, React.js, Node.js, SQL, NLP"
+    },
+    {
+      "name": "Simulation Web Du Systeme Solaire",
+      "description": "visualisation interactive en 3D, modelisation des orbites et des mouvements planetaires Mots-cles : Java3D, HTML, CSS, Three.js"
     },
     {
       "name": "Prediction Du Taux De Chomage",
@@ -82,9 +90,14 @@
     "Microsoft : Azure Data Fundamentals",
     "Nvidia Deep Learning Fundamentals"
   ],
+  "languages": [
+    "Arabic",
+    "English",
+    "French"
+  ],
   "Interests": [
-    "Member Of Ensit Geeks Club",
+    "Member Of Ensit Ieee Club",
     "Member Of Nerdata Ensit Club",
-    "Member Of Ensit Ieee Club"
+    "Member Of Ensit Geeks Club"
   ]
 }

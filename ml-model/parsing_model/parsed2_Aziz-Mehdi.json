@@ -3,7 +3,7 @@
   "Contact": {
     "email": "azizmehdii21@gmail.com",
     "phone": "+216 28 285 576",
-    "location": "Cloud Engineer, DevOps",
+    "location": "DevOps practices, and AI",
     "url": ""
   },
   "Summary": "Cloud Engineer, DevOps & AI enthousiast at Esprit, passionate about cloud computing, DevOps practices, and AI. Skilled in building scalable solutions, solving complex problems, and innovating with modern cloud and AI technologies.",
@@ -55,6 +55,12 @@
   "Experience": [],
   "Certifications": [
     "Fundamentals Of Deep Learning"
+  ],
+  "languages": [
+    "Arabic",
+    "English",
+    "French",
+    "Spanish"
   ],
   "Interests": []
 }

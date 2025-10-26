@@ -1,0 +1,57 @@
+{
+  "Name": "Aziz Mehdi",
+  "Contact": {
+    "email": "aziz.mehdi@esprit.tn",
+    "phone": "+216 28 285 576",
+    "location": "Ariana, Tunisia",
+    "url": ""
+  },
+  "Summary": "Computer Science Student at ESPRIT | IT Enthusiast Ariana, Tunisia +216 28 285 576 aziz.mehdi@esprit.tn the dynamic world of information technology. With a passion for problem-",
+  "Skills": [
+    "Deep Learning",
+    "Java",
+    "Linux",
+    "Networking",
+    "Nlp",
+    "Python",
+    "Sql"
+  ],
+  "Education": [
+    {
+      "degree": "Administration Esprit",
+      "institution": "Administration Esprit",
+      "duration": ""
+    },
+    {
+      "degree": "Computer Sciences Engineering",
+      "institution": "",
+      "duration": ""
+    }
+  ],
+  "Projects": [
+    {
+      "name": "Blood Donation Platform",
+      "description": "2023 - 2024 September 2023 - January 2024 IEEE FST A desktop application programmed using C and GTK, this is used to manage Member blood donations and medical staff 2022 - 2023 2023 - 2024 September 2023 - January 2024"
+    },
+    {
+      "name": "Member Blood Donations And Medical Staff",
+      "description": "2022 - 2023 Monitoring and Control System for Common Work Room 2022 - 2023"
+    }
+  ],
+  "Experience": [],
+  "Certifications": [
+    "Deepflow Esprit Workshop/Application AI for Predictive Maintenance",
+    "Member Nvidia DLI",
+    "Nvidia DLI",
+    "Workshop/Fundamentals of Deep Learning"
+  ],
+  "languages": [
+    "Arabic",
+    "English"
+  ],
+  "Interests": [
+    "Guitar Music Sports Video",
+    "Needed.",
+    "Playing Making"
+  ]
+}
