@@ -45,7 +45,13 @@ def test_model():
         pdf_path =  [
             
            
-            "./cvs_test/aziz.pdf"
+            "./cvs_test/aziz.pdf",
+            "./cvs_test/walid.pdf",
+            "./cvs_test/sana.pdf",
+            "./cvs_test/tam.pdf",
+            "./cvs_test/Aziz-Mehdi.pdf",
+            "./cvs_test/yasmine.pdf",
+            "./cvs_test/frosty.pdf",
             
         ]
         for pdf in pdf_path:

@@ -1,7 +1,7 @@
 {
   "Name": "Jaouani Walid",
   "Contact": {
-    "email": "jaouani.walid0@gmail.com",
+    "email": "Achraf.Chabchoub@defensy.io",
     "phone": "+216 55 996 528",
     "location": "Present, Ghazela",
     "url": "netlify.app"
@@ -55,7 +55,13 @@
     }
   ],
   "Experience": [],
-  "Certifications": [],
+  "Certifications": [
+    "Cisco CyberOps Associate (06/",
+    "Cisco Cyberops Associate Badge Obtained At ESPRIT",
+    "Cisco DevNet Badge Aquired From Mr Mark Francis",
+    "Cisco Devnet Associate (06/ - 06/ )",
+    "Full Professional Proficiency"
+  ],
   "languages": [
     "English",
     "French"
