@@ -6,7 +6,7 @@
     "location": "Ariana, Tunisia",
     "url": ""
   },
-  "Summary": "Computer Science Student at ESPRIT | IT Enthusiast Ariana, Tunisia +216 28 285 576 aziz.mehdi@esprit.tn the dynamic world of information technology. With a passion for problem-",
+  "Summary": "Computer Science Student At Esprit It Enthusiast Ariana, Tunisia +216 28 285 576 Aziz.Mehdi@Esprit.Tn The Dynamic World Of Information Technology. With A Passion For Problem-",
   "Skills": [
     "Deep Learning",
     "Java",
@@ -18,11 +18,6 @@
   ],
   "Education": [
     {
-      "degree": "Administration Esprit",
-      "institution": "Administration Esprit",
-      "duration": ""
-    },
-    {
       "degree": "Computer Sciences Engineering",
       "institution": "",
       "duration": ""
@@ -31,11 +26,11 @@
   "Projects": [
     {
       "name": "Blood Donation Platform",
-      "description": "2023 - 2024 September 2023 - January 2024 IEEE FST A desktop application programmed using C and GTK, this is used to manage Member blood donations and medical staff 2022 - 2023 2023 - 2024 September 2023 - January 2024"
+      "description": "2023 - 2024 September 2023 - January 2024 2023 - 2024 September 2023 - January 2024"
     },
     {
-      "name": "Member Blood Donations And Medical Staff",
-      "description": "2022 - 2023 Monitoring and Control System for Common Work Room 2022 - 2023"
+      "name": "Blood Donations And Medical Staff",
+      "description": "2022 - 2023 Monitoring And Control System For Common Work Room 2022 - 2023"
     }
   ],
   "Experience": [],
@@ -47,11 +42,12 @@
   ],
   "languages": [
     "Arabic",
-    "English"
+    "English",
+    "Spanish"
   ],
   "Interests": [
-    "Needed.",
+    "Playing Making",
     "Guitar Music Sports Video",
-    "Playing Making"
+    "Needed."
   ]
 }

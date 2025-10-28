@@ -6,7 +6,7 @@
     "location": "Ariana,Tunisia",
     "url": ""
   },
-  "Summary": "Big Data Intern at CRM Amir Ben Ameur Amir2402 Amir Ben Ameur Ariana,Tunisia +216 21 614 119",
+  "Summary": "Big Data Intern At Crm Amir Ben Ameur Amir2402 Amir Ben Ameur Ariana,Tunisia +216 21 614 119",
   "Skills": [
     "Airflow",
     "Apache",
@@ -43,11 +43,11 @@
   "Projects": [
     {
       "name": "Lambda Logs February 2025",
-      "description": "Implemented a data processing architecture that enables simultaneous analysis of logs in batch and real-time modes. Consolidated and transformed raw data from multiple sources into clear, actionable information for better decisions."
+      "description": "Implemented A Data Processing Architecture That Enables Simultaneous Analysis Of Logs In Batch And Real-Time Modes. Delivered Insights On Web Traffic Through A User-Friendly Dashboard, Supporting Faster Understanding Of User Behavior. Consolidated And Transformed Raw Data From Multiple Sources Into Clear, Actionable Information For Better Decisions. Keywords: Python, Spark, Kafka, Cassandra, Super"
     },
     {
       "name": "Super Store Data Pipeline September 2024",
-      "description": "Utilized Snowflake as the Data warehouse, with dbt for Data transformations and Apache Airflow for orchestration."
+      "description": "Developed An Elt Pipeline To Solve A Retail Sales Problem And Answer Business Questions By Analyzing Sales Data. Utilized Snowflake As The Data Warehouse, With Dbt For Data Transformations And Apache Airflow For Orchestration. Built A Dashboard Using Power Bi To Visualize Key Sales Trends And Performance Metrics. Keywords: Python, Airflow, Snowflake, Docker, Power Bi, Dbt, Sql Utilized Snowflake A"
     }
   ],
   "Experience": [],

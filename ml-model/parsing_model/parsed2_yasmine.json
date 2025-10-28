@@ -3,10 +3,10 @@
   "Contact": {
     "email": "yasmine.dhaouadi@esprit.tn",
     "phone": "+216 94098442",
-    "location": "NET, Java",
+    "location": "Net, Java",
     "url": ""
   },
-  "Summary": "LinkedIn | +216 94098442 | yasmine.dhaouadi@esprit.tn domaine. Je suis actuellement a la recherche dun stage de 2 mois pour renforcer et approfondir mes competences. Programming & Frameworks: C, C#, .NET, Java, Spring Boot, JavaScript, TypeScript, Angular, SQL",
+  "Summary": "Domaine. Je Suis Actuellement A La Recherche Dun Stage De 2 Mois Pour Renforcer Et Approfondir Mes Competences. Programming & Frameworks: C, C#, .Net, Java, Spring Boot, Java Script, Type Script, Angular, Sql Cloud & Dev Ops: Azure, Open Stack, Kubernetes, Docker, Ci/Cd, Ansible, Terraform",
   "Skills": [
     "Angular",
     "Ansible",
@@ -14,24 +14,21 @@
     "Ci/Cd",
     "Docker",
     "Java",
-    "Javascript",
     "Kubernetes",
     "Linux",
     "Microservices",
     "Networking",
-    "Openstack",
     "Rest",
     "Spring",
     "Spring Boot",
     "Sql",
     "Terraform",
-    "Typescript",
     "Ubuntu"
   ],
   "Education": [
     {
-      "degree": "Engineering Degree (Expected ) Esprit University",
-      "institution": "Engineering Degree (Expected ) Esprit University",
+      "degree": "Engineering Degree Expected  Esprit University",
+      "institution": "Engineering Degree Expected  Esprit University",
       "duration": "2025"
     },
     {
@@ -42,34 +39,32 @@
   ],
   "Projects": [
     {
-      "name": "Skillswap",
-      "description": "Developed a full-stack web application for skill-sharing and online learning, deployed on a private cloud. Back-end built with Spring Boot, front-end developed using Angular, with integrated AI features. Set up a private cloud infrastructure using OpenStack on Ubuntu. Installed Kubernetes and Docker to containerize and deploy the application. deployed on a private cloud. features."
+      "name": "Skill Swap 2025",
+      "description": "Developed A Full-Stack Web Application For Skill-Sharing And Online Learning, Deployed On A Private Cloud. Back-End Built With Spring Boot, Front-End Developed Using Angular, With Integrated Ai Features. Set Up A Private Cloud Infrastructure Using Open Stack On Ubuntu. Installed Kubernetes And Docker To Containerize And Deploy The Application. Deployed On A Private Cloud. Features."
     },
     {
       "name": "Installed Kubernetes And Docker To Containerize And Deploy The Application.",
-      "description": "Blooder (2024): Created a desktop application in C for managing blood donations. Features include donor registration, appointment scheduling, and real-time inventory tracking for doctors and nurses. Biometric Security System (2024): Simulated a biometric security system using the PIC16F877 microcontroller."
+      "description": "Blooder 2024: Created A Desktop Application In C For Managing Blood Donations. Features Include Donor Registration, Appointment Scheduling, And Real-Time Inventory Tracking For Doctors And Nurses. Biometric Security System 2024: Simulated A Biometric Security System Using The Pic16F877 Microcontroller."
     },
     {
-      "name": "Blooder",
-      "description": "Created a desktop application in C for managing blood donations. Features include donor registration, appointment scheduling, and real-time inventory tracking for doctors and nurses. Biometric Security System (2024): Simulated a biometric security system using the PIC16F877 microcontroller. for doctors and nurses."
+      "name": "Blooder 2024",
+      "description": "Created A Desktop Application In C For Managing Blood Donations. Features Include Donor Registration, Appointment Scheduling, And Real-Time Inventory Tracking For Doctors And Nurses. Biometric Security System 2024: Simulated A Biometric Security System Using The Pic16F877 Microcontroller. For Doctors And Nurses."
     },
     {
-      "name": "Biometric Security System",
-      "description": "Simulated a biometric security system using the PIC16F877 microcontroller. microcontroller."
+      "name": "Biometric Security System 2024",
+      "description": "Simulated A Biometric Security System Using The Pic16F877 Microcontroller. Microcontroller."
     }
   ],
   "Experience": [
     {
       "role": "Network Engineering Intern",
-      "company": "Tunisie Telecom",
+      "company": "",
       "duration": "2024",
-      "location": "",
-      "description": "Diagnosed and resolved issues in fixed-line telephone networks, including installation of new lines. Handled SDH fiber optics, coaxial cables, and microwave transmission technologies. Diagnosed and resolved issues in fixed-line telephone networks, including installation of new lines. Handled SDH fiber optics, coaxial cables, and microwave transmission technologies. Used test desks to identify network faults and manage ADSL upgrade procedures."
+      "location": "Tunisie Telecom",
+      "description": "Diagnosed And Resolved Issues In Fixed-Line Telephone Networks, Including Installation Of New Lines. Handled Sdh Fiber Optics, Coaxial Cables, And Microwave Transmission Technologies. Diagnosed And Resolved Issues In Fixed-Line Telephone Networks, Including Installation Of New Lines. Handled Sdh Fiber Optics, Coaxial Cables, And Microwave Transmission Technologies. Used Test Desks To Identify Network Faults And Manage Adsl Upgrade Procedures."
     }
   ],
-  "Certifications": [
-    "KodeKloud Docker Training Course KodeKloud Kubernetes Challenges"
-  ],
+  "Certifications": [],
   "languages": [
     "Arabic",
     "English",

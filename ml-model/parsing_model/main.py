@@ -52,6 +52,7 @@ def test_model():
             "./cvs_test/Aziz-Mehdi.pdf",
             "./cvs_test/yasmine.pdf",
             "./cvs_test/frosty.pdf",
+            "./cvs_test/elyes.pdf",
             
         ]
         for pdf in pdf_path:

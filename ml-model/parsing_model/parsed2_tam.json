@@ -2,80 +2,85 @@
   "Name": "Tamim Hmizi",
   "Contact": {
     "email": "hmizitamim@hotmail.com",
-    "phone": "+21621611816",
-    "location": "Ariana,Tunisia",
+    "phone": "+216 21 611 816",
+    "location": "Ariana, Tunisia Hmizitamim",
     "url": "linkedin.com/in/tamimhmizi"
   },
-  "Summary": "Ariana,Tunisia | hmizitamim@hotmail.com | +21621611816 | linkedin.com/in/tamimhmizi | github.com/tamim-hmizi FullStackSoftwareEngineerwithafocusonCloud,DevOps,andWeb. Idesignscalableandsecuresystems,",
+  "Summary": "Ariana, Tunisia Hmizitamim@Hotmail.Com +216 21 611 816 Linkedin.Com/In/Tamimhmizi Full Stack Software Engineer With A Focus On Cloud, Dev Ops, And Web. I Design Scalable And Secure Systems, Automate Complex Processes, And Deliver Reliable Digital Solutions That Drive Efficiency And Growth.",
   "Skills": [
     "Angular",
     "Ansible",
     "Aws",
     "Azure",
     "Ci/Cd",
-    "Cloudwatch",
     "Django",
     "Docker",
-    "Dynamodb",
     "Eks",
     "Express.Js",
-    "Fastapi",
     "Gcp",
     "Grafana",
     "Iam",
     "Java",
-    "Javascript",
     "Jenkins",
     "Junit",
+    "K8S",
     "Kubernetes",
     "Linux",
-    "Mongodb",
+    "Microsoft Azure",
     "Next.Js",
-    "Openstack",
-    "Prometheus"
+    "Prometheus",
+    "Python",
+    "React",
+    "Spring",
+    "Spring Boot"
   ],
   "Education": [
     {
-      "degree": "Softwareengineeringdegree,Espritariana,Tunisia Sepaug",
-      "institution": "Softwareengineeringdegree,Espritariana,Tunisia Sepaug",
-      "duration": "2020"
+      "degree": "Software Engineering Degree, Esprit Ariana, Tunisia",
+      "institution": "Software Engineering Degree, Esprit Ariana, Tunisia",
+      "duration": "Sep 2020"
     }
   ],
-  "Projects": [],
+  "Projects": [
+    {
+      "name": "Dev Ops Pipeline Automation Sep 2024 Nov 2024",
+      "description": "Ci/Cd For Spring Boot With Maven, Nexus, Sonar Qube, Docker, Kubernetes, Terraform, J Unit, Mockito, Prometheus, Grafana. Open Stack + Kubernetes With Dev Ops Oct 2023 Apr 2024 Provisioned Open Stack Infra; Deployed Kubernetes Via Ansible/Terraform; Hosted Angular/Spring Boot Apps On Ubuntu V Ms. Ci/Cd For Spring Boot With Maven, Nexus, Sonar Qube, Docker, Kubernetes, Terraform, J Unit, Mockito, P"
+    }
+  ],
   "Experience": [
     {
-      "role": "Pfeinterndevopsplatformengineerrfcarianatunisia Febaug",
+      "role": "Pfe Intern Dev Ops Platform Engineer",
       "company": "",
-      "duration": "2025",
-      "location": "",
-      "description": "Builtanauto-provisioningplatform(React,Express.js,MongoDB,FastAPI)integratingGitHubAPIanalysisand Builtanauto-provisioningplatform(React,Express.js,MongoDB,FastAPI)integratingGitHubAPIanalysisand ImplementedanintelligentK8s/VMrecommendationengine;automatedprovisioningwithJenkins,Terraform, Ansible,Docker,Nexus. Establishedquality&securitygateswithSonarQubeandTrivy;addedmonitoring/alertingwithPrometheus&"
+      "duration": "Feb 2025",
+      "location": "Rfc Ariana, Tunisia",
+      "description": "Built An Auto-Provisioning Platform React, Express.Js, Mongo Db, Fast Api Integrating Git Hub Api Analysis And Built An Auto-Provisioning Platform React, Express.Js, Mongo Db, Fast Api Integrating Git Hub Api Analysis And Implemented An Intelligent K8S/Vm Recommendation Engine; Automated Provisioning With Jenkins, Terraform, Ansible, Docker, Nexus. Established Quality & Security Gates With Sonar Qube And Trivy; Added Monitoring/Alerting With Prometheus &"
     },
     {
-      "role": "Fullstackengineerclouddevopswebrfcarianatunisia Julaug",
-      "company": "",
-      "duration": "2024",
-      "location": "",
-      "description": "Developedcloud-nativeapplicationswithNext.jsonAWS(IAM,EKS,ECR,DynamoDB,CloudWatch). AutomatedCI/CDwithJenkins,Terraform,Docker,andGitHubActions. Developedcloud-nativeapplicationswithNext.jsonAWS(IAM,EKS,ECR,DynamoDB,CloudWatch). AutomatedCI/CDwithJenkins,Terraform,Docker,andGitHubActions."
+      "role": "Full Stack Engineer Cloud",
+      "company": "Dev Ops Web",
+      "duration": "Jul 2024",
+      "location": "Rfc Ariana, Tunisia",
+      "description": "Developed Cloud-Native Applications With Next.Js On Aws Iam, Eks, Ecr, Dynamo Db, Cloud Watch. Automated Ci/Cd With Jenkins, Terraform, Docker, And Git Hub Actions. Developed Cloud-Native Applications With Next.Js On Aws Iam, Eks, Ecr, Dynamo Db, Cloud Watch. Automated Ci/Cd With Jenkins, Terraform, Docker, And Git Hub Actions."
     },
     {
-      "role": "Webdeveloperespritarianatunisia Julaug",
+      "role": "Web Developer",
       "company": "",
-      "duration": "2023",
-      "location": "",
-      "description": "Builtasearch-enginestylewebappusingtheMERNstack. ImplementedPython-basedwebscrapingforautomateddataingestion. Builtasearch-enginestylewebappusingtheMERNstack. ImplementedPython-basedwebscrapingforautomateddataingestion."
+      "duration": "Jul 2023",
+      "location": "Esprit Ariana, Tunisia",
+      "description": "Built A Search-Engine Style Web App Using The Mern Stack. Implemented Python-Based Web Scraping For Automated Data Ingestion. Built A Search-Engine Style Web App Using The Mern Stack. Implemented Python-Based Web Scraping For Automated Data Ingestion."
     },
     {
-      "role": "Networkengineerc-Noctunisietelecomtunistunisia Augsep",
+      "role": "Network Engineer C-Noc",
       "company": "",
-      "duration": "2021",
-      "location": "",
-      "description": "ProvidedB2Bnetworksupportandmaintenance;monitoredlinksandresolvedconnectivityincidents. ProvidedB2Bnetworksupportandmaintenance;monitoredlinksandresolvedconnectivityincidents."
+      "duration": "Aug 2021",
+      "location": "Tunisie Telecom Tunis, Tunisia",
+      "description": "Provided B2B Network Support And Maintenance; Monitored Links And Resolved Connectivity Incidents. Provided B2B Network Support And Maintenance; Monitored Links And Resolved Connectivity Incidents."
     }
   ],
   "Certifications": [
-    "AWSCertifiedSolutionsArchitectAssociateAWS/Coursera",
-    "IntroductiontoAnsibleRedHat/Coursera",
-    "MicrosoftAzureFundamentals AZ-900 Microsoft/Coursera"
+    "AWS Certified Solutions Architect Associate AWS / Coursera",
+    "Introduction To Red Hat / Coursera",
+    "Microsoft Azure Fundamentals AZ-900 Microsoft / Coursera"
   ],
   "languages": [
     "Arabic",

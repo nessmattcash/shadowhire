@@ -3,10 +3,10 @@
   "Contact": {
     "email": "azizmehdii21@gmail.com",
     "phone": "+216 28 285 576",
-    "location": "DevOps practices, and AI",
+    "location": "Dev Ops Practices, And Ai",
     "url": ""
   },
-  "Summary": "Cloud Engineer, DevOps & AI enthousiast at Esprit, passionate about cloud computing, DevOps practices, and AI. Skilled in building scalable solutions, solving complex problems, and innovating with modern cloud and AI technologies.",
+  "Summary": "Cloud Engineer, Dev Ops & Ai Enthousiast At Esprit, Passionate About Cloud Computing, Dev Ops Practices, And Ai. Skilled In Building Scalable Solutions, Solving Complex Problems, And Innovating With Modern Cloud And Ai Technologies.",
   "Skills": [
     "Angular",
     "Ansible",
@@ -22,7 +22,6 @@
     "Eks",
     "Flask",
     "Flutter",
-    "Gin",
     "Grafana",
     "Java",
     "Javascript",
@@ -30,41 +29,42 @@
     "Kubernetes",
     "Linux",
     "Microservices",
-    "Mongodb",
-    "Mysql",
-    "Next.Js"
+    "Next.Js",
+    "Nginx",
+    "Nlp",
+    "Openstack"
   ],
   "Education": [
     {
-      "degree": "Cloud And Computer Science Student",
-      "institution": "Ai",
+      "degree": "Cloud And Computer Science Student Ai",
+      "institution": "Esprit September 2023 - Present",
       "duration": ""
     },
     {
       "degree": "Computer Science Computer Sciences Engineering",
-      "institution": "Faculty Of Science Manar (Fst) September 2022 - June 2023",
+      "institution": "Faculty Of Science Manar Fst September 2022 - June 2023",
       "duration": ""
     },
     {
-      "degree": "Higher Institute Of Applied Sciences And Technology Mahdia  -",
-      "institution": "Higher Institute Of Applied Sciences And Technology Mahdia  -",
-      "duration": "September 2020"
+      "degree": "Maths Physics Preparatory Cycle",
+      "institution": "",
+      "duration": ""
     }
   ],
   "Projects": [],
   "Experience": [],
   "Certifications": [
+    "Configured Docker",
     "Docker",
-    "Fundamentals Of Deep Learning",
     "Kubernetes",
-    "Native Professional Platform 2023 - 2024",
-    "Nvidia DLI"
+    "Native Professional",
+    "Nvidia DLI",
+    "Professional"
   ],
   "languages": [
     "Arabic",
     "English",
-    "French",
-    "Spanish"
+    "French"
   ],
   "Interests": []
 }

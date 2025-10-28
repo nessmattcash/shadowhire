@@ -1,0 +1,101 @@
+{
+  "Name": "Ilyes Kouki Amri",
+  "Contact": {
+    "email": "elyes1kouki@gmail.com",
+    "phone": "21235517",
+    "location": "Genie Informatique, Ecole Nationale Superieure",
+    "url": ""
+  },
+  "Summary": "Genie Informatique, Ecole Nationale Superieure D'Ingenieurs De Tunis Ensit Cycle Preparatoire Mp, Faculte Des Sciences De Tunis",
+  "Skills": [
+    "Angular",
+    "Aws",
+    "Azure",
+    "Bootstrap",
+    "C++",
+    "Css",
+    "Dhcp",
+    "Dns",
+    "Docker",
+    "Express.Js",
+    "Firebase",
+    "Flask",
+    "Html",
+    "Ids",
+    "Ionic",
+    "Ips",
+    "Java",
+    "Jest",
+    "Machine Learning",
+    "Microsoft Azure",
+    "Node.Js",
+    "Php",
+    "Python",
+    "React",
+    "Sass"
+  ],
+  "Education": [
+    {
+      "degree": "Genie Informatique, Ecole Nationale Superieure",
+      "institution": "",
+      "duration": ""
+    },
+    {
+      "degree": "D'Ingenieurs De Tunis Ensit",
+      "institution": "D'Ingenieurs De Tunis Ensit",
+      "duration": ""
+    },
+    {
+      "degree": "Cycle Preparatoire Mp, Faculte Des Sciences De Tunis",
+      "institution": "",
+      "duration": ""
+    }
+  ],
+  "Projects": [
+    {
+      "name": "Developpement Dune Application Mobile Pour",
+      "description": "Front:Html, Css, Java Script, Type Script, Cabinet Medical : Rendez-Vous, Documents Bootstrap, Sass, Angular, React, Pug.Js Medicaux, Historique, Consultations, Notifications Et Backend:Php, Node.Js, Express.Js, Flask"
+    },
+    {
+      "name": "Cabinet Medical",
+      "description": "Rendez-Vous, Documents Bootstrap, Sass, Angular, React, Pug.Js Medicaux, Historique, Consultations, Notifications Et Backend:Php, Node.Js, Express.Js, Flask Authentification Securisee. Base De Donnees:My Sql, Mongo Db Bootstrap, Sass, Angular, React, Pug.Js Medicaux, Historique, Consultations, Notifications Et"
+    },
+    {
+      "name": "Backend",
+      "description": "Php, Node.Js, Express.Js, Flask Authentification Securisee. Base De Donnees:My Sql, Mongo Db Test:Jest Application De Gestion De Pharmacie Developpement Dune Application Java Fx Pour Gerer Authentification Securisee."
+    },
+    {
+      "name": "Base De Donnees",
+      "description": "My Sql, Mongo Db Test:Jest Application De Gestion De Pharmacie Developpement Dune Application Java Fx Pour Gerer Programmation Medicaments, Clients, Commandes Et Stock Avec Une C,C++,Java,Python Interface Ergonomique."
+    },
+    {
+      "name": "De Gestion De Pharmacie",
+      "description": "Developpement Dune Application Java Fx Pour Gerer Programmation Medicaments, Clients, Commandes Et Stock Avec Une C,C++,Java,Python Interface Ergonomique. Mobilie Application De Reservation De Stade Ionic Application Web Pour Reserver Des Terrains,"
+    },
+    {
+      "name": "Developpement Dune Application Java Fx Pour Gerer",
+      "description": "Programmation Medicaments, Clients, Commandes Et Stock Avec Une C,C++,Java,Python Interface Ergonomique. Mobilie Application De Reservation De Stade Ionic Application Web Pour Reserver Des Terrains, Consulter Les Disponibilites Et Gerer Les Reservations Programmation Medicaments, Clients, Commandes Et Stock Avec Une C,C++,Java,Python Interface Ergonomique."
+    },
+    {
+      "name": "Mobilie Application De Reservation De Stade",
+      "description": "Ionic Application Web Pour Reserver Des Terrains, Consulter Les Disponibilites Et Gerer Les Reservations Avec Espace Utilisateur Et Interface Dadministration. Cloud & Dev Ops Microsoft Azure, Aws, Docker, Github,"
+    },
+    {
+      "name": "Ionic Application Web Pour Reserver Des Terrains,",
+      "description": "Consulter Les Disponibilites Et Gerer Les Reservations Avec Espace Utilisateur Et Interface Dadministration. Cloud & Dev Ops Microsoft Azure, Aws, Docker, Github, Mise En Place Dune Infrastructure Securisee Consulter Les Disponibilites Et Gerer Les Reservations Avec Espace Utilisateur Et Interface Dadministration. Cloud & Dev Ops"
+    }
+  ],
+  "Experience": [],
+  "Certifications": [
+    "AWS Machine Learning",
+    "Cisco CCN",
+    "Microsoft Azure AWS Docker Github"
+  ],
+  "languages": [
+    "Arabic",
+    "English",
+    "French",
+    "German"
+  ],
+  "Interests": []
+}

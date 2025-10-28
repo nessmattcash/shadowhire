@@ -339,38 +339,35 @@ from transformers import pipeline
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def clean_line(line: str) -> str:
-    """Clean and normalize a line of text"""
-    if not line or not isinstance(line, str):
-        return ""
-    
-    # Normalize unicode
-    line = normalize('NFKD', line).encode('ASCII', 'ignore').decode('ASCII')
-    
-    # Remove special characters and excessive whitespace
-    line = re.sub(r'[\uf0b7\uf076\uf09f•●◦▪\t●•▪○∙\u00a0]', ' ', line)
-    line = re.sub(r'\s+', ' ', line).strip()
-    
-    return line
 
 def extract_text_from_pdf(path: str) -> str:
-    """Extract text from PDF with focus on content"""
+    """Extract text from PDF with aggressive space handling"""
     try:
         with pdfplumber.open(path) as pdf:
             text = ""
             for page in pdf.pages:
-                page_text = page.extract_text(layout=True)
+                # Use more aggressive space detection
+                page_text = page.extract_text(
+                    layout=True, 
+                    x_tolerance=1,  # Reduced tolerance to detect more spaces
+                    y_tolerance=1,
+                    keep_blank_chars=False
+                )
                 if page_text:
+                    # Apply basic space fixing
+                    page_text = re.sub(r'([a-z])([A-Z])', r'\1 \2', page_text)
                     text += page_text + "\n"
             
-            if not text.strip():
+            if not text.strip() or len(text.strip()) < 50:
                 text = pdfminer_extract(path)
+                text = re.sub(r'([a-z])([A-Z])', r'\1 \2', text)
             
             return text.strip()
     except Exception as e:
         logging.error(f"PDF extraction failed for {path}: {e}")
-        return pdfminer_extract(path)
-
+        text = pdfminer_extract(path)
+        text = re.sub(r'([a-z])([A-Z])', r'\1 \2', text)
+        return text.strip()
 def extract_contact_info(raw_text: str) -> Dict[str, str]:
     """ULTIMATE contact info extraction with better filtering"""
     # Extract emails

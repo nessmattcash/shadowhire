@@ -1,24 +1,24 @@
 {
   "Name": "Jaouani Walid",
   "Contact": {
-    "email": "bouhari@hat-websecurity.com",
+    "email": "faten.meziou@defensy.io",
     "phone": "+216 55 996 528",
     "location": "Present, Ghazela",
     "url": "netlify.app"
   },
-  "Summary": "InfoSec Enthusiast | Ethical Hacker | CTF/HTB Player Enthusiastic and passionate about cybersecurity and software, regularly tackling CTFs and HTB challenges. Eager to contribute and constantly push my limits in these fields. Seeking a dynamic position in Cybersecurity.",
+  "Summary": "Info Sec Enthusiast Ethical Hacker Ctf/Htb Player Enthusiastic And Passionate About Cybersecurity And Software, Regularly Tackling Ct Fs And Htb Challenges. Eager To Contribute And Constantly Push My Limits In These Fields. Seeking A Dynamic Position In Cybersecurity.",
   "Skills": [
     "Asp.Net",
     "Azure",
     "Azure Devops",
     "C++",
     "Cybersecurity",
-    "Devsecops",
     "Django",
     "Encryption",
     "Java",
     "Netlify",
     "Network Security",
+    "Oci",
     "Penetration Testing",
     "Persistence",
     "Php",
@@ -38,28 +38,24 @@
   ],
   "Projects": [
     {
-      "name": "Pi Security (01/2023",
-      "description": "English (B2) Building and configuring a next generation SOC Architecture for a health administration by following HIPPA. Full Professional Proficiency Implement Monitoring, Defense in Depth, Endpoint and Network detection and Orchestration and automation of IR. Splunk Mini SOC Project (10/2022 - 12/2022) Full Professional Proficiency"
+      "name": "Pi Security 01/2023",
+      "description": "English B2 Building And Configuring A Next Generation Soc Architecture For A Health Administration By Following Hippa. Full Professional Proficiency Implement Monitoring, Defense In Depth, Endpoint And Network Detection And Orchestration And Automation Of Ir. Splunk Mini Soc Project 10/2022 - 12/2022 English B2 Full Professional Proficiency"
     },
     {
-      "name": "Splunk Mini Soc Project (10/2022",
-      "description": "INTERESTS Create a small SOC using Splunk to detect attacks on a windows machine, simulate a malware attack and interpret"
+      "name": "Splunk Mini Soc Project 10/2022",
+      "description": "Interests Create A Small Soc Using Splunk To Detect Attacks On A Windows Machine, Simulate A Malware Attack And Interpret"
     },
     {
-      "name": "Pidev Project (01/2022",
-      "description": "Guitar Playing / Music Create A platform project that contains a website (Symfony PHP), a mobile application (Codename one Java) and a Desktop application (JavaFx). Guitar Playing / Music"
-    },
-    {
-      "name": "Create A Platform Project That Contains A Website",
-      "description": "Symfony PHP), a mobile application (Codename one Java) and a Desktop application (JavaFx)."
+      "name": "Pidev Project 01/2022",
+      "description": "Guitar Playing / Music Create A Platform Project That Contains A Website Symfony Php, A Mobile Application Codename One Java And A Desktop Application Java Fx. Guitar Playing / Music"
     }
   ],
   "Experience": [],
   "Certifications": [
     "Cisco CCNA Network Security 1.0 03/2023 - 03/2025",
-    "Cisco CyberOps Associate 06/2023 - 06/2025",
+    "Cisco Cyber Ops Associate 06/2023 - 06/2025",
     "Cisco Cyberops Associate Badge ESPRIT",
-    "Cisco DevNet Badge Mr Mark Francis",
+    "Cisco Dev Net Badge Mr Mark Francis",
     "Cisco Devnet Associate 06/2023 - 06/2025"
   ],
   "languages": [
