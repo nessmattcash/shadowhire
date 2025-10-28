@@ -22,6 +22,7 @@
     "Eks",
     "Flask",
     "Flutter",
+    "Gin",
     "Grafana",
     "Java",
     "Javascript",
@@ -31,8 +32,7 @@
     "Microservices",
     "Mongodb",
     "Mysql",
-    "Next.Js",
-    "Nginx"
+    "Next.Js"
   ],
   "Education": [
     {
@@ -54,9 +54,11 @@
   "Projects": [],
   "Experience": [],
   "Certifications": [
-    "Ansible, Prometheus, Grafana, MLflow, Azure",
-    "Native Professional (B2) Blood Donation Platform September",
-    "Professional (B2) Beginner A Desktop Application Programmed"
+    "Docker",
+    "Fundamentals Of Deep Learning",
+    "Kubernetes",
+    "Native Professional Platform 2023 - 2024",
+    "Nvidia DLI"
   ],
   "languages": [
     "Arabic",

@@ -72,7 +72,11 @@
       "description": "ProvidedB2Bnetworksupportandmaintenance;monitoredlinksandresolvedconnectivityincidents. ProvidedB2Bnetworksupportandmaintenance;monitoredlinksandresolvedconnectivityincidents."
     }
   ],
-  "Certifications": [],
+  "Certifications": [
+    "AWSCertifiedSolutionsArchitectAssociateAWS/Coursera",
+    "IntroductiontoAnsibleRedHat/Coursera",
+    "MicrosoftAzureFundamentals AZ-900 Microsoft/Coursera"
+  ],
   "languages": [
     "Arabic",
     "English",

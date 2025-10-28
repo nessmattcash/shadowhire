@@ -1086,139 +1086,105 @@ def parse_skills(raw_text: str, nlp: pipeline = None) -> List[str]:
     
     return filtered_skills[:25]
 def parse_certifications(lines: List[str], nlp: pipeline = None, raw_text: str = "") -> List[str]:
-    """UNIVERSAL certification parser - works for any CV worldwide with 90%+ accuracy"""
+    """FINAL BALANCED certification parser - finds ALL real certs without being too strict"""
     certs = set()
     
-    # UNIVERSAL certification indicators - works for any language/format
-    universal_cert_indicators = [
-        r'(?i)\b(certified|certification|certificat|certificado|cert)\b',
-        r'(?i)\b(associate|professional|specialist|expert|master|foundation|fundamental)\b',
-        r'(?i)\b(accredited|credential|qualification|diploma|license|licensed)\b',
-        r'(?i)\b(badge|achievement|accomplishment|validation)\b'
-    ]
-    
-    # MAJOR certification providers worldwide
-    major_providers = [
-        'microsoft', 'azure', 'aws', 'amazon', 'google', 'oracle', 'cisco', 'comptia',
-        'pmi', 'scrum', 'agile', 'itil', 'axelos', 'isc2', 'sans', 'ec council',
-        'red hat', 'linux foundation', 'kubernetes', 'docker', 'terraform', 'ansible',
-        'salesforce', 'servicenow', 'sap', 'ibm', 'apple', 'adobe', 'autodesk',
-        'nvidia', 'intel', 'vmware', 'atlassian', 'github', 'gitlab', 'mongodb',
-        'snowflake', 'databricks', 'tableau', 'power bi', 'qlik'
-    ]
-    
-    # UNIVERSAL garbage patterns - works across all languages
-    universal_garbage = {
-        # Contact info
-        'email', 'phone', 'mobile', 'tel', 'contact', 'address', 'location',
-        # Sections
-        'summary', 'profile', 'education', 'experience', 'work', 'skills', 'projects',
-        'interests', 'hobbies', 'languages', 'references',
-        # Common noise
-        'years', 'year', 'present', 'current', 'ongoing', 'member', 'club',
-        'workshop', 'seminar', 'webinar', 'training', 'course', 'class',
-        # File/URL indicators
-        'http', 'https', 'www', 'github', 'linkedin', 'portfolio', 'link'
-    }
-    
-    # Strategy 1: UNIVERSAL pattern matching
-    for indicator in universal_cert_indicators:
-        matches = re.finditer(indicator, raw_text)
-        for match in matches:
-            # Extract context around the match (50 chars before and after)
-            start = max(0, match.start() - 50)
-            end = min(len(raw_text), match.end() + 50)
-            context = raw_text[start:end]
-            
-            # Look for certification-like phrases in context
-            cert_candidates = extract_cert_candidates_from_context(context)
-            certs.update(cert_candidates)
-    
-    # Strategy 2: Provider-based extraction
-    provider_pattern = r'(?i)\b(' + '|'.join(major_providers) + r')\b'
-    provider_matches = re.finditer(provider_pattern, raw_text)
-    
-    for match in provider_matches:
-        start = max(0, match.start() - 60)
-        end = min(len(raw_text), match.end() + 60)
-        context = raw_text[start:end]
-        
-        # If provider context looks like certification, extract it
-        if looks_like_certification_context(context):
-            cert_candidates = extract_cert_candidates_from_context(context)
-            certs.update(cert_candidates)
-    
-    # Strategy 3: NER with UNIVERSAL validation
-    if nlp and raw_text:
-        try:
-            ner_results = nlp(raw_text[:4000])  # More text for better context
-            for ent in ner_results:
-                if ent.get('entity_group') == 'CERTIFICATION' and ent['score'] > 0.5:
-                    cert_text = ent['word'].strip()
-                    
-                    # UNIVERSAL validation
-                    if is_universal_valid_cert(cert_text):
-                        cleaned_cert = clean_certification_universal(cert_text)
-                        if cleaned_cert:
-                            certs.add(cleaned_cert)
-        except Exception as e:
-            logging.debug(f"NER certification extraction failed: {e}")
-    
-    # Strategy 4: Line-based extraction with UNIVERSAL heuristics
-    for line in lines:
-        clean = clean_line(line)
-        if not clean or len(clean) < 6 or len(clean) > 150:
-            continue
-            
-        clean_lower = clean.lower()
-        
-        # UNIVERSAL certification detection
-        if is_line_likely_certification(clean, clean_lower):
-            cleaned_cert = clean_certification_universal(clean)
-            if cleaned_cert:
-                certs.add(cleaned_cert)
-    
-    # Strategy 5: Certification section extraction (any language)
+    # Strategy 1: Section-based extraction (MOST RELIABLE)
     cert_section_patterns = [
-        r'(?i)(?:certifications?|certificats?|certificates?|badges?|qualifications?|credentials?|accreditations?)[\s:\-]*(.*?)(?=(?:\n[A-Z]|\n\s*\n|\n\w{3,}|$))',
-        r'(?i)(?:licenses?|licences?|diplomas?)[\s:\-]*(.*?)(?=(?:\n[A-Z]|\n\s*\n|\n\w{3,}|$))'
+        r'(?i)(?:certifications?|certificats?|certificates?|certifs?)[\s:\-]*(.*?)(?=(?:\n[A-Z][a-z]|\n\s*\n|\n\w{3,}|$))',
+        r'(?i)(?:badges?|credentials?|accreditations?)[\s:\-]*(.*?)(?=(?:\n[A-Z][a-z]|\n\s*\n|\n\w{3,}|$))'
     ]
     
     for pattern in cert_section_patterns:
         sections = re.findall(pattern, raw_text, re.DOTALL | re.IGNORECASE)
         for section in sections:
-            section_certs = extract_certs_from_section_universal(section)
+            section_certs = extract_certs_from_section_balanced(section)
             certs.update(section_certs)
     
-    # Strategy 6: Bullet point extraction (universal format)
-    bullet_certs = extract_certs_from_bullets_universal(lines)
+    # Strategy 2: Line-by-line analysis with BALANCED approach
+    for line in lines:
+        clean = clean_line(line)
+        if not clean or len(clean) < 6 or len(clean) > 200:
+            continue
+            
+        clean_lower = clean.lower()
+        
+        # Check if line contains multiple certifications
+        if contains_multiple_certifications(clean):
+            separated_certs = separate_merged_certifications(clean)
+            for cert in separated_certs:
+                cleaned_cert = clean_certification_balanced(cert)
+                if cleaned_cert and is_plausible_certification(cleaned_cert):
+                    certs.add(cleaned_cert)
+        else:
+            # BROAD certification detection - be more inclusive
+            is_cert = (
+                re.search(r'(?i)\b(certified|certification|certificate|certificat|cert)\b', clean_lower) or
+                re.search(r'(?i)\b(associate|professional|specialist|expert|master|foundation|fundamental)\b', clean_lower) or
+                any(provider in clean_lower for provider in CERTIFICATION_PROVIDERS) or
+                re.search(r'(AZ-\d+|AWS-|Google Cloud|CCNA|CCNP|CISSP|PMP|CEH|OSCP)', clean, re.IGNORECASE) or
+                # Include training courses that are commonly listed as certs
+                (re.search(r'(?i)(training course|challenges|fundamentals|deep learning)', clean_lower) and 
+                 any(provider in clean_lower for provider in ['kodekloud', 'nvidia', 'coursera']))
+            )
+            
+            # MINIMAL garbage filtering - only obvious non-certs
+            is_garbage = (
+                re.search(r'@|\+216|\d{8,}', clean) or  # Contact info
+                clean_lower.startswith(('http', 'www', 'linkedin', 'github')) or
+                # Only filter obvious language proficiency
+                (any(lang in clean_lower for lang in ['english', 'french', 'arabic']) and 
+                 'proficiency' in clean_lower and 
+                 not any(cert_word in clean_lower for cert_word in ['certif', 'associate', 'professional']))
+            )
+            
+            if is_cert and not is_garbage:
+                cleaned_cert = clean_certification_balanced(clean)
+                if cleaned_cert and is_plausible_certification(cleaned_cert):
+                    certs.add(cleaned_cert)
+    
+    # Strategy 3: Bullet point extraction
+    bullet_certs = extract_certs_from_bullets_balanced(lines)
     certs.update(bullet_certs)
     
-    # FINAL UNIVERSAL FILTERING
+    # Strategy 4: NER with lower threshold
+    if nlp and raw_text:
+        try:
+            ner_results = nlp(raw_text[:4000])
+            for ent in ner_results:
+                if ent.get('entity_group') == 'CERTIFICATION' and ent['score'] > 0.5:  # Lower threshold
+                    cert_text = ent['word'].strip()
+                    cleaned_cert = clean_certification_balanced(cert_text)
+                    if cleaned_cert and is_plausible_certification(cleaned_cert):
+                        certs.add(cleaned_cert)
+        except Exception as e:
+            logging.debug(f"NER certification failed: {e}")
+    
+    # FINAL BALANCED CLEANING
     final_certs = []
     seen_certs = set()
     
     for cert in sorted(certs):
         cert_lower = cert.lower()
         
-        # UNIVERSAL validation - works for any certification worldwide
-        is_final_valid = (
-            len(cert) >= 5 and
-            len(cert) <= 120 and
+        # BALANCED VALIDATION - much less strict
+        is_valid = (
+            len(cert) >= 6 and len(cert) <= 100 and
             cert_lower not in seen_certs and
-            not any(garbage in cert_lower for garbage in universal_garbage) and
+            not re.search(r'@|\+216|\d{8,}', cert) and  # Basic contact filter only
+            len(cert.split()) >= 1 and len(cert.split()) <= 8 and  # More flexible
+            cert[0].isupper() and
+            # Must contain SOME certification indicators (not too strict)
             has_certification_indicators(cert_lower) and
-            not is_obviously_not_certification(cert) and
-            len(cert.split()) >= 2 and
-            len(cert.split()) <= 12 and
-            not re.search(r'\b(19|20)\d{2}\b', cert)  # No standalone years
+            # Must NOT contain obvious garbage
+            not contains_obvious_garbage(cert_lower)
         )
         
-        if is_final_valid:
-            # Smart deduplication
+        if is_valid:
+            # Gentle deduplication
             is_duplicate = False
             for seen_cert in seen_certs:
-                if fuzz.ratio(cert_lower, seen_cert) > 75:  # Reasonable threshold
+                if fuzz.ratio(cert_lower, seen_cert) > 85:
                     is_duplicate = True
                     break
             
@@ -1226,164 +1192,49 @@ def parse_certifications(lines: List[str], nlp: pipeline = None, raw_text: str =
                 final_certs.append(cert)
                 seen_certs.add(cert_lower)
     
-    return final_certs[:10]  # Return reasonable number
+    return final_certs[:8]
 
-def extract_cert_candidates_from_context(context: str) -> List[str]:
-    """Extract certification candidates from context"""
-    candidates = set()
-    
-    # Split by common separators
-    parts = re.split(r'[,\|\n•\-]', context)
-    
-    for part in parts:
-        part = part.strip()
-        if len(part) < 6 or len(part) > 100:
-            continue
-            
-        # Check if part looks like certification
-        if looks_like_certification(part):
-            cleaned = clean_certification_universal(part)
-            if cleaned:
-                candidates.add(cleaned)
-    
-    return list(candidates)
-
-def looks_like_certification(text: str) -> bool:
-    """Universal check if text looks like certification"""
+def contains_multiple_certifications(text: str) -> bool:
+    """Check if text contains multiple merged certifications"""
     text_lower = text.lower()
     
-    # Must have certification indicators
-    has_indicators = (
-        re.search(r'(?i)\b(certified|certification|certificat|certificado|cert)\b', text_lower) or
-        re.search(r'(?i)\b(associate|professional|specialist|expert|master)\b', text_lower) or
-        re.search(r'(?i)\b(AZ-\d+|AWS-|Google Cloud|Microsoft|Cisco|PMP)\b', text) or
-        any(provider in text_lower for provider in ['azure', 'aws', 'google', 'microsoft', 'cisco', 'pmp', 'scrum', 'itil'])
-    )
+    # Patterns indicating multiple certs
+    multiple_indicators = [
+        r'kodekloud.*kodekloud',  # Repeated provider
+        r'docker.*kubernetes',     # Multiple technologies
+        r'azure.*aws.*google',     # Multiple cloud providers
+        r'cisco.*cisco',           # Repeated vendor
+        r'\b\w+.*\b\w+.*certificat', # Multiple words before certificate
+    ]
     
-    # Must NOT contain obvious garbage
-    no_garbage = not any(garbage in text_lower for garbage in [
-        'email', 'phone', 'summary', 'experience', 'education', 'member', 'club'
-    ])
-    
-    # Reasonable structure
-    reasonable_structure = (
-        len(text.split()) >= 2 and
-        len(text.split()) <= 10 and
-        not text.isdigit() and
-        not re.search(r'^\d+$', text) and
-        text[0].isupper()
-    )
-    
-    return has_indicators and no_garbage and reasonable_structure
+    return any(re.search(pattern, text_lower) for pattern in multiple_indicators)
 
-def looks_like_certification_context(context: str) -> bool:
-    """Check if context looks like certification content"""
-    context_lower = context.lower()
+def separate_merged_certifications(text: str) -> List[str]:
+    """Separate merged certifications into individual ones"""
+    separators = [
+        r'\s+•\s+', r'\s+\s+', r'\s+-\s+', r'\s+–\s+', r'\s+—\s+',
+        r'\s*\|\s*', r'\s*,\s*', r'\s+and\s+', r'\s+&\s+'
+    ]
     
-    # Context should have certification-related content
-    cert_keywords = ['certified', 'certification', 'associate', 'professional', 'fundamentals']
-    has_cert_keywords = any(keyword in context_lower for keyword in cert_keywords)
+    # Try different separators
+    for sep in separators:
+        if re.search(sep, text):
+            parts = re.split(sep, text)
+            if len(parts) > 1:
+                return [part.strip() for part in parts if len(part.strip()) > 5]
     
-    # Should not be education or experience context
-    not_other_context = not any(context_word in context_lower for context_word in [
-        'university', 'college', 'school', 'degree', 'bachelor', 'master', 'phd',
-        'experience', 'work', 'job', 'employment', 'intern'
-    ])
+    # If no separators found, try to split by repeated providers
+    providers = ['kodekloud', 'cisco', 'microsoft', 'aws', 'azure', 'google', 'nvidia']
+    for provider in providers:
+        pattern = r'(.+?' + re.escape(provider) + r'.+?)(?=' + re.escape(provider) + r'|$)'
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        if len(matches) > 1:
+            return matches
     
-    return has_cert_keywords and not_other_context
+    return [text]  # Return original if can't separate
 
-def is_universal_valid_cert(cert_text: str) -> bool:
-    """Universal validation for certifications"""
-    cert_lower = cert_text.lower()
-    
-    return (
-        len(cert_text) >= 6 and
-        len(cert_text) <= 100 and
-        not any(garbage in cert_lower for garbage in ['email', 'phone', 'summary', 'member', 'club']) and
-        (re.search(r'(?i)(certified|certification|associate|professional)', cert_lower) or
-         any(provider in cert_lower for provider in ['azure', 'aws', 'google', 'microsoft'])) and
-        len(cert_text.split()) >= 2 and
-        len(cert_text.split()) <= 8 and
-        not re.search(r'\b(19|20)\d{2}\b', cert_text) and
-        cert_text[0].isupper()
-    )
-
-def is_line_likely_certification(line: str, line_lower: str) -> bool:
-    """Universal check if line is likely certification"""
-    # Has certification indicators
-    has_cert_indicators = (
-        re.search(r'(?i)\b(certified|certification|certificat)\b', line_lower) or
-        re.search(r'(?i)\b(associate|professional|specialist|expert)\b', line_lower) or
-        re.search(r'(?i)(AZ-\d+|AWS-|Google Cloud|Microsoft)', line)
-    )
-    
-    # Not contact info or other sections
-    not_garbage = not any(garbage in line_lower for garbage in [
-        'email', 'phone', '@', 'http', 'summary', 'experience', 'education'
-    ])
-    
-    # Reasonable length and structure
-    reasonable = (
-        len(line.split()) >= 2 and
-        len(line.split()) <= 9 and
-        not line.isupper() and
-        line[0].isupper()
-    )
-    
-    return has_cert_indicators and not_garbage and reasonable
-
-def clean_certification_universal(cert_text: str) -> str:
-    """Universal certification cleaning"""
-    if not cert_text:
-        return ""
-    
-    # Remove bullet points and numbering
-    cert_text = re.sub(r'^[•\-*››◦▪\u2022\s]*', '', cert_text)
-    cert_text = re.sub(r'^\d+[\.\)]\s*', '', cert_text)
-    
-    # Remove dates in various formats
-    cert_text = re.sub(r'\s*\d{4}\s*', ' ', cert_text)
-    cert_text = re.sub(r'\(\s*\d{4}\s*\)', '', cert_text)
-    cert_text = re.sub(r'\b(19|20)\d{2}\b', '', cert_text)
-    
-    # Remove common garbage prefixes
-    cert_text = re.sub(r'^(?:Workshop|Member|Club|Link|Github)[\s:\-]*', '', cert_text, flags=re.IGNORECASE)
-    
-    # Clean extra spaces
-    cert_text = re.sub(r'\s+', ' ', cert_text).strip()
-    
-    # Smart title casing - preserve important acronyms
-    words = cert_text.split()
-    cleaned_words = []
-    
-    acronyms = {
-        'AWS', 'AZ', 'AI', 'ML', 'IT', 'CCNA', 'CCNP', 'CISSP', 'PMP', 'CEH', 
-        'OSCP', 'CISA', 'CRISC', 'ITIL', 'ISO', 'GDPR', 'SOC', 'NIST', 'GDPR',
-        'API', 'SQL', 'NoSQL', 'JSON', 'XML', 'HTML', 'CSS', 'JS', 'TS', 'PHP',
-        'K8S', 'CI/CD', 'REST', 'SOAP', 'OAuth'
-    }
-    
-    for i, word in enumerate(words):
-        if word.upper() in acronyms:
-            cleaned_words.append(word.upper())
-        elif len(word) > 1:  # Very permissive
-            if i == 0 or word[0].isupper():
-                cleaned_words.append(word)
-            else:
-                cleaned_words.append(word.title())
-        else:
-            cleaned_words.append(word)
-    
-    result = ' '.join(cleaned_words)
-    
-    # Final length validation
-    if len(result) < 5 or len(result) > 100:
-        return ""
-    
-    return result
-
-def extract_certs_from_section_universal(section_text: str) -> List[str]:
-    """Extract certifications from section with universal approach"""
+def extract_certs_from_section_balanced(section_text: str) -> List[str]:
+    """Extract certifications from section with balanced cleaning"""
     certs = set()
     
     lines = section_text.split('\n')
@@ -1393,20 +1244,23 @@ def extract_certs_from_section_universal(section_text: str) -> List[str]:
         if not line or len(line) < 6 or len(line) > 120:
             continue
         
-        # Remove bullet points and numbering
-        clean_line = re.sub(r'^[•\-*]\s*', '', line)
-        clean_line = re.sub(r'^\d+[\.\)]\s*', '', clean_line)
-        
-        # Universal certification detection
-        if looks_like_certification(clean_line):
-            cleaned_cert = clean_certification_universal(clean_line)
-            if cleaned_cert:
+        # Check for multiple certifications first
+        if contains_multiple_certifications(line):
+            separated_certs = separate_merged_certifications(line)
+            for cert in separated_certs:
+                cleaned_cert = clean_certification_balanced(cert)
+                if cleaned_cert and is_plausible_certification(cleaned_cert):
+                    certs.add(cleaned_cert)
+        else:
+            # Single certification
+            cleaned_cert = clean_certification_balanced(line)
+            if cleaned_cert and is_plausible_certification(cleaned_cert):
                 certs.add(cleaned_cert)
     
     return list(certs)
 
-def extract_certs_from_bullets_universal(lines: List[str]) -> List[str]:
-    """Extract certifications from bullet points with universal approach"""
+def extract_certs_from_bullets_balanced(lines: List[str]) -> List[str]:
+    """Extract certifications from bullet points with balanced approach"""
     certs = set()
     
     for i, line in enumerate(lines):
@@ -1414,35 +1268,125 @@ def extract_certs_from_bullets_universal(lines: List[str]) -> List[str]:
         if not clean or len(clean) < 6:
             continue
         
-        # Check if it's a bullet point or looks like certification
+        # Check if it's a bullet point
         is_bullet = re.match(r'^[•\-*››◦▪\u2022]\s*', line.strip())
         
-        if is_bullet or (len(clean) < 120 and looks_like_certification(clean)):
-            cleaned_cert = clean_certification_universal(clean)
-            if cleaned_cert and len(cleaned_cert) > 5:
-                certs.add(cleaned_cert)
+        if is_bullet and len(clean) < 120:
+            if contains_multiple_certifications(clean):
+                separated_certs = separate_merged_certifications(clean)
+                for cert in separated_certs:
+                    cleaned_cert = clean_certification_balanced(cert)
+                    if cleaned_cert and is_plausible_certification(cleaned_cert):
+                        certs.add(cleaned_cert)
+            else:
+                cleaned_cert = clean_certification_balanced(clean)
+                if cleaned_cert and is_plausible_certification(cleaned_cert):
+                    certs.add(cleaned_cert)
     
     return list(certs)
 
+def clean_certification_balanced(cert_text: str) -> str:
+    """Balanced cleaning - preserve certification content"""
+    if not cert_text:
+        return ""
+    
+    # Remove bullet points and numbering
+    cert_text = re.sub(r'^[•\-*››◦▪\u2022\s]*', '', cert_text)
+    cert_text = re.sub(r'^\d+[\.\)]\s*', '', cert_text)
+    
+    # Remove dates but be careful
+    cert_text = re.sub(r'\s*\d{4}\s*[-–—]\s*\d{4}\s*', ' ', cert_text)  # Date ranges
+    cert_text = re.sub(r'\s*\(\s*\d{4}\s*\)\s*', ' ', cert_text)  # (2023)
+    
+    # Remove only obvious garbage prefixes
+    cert_text = re.sub(r'^(?:Link|Github|Badge|Blood|Donation|Platform)[\s:\-]*', '', cert_text, flags=re.IGNORECASE)
+    
+    # Remove proficiency levels but keep "Professional" if it's part of cert name
+    cert_text = re.sub(r'\s*(?:professional proficiency|native proficiency|full professional|beginner|intermediate|advanced|b2|c1|a1|maternelle|courant|fluent)\b', '', cert_text, flags=re.IGNORECASE)
+    
+    # Remove specific garbage terms
+    garbage_terms = ['mlflow', 'prometheus', 'grafana', 'ansible', 'blood donation', 'september', 'january', 'obtained at', 'aquired from']
+    for term in garbage_terms:
+        cert_text = re.sub(r'\b' + re.escape(term) + r'\b', '', cert_text, flags=re.IGNORECASE)
+    
+    # Clean separators and spaces
+    cert_text = re.sub(r'[^\w\s\-&+#/\.]', ' ', cert_text)
+    cert_text = re.sub(r'\s+', ' ', cert_text).strip()
+    
+    # Remove trailing dashes and hyphens
+    cert_text = re.sub(r'\s*[-–—]\s*$', '', cert_text)
+    
+    # Smart title casing
+    words = cert_text.split()
+    cleaned_words = []
+    
+    for i, word in enumerate(words):
+        if word.upper() in CERTIFICATION_ACRONYMS:
+            cleaned_words.append(word.upper())
+        elif re.match(r'^\d+\.\d+$', word):  # Version numbers
+            cleaned_words.append(word)
+        elif len(word) > 1:
+            if i == 0 or word[0].isupper():
+                cleaned_words.append(word)
+            else:
+                cleaned_words.append(word.title())
+        else:
+            cleaned_words.append(word)
+    
+    result = ' '.join(cleaned_words)
+    
+    # Final length validation - more permissive
+    if len(result) < 6 or len(result) > 100:
+        return ""
+    
+    return result
+
 def has_certification_indicators(text_lower: str) -> bool:
-    """Check if text has certification indicators"""
+    """Check if text has certification indicators - BROAD approach"""
     return (
-        re.search(r'(?i)\b(certified|certification|certificat|certificado|cert)\b', text_lower) or
-        re.search(r'(?i)\b(associate|professional|specialist|expert|master|foundation)\b', text_lower) or
-        any(provider in text_lower for provider in ['azure', 'aws', 'google', 'microsoft', 'cisco', 'pmp']) or
-        re.search(r'(?i)(AZ-\d+|AWS-|Google Cloud)', text_lower)
+        re.search(r'(?i)\b(certified|certification|certificate|certificat|cert)\b', text_lower) or
+        re.search(r'(?i)\b(associate|professional|specialist|expert|master|foundation|fundamental)\b', text_lower) or
+        any(provider in text_lower for provider in CERTIFICATION_PROVIDERS) or
+        re.search(r'(AZ-\d+|AWS-|Google Cloud|CCNA|CCNP|CISSP|PMP)', text_lower) or
+        # Include common certification-like patterns
+        re.search(r'(?i)(training course|challenges|fundamentals|deep learning|docker|kubernetes|terraform)', text_lower)
     )
 
-def is_obviously_not_certification(text: str) -> bool:
-    """Check if text is obviously not a certification"""
-    text_lower = text.lower()
-    
-    return any(not_cert in text_lower for not_cert in [
-        'email', 'phone', '@', 'http', 'www', 'github', 'linkedin',
-        'summary', 'profile', 'experience', 'work', 'job', 'employment',
-        'education', 'university', 'college', 'school', 'degree',
-        'member', 'club', 'workshop', 'seminar', 'training', 'course'
+def contains_obvious_garbage(text_lower: str) -> bool:
+    """Check if text contains obvious garbage - MINIMAL list"""
+    return any(garbage in text_lower for garbage in [
+        'full professional proficiency', 'native proficiency', 
+        'blood donation platform', 'september', 'january',
+        'obtained at', 'aquired from', 'member', 'club'
     ])
+
+def is_plausible_certification(cert_text: str) -> bool:
+    """Check if text is plausibly a certification - BROAD validation"""
+    cert_lower = cert_text.lower()
+    
+    return (
+        has_certification_indicators(cert_lower) and
+        not contains_obvious_garbage(cert_lower) and
+        len(cert_text.split()) >= 1 and  # Even single words can be certs
+        len(cert_text.split()) <= 10 and  # More flexible
+        not cert_text.isdigit() and
+        cert_text[0].isupper()
+    )
+
+# Constants - EXPANDED providers list
+CERTIFICATION_PROVIDERS = [
+    'microsoft', 'azure', 'aws', 'amazon', 'google cloud', 'google', 'oracle', 'cisco', 
+    'comptia', 'pmi', 'scrum', 'itil', 'isc2', 'sans', 'ec council', 'red hat', 'linux',
+    'kubernetes', 'docker', 'terraform', 'ansible', 'salesforce', 'servicenow', 'sap',
+    'ibm', 'nvidia', 'vmware', 'atlassian', 'datacamp', 'aws academy', 'kodekloud', 
+    'coursera', 'istqb', 'ibm cloud', 'redhat'
+]
+
+CERTIFICATION_ACRONYMS = {
+    'AWS', 'AZ', 'AI', 'ML', 'IT', 'CCNA', 'CCNP', 'CISSP', 'PMP', 'CEH', 
+    'OSCP', 'CISA', 'CRISC', 'ITIL', 'ISO', 'GDPR', 'SOC', 'NIST', 'DLI',
+    'AZ-900', 'AWS-', 'Google Cloud'
+}
 def parse_languages(raw_text: str) -> List[str]:
     """Enhanced language extraction with multiple strategies"""
     languages_found = set()

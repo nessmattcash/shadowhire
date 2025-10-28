@@ -67,7 +67,9 @@
       "description": "Diagnosed and resolved issues in fixed-line telephone networks, including installation of new lines. Handled SDH fiber optics, coaxial cables, and microwave transmission technologies. Diagnosed and resolved issues in fixed-line telephone networks, including installation of new lines. Handled SDH fiber optics, coaxial cables, and microwave transmission technologies. Used test desks to identify network faults and manage ADSL upgrade procedures."
     }
   ],
-  "Certifications": [],
+  "Certifications": [
+    "KodeKloud Docker Training Course KodeKloud Kubernetes Challenges"
+  ],
   "languages": [
     "Arabic",
     "English",

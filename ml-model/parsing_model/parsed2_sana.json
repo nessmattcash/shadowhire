@@ -15,6 +15,7 @@
     "Css",
     "Data Visualization",
     "Deep Learning",
+    "Eks",
     "Express.Js",
     "Firebase",
     "Generative Ai",
@@ -31,8 +32,7 @@
     "Mongodb",
     "Mysql",
     "Neural Networks",
-    "Nlp",
-    "Node.Js"
+    "Nlp"
   ],
   "Education": [
     {
@@ -86,8 +86,8 @@
     }
   ],
   "Certifications": [
-    "English (Professional Proficiency)",
-    "Microsoft Certified: Azure AI Fundamentals"
+    "Microsoft Certified Azure AI Fundamentals",
+    "NVIDIA Deep Learning Fundamentals"
   ],
   "languages": [
     "Arabic",
@@ -95,8 +95,8 @@
     "French"
   ],
   "Interests": [
-    "Member Of Ensit Geeks Club",
     "Member Of Nerdata Ensit Club",
+    "Member Of Ensit Geeks Club",
     "Member Of Ensit Ieee Club"
   ]
 }
